@@ -1,4 +1,4 @@
-# sbox npc zombie horde
+# NPC Zombie Horde
  Left 4 Dead style game for s&box
  
- Very messy right now.
+ Very messy right now. Very WIP.
