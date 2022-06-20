@@ -1,0 +1,26 @@
+{
+  "Title": "NPC Zombie Horde",
+  "Type": "game",
+  "Org": "gvar",
+  "Ident": "npc_zombie_horde",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": [
+    "/resource/*",
+    "/ui/*"
+  ],
+  "HasCode": true,
+  "CodePath": "code",
+  "RootNamespace": "zombies",
+  "Metadata": {
+    "MinPlayers": 1,
+    "MaxPlayers": 32,
+    "GameNetworkType": 0,
+    "MapList": [],
+    "MapSelect": 0,
+    "PerMapRanking": false,
+    "LeaderboardType": 0,
+    "RankType": 0
+  }
+}
