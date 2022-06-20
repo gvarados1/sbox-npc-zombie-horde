@@ -12,25 +12,6 @@ public partial class BaseZombie : BaseNpc
 			npc.Delete();
 	}
 
-	[ConCmd.Server( "zom_forcehorde" )]
-	public static void ForceHorde()
-	{
-		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
-		{
-			npc.Target = Entity.All.OfType<Player>().FirstOrDefault();
-			npc.StartChase();
-		}
-	}
-
-	[ConCmd.Server( "zom_forcewander" )]
-	public static void ForceWander()
-	{
-		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
-		{
-			npc.StartWander();
-		}
-	}
-
 	public float Speed { get; set; }
 
 	public Entity Target;

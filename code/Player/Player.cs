@@ -54,7 +54,7 @@ public partial class DeathmatchPlayer : Player
 		GiveAmmo( AmmoType.Pistol, 25 );
 
 		SupressPickupNotices = false;
-		Health = 100;
+		Health = 10000;
 		Armour = 0;
 
 		base.Respawn();

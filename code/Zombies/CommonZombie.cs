@@ -2,6 +2,25 @@
 
 public partial class CommonZombie : BaseZombie
 {
+	[ConCmd.Server( "zom_forcehorde" )]
+	public static void ForceHorde()
+	{
+		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
+		{
+			npc.Target = Entity.All.OfType<Player>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // find a random player
+			npc.StartChase();
+		}
+	}
+
+	[ConCmd.Server( "zom_forcewander" )]
+	public static void ForceWander()
+	{
+		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
+		{
+			npc.StartWander();
+		}
+	}
+
 	public ZombieState ZombieState = ZombieState.Wander;
 	public virtual float WalkSpeed => Rand.Float( 40, 50 );
 	public float RunSpeed = Rand.Float( 270, 320 );
