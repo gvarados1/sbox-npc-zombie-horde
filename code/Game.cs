@@ -46,6 +46,9 @@ partial class ZombieGame : Game
 		// hack to disable nav blockers on "static" prop_physics
 		foreach ( var prop in Entity.All.OfType<Prop>().ToArray() )
 			prop.Components.RemoveAll();
+
+		// create MASTER AI DIRECTOR!
+		var gameDirector = new GameDirector();
 	}
 
 	public override void ClientJoined( Client cl )
