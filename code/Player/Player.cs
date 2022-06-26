@@ -5,10 +5,7 @@ public partial class DeathmatchPlayer : Player
 	TimeSince timeSinceDropped;
 
 	[Net]
-	public float Armour { get; set; } = 0;
-
-	[Net]
-	public float MaxHealth { get; set; } = 100;
+	public float MaxHealth { get; set; } = 10000;
 
 	public bool SupressPickupNotices { get; private set; }
 
@@ -55,7 +52,6 @@ public partial class DeathmatchPlayer : Player
 
 		SupressPickupNotices = false;
 		Health = 10000;
-		Armour = 0;
 
 		base.Respawn();
 	}
@@ -258,28 +254,15 @@ public partial class DeathmatchPlayer : Player
 		// we should be able to get this from somewhere (it's pretty specific to citizen though?)
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
-			info.Damage *= 2.0f;
+			//info.Damage *= 2.0f;
 		}
+
+		Velocity = 0;
 
 		this.ProceduralHitReaction( info );
 
 		LastAttacker = info.Attacker;
 		LastAttackerWeapon = info.Weapon;
-
-		if ( IsServer && Armour > 0 )
-		{
-			Armour -= info.Damage;
-
-			if ( Armour < 0 )
-			{
-				info.Damage = Armour * -1;
-				Armour = 0;
-			}
-			else
-			{
-				info.Damage = 0;
-			}
-		}
 
 		if ( info.Flags.HasFlag( DamageFlags.Blast ) )
 		{

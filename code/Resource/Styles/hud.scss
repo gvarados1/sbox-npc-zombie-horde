@@ -183,7 +183,7 @@ vitals
     }
 }
 
-.inventory, .ammobar, healthhud, armourhud
+.inventory, .ammobar, healthhud
 {
     background-color: rgba( #fa0, 0.06 );
     padding: 16px;
@@ -202,23 +202,6 @@ vitals
 iconpanel
 {
     font-family: "Material Icons";
-}
-
-healthhud, armourhud
-{
-    iconpanel
-    {
-        flex-grow: 1;
-        text-align: left;
-    }
-}
-
-armourhud
-{
-    &.empty
-    {
-        opacity: 0.1;
-    }
 }
 
 .game-end

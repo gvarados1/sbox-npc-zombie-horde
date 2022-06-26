@@ -12,7 +12,7 @@
 		[
 			resource:"sounds/zombie/hurt03.vsnd",
 		]
-		SelectionMode = 3
+		SelectionMode = "Random"
 		MaximumDistance = 848.93066
 		MinimumDistance = 42.446533
 	}

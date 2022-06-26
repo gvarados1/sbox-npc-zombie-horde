@@ -56,7 +56,7 @@ public class NavPath
 		var delta = Points[1] - Points[0];
 		var deltaNormal = delta.Normal;
 
-		if ( deltaToNext.WithZ( 0 ).Length < 20 )
+		if ( deltaToNext.WithZ( 0 ).Length < 35 ) // default: 20
 		{
 			Points.RemoveAt( 0 );
 			return;
