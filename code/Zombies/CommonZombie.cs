@@ -187,6 +187,12 @@ public partial class CommonZombie : BaseZombie
 			Log.Warning( $"Couldn't find target for {this}!" );
 		}
 	}
+
+	public override void TakeDamage( DamageInfo info )
+	{
+		base.TakeDamage( info );
+		Velocity = 0;
+	}
 }
 
 public enum ZombieState
