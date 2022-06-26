@@ -78,6 +78,14 @@ public partial class DeathmatchPlayer : Player
 		ply.Inventory.Add( new NpcSpawner() );
 	}
 
+	[ConCmd.Admin]
+	public static void SetHealth(float health)
+	{
+		var ply = ConsoleSystem.Caller.Pawn as DeathmatchPlayer;
+
+		ply.Health = health;
+	}
+
 	public override void OnKilled()
 	{
 		base.OnKilled();
@@ -174,6 +182,16 @@ public partial class DeathmatchPlayer : Player
 		if ( ActiveChild is DeathmatchWeapon weapon && !weapon.IsUsable() && weapon.TimeSincePrimaryAttack > 0.5f && weapon.TimeSinceSecondaryAttack > 0.5f )
 		{
 			SwitchToBestWeapon();
+		}
+
+		//passively heal up to 20 hp
+		if ( Host.IsServer )
+		{
+			if(Health < 20 )
+			{
+				if(Rand.Int(100) == 0)
+				Health += 1;
+			}
 		}
 	}
 

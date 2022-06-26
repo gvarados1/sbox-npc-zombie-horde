@@ -88,6 +88,12 @@ public partial class CommonZombie : BaseZombie
 			}
 		}
 
+
+		// random deletion checks
+		if ( Rand.Int( 500 ) == 1 )
+		{
+			CheckForDeletion();
+		}
 		base.Tick();
 	}
 
@@ -192,6 +198,20 @@ public partial class CommonZombie : BaseZombie
 	{
 		base.TakeDamage( info );
 		Velocity = 0;
+	}
+
+	public void CheckForDeletion()
+	{
+		// check if too far away from players
+		var ply = Entity.FindInSphere( Position, 5000 )
+			.OfType<Player>()
+			.Count();
+
+		if(ply == 0 )
+		{
+			Log.Info( "Zombie too far away from players, deleting: " + this );
+			Delete();
+		}
 	}
 }
 

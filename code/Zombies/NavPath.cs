@@ -26,6 +26,11 @@ public class NavPath
 		{
 			var fromFixed = NavMesh.GetClosestPoint( from );
 			var toFixed = NavMesh.GetClosestPoint( to );
+			if(fromFixed == null || toFixed == null )
+			{
+				Log.Warning( "Nav out of bounds! Did a zombie fall out of the map?" );
+				return;
+			}
 
 			Points.Clear();
 			//NavMesh.BuildPath( fromFixed.Value, toFixed.Value, Points );

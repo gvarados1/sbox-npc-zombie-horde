@@ -75,13 +75,13 @@ public partial class GameDirector : Entity
 		}
 
 		if ( Tries > 10 ) return null;
-		Log.Info( "Spawned Zombie" );
 		var npc = new CommonZombie
 		{
 			Position = SpawnPos,
 			//Rotation = Rotation.Random // LOL this looks so stupid! The zombie usually spawns rotated underground and "rises from the grave" - note: probably only use this if spawning zombies in player los
 			//Rotation = Rotation.LookAt( Owner.EyeRotation.Backward.WithZ( 0 ) )
 		};
+		Log.Info( "Spawned Zombie. Population: " + Entity.All.OfType<BaseZombie>().ToList().Count() );
 		return npc;
 	}
 }
