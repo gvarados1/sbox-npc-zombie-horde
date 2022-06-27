@@ -3,7 +3,7 @@
 public partial class SurvivalGamemode : BaseGamemode
 {
 	[ConVar.Replicated]
-	public static float survival_round_length { get; set; } = 30;
+	public static float survival_round_length { get; set; } = 5;
 
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
@@ -51,14 +51,43 @@ public partial class SurvivalGamemode : BaseGamemode
 	}
 	public void StartWave()
 	{
+		PlaySound( "wave.start" );
 		TimeUntilNextState = survival_round_length;
 		WaveNumber++;
 		RoundState = RoundState.WaveActive;
+
+		// anger all zombies!
+		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
+		{
+			npc.StartChase();
+		}
 	}
 	public void StartIntermission()
 	{
+		PlaySound( "wave.end" );
 		TimeUntilNextState = 20;
 		RoundState = RoundState.Intermission;
+
+		// gib all angry zombies
+		foreach(var zom in Entity.All.OfType<CommonZombie>() )
+		{
+			if(zom.ZombieState == ZombieState.Chase )
+			{
+				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
+				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Up*20, 200 );
+				zom.TakeDamage( damageInfo );
+			}
+		}
+	}
+
+	public override bool EnableRespawning()
+	{
+		return RoundState == RoundState.PreGame || RoundState == RoundState.Intermission;
+	}
+
+	public override bool PopulateZombiesAngry()
+	{
+		return RoundState == RoundState.WaveActive;
 	}
 
 }

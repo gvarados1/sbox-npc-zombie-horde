@@ -131,6 +131,16 @@ public partial class DeathmatchPlayer : Player
 
 	public override void Simulate( Client cl )
 	{
+		if ( LifeState == LifeState.Dead )
+		{
+			if ( IsServer && BaseGamemode.Ent.EnableRespawning())
+			{
+				Respawn();
+			}
+
+			return;
+		}
+
 		base.Simulate( cl );
 
 		//

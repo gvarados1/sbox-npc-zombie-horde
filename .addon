@@ -12,7 +12,7 @@
   ],
   "HasCode": true,
   "CodePath": "code",
-  "RootNamespace": "zombies",
+  "RootNamespace": "ZombieHorde",
   "Metadata": {
     "MinPlayers": 1,
     "MaxPlayers": 32,

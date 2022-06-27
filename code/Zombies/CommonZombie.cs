@@ -9,7 +9,7 @@ public partial class CommonZombie : BaseZombie
 	{
 		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
 		{
-			npc.Target = Entity.All.OfType<Player>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // find a random player
+			//npc.Target = Entity.All.OfType<Player>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // find a random player
 			npc.StartChase();
 		}
 	}
@@ -108,6 +108,7 @@ public partial class CommonZombie : BaseZombie
 	// start chase with existing target
 	public void StartChase()
 	{
+		if(Target == null ) FindTarget();
 		StartChase( Target );
 	}
 	public void StartChase( Entity targ )
