@@ -43,33 +43,33 @@ public partial class GameDirector : Entity
 	}
 	public BaseZombie SpawnZombie()
 	{
-		var SpawnPos = Position;
-		var Tries = 0;
+		var spawnPos = Position;
+		var tries = 0;
 		var maxTries = 50;
 
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 
-		while ( Tries <= maxTries )
+		while ( tries <= maxTries )
 		{
-			Tries += 1;
+			tries += 1;
 			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
 			if ( t.HasValue )
 			{
-				SpawnPos = t.Value;
-				var AddHeight = new Vector3( 0, 0, 70 );
+				spawnPos = t.Value;
+				var addHeight = new Vector3( 0, 0, 70 );
 
-				var PlayerPos = ply.EyePosition; 
-				var tr = Trace.Ray( SpawnPos + AddHeight, PlayerPos )
+				var playerPos = ply.EyePosition; 
+				var tr = Trace.Ray( spawnPos + addHeight, playerPos )
 							.UseHitboxes()
 							.Run();
 
-				if ( Vector3.DistanceBetween( tr.EndPosition, PlayerPos ) > 100 )
+				if ( Vector3.DistanceBetween( tr.EndPosition, playerPos ) > 100 )
 				{
 					continue;
 				}
 			}
 		}
-		if ( Tries <= maxTries )
+		if ( tries <= maxTries )
 		{
 			Log.Warning( "Can't Find Valid Zombie Spawn" );
 			return null;
@@ -77,7 +77,7 @@ public partial class GameDirector : Entity
 
 		var npc = new CommonZombie
 		{
-			Position = SpawnPos,
+			Position = spawnPos,
 			//Rotation = Rotation.Random // LOL this looks so stupid! The zombie usually spawns rotated underground and "rises from the grave" - note: probably only use this if spawning zombies in player los
 			//Rotation = Rotation.LookAt( Owner.EyeRotation.Backward.WithZ( 0 ) )
 		};
