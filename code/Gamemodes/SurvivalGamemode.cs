@@ -51,7 +51,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		PlaySound( "wave.start" );
 		WaveNumber++;
 
-		ZombiesRemaining = 10 + 4*WaveNumber-1;
+		ZombiesRemaining = 10 + 4 * (WaveNumber - 1);
 		RoundState = RoundState.WaveActive;
 
 		// anger all zombies!
@@ -73,7 +73,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			{
 				Velocity = 0;
 				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
-				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Zero,40 );
+				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Zero,50 );
 				zom.TakeDamage( damageInfo );
 			}
 		}
@@ -91,11 +91,14 @@ public partial class SurvivalGamemode : BaseGamemode
 
 	public void RestartGame()
 	{
-		PlaySound( "wave.start" );
+		PlaySound( "bell" );
 		WaveNumber = 0;
 
 		foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
 			npc.Delete();
+
+		foreach ( var item in Entity.All.OfType<DeathmatchWeapon>().ToArray() )
+			item.Delete();
 
 		TimeUntilNextState = 60;
 		RoundState = RoundState.PreGame;
