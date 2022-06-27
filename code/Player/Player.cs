@@ -50,6 +50,14 @@ public partial class DeathmatchPlayer : Player
 
 		GiveAmmo( AmmoType.Pistol, 2500 );
 
+		//temp give a ton of ammo
+		GiveAmmo( AmmoType.Pistol, 1000 );
+		GiveAmmo( AmmoType.Python, 1000 );
+		GiveAmmo( AmmoType.Buckshot, 1000 );
+		GiveAmmo( AmmoType.Crossbow, 1000 );
+		GiveAmmo( AmmoType.Grenade, 1000 );
+		GiveAmmo( AmmoType.Tripmine, 1000 );
+
 		SupressPickupNotices = false;
 		Health = 100;
 

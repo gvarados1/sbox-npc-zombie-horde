@@ -3,7 +3,7 @@
 public partial class SurvivalGamemode : BaseGamemode
 {
 	[ConVar.Replicated]
-	public static float survival_round_length { get; set; } = 5;
+	public static float survival_round_length { get; set; } = 20;
 
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
@@ -16,7 +16,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		Log.Info( "Survival gamemode active!" );
 		RoundState = RoundState.PreGame;
-		TimeUntilNextState = 30;
+		TimeUntilNextState = 3;
 
 		base.Spawn();
 	}
@@ -75,7 +75,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			{
 				Velocity = 0;
 				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
-				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Up*20,40 );
+				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Zero,40 );
 				zom.TakeDamage( damageInfo );
 			}
 		}
