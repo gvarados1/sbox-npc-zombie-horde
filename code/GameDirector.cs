@@ -37,7 +37,7 @@ public partial class GameDirector : Entity
 				.OfType<BaseZombie>()
 				.ToList();
 
-			if ( ZombieList.Count <= zom_max_zombies )
+			if ( ZombieList.Count < zom_max_zombies )
 				SpawnZombie();
 		}
 	}
