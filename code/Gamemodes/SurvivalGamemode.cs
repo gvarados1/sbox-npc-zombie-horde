@@ -79,6 +79,16 @@ public partial class SurvivalGamemode : BaseGamemode
 				zom.TakeDamage( damageInfo );
 			}
 		}
+
+		foreach ( var ply in Entity.All.OfType<Player>() )
+		{
+			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
+			if ( t.HasValue )
+			{
+				var box = new LootBox();
+				box.Position = t.Value;
+			}
+		}
 	}
 
 	public override bool EnableRespawning()
