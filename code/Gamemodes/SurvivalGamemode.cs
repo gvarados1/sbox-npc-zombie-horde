@@ -35,6 +35,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			roundTimeUntil = ZombiesRemaining.ToString();
 
 			if ( ZombiesRemaining <= 0 ) StartIntermission();
+			if ( GetLivePlayerCount() <= 0 ) RestartGame();
 		}
 		else if ( RoundState == RoundState.Intermission )
 		{
@@ -50,7 +51,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		PlaySound( "wave.start" );
 		WaveNumber++;
 
-		ZombiesRemaining = 10 + 4*WaveNumber;
+		ZombiesRemaining = 10 + 4*WaveNumber-1;
 		RoundState = RoundState.WaveActive;
 
 		// anger all zombies!
@@ -88,6 +89,17 @@ public partial class SurvivalGamemode : BaseGamemode
 		}
 	}
 
+	public void RestartGame()
+	{
+		PlaySound( "wave.start" );
+		WaveNumber = 0;
+
+		foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
+			npc.Delete();
+
+		TimeUntilNextState = 60;
+		RoundState = RoundState.PreGame;
+	}
 	public override bool EnableRespawning()
 	{
 		return RoundState == RoundState.PreGame || RoundState == RoundState.Intermission;
