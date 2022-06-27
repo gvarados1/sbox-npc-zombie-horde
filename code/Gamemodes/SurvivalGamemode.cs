@@ -26,7 +26,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		base.Tick();
 
 		var roundName = "Unknown Game State";
-		var roundTimeUntil = TimeUntilNextState;
+		var roundTimeUntil = Math.Round(TimeUntilNextState, 2);
 
 		if ( RoundState == RoundState.PreGame )
 		{
