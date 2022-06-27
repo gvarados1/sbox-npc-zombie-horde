@@ -14,3 +14,6 @@ Properties/launchSettings.json
 *.vmat_c
 *.vmdl_c
 *.vtex_c
+*.vsnd_c
+*.vanmgrph_c
+*.sound_c
