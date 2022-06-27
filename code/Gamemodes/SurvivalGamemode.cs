@@ -3,7 +3,7 @@
 public partial class SurvivalGamemode : BaseGamemode
 {
 	[ConVar.Replicated]
-	public static float survival_round_length { get; set; } = 220;
+	public static float survival_round_length { get; set; } = 180;
 
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
