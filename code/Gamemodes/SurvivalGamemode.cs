@@ -2,14 +2,9 @@
 
 public partial class SurvivalGamemode : BaseGamemode
 {
-	[ConVar.Replicated]
-	public static float survival_round_length { get; set; } = 180;
-
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
-	[Net]
 	public int WaveNumber { get; set; } = 0;
-
 
 	public RoundState RoundState { get; set; }
 	public override void Spawn()
@@ -26,7 +21,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		base.Tick();
 
 		var roundName = "Unknown Game State";
-		var roundTimeUntil = Math.Round(TimeUntilNextState, 2);
+		var roundTimeUntil = Math.Round(TimeUntilNextState, 2).ToString();
 
 		if ( RoundState == RoundState.PreGame )
 		{
@@ -36,9 +31,10 @@ public partial class SurvivalGamemode : BaseGamemode
 		}
 		else if(RoundState == RoundState.WaveActive )
 		{
-			roundName = "Wave " + WaveNumber + " Active";
+			roundName = "Wave " + WaveNumber + ": Zombies Remaining: ";
+			roundTimeUntil = ZombiesRemaining.ToString();
 
-			if ( TimeUntilNextState <= 0 ) StartIntermission();
+			if ( ZombiesRemaining <= 0 ) StartIntermission();
 		}
 		else if ( RoundState == RoundState.Intermission )
 		{
@@ -52,8 +48,9 @@ public partial class SurvivalGamemode : BaseGamemode
 	public void StartWave()
 	{
 		PlaySound( "wave.start" );
-		TimeUntilNextState = survival_round_length;
 		WaveNumber++;
+
+		ZombiesRemaining = 10;
 		RoundState = RoundState.WaveActive;
 
 		// anger all zombies!
@@ -80,7 +77,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			}
 		}
 
-		foreach ( var ply in Entity.All.OfType<Player>() )
+		foreach ( var ply in Entity.All.OfType<Player>().ToList())
 		{
 			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
 			if ( t.HasValue )
