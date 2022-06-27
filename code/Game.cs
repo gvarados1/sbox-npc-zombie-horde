@@ -51,6 +51,9 @@ partial class ZombieGame : Game
 
 		// create MASTER AI DIRECTOR!
 		var gameDirector = new GameDirector();
+
+		// create MASTER GAMEMODE!
+		var gamemode = new SurvivalGamemode();
 	}
 
 	public override void ClientJoined( Client cl )
