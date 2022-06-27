@@ -1,8 +1,9 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_smg", Title = "SMG" )]
+
+[Library( "dm_smg" ), HammerEntity]
 [EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
-[Title( "SMG" )]
+[Title( "SMG" ), Category( "Weapons" )]
 partial class SMG : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_smg/rust_smg.vmdl" );

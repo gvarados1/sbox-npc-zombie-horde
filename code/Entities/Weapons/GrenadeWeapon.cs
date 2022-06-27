@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_grenade", Title = "Grenade" )]
+[Library( "dm_grenade" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Grenade Weapon" )]
+[Title( "Grenade" ), Category( "Weapons" )]
 partial class GrenadeWeapon : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "models/dm_grenade.vmdl" );

@@ -174,7 +174,21 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 					.WithWeapon( this );
 
 				tr.Entity.TakeDamage( damageInfo );
+
+				// alert zombies where the bullet hits
+				TryAlertZombies( damageInfo.Attacker, .2f, 500f, tr.HitPosition );
 			}
+		}
+		// alert zombies where the bullet is shot from
+		TryAlertZombies( Owner, .2f, 500f, Position );
+	}
+
+	public void TryAlertZombies( Entity target, float percent, float radius, Vector3 position)
+	{
+		foreach ( CommonZombie zom in Entity.FindInSphere( position, radius ).OfType<CommonZombie>() )
+		{
+			var chance = percent; // todo: decrease chance further away from position;
+			zom.TryAlert( target, chance );
 		}
 	}
 

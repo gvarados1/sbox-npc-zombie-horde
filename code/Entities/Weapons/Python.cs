@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_357", Title = ".357 Magnum Revolver" )]
-[EditorModel( "weapons/magnum/magnum.vmdl" )]
-[Title( ".357 Magnum Revolver" )]
+[Library( "dm_357" ), HammerEntity]
+[EditorModel( "weapons/rust_pistol/rust_pistol.vmdl" )]
+[Title( ".357 Magnum Revolver" ), Category( "Weapons" )]
 partial class Python : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/magnum/magnum.vmdl" );

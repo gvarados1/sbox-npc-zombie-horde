@@ -54,37 +54,45 @@ public partial class CommonZombie : BaseZombie
 		}
 		else if ( ZombieState == ZombieState.Chase )
 		{
-			//  temporary move npc
-			var distanceToTarget = (Position - Steer.Target).Length;
-
-			// update more often if close to target
-			if ( distanceToTarget < 100 )
+			if ( Target != null )
 			{
-				if ( !Target.IsValid() ) FindTarget();
-				if ( Target.Health <= 0 ) FindTarget();
-				Steer.Target = Target.Position;
-			}
-			else if ( Rand.Int( 10 ) == 1 )
-			{
-				if ( !Target.IsValid() ) FindTarget();
-				if ( Target.Health <= 0 ) FindTarget();
-				Steer = new NavSteer();
-				//npc.Steer.Target = tr.EndPos;
-				Steer.Target = Target.Position;
-			}
+				//  temporary move npc
+				var distanceToTarget = (Position - Steer.Target).Length;
 
-			//  randomly play sounds
-			if ( Rand.Int( 300 ) == 1 )
-				PlaySound( "zombie.attack" );
-
-			// attack if near target
-			if ( TimeSinceAttacked > .8f ) // todo: scale attack speed with difficulty or the amount of zombies attacking
-			{
-				if((Position - Target.Position).Length < 80 )
+				// update more often if close to target
+				if ( distanceToTarget < 100 )
 				{
-					MeleeAttack();
-					TimeSinceAttacked = 0;
+					if ( !Target.IsValid() ) FindTarget();
+					if ( Target.Health <= 0 ) FindTarget();
+					Steer.Target = Target.Position;
 				}
+				else if ( Rand.Int( 10 ) == 1 )
+				{
+					if ( !Target.IsValid() ) FindTarget();
+					if ( Target.Health <= 0 ) FindTarget();
+					Steer = new NavSteer();
+					//npc.Steer.Target = tr.EndPos;
+					Steer.Target = Target.Position;
+				}
+
+				//  randomly play sounds
+				if ( Rand.Int( 300 ) == 1 )
+					PlaySound( "zombie.attack" );
+
+				// attack if near target
+				if ( TimeSinceAttacked > .8f ) // todo: scale attack speed with difficulty or the amount of zombies attacking
+				{
+					if ( (Position - Target.Position).Length < 80 )
+					{
+						MeleeAttack();
+						TimeSinceAttacked = 0;
+					}
+				}
+			}
+			else
+			{
+				// do something if we have an invalid target?
+				// probably return to wander state or find a new target after x time
 			}
 		}
 
@@ -104,8 +112,14 @@ public partial class CommonZombie : BaseZombie
 	}
 	public void StartChase( Entity targ )
 	{
-		var target = targ;
-		if ( ZombieState == ZombieState.Chase || ZombieState == ZombieState.Lure )
+		Target = targ;
+		if ( Target == null )
+		{
+			Log.Warning( "Invalid Target for: " + this );
+			return;
+		}
+
+			if ( ZombieState == ZombieState.Chase || ZombieState == ZombieState.Lure )
 			return;
 		SetAnimParameter( "b_jump", true );
 		PlaySound( "zombie.attack" );
@@ -116,7 +130,10 @@ public partial class CommonZombie : BaseZombie
 		//if ( !target.IsValid() ) FindTarget();
 		//if ( target.Health <= 0 ) FindTarget();
 		Steer = new NavSteer();
-		Steer.Target = target.Position;
+		Steer.Target = Target.Position;
+
+		// chance to alert nearby zombies
+		TryAlertNearby( Target, .1f, 800 ); // 8000 good range??
 	}
 
 	public void StartWander()
@@ -196,6 +213,7 @@ public partial class CommonZombie : BaseZombie
 
 	public override void TakeDamage( DamageInfo info )
 	{
+		TryAlert( info.Attacker, .5f );
 		base.TakeDamage( info );
 		Velocity = 0;
 	}
@@ -211,6 +229,26 @@ public partial class CommonZombie : BaseZombie
 		{
 			Log.Info( "Zombie too far away from players, deleting: " + this );
 			Delete();
+		}
+	}
+
+	public bool TryAlert(Entity target, float percent)
+	{
+		if(Rand.Float(1) < percent )
+		{
+			StartChase(target);
+
+			return true;
+		}
+		return false;
+	}
+
+	public void TryAlertNearby(Entity target, float percent, float radius )
+	{
+		foreach( CommonZombie zom in Entity.FindInSphere(Position, radius).OfType<CommonZombie>() )
+		{
+			var chance = percent; // todo: decrease chance further away from position;
+			zom.TryAlert( target, chance );
 		}
 	}
 }

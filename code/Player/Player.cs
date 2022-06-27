@@ -5,7 +5,7 @@ public partial class DeathmatchPlayer : Player
 	TimeSince timeSinceDropped;
 
 	[Net]
-	public float MaxHealth { get; set; } = 10000;
+	public float MaxHealth { get; set; } = 100;
 
 	public bool SupressPickupNotices { get; private set; }
 
@@ -48,10 +48,10 @@ public partial class DeathmatchPlayer : Player
 		Inventory.Add( new Crowbar() );
 		Inventory.Add( new Pistol(), true );
 
-		GiveAmmo( AmmoType.Pistol, 25 );
+		GiveAmmo( AmmoType.Pistol, 2500 );
 
 		SupressPickupNotices = false;
-		Health = 10000;
+		Health = 100;
 
 		base.Respawn();
 	}
@@ -416,6 +416,15 @@ public partial class DeathmatchPlayer : Player
 
 			Render.Draw2D.Color = Color.White;
 			Render.Draw2D.Text( pos.Value, str );
+		}
+	}
+
+	public void TryAlertZombies( Entity target, float percent, float radius )
+	{
+		foreach ( CommonZombie zom in Entity.FindInSphere( Position, radius ).OfType<CommonZombie>() )
+		{
+			var chance = percent; // todo: decrease chance further away from position;
+			zom.TryAlert( target, chance );
 		}
 	}
 

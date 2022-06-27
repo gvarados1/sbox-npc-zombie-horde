@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_shotgun", Title = "Shotgun" )]
+[Library( "dm_shotgun" ), HammerEntity]
 [EditorModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" )]
-[Title( "Shotgun" )]
+[Title( "Shotgun" ), Category( "Weapons" )]
 partial class Shotgun : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" );

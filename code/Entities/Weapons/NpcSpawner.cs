@@ -84,16 +84,10 @@ partial class NpcSpawner : DeathmatchWeapon
 		// move npc
 		if (!Host.IsServer) return;
 
-		var npcs = Entity.All.Where(entity => entity is BaseZombie );
-		foreach (var ent in npcs.OfType<BaseZombie>().ToArray())
+		foreach ( var npc in Entity.All.OfType<CommonZombie>().ToArray() )
 		{
-			if (ent is BaseZombie npc )
-			{
-				npc.Steer = new NavSteer();
-				//npc.Steer.Target = tr.EndPos;
-				npc.Steer.Target = Owner.Position;
-				//ent.StartChase();
-			}
+			npc.Target = Entity.All.OfType<Player>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // find a random player
+			npc.StartChase();
 		}
 
 	}

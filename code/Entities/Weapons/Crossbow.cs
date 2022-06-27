@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_crossbow", Title = "Crossbow" )]
+[Library( "dm_crossbow" ), HammerEntity]
 [EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
-[Title( "Crossbow" )]
+[Title( "Crossbow" ), Category( "Weapons" )]
 partial class Crossbow : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_crossbow/rust_crossbow.vmdl" );
@@ -37,9 +37,9 @@ partial class Crossbow : DeathmatchWeapon
 			return;
 		}
 
-		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 		ShootEffects();
 		PlaySound( "rust_crossbow.shoot" );
+		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
 		// TODO - if zoomed in then instant hit, no travel, 120 damage
 
@@ -91,11 +91,6 @@ partial class Crossbow : DeathmatchWeapon
 
 	TimeSince timeSinceZoomed;
 
-	public override void SimulateAnimator( PawnAnimator anim )
-	{
-		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
-		anim.SetAnimParameter( "aim_body_weight", 1.0f );
-	}
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
 		var draw = Render.Draw2D;
@@ -133,5 +128,11 @@ partial class Crossbow : DeathmatchWeapon
 				draw.Color = draw.Color.WithAlpha( draw.Color.a * 0.5f );
 			}
 		}
+	}
+
+	public override void SimulateAnimator( PawnAnimator anim )
+	{
+		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
+		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 }

@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_ak47", Title = "AK-47" )]
+[Library( "dm_ak47"), HammerEntity]
 [EditorModel( "weapons/ak47/ak47.vmdl" )]
-[Title( "AK-47" )]
+[Title( "AK-47" ), Category( "Weapons" )]
 partial class AK47 : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/ak47/ak47.vmdl" );
@@ -28,7 +28,7 @@ partial class AK47 : DeathmatchWeapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		/* infinite ammo
+		//* infinite ammo
 		if ( !TakeAmmo( 1 ) )
 		{
 			DryFire();
@@ -39,7 +39,7 @@ partial class AK47 : DeathmatchWeapon
 			}
 			return;
 		}
-		*/
+		//*/
 
 		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 

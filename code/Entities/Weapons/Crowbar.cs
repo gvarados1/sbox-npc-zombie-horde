@@ -2,9 +2,9 @@
 
 namespace ZombieHorde;
 
-[Library( "dm_crowbar", Title = "Crowbar" )]
+[Library( "dm_crowbar" ), HammerEntity]
 [EditorModel( "models/dm_crowbar.vmdl" )]
-[Title(  "Crowbar" )]
+[Title( "Crowbar" ), Category( "Weapons" )]
 partial class Crowbar : DeathmatchWeapon
 {
 	public static Model WorldModel = Model.Load( "models/dm_crowbar.vmdl" );
