@@ -43,13 +43,13 @@ public partial class GameDirector : Entity
 	}
 	public BaseZombie SpawnZombie()
 	{
-		var HasLos = true;
 		var SpawnPos = Position;
 		var Tries = 0;
+		var maxTries = 50;
 
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 
-		while ( HasLos && Tries <= 50 )
+		while ( Tries <= maxTries )
 		{
 			Tries += 1;
 			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
@@ -65,18 +65,16 @@ public partial class GameDirector : Entity
 
 				if ( Vector3.DistanceBetween( tr.EndPosition, PlayerPos ) > 100 )
 				{
-					HasLos = false;
+					continue;
 				}
-				else
-				{
-					Log.Warning( "Can't Find Valid Zombie Spawn" );
-				}
-
-
 			}
 		}
+		if ( Tries <= maxTries )
+		{
+			Log.Warning( "Can't Find Valid Zombie Spawn" );
+			return null;
+		}
 
-		if ( Tries > 10 ) return null;
 		var npc = new CommonZombie
 		{
 			Position = SpawnPos,
