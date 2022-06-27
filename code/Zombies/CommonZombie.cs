@@ -25,7 +25,7 @@ public partial class CommonZombie : BaseZombie
 
 	public ZombieState ZombieState = ZombieState.Wander;
 	public virtual float WalkSpeed => Rand.Float( 40, 50 );
-	public float RunSpeed = Rand.Float( 270, 320 );
+	public float RunSpeed = Rand.Float( 260, 280 );
 	public TimeSince TimeSinceAttacked = 0;
 
 	public override void Spawn()
