@@ -47,16 +47,18 @@ public partial class GameDirector : Entity
 		var SpawnPos = Position;
 		var Tries = 0;
 
+		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
+
 		while ( HasLos && Tries <= 50 )
 		{
 			Tries += 1;
-			var t = NavMesh.GetPointWithinRadius( Position, 1000, 4000 );
+			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
 			if ( t.HasValue )
 			{
 				SpawnPos = t.Value;
 				var AddHeight = new Vector3( 0, 0, 70 );
 
-				var PlayerPos = Entity.All.OfType<Player>().FirstOrDefault().EyePosition; // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
+				var PlayerPos = ply.EyePosition; 
 				var tr = Trace.Ray( SpawnPos + AddHeight, PlayerPos )
 							.UseHitboxes()
 							.Run();
