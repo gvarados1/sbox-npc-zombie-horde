@@ -3,7 +3,7 @@
 public partial class SurvivalGamemode : BaseGamemode
 {
 	[ConVar.Replicated]
-	public static float survival_round_length { get; set; } = 20;
+	public static float survival_round_length { get; set; } = 220;
 
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
@@ -16,7 +16,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		Log.Info( "Survival gamemode active!" );
 		RoundState = RoundState.PreGame;
-		TimeUntilNextState = 3;
+		TimeUntilNextState = 60;
 
 		base.Spawn();
 	}
@@ -65,7 +65,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	public void StartIntermission()
 	{
 		PlaySound( "wave.end" );
-		TimeUntilNextState = 20;
+		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
 
 		// lower hp / kill angry zombies!
