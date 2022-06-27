@@ -65,11 +65,11 @@ public partial class GameDirector : Entity
 
 				if ( Vector3.DistanceBetween( tr.EndPosition, playerPos ) > 100 )
 				{
-					continue;
+					break;
 				}
 			}
 		}
-		if ( tries <= maxTries )
+		if ( tries >= maxTries )
 		{
 			Log.Warning( "Can't Find Valid Zombie Spawn" );
 			return null;
