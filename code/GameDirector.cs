@@ -41,6 +41,8 @@ public partial class GameDirector : Entity
 				SpawnZombie();
 		}
 	}
+
+	private int ZombieSpawnFails = 0;
 	public BaseZombie SpawnZombie()
 	{
 		var spawnPos = Position;
@@ -72,6 +74,9 @@ public partial class GameDirector : Entity
 		if ( tries >= maxTries )
 		{
 			Log.Warning( "Can't Find Valid Zombie Spawn" );
+			ZombieSpawnFails += 1;
+
+			if ( ZombieSpawnFails > 10 ) Log.Error( "Map doesn't have a navmesh. Can't spawn zombies!" ); // do I really need to do this?
 			return null;
 		}
 
@@ -82,6 +87,8 @@ public partial class GameDirector : Entity
 			//Rotation = Rotation.LookAt( Owner.EyeRotation.Backward.WithZ( 0 ) )
 		};
 		Log.Info( "Spawned Zombie. Population: " + Entity.All.OfType<BaseZombie>().ToList().Count() );
+
+		ZombieSpawnFails = 0;
 		return npc;
 	}
 }
