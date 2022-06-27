@@ -168,9 +168,15 @@ public partial class BaseZombie : BaseNpc
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
-		if(Health <= 0 && info.Attacker is Player )
+
+		if ( info.Attacker is DeathmatchPlayer attacker )
 		{
-			info.Attacker.Client.AddInt( "kills" );
+			attacker.DidDamage(info.Position, info.Damage, Health.LerpInverse( 100, 0 ) );
+
+			if ( Health <= 0 )
+			{
+				info.Attacker.Client.AddInt( "kills" );
+			}
 		}
 	}
 }
