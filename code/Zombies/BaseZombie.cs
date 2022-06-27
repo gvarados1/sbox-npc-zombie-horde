@@ -164,4 +164,13 @@ public partial class BaseZombie : BaseNpc
 		Position = move.Position;
 		Velocity = move.Velocity;
 	}
+
+	public override void TakeDamage( DamageInfo info )
+	{
+		base.TakeDamage( info );
+		if(Health <= 0 && info.Attacker is Player )
+		{
+			info.Attacker.Client.AddInt( "kills" );
+		}
+	}
 }
