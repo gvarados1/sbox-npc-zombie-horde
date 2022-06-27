@@ -68,13 +68,14 @@ public partial class SurvivalGamemode : BaseGamemode
 		TimeUntilNextState = 20;
 		RoundState = RoundState.Intermission;
 
-		// gib all angry zombies
+		// lower hp / kill angry zombies!
 		foreach(var zom in Entity.All.OfType<CommonZombie>() )
 		{
 			if(zom.ZombieState == ZombieState.Chase )
 			{
+				Velocity = 0;
 				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
-				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Up*20, 200 );
+				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Up*20,40 );
 				zom.TakeDamage( damageInfo );
 			}
 		}
