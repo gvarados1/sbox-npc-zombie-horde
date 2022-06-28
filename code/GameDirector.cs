@@ -6,7 +6,7 @@ public partial class GameDirector : Entity
 	public static bool zom_disabledirector { get; set; }
 
 	[ConVar.Replicated]
-	public static int zom_max_zombies { get; set; } = 15;
+	public static int zom_max_zombies { get; set; } = 10;
 
 	public override void Spawn()
 	{
