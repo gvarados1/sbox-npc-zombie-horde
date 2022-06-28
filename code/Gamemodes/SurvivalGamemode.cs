@@ -52,6 +52,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		WaveNumber++;
 
 		ZombiesRemaining += 10 + 4 * (WaveNumber - 1);
+		if ( ZombiesRemaining < 5 ) ZombiesRemaining = 5;
 		RoundState = RoundState.WaveActive;
 
 		// anger all zombies!
