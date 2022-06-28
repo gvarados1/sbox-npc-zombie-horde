@@ -53,7 +53,7 @@ public partial class BaseZombie : BaseNpc
 			if ( !Steer.Output.Finished )
 			{
 				InputVelocity = Steer.Output.Direction.Normal;
-				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, Speed );
+				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 200, Speed ); //500
 			}
 
 			if ( nav_drawpath )
@@ -68,7 +68,7 @@ public partial class BaseZombie : BaseNpc
 		var walkVelocity = Velocity.WithZ( 0 );
 		if ( walkVelocity.Length > 0.5f )
 		{
-			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 100, true );
+			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 200, true ); // 100
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );
 			Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 		}
