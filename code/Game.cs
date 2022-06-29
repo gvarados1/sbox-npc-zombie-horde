@@ -18,6 +18,8 @@ partial class ZombieGame : Game
 {
 	[Net]
 	DeathmatchHud Hud { get; set; }
+	[Net]
+	public BaseGamemode Gamemode { get; set; } = new();
 
 	StandardPostProcess postProcess;
 
@@ -53,7 +55,13 @@ partial class ZombieGame : Game
 		var gameDirector = new GameDirector();
 
 		// create MASTER GAMEMODE!
-		var gamemode = new SurvivalGamemode();
+		
+	}
+
+	[Event.Entity.PostSpawn]
+	public void PostEntitySpawn()
+	{
+		Gamemode = new SurvivalGamemode();
 	}
 
 	public override void ClientJoined( Client cl )

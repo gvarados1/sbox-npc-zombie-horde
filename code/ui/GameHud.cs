@@ -1,5 +1,6 @@
 ﻿using Sandbox.UI;
 using Sandbox.UI.Construct;
+using System;
 
 namespace ZombieHorde;
 
@@ -20,6 +21,10 @@ internal class GameHud : Panel
 
 		var game = Game.Current as ZombieGame;
 		if ( !game.IsValid() ) return;
+
+		var gamemode = BaseGamemode.Ent;
+		Timer.Text = gamemode.RoundInfo;
+		State.Text = gamemode.RoundName;
 	}
 
 }

@@ -58,6 +58,7 @@ public partial class GameDirector : Entity
 			if ( t.HasValue )
 			{
 				spawnPos = t.Value;
+				if ( spawnPos.Length > 30000 ) return null; // Sometimes GetPointWithinRadius returns a wacky value? check for that here.
 				var addHeight = new Vector3( 0, 0, 70 );
 
 				var playerPos = ply.EyePosition; 

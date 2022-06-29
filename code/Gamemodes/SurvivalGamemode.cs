@@ -10,6 +10,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	public override void Spawn()
 	{
 		Log.Info( "Survival gamemode active!" );
+		Log.Info( Host.Name );
 		RoundState = RoundState.PreGame;
 		TimeUntilNextState = 60;
 
@@ -20,31 +21,32 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		base.Tick();
 
-		var roundName = "Unknown Game State";
-		var roundTimeUntil = Math.Round(TimeUntilNextState, 2).ToString();
+		// surely there's an easier way to do this
+		var roundAmount = TimeUntilNextState > 10 ? 0 : 1;
+		var roundedAmount = Math.Round( TimeUntilNextState, roundAmount );
+		var suffix = roundedAmount < 10 && roundedAmount % 1 == 0 ? ".0s" : "s";
+		RoundInfo = roundedAmount.ToString() + suffix;
 
 		if ( RoundState == RoundState.PreGame )
 		{
-			roundName = "Pre-Game";
+			RoundName = "Pre-Game";
 
 			if( TimeUntilNextState <= 0 ) StartWave();
 		}
 		else if(RoundState == RoundState.WaveActive )
 		{
-			roundName = "Wave " + WaveNumber + ": Zombies Remaining: ";
-			roundTimeUntil = ZombiesRemaining.ToString();
+			RoundName = "Wave " + WaveNumber;
+			RoundInfo = ZombiesRemaining.ToString() + " remain";
 
 			if ( ZombiesRemaining <= 0 ) StartIntermission();
 			if ( GetLivePlayerCount() <= 0 ) RestartGame();
 		}
 		else if ( RoundState == RoundState.Intermission )
 		{
-			roundName = "Intermission";
+			RoundName = "Intermission";
 
 			if ( TimeUntilNextState <= 0 ) StartWave();
 		}
-
-		DebugOverlay.ScreenText( roundName + ": " + roundTimeUntil );
 	}
 	public void StartWave()
 	{
@@ -67,7 +69,9 @@ public partial class SurvivalGamemode : BaseGamemode
 		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
 
-		// lower hp / kill angry zombies!
+		if ( Host.IsClient ) return;
+
+		// kill angry zombies!
 		foreach(var zom in Entity.All.OfType<CommonZombie>() )
 		{
 			if(zom.ZombieState == ZombieState.Chase )
@@ -96,6 +100,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		PlaySound( "bell" );
 		WaveNumber = 0;
+		ZombiesRemaining = 0;
 
 		foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
 			npc.Delete();

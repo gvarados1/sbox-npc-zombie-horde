@@ -17,7 +17,6 @@ partial class LootBox : Prop
 		glow.RangeMax = int.MaxValue;
 		Transmit = TransmitType.Always;
 		EnableDrawOverWorld = true;
-		// TODO: do alex's glow thing
 	}
 
 	public override void OnKilled()
