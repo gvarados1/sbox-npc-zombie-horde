@@ -10,7 +10,7 @@ partial class Pistol : DeathmatchWeapon
 
 	public override float PrimaryRate => 12.0f;
 	public override float SecondaryRate => 4.5f;
-	public override float ReloadTime => 3.0f;
+	public override float ReloadTime => 2.2f;
 
 	public override int Bucket => 1;
 

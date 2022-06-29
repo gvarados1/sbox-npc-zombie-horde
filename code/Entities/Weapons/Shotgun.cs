@@ -7,8 +7,8 @@ partial class Shotgun : DeathmatchWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" );
 	public override string ViewModelPath => "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl";
-	public override float PrimaryRate => 1;
-	public override float SecondaryRate => 1;
+	public override float PrimaryRate => 1.5f;
+	public override float SecondaryRate => 1.5f;
 	public override AmmoType AmmoType => AmmoType.Buckshot;
 	public override int ClipSize => 8;
 	public override float ReloadTime => 0.5f;
@@ -121,8 +121,8 @@ partial class Shotgun : DeathmatchWeapon
 		StopReloading = false;
 		IsReloading = false;
 
-		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
+		TimeSincePrimaryAttack = .2f;
+		TimeSinceSecondaryAttack = .2f;
 
 		if ( AmmoClip >= ClipSize )
 			return;
