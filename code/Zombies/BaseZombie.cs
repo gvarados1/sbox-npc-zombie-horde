@@ -1,4 +1,6 @@
-﻿namespace ZombieHorde;
+﻿using Sandbox;
+
+namespace ZombieHorde;
 
 public partial class BaseZombie : BaseNpc
 {
@@ -148,21 +150,44 @@ public partial class BaseZombie : BaseNpc
 				}
 			}
 
+			// hit a wall or prop/glass. need to jump over or break it
 			if (GroundEntity != null && move.HitWall )
 			{
-				//basic jump
-				GroundEntity = null;
+				// trace at jump height
+				var jumpTrace = Trace.Ray( Position + Vector3.Up * 100, EyePosition + Vector3.Up * 40 + Rotation.Forward * 60 )
+				.UseHitboxes()
+				.WithoutTags( "Zombie" )
+				.Ignore( this )
+				.Size( 10 )
+				//.WorldOnly()
+				.Run();
 
-				move.Velocity = new Vector3( 0, 0, 330f );
-				move.Position += new Vector3( 0, 0, 4f );
+				DebugOverlay.TraceResult( jumpTrace );
 
-				SetAnimParameter( "b_jump", true );
+				if ( jumpTrace.Hit )
+				{
+					HitBreakableObject();
+				}
+				else
+				{
+					//basic jump
+					GroundEntity = null;
 
+					move.Velocity = new Vector3( 0, 0, 330f );
+					move.Position += new Vector3( 0, 0, 4f );
+
+					SetAnimParameter( "b_jump", true );
+				}
 			}
 		}
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	public virtual void HitBreakableObject()
+	{
+		// override me!
 	}
 
 	public override void TakeDamage( DamageInfo info )

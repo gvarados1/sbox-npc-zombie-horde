@@ -17,6 +17,9 @@ partial class LootBox : Prop
 		glow.RangeMax = int.MaxValue;
 		Transmit = TransmitType.Always;
 		EnableDrawOverWorld = true;
+
+		//CollisionGroup = CollisionGroup.Debris;
+		//SetInteractsAs( CollisionLayer.Debris ); 
 	}
 
 	public override void OnKilled()

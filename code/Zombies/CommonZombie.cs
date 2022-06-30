@@ -27,6 +27,7 @@ public partial class CommonZombie : BaseZombie
 	public virtual float WalkSpeed => Rand.Float( 40, 50 );
 	public float RunSpeed = Rand.Float( 260, 280 );
 	public TimeSince TimeSinceAttacked = 0;
+	public float AttackSpeed = .8f;
 
 	public override void Spawn()
 	{
@@ -80,7 +81,7 @@ public partial class CommonZombie : BaseZombie
 					PlaySound( "zombie.attack" );
 
 				// attack if near target
-				if ( TimeSinceAttacked > .8f ) // todo: scale attack speed with difficulty or the amount of zombies attacking
+				if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
 				{
 					if ( (Position - Target.Position).Length < 80 )
 					{
@@ -146,6 +147,16 @@ public partial class CommonZombie : BaseZombie
 		wander.MinRadius = 50;
 		wander.MaxRadius = 120;
 		Steer = wander;
+	}
+
+	public override void HitBreakableObject()
+	{
+		//base.HitBreakableObject();
+		if ( TimeSinceAttacked > AttackSpeed )
+		{
+			TimeSinceAttacked = 0;
+			MeleeAttack();
+		}	
 	}
 
 	public void MeleeAttack()
