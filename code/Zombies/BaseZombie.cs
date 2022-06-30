@@ -162,8 +162,6 @@ public partial class BaseZombie : BaseNpc
 				//.WorldOnly()
 				.Run();
 
-				DebugOverlay.TraceResult( jumpTrace );
-
 				if ( jumpTrace.Hit )
 				{
 					HitBreakableObject();
