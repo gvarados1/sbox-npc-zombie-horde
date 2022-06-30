@@ -51,6 +51,12 @@ partial class ZombieGame : Game
 		foreach ( var prop in Entity.All.OfType<Prop>().ToArray() )
 			prop.Components.RemoveAll();
 
+		// just delete all doors in maps
+		foreach ( var door in Entity.All.OfType<DoorEntity>().ToArray() )
+			door.Delete();
+			//door.Health = 5; // setting health of doors doesn't work :(
+
+
 		// create MASTER AI DIRECTOR!
 		var gameDirector = new GameDirector();
 
