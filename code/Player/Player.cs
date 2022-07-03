@@ -300,6 +300,7 @@ public partial class HumanPlayer : Player
 
 		if ( info.Attacker is HumanPlayer attacker )
 		{
+			info.Damage *= .1f;
 			if ( attacker != this )
 			{
 				attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health.LerpInverse( 100, 0 ) );
