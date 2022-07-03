@@ -286,13 +286,6 @@ public partial class HumanPlayer : Player
 
 		LastDamage = info;
 
-		// hack - hitbox group 1 is head
-		// we should be able to get this from somewhere (it's pretty specific to citizen though?)
-		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
-		{
-			//info.Damage *= 2.0f;
-		}
-
 		Velocity = 0;
 
 		this.ProceduralHitReaction( info );
