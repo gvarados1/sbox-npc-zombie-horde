@@ -72,7 +72,7 @@ public partial class HumanPlayer : Player
 
 		Animator = new StandardPlayerAnimator();
 
-		CameraMode = new SpectatorCamera();
+		CameraMode = new SpectatePlayerCamera();
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
@@ -164,7 +164,8 @@ public partial class HumanPlayer : Player
 		await Task.Delay( delay );
 		if(LifeState == LifeState.Dead)
 		{
-			CameraMode = new SpectatorCamera();
+			//CameraMode = new SpectateFreeCamera();
+			CameraMode = new SpectatePlayerCamera();
 		}
 	}
 

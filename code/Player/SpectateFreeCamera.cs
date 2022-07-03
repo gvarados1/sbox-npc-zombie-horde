@@ -2,7 +2,7 @@
 
 namespace ZombieHorde
 {
-	public class SpectatorCamera : CameraMode
+	public class SpectateFreeCamera : CameraMode
 	{
 		Angles LookAngles;
 		Vector3 MoveInput;
