@@ -148,7 +148,7 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 
 		for ( int i = 0; i < bulletCount; i++ )
 		{
-			var forward = Owner.EyeRotation.Forward;
+			var forward = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward;
 			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
 			forward = forward.Normal;
 
@@ -225,7 +225,7 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 		if ( string.IsNullOrEmpty( ViewModelPath ) )
 			return;
 
-		ViewModelEntity = new DmViewModel();
+		ViewModelEntity = new ZomViewModel();
 		ViewModelEntity.Position = Position;
 		ViewModelEntity.Owner = Owner;
 		ViewModelEntity.EnableViewmodelRendering = true;
@@ -270,7 +270,9 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 
 	public virtual void RenderHud( in Vector2 screensize )
 	{
-		var center = screensize * 0.5f;
+		//var center = screensize * 0.5f;
+		var scale = Screen.Height / 1080.0f;
+		var center = new Vector2(Screen.Width * .5f / scale, Screen.Height * .56f / scale);
 
 		if ( IsReloading || (AmmoClip == 0 && ClipSize > 1) )
 			CrosshairLastReload = 0;

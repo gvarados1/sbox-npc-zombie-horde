@@ -1,5 +1,5 @@
 ﻿namespace ZombieHorde;
-partial class DmViewModel : BaseViewModel
+partial class ZomViewModel : BaseViewModel
 {
 	float walkBob = 0;
 
@@ -10,6 +10,9 @@ partial class DmViewModel : BaseViewModel
 		// camSetup.ViewModelFieldOfView = camSetup.FieldOfView + (FieldOfView - 80);
 
 		AddCameraEffects( ref camSetup );
+
+		Position = camSetup.Position;
+		Rotation = camSetup.Rotation * Rotation.FromPitch(5);
 	}
 
 	private void AddCameraEffects( ref CameraSetup camSetup )
