@@ -9,8 +9,8 @@ public partial class HumanPlayer : Player
 
 	public bool SupressPickupNotices { get; private set; }
 
-	public int ComboKillCount { get; set; } = 0;
 	public TimeSince TimeSinceLastKill { get; set; }
+	private TimeSince TimeSincePassiveHealed = 0;
 
 	public HumanPlayer()
 	{
@@ -205,10 +205,13 @@ public partial class HumanPlayer : Player
 		//passively heal up to 20 hp
 		if ( Host.IsServer )
 		{
-			if(Health < 19 )
+			if(Health < 20 )
 			{
-				if(Rand.Int(100) == 0)
-				Health += 1;
+				if(TimeSincePassiveHealed > .5f)
+				{
+					TimeSincePassiveHealed = 0;
+					Health += 1;
+				}
 			}
 		}
 	}
@@ -285,6 +288,7 @@ public partial class HumanPlayer : Player
 			return;
 
 		LastDamage = info;
+		TimeSincePassiveHealed = -2;
 
 		Velocity = 0;
 

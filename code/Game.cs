@@ -157,7 +157,7 @@ partial class ZombieGame : Game
 		if ( Local.Pawn is HumanPlayer localPlayer )
 		{
 			var timeSinceDamage = localPlayer.TimeSinceDamage.Relative;
-			var damageUi = timeSinceDamage.LerpInverse( 0.25f, 0.0f, true ) * 0.3f;
+			var damageUi = timeSinceDamage.LerpInverse( 0.25f, 0.0f, true ) * 0.2f;
 			if ( damageUi > 0 )
 			{
 				postProcess.Saturate.Amount -= damageUi;
@@ -171,7 +171,7 @@ partial class ZombieGame : Game
 			}
 
 
-			var healthDelta = localPlayer.Health.LerpInverse( 0, 100.0f, true );
+			var healthDelta = localPlayer.Health.LerpInverse( 0, 90.0f, true ); // start lowhp effects at 90 instead of 100
 
 			healthDelta = MathF.Pow( healthDelta, 0.5f );
 
