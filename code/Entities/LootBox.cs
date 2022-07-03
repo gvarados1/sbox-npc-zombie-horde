@@ -2,6 +2,7 @@
 using Sandbox.Component;
 using System;
 using System.Collections.Generic;
+
 namespace ZombieHorde;
 
 partial class LootBox : Prop
@@ -30,7 +31,6 @@ partial class LootBox : Prop
 				"HealthKit",
 				"HealthKit",
 				"HealthKit",
-				"HealthKit",
 				"Python",
 				"Shotgun",
 				"SMG",
@@ -41,7 +41,7 @@ partial class LootBox : Prop
 				"TripmineWeapon"
 			};
 
-		for (var i = 0; i < Rand.Int(2)+2; i++ )
+		for (var i = 0; i < Rand.Int(2)+1; i++ )
 		{
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
@@ -49,6 +49,11 @@ partial class LootBox : Prop
 			prize.Position = Position;
 			prize.Velocity = Vector3.Random * 100;
 		}
+
+		// always spawn a medkit
+		var medkit = new HealthKit();
+		medkit.Position = Position;
+		medkit.Velocity = Vector3.Random * 100;
 
 		base.OnKilled();
 	}
