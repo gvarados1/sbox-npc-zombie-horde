@@ -61,7 +61,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	}
 	public void StartWave()
 	{
-		PlaySound( "wave.start" );
+		if(Host.IsServer) PlaySound( "wave.start" );
 		WaveNumber++;
 
 		ZombiesRemaining += 10 + 4 * (WaveNumber - 1);
@@ -76,7 +76,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	}
 	public void StartIntermission()
 	{
-		PlaySound( "wave.end" );
+		if ( Host.IsServer ) PlaySound( "wave.end" );
 		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
 
@@ -109,7 +109,7 @@ public partial class SurvivalGamemode : BaseGamemode
 
 	public void RestartGame()
 	{
-		PlaySound( "bell" );
+		if ( Host.IsServer ) PlaySound( "bell" );
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
 
