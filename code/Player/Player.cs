@@ -23,14 +23,7 @@ public partial class HumanPlayer : Player
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
 
-		Controller = new WalkController
-		{
-			WalkSpeed = 240,
-			SprintSpeed = 140,
-			DefaultSpeed = 240,
-			AirAcceleration = 10,
-
-		};
+		Controller = new HumanWalkController();
 
 		Animator = new StandardPlayerAnimator();
 
@@ -62,6 +55,8 @@ public partial class HumanPlayer : Player
 
 		SupressPickupNotices = false;
 		Health = 100;
+
+		SetAnimParameter( "sit", 0 );
 
 		base.Respawn();
 	}
@@ -191,9 +186,6 @@ public partial class HumanPlayer : Player
 		{
 			ActiveChild = Input.ActiveChild;
 		}
-
-		if ( LifeState != LifeState.Alive )
-			return;
 
 		TickPlayerUse();
 
@@ -356,10 +348,35 @@ public partial class HumanPlayer : Player
 			Health -= info.Damage;
 			if ( Health <= 0 )
 			{
-				Health = 0;
-				OnKilled();
+				if(LifeState == LifeState.Alive )
+				{
+					Health = 200;
+					Incapacitate();
+				}
+				else if(LifeState == LifeState.Dying )
+				{
+					Health = 0;
+					OnKilled();
+				}
 			}
 		}
+	}
+
+	public void Incapacitate()
+	{
+		LifeState = LifeState.Dying;
+		SetAnimParameter( "sit", 2 );
+
+		Controller = new IncapacitatedController();
+		if ( Host.IsServer ) PlaySound( "human.incapacitate" );
+	}
+
+	public void Revive()
+	{
+		LifeState = LifeState.Alive;
+		SetAnimParameter( "sit", 0 );
+		Controller = new HumanWalkController();
+		Health = 20;
 	}
 
 	[ClientRpc]

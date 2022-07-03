@@ -68,7 +68,7 @@ public partial class BaseZombie : BaseNpc
 		Move( Time.Delta );
 
 		var walkVelocity = Velocity.WithZ( 0 );
-		if ( walkVelocity.Length > 0.5f )
+		if ( walkVelocity.Length > 1f )
 		{
 			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 250, true ); // 100
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );

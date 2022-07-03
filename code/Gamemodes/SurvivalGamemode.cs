@@ -82,8 +82,17 @@ public partial class SurvivalGamemode : BaseGamemode
 
 		if ( Host.IsClient ) return;
 
+		// revive all incapacitated players!
+		foreach ( var ply in Entity.All.OfType<HumanPlayer>() )
+		{
+			if(ply.LifeState == LifeState.Dying )
+			{
+				ply.Revive();
+			}
+		}
+
 		// kill angry zombies!
-		foreach(var zom in Entity.All.OfType<CommonZombie>() )
+		foreach ( var zom in Entity.All.OfType<CommonZombie>().ToList() )
 		{
 			if(zom.ZombieState == ZombieState.Chase )
 			{
@@ -109,14 +118,33 @@ public partial class SurvivalGamemode : BaseGamemode
 
 	public void RestartGame()
 	{
-		if ( Host.IsServer ) PlaySound( "bell" );
+		if ( Host.IsServer )
+		{
+			PlaySound( "bell" );
+		}
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
+
+		// surely there's a better way of doing this
+		foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
+			ply.OnKilled();
 
 		foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
 			npc.Delete();
 
 		foreach ( var item in Entity.All.OfType<DeathmatchWeapon>().ToArray() )
+			item.Delete();
+
+		foreach ( var item in Entity.All.OfType<LootBox>().ToArray() )
+			item.Delete();
+
+		foreach ( var item in Entity.All.OfType<Coffin>().ToArray() )
+			item.Delete();
+
+		foreach ( var item in Entity.All.OfType<BaseAmmo>().ToArray() )
+			item.Delete();
+
+		foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
 			item.Delete();
 
 		TimeUntilNextState = 60;

@@ -64,13 +64,13 @@ public partial class CommonZombie : BaseZombie
 				if ( distanceToTarget < 100 )
 				{
 					if ( !Target.IsValid() ) FindTarget();
-					if ( Target.Health <= 0 ) FindTarget();
+					if ( Target.LifeState == LifeState.Dead) FindTarget();
 					Steer.Target = Target.Position;
 				}
 				else if ( Rand.Int( 10 ) == 1 )
 				{
 					if ( !Target.IsValid() ) FindTarget();
-					if ( Target.Health <= 0 ) FindTarget();
+					if ( Target.LifeState == LifeState.Dead ) FindTarget();
 					Steer = new NavSteer();
 					//npc.Steer.Target = tr.EndPos;
 					Steer.Target = Target.Position;
@@ -101,7 +101,7 @@ public partial class CommonZombie : BaseZombie
 		// random deletion checks
 		if ( Rand.Int( 500 ) == 1 )
 		{
-			CheckForDeletion();
+			CheckForDeletion();	
 		}
 		base.Tick();
 	}
@@ -129,13 +129,11 @@ public partial class CommonZombie : BaseZombie
 		ZombieState = ZombieState.Chase;
 		Speed = RunSpeed;
 
-		//if ( !target.IsValid() ) FindTarget();
-		//if ( target.Health <= 0 ) FindTarget();
 		Steer = new NavSteer();
 		Steer.Target = Target.Position;
 
 		// chance to alert nearby zombies
-		TryAlertNearby( Target, .1f, 800 ); // 8000 good range??
+		TryAlertNearby( Target, .1f, 800 ); // 800 good range??
 	}
 
 	public void StartWander()
@@ -172,7 +170,7 @@ public partial class CommonZombie : BaseZombie
 		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f;
 		forward = forward.Normal;
 
-		foreach ( var tr in TraceMelee( EyePosition, EyePosition + forward * 90, 25 ) )
+		foreach ( var tr in TraceMelee( EyePosition, EyePosition + forward * 90, 50 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 
@@ -212,6 +210,7 @@ public partial class CommonZombie : BaseZombie
 
 	public void FindTarget()
 	{
+		// todo: prioritize alive players instead of incompacitated, but still sometimes go for incompacitated
 		Target = Entity.All
 			.OfType<Player>()               // get all Player entities
 			.OrderBy( x => Guid.NewGuid() )     // order them by random
