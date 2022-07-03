@@ -205,7 +205,7 @@ public partial class HumanPlayer : Player
 		//passively heal up to 20 hp
 		if ( Host.IsServer )
 		{
-			if(Health < 20 )
+			if(Health < 19 )
 			{
 				if(Rand.Int(100) == 0)
 				Health += 1;
