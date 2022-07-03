@@ -51,13 +51,19 @@ public partial class SurvivalGamemode : BaseGamemode
 			RoundInfo = ZombiesRemaining.ToString() + " remain";
 
 			if ( ZombiesRemaining <= 0 ) StartIntermission();
-			if ( GetLivePlayerCount() <= 0 ) RestartGame();
+			if ( GetLivePlayerCount() <= 0 ) StartPostGame();
 		}
 		else if ( RoundState == RoundState.Intermission )
 		{
 			RoundName = "Intermission";
 
 			if ( TimeUntilNextState <= 0 ) StartWave();
+		}
+		else if ( RoundState == RoundState.PostGame )
+		{
+			RoundName = "Game over! Waves Survived: " + (WaveNumber-1);
+
+			if ( TimeUntilNextState <= 0 ) RestartGame();
 		}
 	}
 	public void StartWave()
@@ -86,6 +92,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		// revive all incapacitated players!
 		foreach ( var ply in Entity.All.OfType<HumanPlayer>() )
 		{
+			ply.RevivesRemaining = HumanMaxRevives;
 			if(ply.LifeState == LifeState.Dying )
 			{
 				ply.Revive();
@@ -117,37 +124,51 @@ public partial class SurvivalGamemode : BaseGamemode
 		}
 	}
 
+	public void StartPostGame()
+	{
+		TimeUntilNextState = 20;
+		RoundState = RoundState.PostGame;
+
+		if ( Host.IsServer )
+		{
+			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
+			{
+				ply.OnKilled();
+			}
+		}
+	}
+
 	public void RestartGame()
 	{
 		if ( Host.IsServer )
 		{
 			PlaySound( "bell" );
+
+
+			// surely there's a better way of doing this
+			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
+				ply.OnKilled();
+
+			foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
+				npc.Delete();
+
+			foreach ( var item in Entity.All.OfType<DeathmatchWeapon>().ToArray() )
+				item.Delete();
+
+			foreach ( var item in Entity.All.OfType<LootBox>().ToArray() )
+				item.Delete();
+
+			foreach ( var item in Entity.All.OfType<Coffin>().ToArray() )
+				item.Delete();
+
+			foreach ( var item in Entity.All.OfType<BaseAmmo>().ToArray() )
+				item.Delete();
+
+			foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
+				item.Delete();
 		}
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
-
-		// surely there's a better way of doing this
-		foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
-			ply.OnKilled();
-
-		foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
-			npc.Delete();
-
-		foreach ( var item in Entity.All.OfType<DeathmatchWeapon>().ToArray() )
-			item.Delete();
-
-		foreach ( var item in Entity.All.OfType<LootBox>().ToArray() )
-			item.Delete();
-
-		foreach ( var item in Entity.All.OfType<Coffin>().ToArray() )
-			item.Delete();
-
-		foreach ( var item in Entity.All.OfType<BaseAmmo>().ToArray() )
-			item.Delete();
-
-		foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
-			item.Delete();
-
 		TimeUntilNextState = 60;
 		RoundState = RoundState.PreGame;
 	}
@@ -168,5 +189,5 @@ public enum RoundState
 	PreGame, // waiting for players
 	WaveActive, // round is active, spawning zombies
 	Intermission, // in-between rounds. maybe spawn a couple wandering zombies?
-	End // everyone died and the game ended
+	PostGame // everyone died and the game ended
 }

@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System.Runtime.InteropServices;
 
 namespace ZombieHorde;
 
@@ -63,6 +64,8 @@ public class SpectatePlayerCamera : CameraMode
 				break;
 			}
 		}
+
+		if ( SpectateTarget == null ) SpectateTarget = Local.Pawn as HumanPlayer;
 	}
 }
 
