@@ -181,7 +181,7 @@ public partial class CommonZombie : BaseZombie
 
 			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 320, 8 )
 				.UsingTraceResult( tr )
-				.WithAttacker( Owner )
+				.WithAttacker( this )
 				.WithWeapon( this );
 
 			tr.Entity.TakeDamage( damageInfo );

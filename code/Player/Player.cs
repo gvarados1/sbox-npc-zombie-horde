@@ -322,6 +322,11 @@ public partial class HumanPlayer : Player
 				attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health.LerpInverse( 100, 0 ) );
 			}
 
+			TookDamage( To.Single( this ), info.Attacker.Position );
+		}
+
+		if ( info.Attacker is CommonZombie zomAttacker )
+		{
 			TookDamage( To.Single( this ), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position );
 		}
 
