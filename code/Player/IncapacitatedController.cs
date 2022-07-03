@@ -21,4 +21,9 @@ public partial class IncapacitatedController : WalkController
 	{
 		return 0;
 	}
+
+	public override void CheckJumpButton()
+	{
+		// nothing
+	}
 }
