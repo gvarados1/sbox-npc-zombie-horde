@@ -25,7 +25,7 @@ partial class BaseAmmo : ModelEntity, IRespawnableEntity
 	{
 		base.Touch( other );
 
-		if ( other is not DeathmatchPlayer player )
+		if ( other is not HumanPlayer player )
 			return;
 
 		if ( other.LifeState != LifeState.Alive )

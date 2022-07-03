@@ -64,7 +64,7 @@ partial class AK47 : DeathmatchWeapon
 		/*TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		if ( Owner is not DeathmatchPlayer player ) return;
+		if ( Owner is not HumanPlayer player ) return;
 
 		if ( !TakeAmmo( 10 ) )//Using SMG ammo for now.
 		{

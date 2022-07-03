@@ -62,7 +62,7 @@ partial class Crowbar : DeathmatchWeapon
 		ViewModelEntity?.SetAnimParameter( "attack_has_hit", true );
 		ViewModelEntity?.SetAnimParameter( "attack", true );
 		ViewModelEntity?.SetAnimParameter( "holdtype_attack", false ? 2 : 1 );
-		if ( Owner is DeathmatchPlayer player )
+		if ( Owner is HumanPlayer player )
 		{
 			player.SetAnimParameter( "b_attack", true );
 		}

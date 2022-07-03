@@ -1,5 +1,5 @@
 ﻿namespace ZombieHorde;
-public partial class DeathmatchPlayer
+public partial class HumanPlayer
 {
 	[Net, Local]
 	public IList<int> Ammo { get; set; }

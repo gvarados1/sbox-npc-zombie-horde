@@ -192,7 +192,7 @@ public partial class BaseZombie : BaseNpc
 	{
 		base.TakeDamage( info );
 
-		if ( info.Attacker is DeathmatchPlayer attacker )
+		if ( info.Attacker is HumanPlayer attacker )
 		{
 			attacker.DidDamage( To.Single( attacker ), info.Position, info.Damage, Health.LerpInverse( 100, 0 ) );
 

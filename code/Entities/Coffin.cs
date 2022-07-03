@@ -16,7 +16,7 @@ partial class Coffin : ModelEntity
 		SetInteractsAs( CollisionLayer.Debris );
 	}
 
-	public void Populate( DeathmatchPlayer player )
+	public void Populate( HumanPlayer player )
 	{
 		Ammos.AddRange( player.Ammo );
 
@@ -36,7 +36,7 @@ partial class Coffin : ModelEntity
 		if ( IsClient )
 			return;
 
-		if ( other is not DeathmatchPlayer player )
+		if ( other is not HumanPlayer player )
 			return;
 
 		if ( player.LifeState == LifeState.Dead )

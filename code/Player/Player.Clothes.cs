@@ -1,5 +1,5 @@
 ﻿namespace ZombieHorde;
-public partial class DeathmatchPlayer
+public partial class HumanPlayer
 {
 	public ClothingContainer Clothing { get; protected set; }
 

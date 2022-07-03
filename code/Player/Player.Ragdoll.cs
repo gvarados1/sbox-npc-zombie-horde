@@ -1,5 +1,5 @@
 ﻿namespace ZombieHorde;
-public partial class DeathmatchPlayer
+public partial class HumanPlayer
 {
 	// TODO - make ragdolls one per entity
 	// TODO - make ragdolls dissapear after a load of seconds

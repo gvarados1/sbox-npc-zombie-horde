@@ -36,7 +36,7 @@ partial class TripmineWeapon : DeathmatchWeapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		if ( Owner is not DeathmatchPlayer player ) return;
+		if ( Owner is not HumanPlayer player ) return;
 
 		// woosh sound
 		// screen shake

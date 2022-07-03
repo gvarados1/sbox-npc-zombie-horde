@@ -30,7 +30,7 @@ public partial class BaseGamemode : Entity
 	public int GetLivePlayerCount()
 	{
 		var livePlayers = 0;
-		foreach (var ply in Entity.All.OfType<DeathmatchPlayer>())
+		foreach (var ply in Entity.All.OfType<HumanPlayer>())
 		{
 			if ( ply.LifeState == LifeState.Alive) livePlayers++;
 		}

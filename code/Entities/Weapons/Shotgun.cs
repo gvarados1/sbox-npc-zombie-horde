@@ -127,7 +127,7 @@ partial class Shotgun : DeathmatchWeapon
 		if ( AmmoClip >= ClipSize )
 			return;
 
-		if ( Owner is DeathmatchPlayer player )
+		if ( Owner is HumanPlayer player )
 		{
 			var ammo = player.TakeAmmo( AmmoType, 1 );
 			if ( ammo == 0 )

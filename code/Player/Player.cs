@@ -1,6 +1,6 @@
 ﻿namespace ZombieHorde;
 
-public partial class DeathmatchPlayer : Player
+public partial class HumanPlayer : Player
 {
 	TimeSince timeSinceDropped;
 
@@ -12,7 +12,7 @@ public partial class DeathmatchPlayer : Player
 	public int ComboKillCount { get; set; } = 0;
 	public TimeSince TimeSinceLastKill { get; set; }
 
-	public DeathmatchPlayer()
+	public HumanPlayer()
 	{
 		Inventory = new DmInventory( this );
 	}
@@ -67,7 +67,7 @@ public partial class DeathmatchPlayer : Player
 	[ConCmd.Admin]
 	public static void GiveAll()
 	{
-		var ply = ConsoleSystem.Caller.Pawn as DeathmatchPlayer;
+		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
 		ply.GiveAmmo( AmmoType.Pistol, 1000 );
 		ply.GiveAmmo( AmmoType.Python, 1000 );
@@ -89,7 +89,7 @@ public partial class DeathmatchPlayer : Player
 	[ConCmd.Admin]
 	public static void SetHealth(float health)
 	{
-		var ply = ConsoleSystem.Caller.Pawn as DeathmatchPlayer;
+		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
 		ply.Health = health;
 	}
@@ -315,7 +315,7 @@ public partial class DeathmatchPlayer : Player
 			}
 		}
 
-		if ( info.Attacker is DeathmatchPlayer attacker )
+		if ( info.Attacker is HumanPlayer attacker )
 		{
 			if ( attacker != this )
 			{
@@ -357,16 +357,10 @@ public partial class DeathmatchPlayer : Player
 		DamageIndicator.Current?.OnHit( pos );
 	}
 
-	[ClientRpc]
-	public void PlaySoundFromScreen( string sound )
-	{
-		Sound.FromScreen( sound );
-	}
-
 	[ConCmd.Client]
 	public static void InflictDamage()
 	{
-		if ( Local.Pawn is DeathmatchPlayer ply )
+		if ( Local.Pawn is HumanPlayer ply )
 		{
 			ply.TookDamage( ply.Position + ply.EyeRotation.Forward * 100.0f );
 		}
@@ -389,9 +383,6 @@ public partial class DeathmatchPlayer : Player
 
 		timeSinceLastFootstep = 0;
 
-		//DebugOverlay.Box( 1, pos, -1, 1, Color.Red );
-		//DebugOverlay.Text( pos, $"{volume}", Color.White, 5 );
-
 		var tr = Trace.Ray( pos, pos + Vector3.Down * 20 )
 			.Radius( 1 )
 			.Ignore( this )
@@ -406,34 +397,9 @@ public partial class DeathmatchPlayer : Player
 		if ( LifeState != LifeState.Alive )
 			return;
 
-		// RenderOverlayTest( screenSize );
-
 		if ( ActiveChild is DeathmatchWeapon weapon )
 		{
 			weapon.RenderHud( screenSize );
-		}
-	}
-
-	void RenderOverlayTest( Vector2 screenSize )
-	{
-		foreach ( var ent in Entity.FindInSphere( Position, 1500 ) )
-		{
-			var pos = ent.Position.ToScreen( screenSize );
-			if ( !pos.HasValue ) continue;
-
-			var str = $"{ent}";
-			Render.Draw2D.FontFamily = "Poppins";
-			Render.Draw2D.FontWeight = 1000;
-			Render.Draw2D.FontSize = 14;
-
-			var textRect = Render.Draw2D.TextSize( pos.Value, str );
-
-			Render.Draw2D.BlendMode = BlendMode.Normal;
-			Render.Draw2D.Color = Color.Black.WithAlpha( 0.7f );
-			Render.Draw2D.BoxWithBorder( textRect.Expand( 16, 12 ), 2.0f, Color.Black.WithAlpha( 0.2f ), new Vector4( 4.0f ) );
-
-			Render.Draw2D.Color = Color.White;
-			Render.Draw2D.Text( pos.Value, str );
 		}
 	}
 
