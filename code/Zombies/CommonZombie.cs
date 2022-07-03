@@ -159,8 +159,11 @@ public partial class CommonZombie : BaseZombie
 
 	public async void MeleeAttack()
 	{
+		// initial delay too?
+		await Task.Delay( 100 );
 		PlaySound( "zombie.attack" );
 		SetAnimParameter("b_attack", true);
+		Velocity = 0;
 
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
 		await Task.Delay( 200 );
