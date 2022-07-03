@@ -66,6 +66,25 @@ public partial class HumanPlayer : Player
 		base.Respawn();
 	}
 
+	public void SpawnAsSpectator()
+	{
+		SetModel( "models/citizen/citizen.vmdl" );
+
+		Animator = new StandardPlayerAnimator();
+
+		CameraMode = new SpectatorCamera();
+
+		EnableAllCollisions = false;
+		EnableDrawing = false;
+		EnableHideInFirstPerson = true;
+		EnableShadowInFirstPerson = true;
+
+		Health = 100;
+
+		base.Respawn();
+		LifeState = LifeState.Dead;
+	}
+
 	[ConCmd.Admin]
 	public static void GiveAll()
 	{
