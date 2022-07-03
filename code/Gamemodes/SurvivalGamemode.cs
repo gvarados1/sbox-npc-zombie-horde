@@ -2,6 +2,17 @@
 
 public partial class SurvivalGamemode : BaseGamemode
 {
+	[ConCmd.Admin]
+	public static void zom_skipround()
+	{
+		Log.Info( "Skipping round!" );
+
+		var gamemode = BaseGamemode.Ent as SurvivalGamemode;
+
+		gamemode.ZombiesRemaining = 0;
+		gamemode.TimeUntilNextState = 0;
+	}
+
 	[Net]
 	public TimeUntil TimeUntilNextState { get; set; }
 	public int WaveNumber { get; set; } = 0;

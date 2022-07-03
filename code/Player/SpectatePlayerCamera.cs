@@ -23,6 +23,10 @@ public class SpectatePlayerCamera : CameraMode
 		if( SpectateTarget is HumanPlayer ply )
 		{
 			if ( ply.LifeState == LifeState.Dead ) FindNewTarget();
+			if ( Local.Pawn is Player localPly )
+			{
+				localPly.Health = SpectateTarget.Health;
+			}
 		}
 
 		if ( Input.Pressed( InputButton.PrimaryAttack ) || Input.Pressed( InputButton.SecondaryAttack ) )
