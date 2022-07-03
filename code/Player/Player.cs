@@ -298,16 +298,6 @@ public partial class HumanPlayer : Player
 			Deafen( To.Single( Client ), info.Damage.LerpInverse( 0, 60 ) );
 		}
 
-		if ( Health > 0 && info.Damage > 0 )
-		{
-			Health -= info.Damage;
-			if ( Health <= 0 )
-			{
-				Health = 0;
-				OnKilled();
-			}
-		}
-
 		if ( info.Attacker is HumanPlayer attacker )
 		{
 			if ( attacker != this )
@@ -323,14 +313,13 @@ public partial class HumanPlayer : Player
 			TookDamage( To.Single( this ), info.Weapon.IsValid() ? info.Weapon.Position : info.Attacker.Position );
 		}
 
-		//
-		// Add a score to the killer
-		//
-		if ( LifeState == LifeState.Dead && info.Attacker != null )
+		if ( Health > 0 && info.Damage > 0 )
 		{
-			if ( info.Attacker.Client != null && info.Attacker != this )
+			Health -= info.Damage;
+			if ( Health <= 0 )
 			{
-				info.Attacker.Client.AddInt( "kills" );
+				Health = 0;
+				OnKilled();
 			}
 		}
 	}
