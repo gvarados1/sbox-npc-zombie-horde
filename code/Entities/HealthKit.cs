@@ -32,7 +32,7 @@ partial class HealthKit : ModelEntity, IRespawnableEntity
 		if ( other is not HumanPlayer pl ) return;
 		if ( pl.Health >= pl.MaxHealth ) return;
 
-		var newhealth = pl.Health + 25;
+		var newhealth = pl.Health + 35;
 
 		newhealth = newhealth.Clamp( 0, pl.MaxHealth );
 
