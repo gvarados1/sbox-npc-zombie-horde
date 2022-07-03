@@ -1,4 +1,6 @@
-﻿namespace ZombieHorde;
+﻿using Sandbox;
+
+namespace ZombieHorde;
 
 public partial class HumanPlayer : Player
 {
@@ -126,6 +128,7 @@ public partial class HumanPlayer : Player
 		Controller = null;
 
 		CameraMode = new SpectateRagdollCamera();
+		SetSpectatorCamera( 8000 );
 
 		EnableAllCollisions = false;
 		EnableDrawing = false;
@@ -133,6 +136,16 @@ public partial class HumanPlayer : Player
 		foreach ( var child in Children.OfType<ModelEntity>() )
 		{
 			child.EnableDrawing = false;
+		}
+	}
+
+	[ClientRpc]
+	public async void SetSpectatorCamera(int delay )
+	{
+		await Task.Delay( delay );
+		if(LifeState == LifeState.Dead)
+		{
+			CameraMode = new SpectatorCamera();
 		}
 	}
 
