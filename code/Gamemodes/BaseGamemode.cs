@@ -10,6 +10,8 @@ public partial class BaseGamemode : Entity
 	public string RoundInfo { get; set; } = "unknown";
 	[Net]
 	public string RoundName { get; set; } = "unknown";
+	[Net]
+	public int HumanMaxRevives { get; set; } = 3;
 
 	public BaseGamemode()
 	{

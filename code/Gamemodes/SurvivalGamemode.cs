@@ -24,6 +24,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		Log.Info( Host.Name );
 		RoundState = RoundState.PreGame;
 		TimeUntilNextState = 60;
+		HumanMaxRevives = 1;
 
 		base.Spawn();
 	}

@@ -1,13 +1,16 @@
 ﻿using Sandbox;
+using Sandbox.Component;
 
 namespace ZombieHorde;
 
-public partial class HumanPlayer : Player
+public partial class HumanPlayer : Player, IUse
 {
 	TimeSince timeSinceDropped;
 
 	[Net]
 	public float MaxHealth { get; set; } = 100;
+	[Net]
+	public int RevivesRemaining { get; set; }
 
 	public bool SupressPickupNotices { get; private set; }
 
@@ -55,6 +58,7 @@ public partial class HumanPlayer : Player
 
 		SupressPickupNotices = false;
 		Health = 100;
+		RevivesRemaining = BaseGamemode.Ent.HumanMaxRevives;
 
 		SetAnimParameter( "sit", 0 );
 
@@ -364,11 +368,20 @@ public partial class HumanPlayer : Player
 
 	public void Incapacitate()
 	{
-		LifeState = LifeState.Dying;
-		SetAnimParameter( "sit", 2 );
+		if( RevivesRemaining > 0 )
+		{
+			RevivesRemaining -= 1;
+			LifeState = LifeState.Dying;
+			SetAnimParameter( "sit", 2 );
 
-		Controller = new IncapacitatedController();
-		if ( Host.IsServer ) PlaySound( "human.incapacitate" );
+			Controller = new IncapacitatedController();
+			if ( Host.IsServer ) PlaySound( "human.incapacitate" );
+		}
+		else
+		{
+			Health = 0;
+			OnKilled();
+		}
 	}
 
 	public void Revive()
@@ -454,4 +467,19 @@ public partial class HumanPlayer : Player
 		}
 	}
 
+	public bool OnUse( Entity user )
+	{
+		if ( LifeState != LifeState.Dying ) return false;
+
+		Revive();
+		return true;
+	}
+
+	public bool IsUsable( Entity user )
+	{
+		if ( LifeState != LifeState.Dying ) return false;
+
+		// this is required by iUse!
+		return true;
+	}
 }
