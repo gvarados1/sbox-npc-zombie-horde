@@ -59,7 +59,7 @@ partial class NpcSpawner : DeathmatchWeapon
 		if (!Host.IsServer) return;
 
 		var startPos = Owner.EyePosition;
-		var dir = Owner.EyeRotation.Forward;
+		var dir = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward;
 		var tr = Trace.Ray(startPos, startPos + dir * 5000)
 					.Ignore(Owner)
 					.Run();

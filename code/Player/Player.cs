@@ -28,7 +28,7 @@ public partial class HumanPlayer : Player, IUse
 
 		Controller = new HumanWalkController();
 
-		Animator = new StandardPlayerAnimator();
+		Animator = new HumanPlayerAnimator();
 
 		CameraMode = new FirstPersonCamera();
 
@@ -69,7 +69,7 @@ public partial class HumanPlayer : Player, IUse
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
 
-		Animator = new StandardPlayerAnimator();
+		Animator = new HumanPlayerAnimator();
 
 		CameraMode = new SpectatePlayerCamera();
 
