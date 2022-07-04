@@ -242,7 +242,8 @@ public partial class HumanPlayer : Player, IUse
 
 		if ( best == null ) return;
 
-		ActiveChild = best;
+		// let's not do this yet
+		//ActiveChild = best;
 	}
 
 	public override void StartTouch( Entity other )

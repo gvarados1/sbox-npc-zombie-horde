@@ -66,6 +66,7 @@ partial class SMG : BaseZomWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
+		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}

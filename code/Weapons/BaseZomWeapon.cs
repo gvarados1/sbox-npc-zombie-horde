@@ -21,6 +21,10 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 
 	[Net, Predicted]
 	public TimeSince TimeSinceDeployed { get; set; }
+	[Net, Predicted]
+	public TimeSince TimeSinceShove { get; set; }
+	[Net, Predicted]
+	public bool OverridingAnimator { get; set; } = false;
 
 
 
@@ -106,7 +110,83 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public override void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
+	}
+
+	public override void AttackSecondary()
+	{
+		if(TimeSinceShove > 1 )
+		{
+			MeleeAttack();
+			TimeSinceShove = 0;
+			TimeSincePrimaryAttack = 200;
+		}
+	}
+
+	public async void MeleeAttack()
+	{
+		PlaySound( "dm.crowbar_attack" );
+		var ply = (Owner as AnimatedEntity);
+		OverridingAnimator = true;
+		ViewModelEntity?.SetAnimParameter( "fire", true );
+		ply.SetAnimParameter( "holdtype", 5 );
+		ply.SetAnimParameter( "b_attack", true );
+
+		Rand.SetSeed( Time.Tick );
+
+		var forward = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward.Normal;
+
+		foreach ( var tr in TraceShove( Owner.EyePosition, Owner.EyePosition + forward * 90, 8 ) )
+		{
+			tr.Surface.DoBulletImpact( tr );
+
+			if ( !IsServer ) continue;
+			if ( !tr.Entity.IsValid() ) continue;
+
+			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100, 20 )
+				.UsingTraceResult( tr )
+				.WithAttacker( Owner )
+				.WithWeapon( this );
+
+			tr.Entity.TakeDamage( damageInfo );
+		}
+		if ( IsServer )
+		{
+			//DebugOverlay.Sphere( Owner.EyePosition + forward * 60, 50, Color.Yellow, .5f );
+			foreach ( var zom in Entity.FindInSphere( Owner.EyePosition + forward * 60, 50 ) )
+			{
+				if ( zom is BaseZombie )
+				{
+					var damageInfo = DamageInfo.FromBullet( Position, forward * 100, 15 )
+						.WithAttacker( Owner )
+						.WithWeapon( this );
+
+					zom.TakeDamage( damageInfo );
+
+					zom.Velocity = forward * 200;
+				}
+			}
+		}
+
+		await Task.Delay( 400 );
+		OverridingAnimator = false;
+	}
+
+	public virtual IEnumerable<TraceResult> TraceShove( Vector3 start, Vector3 end, float radius = 2.0f )
+	{
+		bool InWater = Map.Physics.IsPointWater( start );
+
+		var tr = Trace.Ray( start, end )
+				.UseHitboxes()
+				.HitLayer( CollisionLayer.Water, !InWater )
+				.HitLayer( CollisionLayer.Debris )
+				.Ignore( Owner )
+				.Ignore( this )
+				.WithoutTags( "zombie" )
+				.Size( radius )
+				.Run();
+
+		if ( tr.Hit )
+			yield return tr;
 	}
 
 	[ClientRpc]

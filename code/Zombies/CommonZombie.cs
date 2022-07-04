@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Sandbox;
+using System.IO;
 
 namespace ZombieHorde;
 
@@ -161,12 +162,14 @@ public partial class CommonZombie : BaseZombie
 	{
 		// initial delay too?
 		await Task.Delay( 100 );
+		if ( !IsValid ) return;
 		PlaySound( "zombie.attack" );
 		SetAnimParameter("b_attack", true);
 		Velocity = 0;
 
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
 		await Task.Delay( 200 );
+		if ( !IsValid ) return;
 		Velocity = 0;
 
 		var forward = Rotation.Forward;

@@ -19,6 +19,8 @@ partial class LootBox : Prop
 		Transmit = TransmitType.Always;
 		EnableDrawOverWorld = true;
 
+		Health = 15;
+
 		//CollisionGroup = CollisionGroup.Debris;
 		//SetInteractsAs( CollisionLayer.Debris ); 
 	}
