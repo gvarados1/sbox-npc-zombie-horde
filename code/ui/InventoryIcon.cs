@@ -1,31 +1,23 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
+using Sandbox.UI.Construct;
 
-namespace ZombieHorde;
-
-class InventoryIcon : Panel
+public class InventoryIcon : Panel
 {
-	public BaseZomWeapon Weapon;
-	public Panel Icon;
+	public Entity TargetEnt;
+	public Label Label;
+	public Label Number;
 
-	public InventoryIcon( BaseZomWeapon weapon )
+	public InventoryIcon( int i, Panel parent )
 	{
-		Weapon = weapon;
-		Icon = Add.Panel( "icon" );
-
-		AddClass( weapon.ClassName );
+		Parent = parent;
+		Label = Add.Label( "empty", "item-name" );
+		Number = Add.Label( $"{i}", "slot-number" );
 	}
 
-	internal void TickSelection( BaseZomWeapon selectedWeapon )
+	public void Clear()
 	{
-		SetClass( "active", selectedWeapon == Weapon );
-		SetClass( "empty", !Weapon?.IsUsable() ?? true );
-	}
-
-	public override void Tick()
-	{
-		base.Tick();
-
-		if ( !Weapon.IsValid() || Weapon.Owner != Local.Pawn )
-			Delete( true );
+		Label.Text = "";
+		SetClass( "active", false );
 	}
 }

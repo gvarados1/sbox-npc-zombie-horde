@@ -57,13 +57,12 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		if ( AmmoClip >= ClipSize )
 			return;
 
-		TimeSinceReload = 0;
-
-		if ( Owner is HumanPlayer player )
+		if ( AmmoReserve <= 0 )
 		{
-			if ( AmmoClip + AmmoReserve <= 0 )
-				return;
+			return;
 		}
+
+		TimeSinceReload = 0;
 
 		IsReloading = true;
 
@@ -74,7 +73,6 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 
 	public override void Simulate( Client owner )
 	{
-		Log.Info( Host.Name );
 		if ( TimeSinceDeployed < 0.6f )
 			return;
 
@@ -93,7 +91,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	{
 		IsReloading = false;
 
-		var ammo = Math.Max(0, ClipSize - AmmoClip);
+		var ammo = Math.Min(AmmoReserve, ClipSize - AmmoClip);
 
 		AmmoReserve -= ammo;
 		AmmoClip += ammo;

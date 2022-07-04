@@ -12,7 +12,7 @@ partial class SMG : BaseZomWeapon
 	public override float PrimaryRate => 16.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 50;
-	public override int AmmoMax => 150;
+	public override int AmmoMax => 10;
 	public override float ReloadTime => 4.0f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 
@@ -22,6 +22,7 @@ partial class SMG : BaseZomWeapon
 
 		Model = WorldModel;
 		AmmoClip = ClipSize;
+		AmmoReserve = AmmoMax;
 	}
 
 	public override void AttackPrimary()
