@@ -1,17 +1,17 @@
 ﻿namespace ZombieHorde;
 
-partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
+partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 {
-	public virtual AmmoType AmmoType => AmmoType.Pistol;
 	public virtual int ClipSize => 16;
 	public virtual float ReloadTime => 3.0f;
-	public virtual int Bucket => 1;
-	public virtual int BucketWeight => 100;
+	public virtual WeaponSlot WeaponSlot => WeaponSlot.Primary;
+	public virtual int AmmoMax => 60;
 
-	public virtual int Order => (Bucket * 10000) + BucketWeight;
 
 	[Net, Predicted]
 	public int AmmoClip { get; set; }
+	[Net, Predicted]
+	public int AmmoReserve { get; set; }
 
 	[Net, Predicted]
 	public TimeSince TimeSinceReload { get; set; }
@@ -23,16 +23,12 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 	public TimeSince TimeSinceDeployed { get; set; }
 
 
-	public PickupTrigger PickupTrigger { get; protected set; }
-
-
-
 
 	public int AvailableAmmo()
 	{
 		var owner = Owner as HumanPlayer;
 		if ( owner == null ) return 0;
-		return owner.AmmoCount( AmmoType );
+		return AmmoReserve;
 	}
 
 	public override void ActiveStart( Entity ent )
@@ -51,10 +47,6 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 		base.Spawn();
 
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
-
-		PickupTrigger = new PickupTrigger();
-		PickupTrigger.Parent = this;
-		PickupTrigger.Position = Position;
 	}
 
 	public override void Reload()
@@ -69,7 +61,7 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 
 		if ( Owner is HumanPlayer player )
 		{
-			if ( player.AmmoCount( AmmoType ) <= 0 )
+			if ( AmmoClip + AmmoReserve <= 0 )
 				return;
 		}
 
@@ -82,6 +74,7 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 
 	public override void Simulate( Client owner )
 	{
+		Log.Info( Host.Name );
 		if ( TimeSinceDeployed < 0.6f )
 			return;
 
@@ -100,22 +93,16 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 	{
 		IsReloading = false;
 
-		if ( Owner is HumanPlayer player )
-		{
-			var ammo = player.TakeAmmo( AmmoType, ClipSize - AmmoClip );
-			if ( ammo == 0 )
-				return;
+		var ammo = Math.Max(0, ClipSize - AmmoClip);
 
-			AmmoClip += ammo;
-		}
+		AmmoReserve -= ammo;
+		AmmoClip += ammo;
 	}
 
 	[ClientRpc]
 	public virtual void StartReloadEffects()
 	{
 		ViewModelEntity?.SetAnimParameter( "reload", true );
-
-		// TODO - player third person model reload
 	}
 
 	public override void AttackPrimary()
@@ -241,28 +228,7 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 	public bool IsUsable()
 	{
 		if ( AmmoClip > 0 ) return true;
-		if ( AmmoType == AmmoType.None ) return true;
 		return AvailableAmmo() > 0;
-	}
-
-	public override void OnCarryStart( Entity carrier )
-	{
-		base.OnCarryStart( carrier );
-
-		if ( PickupTrigger.IsValid() )
-		{
-			PickupTrigger.EnableTouch = false;
-		}
-	}
-
-	public override void OnCarryDrop( Entity dropper )
-	{
-		base.OnCarryDrop( dropper );
-
-		if ( PickupTrigger.IsValid() )
-		{
-			PickupTrigger.EnableTouch = true;
-		}
 	}
 
 	protected TimeSince CrosshairLastShoot { get; set; }
@@ -270,7 +236,6 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 
 	public virtual void RenderHud( in Vector2 screensize )
 	{
-		//var center = screensize * 0.5f;
 		var scale = Screen.Height / 1080.0f;
 		var center = new Vector2(Screen.Width * .5f / scale, Screen.Height * .56f / scale);
 
@@ -284,5 +249,14 @@ partial class DeathmatchWeapon : BaseWeapon, IRespawnableEntity
 	{
 		var draw = Render.Draw2D;
 	}
+}
 
+public enum WeaponSlot
+{
+	Secondary,
+	Primary,
+	Grenade,
+	Medkit,
+	Pills,
+	Prop
 }

@@ -4,10 +4,10 @@ namespace ZombieHorde;
 
 class InventoryIcon : Panel
 {
-	public DeathmatchWeapon Weapon;
+	public BaseZomWeapon Weapon;
 	public Panel Icon;
 
-	public InventoryIcon( DeathmatchWeapon weapon )
+	public InventoryIcon( BaseZomWeapon weapon )
 	{
 		Weapon = weapon;
 		Icon = Add.Panel( "icon" );
@@ -15,7 +15,7 @@ class InventoryIcon : Panel
 		AddClass( weapon.ClassName );
 	}
 
-	internal void TickSelection( DeathmatchWeapon selectedWeapon )
+	internal void TickSelection( BaseZomWeapon selectedWeapon )
 	{
 		SetClass( "active", selectedWeapon == Weapon );
 		SetClass( "empty", !Weapon?.IsUsable() ?? true );

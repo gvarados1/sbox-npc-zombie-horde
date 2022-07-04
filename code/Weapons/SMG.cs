@@ -1,26 +1,27 @@
 ﻿namespace ZombieHorde;
 
-[Library( "dm_ak47"), HammerEntity]
-[EditorModel( "weapons/ak47/ak47.vmdl" )]
-[Title( "AK-47" ), Category( "Weapons" )]
-partial class AK47 : DeathmatchWeapon
-{
-	public static readonly Model WorldModel = Model.Load( "weapons/ak47/ak47.vmdl" );
-	public override string ViewModelPath => "weapons/ak47/v_ak47.vmdl";
 
-	public override float PrimaryRate => 9.0f;
+[Library( "zom_smg" ), HammerEntity]
+[EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
+[Title( "SMG" ), Category( "Weapons" )]
+partial class SMG : BaseZomWeapon
+{
+	public static readonly Model WorldModel = Model.Load( "weapons/rust_smg/rust_smg.vmdl" );
+	public override string ViewModelPath => "weapons/rust_smg/v_rust_smg.vmdl";
+
+	public override float PrimaryRate => 16.0f;
 	public override float SecondaryRate => 1.0f;
-	public override int ClipSize => 30;
-	public override float ReloadTime => 2.0f;
-	public override int Bucket => 2;
-	public override int BucketWeight => 100;
+	public override int ClipSize => 50;
+	public override int AmmoMax => 150;
+	public override float ReloadTime => 4.0f;
+	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
 		Model = WorldModel;
-		AmmoClip = 20;
+		AmmoClip = ClipSize;
 	}
 
 	public override void AttackPrimary()
@@ -28,7 +29,6 @@ partial class AK47 : DeathmatchWeapon
 		TimeSincePrimaryAttack = 0;
 		TimeSinceSecondaryAttack = 0;
 
-		//* infinite ammo
 		if ( !TakeAmmo( 1 ) )
 		{
 			DryFire();
@@ -39,65 +39,16 @@ partial class AK47 : DeathmatchWeapon
 			}
 			return;
 		}
-		//*/
 
 		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 
-		//
 		// Tell the clients to play the shoot effects
-		//
 		ShootEffects();
-		PlaySound( "ak47.shoot" );
+		PlaySound( "rust_smg.shoot" );
 
-		//
 		// Shoot the bullets
-		//
-		ShootBullet( 0.1f, .5f, 12.0f, 3.0f );
+		ShootBullet( 0.1f, 1.5f, 12.0f, 3.0f );
 
-	}
-
-	public override void AttackSecondary()
-	{
-		// Screw this for now
-		return;
-
-		/*TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
-
-		if ( Owner is not HumanPlayer player ) return;
-
-		if ( !TakeAmmo( 10 ) )//Using SMG ammo for now.
-		{
-			Reload();
-			return;
-		}
-
-		// woosh sound
-		// screen shake
-
-		Rand.SetSeed( Time.Tick );
-
-		if ( IsServer )
-		{
-			var grenade = new SMGGrenade
-			{
-				Position = Owner.EyePosition + Owner.EyeRotation.Forward * 3.0f,
-				Owner = Owner
-			};
-
-			grenade.PhysicsBody.Velocity = Owner.EyeRotation.Forward * 1600.0f + Owner.EyeRotation.Up * 200.0f + Owner.Velocity;
-
-			// This is fucked in the head, lets sort this this year
-			grenade.CollisionGroup = CollisionGroup.Debris;
-			grenade.SetInteractsExclude( CollisionLayer.Player );
-			grenade.SetInteractsAs( CollisionLayer.Debris );
-		}
-
-		if ( IsServer && AmmoClip == 0 && player.AmmoCount( AmmoType.Grenade ) == 0 )
-		{
-			Delete();
-			player.SwitchToBestWeapon();
-		}*/
 	}
 
 	[ClientRpc]
@@ -114,12 +65,13 @@ partial class AK47 : DeathmatchWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
-		anim.SetAnimParameter( "holdtype", 2 ); // TODO this is shit
+		anim.SetAnimParameter( "holdtype", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
+		// one day I will make my own crosshairs!
 		var draw = Render.Draw2D;
 
 		var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );

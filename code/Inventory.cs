@@ -12,15 +12,17 @@ partial class DmInventory : BaseInventory
 	public override bool Add( Entity ent, bool makeActive = false )
 	{
 		var player = Owner as HumanPlayer;
-		var weapon = ent as DeathmatchWeapon;
+		var weapon = ent as BaseZomWeapon;
 		var notices = !player.SupressPickupNotices;
 
 		if ( weapon == null )
 			return false;
-		//
+
+		// todo: clean this up
 		// We don't want to pick up the same weapon twice
 		// But we'll take the ammo from it Winky Face
 		//
+		/*
 		if ( weapon != null && IsCarryingType( ent.GetType() ) )
 		{
 			var ammo = weapon.AmmoClip;
@@ -45,6 +47,7 @@ partial class DmInventory : BaseInventory
 			ent.Delete();
 			return false;
 		}
+		*/
 
 		if ( !base.Add( ent, makeActive ) )
 			return false;

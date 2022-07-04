@@ -19,7 +19,7 @@ public class InventoryColumn : Panel
 		Header = Add.Label( $"{i + 1}", "slot-number" );
 	}
 
-	internal void UpdateWeapon( DeathmatchWeapon weapon )
+	internal void UpdateWeapon( BaseZomWeapon weapon )
 	{
 		var icon = ChildrenOfType<InventoryIcon>().FirstOrDefault( x => x.Weapon == weapon );
 		if ( icon == null )
@@ -32,9 +32,9 @@ public class InventoryColumn : Panel
 
 	}
 
-	internal void TickSelection( DeathmatchWeapon selectedWeapon )
+	internal void TickSelection( BaseZomWeapon selectedWeapon )
 	{
-		SetClass( "active", selectedWeapon?.Bucket == Column );
+		//SetClass( "active", selectedWeapon?.Bucket == Column );
 
 		for ( int i = 0; i < Icons.Count; i++ )
 		{

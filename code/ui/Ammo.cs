@@ -23,7 +23,7 @@ public class Ammo : Panel
 		var player = Local.Pawn as Player;
 		if ( player == null ) return;
 
-		var weapon = player.ActiveChild as DeathmatchWeapon;
+		var weapon = player.ActiveChild as BaseZomWeapon;
 		SetClass( "active", weapon != null );
 
 		if ( weapon == null ) return;
@@ -42,14 +42,14 @@ public class Ammo : Panel
 		UpdateAmmoBar( weapon );
 	}
 
-	void RebuildAmmoBar( DeathmatchWeapon weapon )
+	void RebuildAmmoBar( BaseZomWeapon weapon )
 	{
 		AmmoBar.DeleteChildren( true );
 		BulletPanels.Clear();
 
-		AmmoBar.SetClass( "is-crossbow", weapon is Crossbow );
-		AmmoBar.SetClass( "is-shotgun", weapon is Shotgun );
-		AmmoBar.SetClass( "is-smg", weapon is SMG );
+		//AmmoBar.SetClass( "is-crossbow", weapon is Crossbow );
+		//AmmoBar.SetClass( "is-shotgun", weapon is Shotgun );
+		//AmmoBar.SetClass( "is-smg", weapon is SMG );
 
 		for ( int i = 0; i < weapon.ClipSize; i++ )
 		{
@@ -58,7 +58,7 @@ public class Ammo : Panel
 		}
 	}
 
-	void UpdateAmmoBar( DeathmatchWeapon weapon )
+	void UpdateAmmoBar( BaseZomWeapon weapon )
 	{
 		for ( int i = 0; i < BulletPanels.Count; i++ )
 		{

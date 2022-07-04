@@ -8,10 +8,10 @@ namespace ZombieHorde;
 public class InventoryBar : Panel
 {
 	List<InventoryColumn> columns = new();
-	List<DeathmatchWeapon> Weapons = new();
+	List<BaseZomWeapon> Weapons = new();
 
 	public bool IsOpen;
-	DeathmatchWeapon SelectedWeapon;
+	BaseZomWeapon SelectedWeapon;
 
 	public InventoryBar()
 	{
@@ -32,11 +32,11 @@ public class InventoryBar : Panel
 		if ( player == null ) return;
 
 		Weapons.Clear();
-		Weapons.AddRange( player.Children.Select( x => x as DeathmatchWeapon ).Where( x => x.IsValid() && x.IsUsable() ) );
+		Weapons.AddRange( player.Children.Select( x => x as BaseZomWeapon ).Where( x => x.IsValid() && x.IsUsable() ) );
 
 		foreach ( var weapon in Weapons )
 		{
-			columns[weapon.Bucket].UpdateWeapon( weapon );
+			columns[1].UpdateWeapon( weapon );
 		}
 	}
 
@@ -69,7 +69,7 @@ public class InventoryBar : Panel
 		// We're not open, but we want to be
 		if ( IsOpen != wantOpen )
 		{
-			SelectedWeapon = localPlayer?.ActiveChild as DeathmatchWeapon;
+			SelectedWeapon = localPlayer?.ActiveChild as BaseZomWeapon;
 			IsOpen = true;
 		}
 
@@ -88,7 +88,7 @@ public class InventoryBar : Panel
 			return;
 		}
 
-		var sortedWeapons = Weapons.OrderBy( x => x.Order ).ToList();
+		var sortedWeapons = Weapons.ToList();
 
 		// get our current index
 		var oldSelected = SelectedWeapon;
@@ -114,7 +114,7 @@ public class InventoryBar : Panel
 		}
 	}
 
-	int SlotPressInput( InputBuilder input, int SelectedIndex, List<DeathmatchWeapon> sortedWeapons )
+	int SlotPressInput( InputBuilder input, int SelectedIndex, List<BaseZomWeapon> sortedWeapons )
 	{
 		var columninput = -1;
 
@@ -127,13 +127,13 @@ public class InventoryBar : Panel
 
 		if ( columninput == -1 ) return SelectedIndex;
 
-		if ( SelectedWeapon.IsValid() && SelectedWeapon.Bucket == columninput )
+		if ( SelectedWeapon.IsValid() && S1 == columninput )
 		{
 			return NextInBucket( sortedWeapons );
 		}
 
 		// Are we already selecting a weapon with this column?
-		var firstOfColumn = sortedWeapons.Where( x => x.Bucket == columninput ).FirstOrDefault();
+		var firstOfColumn = sortedWeapons.Where( true ).FirstOrDefault();
 		if ( firstOfColumn == null )
 		{
 			// DOOP sound
@@ -143,12 +143,12 @@ public class InventoryBar : Panel
 		return sortedWeapons.IndexOf( firstOfColumn );
 	}
 
-	int NextInBucket( List<DeathmatchWeapon> sortedWeapons )
+	int NextInBucket( List<BaseZomWeapon> sortedWeapons )
 	{
 		Assert.NotNull( SelectedWeapon );
 
-		DeathmatchWeapon first = null;
-		DeathmatchWeapon prev = null;
+		BaseZomWeapon first = null;
+		BaseZomWeapon prev = null;
 		foreach ( var weapon in sortedWeapons.Where( x => x.Bucket == SelectedWeapon.Bucket ) )
 		{
 			if ( first == null ) first = weapon;
