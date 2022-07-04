@@ -23,7 +23,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public TimeSince TimeSinceDeployed { get; set; }
 	[Net, Predicted]
 	public TimeSince TimeSinceShove { get; set; }
-	[Net, Predicted]
+	[Net]
 	public bool OverridingAnimator { get; set; } = false;
 
 
@@ -169,7 +169,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 			}
 		}
 
-		await Task.Delay( 400 );
+		await Task.Delay( 210 );
 		OverridingAnimator = false;
 	}
 

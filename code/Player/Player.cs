@@ -180,6 +180,7 @@ public partial class HumanPlayer : Player, IUse
 		}
 
 		TickPlayerUse();
+		TickFlashlight();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
