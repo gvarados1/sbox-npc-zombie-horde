@@ -29,6 +29,7 @@ public partial class CommonZombie : BaseZombie
 	public float RunSpeed = Rand.Float( 260, 280 );
 	public TimeSince TimeSinceAttacked = 0;
 	public float AttackSpeed = .8f;
+	public TimeUntil TimeUntilUnstunned = 0;
 
 	public override void Spawn()
 	{
@@ -56,38 +57,49 @@ public partial class CommonZombie : BaseZombie
 		}
 		else if ( ZombieState == ZombieState.Chase )
 		{
+			if(Steer == null )
+			{
+				if ( !Target.IsValid() ) FindTarget();
+				if ( Target.LifeState == LifeState.Dead ) FindTarget();
+				Steer = new NavSteer();
+				Steer.Target = Target.Position;
+			}
 			if ( Target != null )
 			{
-				//  temporary move npc
-				var distanceToTarget = (Position - Steer.Target).Length;
-
-				// update more often if close to target
-				if ( distanceToTarget < 100 )
+				// don't do anything if stunned
+				if(TimeUntilUnstunned < 0 )
 				{
-					if ( !Target.IsValid() ) FindTarget();
-					if ( Target.LifeState == LifeState.Dead) FindTarget();
-					Steer.Target = Target.Position;
-				}
-				else if ( Rand.Int( 10 ) == 1 )
-				{
-					if ( !Target.IsValid() ) FindTarget();
-					if ( Target.LifeState == LifeState.Dead ) FindTarget();
-					Steer = new NavSteer();
-					//npc.Steer.Target = tr.EndPos;
-					Steer.Target = Target.Position;
-				}
+					//  temporary move npc
+					var distanceToTarget = (Position - Steer.Target).Length;
 
-				//  randomly play sounds
-				if ( Rand.Int( 300 ) == 1 )
-					PlaySound( "zombie.attack" );
-
-				// attack if near target
-				if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
-				{
-					if ( (Position - Target.Position).Length < 80 )
+					// update more often if close to target
+					if ( distanceToTarget < 100 )
 					{
-						MeleeAttack();
-						TimeSinceAttacked = 0;
+						if ( !Target.IsValid() ) FindTarget();
+						if ( Target.LifeState == LifeState.Dead ) FindTarget();
+						Steer.Target = Target.Position;
+					}
+					else if ( Rand.Int( 10 ) == 1 )
+					{
+						if ( !Target.IsValid() ) FindTarget();
+						if ( Target.LifeState == LifeState.Dead ) FindTarget();
+						Steer = new NavSteer();
+						//npc.Steer.Target = tr.EndPos;
+						Steer.Target = Target.Position;
+					}
+
+					//  randomly play sounds
+					if ( Rand.Int( 300 ) == 1 )
+						PlaySound( "zombie.attack" );
+
+					// attack if near target
+					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
+					{
+						if ( (Position - Target.Position).Length < 80 )
+						{
+							MeleeAttack();
+							TimeSinceAttacked = 0;
+						}
 					}
 				}
 			}
@@ -105,6 +117,12 @@ public partial class CommonZombie : BaseZombie
 			CheckForDeletion();	
 		}
 		base.Tick();
+	}
+
+	public void Stun(float seconds )
+	{
+		TimeUntilUnstunned = seconds;
+		Steer = null;
 	}
 
 	// start chase with existing target

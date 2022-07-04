@@ -151,10 +151,11 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		}
 		if ( IsServer )
 		{
+			TryAlertZombies( Owner, 1, 50f, Owner.EyePosition + forward * 60 );
 			//DebugOverlay.Sphere( Owner.EyePosition + forward * 60, 50, Color.Yellow, .5f );
-			foreach ( var zom in Entity.FindInSphere( Owner.EyePosition + forward * 60, 50 ) )
+			foreach ( var overlap in Entity.FindInSphere( Owner.EyePosition + forward * 60, 50 ) )
 			{
-				if ( zom is BaseZombie )
+				if ( overlap is CommonZombie zom )
 				{
 					var damageInfo = DamageInfo.FromBullet( Position, forward * 100, 15 )
 						.WithAttacker( Owner )
@@ -162,6 +163,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 
 					zom.TakeDamage( damageInfo );
 
+					zom.Stun( 1.5f );
 					zom.Velocity = forward * 200;
 				}
 			}
