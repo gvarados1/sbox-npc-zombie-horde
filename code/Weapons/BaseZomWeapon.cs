@@ -96,12 +96,6 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 				{
 					TimeSinceSecondaryAttack = 0;
 					AttackSecondary();
-
-					if(TimeSinceReload < ReloadTime * .75f )
-					{
-						ViewModelEntity?.SetAnimParameter( "fire", true );
-						IsReloading = false;
-					}
 				}
 			}
 		}
@@ -185,10 +179,19 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 
 	public async void MeleeAttack()
 	{
+		// pause reloading
+		var wasReloading = IsReloading;
+		var timeSinceReload = TimeSinceReload;
+		if ( wasReloading )
+		{
+			// when I make my own weapons I will be able store/pause reload states during melee shove. Currently we have to start the animation over (even though reloading doesn't restart)
+			IsReloading = false;
+		}
+
 		PlaySound( "dm.crowbar_attack" );
 		var ply = (Owner as AnimatedEntity);
 		OverridingAnimator = true;
-		//ViewModelEntity?.SetAnimParameter( "fire", true );
+		ViewModelEntity?.SetAnimParameter( "fire", true );
 		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation();
 		ply.SetAnimParameter( "holdtype", 5 );
 		ply.SetAnimParameter( "b_attack", true );
@@ -233,6 +236,13 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 
 		await Task.Delay( 210 );
 		OverridingAnimator = false;
+
+		// continue reloading
+		if ( wasReloading )
+		{
+			Reload();
+			TimeSinceReload = timeSinceReload;
+		}
 	}
 
 	public virtual IEnumerable<TraceResult> TraceShove( Vector3 start, Vector3 end, float radius = 2.0f )
