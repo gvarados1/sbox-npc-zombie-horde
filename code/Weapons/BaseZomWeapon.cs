@@ -96,7 +96,12 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 				{
 					TimeSinceSecondaryAttack = 0;
 					AttackSecondary();
-					IsReloading = false;
+
+					if(TimeSinceReload < ReloadTime * .75f )
+					{
+						ViewModelEntity?.SetAnimParameter( "fire", true );
+						IsReloading = false;
+					}
 				}
 			}
 		}
