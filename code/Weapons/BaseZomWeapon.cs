@@ -270,7 +270,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		Rand.SetSeed( Time.Tick );
 
 		spread *= SpreadMultiplier;
-		Log.Info( spread + ", " + SpreadMultiplier );
+		//Log.Info( spread + ", " + SpreadMultiplier );
 
 		SpreadMultiplier *= ShotSpreadMultiplier;
 
