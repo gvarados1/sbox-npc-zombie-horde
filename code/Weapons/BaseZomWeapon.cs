@@ -27,7 +27,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public TimeSince TimeSinceShove { get; set; }
 	[Net]
 	public bool OverridingAnimator { get; set; } = false;
-	[Net,Local, Predicted]
+	[Net, Local, Predicted]
 	public float SpreadMultiplier { get; set; } = 1;
 
 
