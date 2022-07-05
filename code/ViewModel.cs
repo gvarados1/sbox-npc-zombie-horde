@@ -20,7 +20,7 @@ partial class ZomViewModel : BaseViewModel
 
 	public async void PlayMeleeAnimation()
 	{
-		RotationTarget = Rotation.FromPitch( -10 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
+		RotationTarget = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
 		RotationLerpSpeed = .3f;
 		await Task.Delay( 180 );
 		RotationTarget = Rotation.Identity;
