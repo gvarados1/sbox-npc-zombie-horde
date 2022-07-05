@@ -2,8 +2,9 @@
 partial class ZomViewModel : BaseViewModel
 {
 	float walkBob = 0;
+	private Rotation MeleeRotationOffset, MeleeRotationTarget = Rotation.Identity;
 	private Rotation RotationOffset, RotationTarget = Rotation.Identity;
-	private float RotationLerpSpeed = .2f;
+	private float MeleeRotationLerpSpeed = .2f;
 	public override void PostCameraSetup( ref CameraSetup camSetup )
 	{
 		base.PostCameraSetup( ref camSetup );
@@ -12,19 +13,24 @@ partial class ZomViewModel : BaseViewModel
 
 		AddCameraEffects( ref camSetup );
 
+		MeleeRotationOffset = Rotation.Lerp( MeleeRotationOffset, MeleeRotationTarget, MeleeRotationLerpSpeed );
+
+		var maxAngle = 5;
+		RotationTarget = Rotation.FromYaw( Math.Clamp(Input.MouseDelta.x * -.5f, -maxAngle, maxAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxAngle, maxAngle ) );
+		RotationOffset = Rotation.Lerp( RotationOffset, RotationTarget, .05f );
+
 		Position = camSetup.Position;
-		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * RotationOffset;
-		RotationOffset = Rotation.Lerp( RotationOffset, RotationTarget, RotationLerpSpeed );
+		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeRotationOffset * RotationOffset;
 
 	}
 
 	public async void PlayMeleeAnimation()
 	{
-		RotationTarget = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
-		RotationLerpSpeed = .3f;
+		MeleeRotationTarget = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
+		MeleeRotationLerpSpeed = .3f;
 		await Task.Delay( 180 );
-		RotationTarget = Rotation.Identity;
-		RotationLerpSpeed = .1f;
+		MeleeRotationTarget = Rotation.Identity;
+		MeleeRotationLerpSpeed = .1f;
 	}
 
 	private void AddCameraEffects( ref CameraSetup camSetup )
