@@ -2,7 +2,8 @@
 partial class ZomViewModel : BaseViewModel
 {
 	float walkBob = 0;
-
+	private Rotation RotationOffset, RotationTarget = Rotation.Identity;
+	private float RotationLerpSpeed = .2f;
 	public override void PostCameraSetup( ref CameraSetup camSetup )
 	{
 		base.PostCameraSetup( ref camSetup );
@@ -12,7 +13,18 @@ partial class ZomViewModel : BaseViewModel
 		AddCameraEffects( ref camSetup );
 
 		Position = camSetup.Position;
-		Rotation = camSetup.Rotation * Rotation.FromPitch(5);
+		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * RotationOffset;
+		RotationOffset = Rotation.Lerp( RotationOffset, RotationTarget, RotationLerpSpeed );
+
+	}
+
+	public async void PlayMeleeAnimation()
+	{
+		RotationTarget = Rotation.FromPitch( -10 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
+		RotationLerpSpeed = .3f;
+		await Task.Delay( 180 );
+		RotationTarget = Rotation.Identity;
+		RotationLerpSpeed = .1f;
 	}
 
 	private void AddCameraEffects( ref CameraSetup camSetup )

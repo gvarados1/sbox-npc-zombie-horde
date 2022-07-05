@@ -183,7 +183,8 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		PlaySound( "dm.crowbar_attack" );
 		var ply = (Owner as AnimatedEntity);
 		OverridingAnimator = true;
-		ViewModelEntity?.SetAnimParameter( "fire", true );
+		//ViewModelEntity?.SetAnimParameter( "fire", true );
+		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation();
 		ply.SetAnimParameter( "holdtype", 5 );
 		ply.SetAnimParameter( "b_attack", true );
 
