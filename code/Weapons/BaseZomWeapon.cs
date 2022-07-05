@@ -9,7 +9,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public virtual float BulletSpread => .05f;
 	public virtual float ShotSpreadMultiplier => 2f;
 
-
+	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]
 	public int AmmoClip { get; set; }
 	[Net, Predicted]
@@ -27,7 +27,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public TimeSince TimeSinceShove { get; set; }
 	[Net]
 	public bool OverridingAnimator { get; set; } = false;
-	[Net, Predicted]
+	[Net,Local, Predicted]
 	public float SpreadMultiplier { get; set; } = 1;
 
 
@@ -128,6 +128,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 				targetMultipler *= .75f;
 			}
 
+			// prediction issue: velocity gets set to 0 when shot. this can not be predicted! what do I do?
 			SpreadMultiplier = SpreadMultiplier.LerpTo( targetMultipler, .25f );
 			//SpreadMultiplier = SpreadMultiplier.Clamp( 0, 8 );
 
