@@ -6,6 +6,8 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public virtual float ReloadTime => 3.0f;
 	public virtual WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public virtual int AmmoMax => 60;
+	public virtual float BulletSpread => .05f;
+	public virtual float ShotSpreadMultiplier => 2f;
 
 
 	[Net, Predicted]
@@ -25,6 +27,8 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 	public TimeSince TimeSinceShove { get; set; }
 	[Net]
 	public bool OverridingAnimator { get; set; } = false;
+	[Net, Predicted]
+	public float SpreadMultiplier { get; set; } = 1;
 
 
 
@@ -84,11 +88,63 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		{
 			base.Simulate( owner );
 		}
+		else
+		{
+			if ( CanSecondaryAttack() )
+			{
+				using ( LagCompensation() )
+				{
+					TimeSinceSecondaryAttack = 0;
+					AttackSecondary();
+					IsReloading = false;
+				}
+			}
+		}
 
 		if ( IsReloading && TimeSinceReload > ReloadTime )
 		{
 			OnReloadFinish();
 		}
+
+		AdjustAccuracyMultiplier();
+	}
+
+	public void AdjustAccuracyMultiplier()
+	{
+		if ( Owner is HumanPlayer ply )
+		{
+			var controller = ply.Controller as HumanWalkController;
+			var targetMultipler = 1f;
+
+			targetMultipler = Math.Min( ply.Velocity.WithZ( 0 ).Length / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
+
+
+			
+			if ( controller.GroundEntity == null )
+			{
+				targetMultipler *= 1.2f;
+			}
+			else if ( controller.Duck.IsActive )
+			{
+				targetMultipler *= .75f;
+			}
+
+			SpreadMultiplier = SpreadMultiplier.LerpTo( targetMultipler, .25f );
+			//SpreadMultiplier = SpreadMultiplier.Clamp( 0, 8 );
+
+			//Log.Info( SpreadMultiplier + ", " + targetMultipler);
+		}
+	}
+
+	public override bool CanPrimaryAttack()
+	{
+		if ( TimeSinceShove < .5 ) return false;
+		if ( !Owner.IsValid() || !Input.Down( InputButton.PrimaryAttack ) ) return false;
+
+		var rate = PrimaryRate;
+		if ( rate <= 0 ) return true;
+
+		return TimeSincePrimaryAttack > (1 / rate);
 	}
 
 	public virtual void OnReloadFinish()
@@ -118,7 +174,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		{
 			MeleeAttack();
 			TimeSinceShove = 0;
-			TimeSincePrimaryAttack = 200;
+			//TimeSincePrimaryAttack = -2;
 		}
 	}
 
@@ -213,10 +269,15 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 		//
 		Rand.SetSeed( Time.Tick );
 
+		spread *= SpreadMultiplier;
+		Log.Info( spread + ", " + SpreadMultiplier );
+
+		SpreadMultiplier *= ShotSpreadMultiplier;
+
 		for ( int i = 0; i < bulletCount; i++ )
 		{
 			var forward = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward;
-			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f;
+			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f; //0.25f;
 			forward = forward.Normal;
 
 			//

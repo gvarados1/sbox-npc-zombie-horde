@@ -15,6 +15,8 @@ partial class SMG : BaseZomWeapon
 	public override int AmmoMax => 250;
 	public override float ReloadTime => 4.0f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
+	public override float BulletSpread => .1f;
+	public override float ShotSpreadMultiplier => 1.5f;
 
 	public override void Spawn()
 	{
@@ -28,7 +30,6 @@ partial class SMG : BaseZomWeapon
 	public override void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
 
 		if ( !TakeAmmo( 1 ) )
 		{
@@ -48,7 +49,7 @@ partial class SMG : BaseZomWeapon
 		PlaySound( "rust_smg.shoot" );
 
 		// Shoot the bullets
-		ShootBullet( 0.1f, 1.5f, 12.0f, 3.0f );
+		ShootBullet( BulletSpread, 1.5f, 12.0f, 3.0f );
 
 	}
 
@@ -92,9 +93,12 @@ partial class SMG : BaseZomWeapon
 
 		// outer lines
 		{
-			var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+			//var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+			var shootEase = SpreadMultiplier*1f;
+			//var length = 3.0f + shootEase * 2.0f;
 			var length = 3.0f + shootEase * 2.0f;
-			var gap = 30.0f + shootEase * 50.0f;
+			//var gap = 30.0f + shootEase * 50.0f;
+			var gap = 5.0f + shootEase * 20.0f;
 			var thickness = 2.0f;
 
 			draw.Line( thickness, center + Vector2.Up * gap + Vector2.Left * length, center + Vector2.Up * gap - Vector2.Left * length );
