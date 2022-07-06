@@ -59,13 +59,8 @@ partial class ZombieGame : Game
 		var gameDirector = new GameDirector();
 
 		// create MASTER GAMEMODE!
-		
-	}
-
-	[Event.Entity.PostSpawn]
-	public void PostEntitySpawn()
-	{
 		Gamemode = new SurvivalGamemode();
+
 	}
 
 	public override void ClientJoined( Client cl )
