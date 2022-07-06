@@ -158,6 +158,9 @@ public partial class SurvivalGamemode : BaseGamemode
 			foreach ( var item in Entity.All.OfType<LootBox>().ToArray() )
 				item.Delete();
 
+			foreach ( var item in Entity.All.OfType<AmmoPile>().ToArray() )
+				item.Delete();
+
 			foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
 				item.Delete();
 		}
