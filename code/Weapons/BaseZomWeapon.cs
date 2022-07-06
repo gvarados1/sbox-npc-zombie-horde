@@ -115,7 +115,10 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 			var controller = ply.Controller as HumanWalkController;
 			var targetMultipler = 1f;
 
-			targetMultipler = Math.Min( ply.Velocity.WithZ( 0 ).Length / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
+			// hack: floor velocity to limit prediction errors
+			var adjustedVelocity = MathF.Floor( ply.Velocity.WithZ( 0 ).Length);
+
+			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
 
 
 			
@@ -128,8 +131,10 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 				targetMultipler *= .75f;
 			}
 
-			// prediction issue: velocity gets set to 0 when shot. this can not be predicted! what do I do?
+			// prediction issue: velocity gets set to 0 when attacked. this can not be predicted! what do I do?
 			SpreadMultiplier = SpreadMultiplier.LerpTo( targetMultipler, .25f );
+
+			//SpreadMultiplier = MathF.Floor( SpreadMultiplier * 1000 ) / 1000;
 			//SpreadMultiplier = SpreadMultiplier.Clamp( 0, 8 );
 
 			//Log.Info( SpreadMultiplier + ", " + targetMultipler);
