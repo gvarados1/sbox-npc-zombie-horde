@@ -1,6 +1,6 @@
 ﻿namespace ZombieHorde;
 
-partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
+partial class BaseZomWeapon : BaseWeapon
 {
 	public virtual int ClipSize => 16;
 	public virtual float ReloadTime => 3.0f;

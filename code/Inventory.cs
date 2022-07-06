@@ -60,8 +60,6 @@ partial class DmInventory : BaseInventory
 			PickupFeed.OnPickupWeapon( To.Single( player ), display.Name );
 		}
 
-		ItemRespawn.Taken( ent );
-
 		return true;
 	}
 

@@ -45,8 +45,6 @@ partial class ZombieGame : Game
 	{
 		base.PostLevelLoaded();
 
-		ItemRespawn.Init();
-
 		// hack to disable nav blockers on "static" prop_physics
 		foreach ( var prop in Entity.All.OfType<Prop>().ToArray() )
 			prop.Components.RemoveAll();
