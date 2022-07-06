@@ -1,10 +1,10 @@
 ﻿namespace ZombieHorde;
 
-partial class DmInventory : BaseInventory
+partial class ZomInventory : BaseInventory
 {
 
 
-	public DmInventory( Player player ) : base( player )
+	public ZomInventory( Player player ) : base( player )
 	{
 
 	}

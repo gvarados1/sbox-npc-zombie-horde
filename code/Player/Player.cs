@@ -19,7 +19,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public HumanPlayer()
 	{
-		Inventory = new DmInventory( this );
+		Inventory = new ZomInventory( this );
 	}
 
 	public override void Respawn()
