@@ -240,6 +240,7 @@ partial class BaseZomWeapon : BaseWeapon, IRespawnableEntity
 			}
 		}
 
+		// note: using Task.Delay causes prediction issues here but I don't think I care?
 		await Task.Delay( 210 );
 		OverridingAnimator = false;
 
