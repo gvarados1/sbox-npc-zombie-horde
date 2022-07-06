@@ -80,6 +80,7 @@ public class InventoryBar : Panel
 			return;
 
 		var ent = inventory.GetSlot( i );
+		Log.Info( $"{Host.Name}: {i}, {ent}");
 		if ( player.ActiveChild == ent )
 			return;
 
