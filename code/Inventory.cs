@@ -2,7 +2,12 @@
 
 partial class ZomInventory : BaseInventory
 {
-
+	public BaseZomWeapon Secondary { get; set; } // slot 1
+	public BaseZomWeapon Primary1 { get; set; } //2
+	public BaseZomWeapon Primary2 { get; set; } //3
+	public BaseZomWeapon Grenade { get; set; } //4
+	public BaseZomWeapon Medkit { get; set; } //5
+	public BaseZomWeapon Pills { get; set; } //6
 
 	public ZomInventory( Player player ) : base( player )
 	{
@@ -18,36 +23,31 @@ partial class ZomInventory : BaseInventory
 		if ( weapon == null )
 			return false;
 
-		// todo: clean this up
-		// We don't want to pick up the same weapon twice
-		// But we'll take the ammo from it Winky Face
-		//
-		/*
-		if ( weapon != null && IsCarryingType( ent.GetType() ) )
+		// figure out which weapon we have
+		switch ( weapon.WeaponSlot )
 		{
-			var ammo = weapon.AmmoClip;
-			var ammoType = weapon.AmmoType;
+			case WeaponSlot.Secondary:
+				if ( Secondary.IsValid() ) return false;
+				Secondary = weapon;
+				break;
+			case WeaponSlot.Primary:
+				if ( Secondary.IsValid() ) return false;
+				Secondary = weapon;
+				break;
+			case WeaponSlot.Grenade:
+				if ( Grenade.IsValid() ) return false;
+				Secondary = weapon;
+				break;
+			case WeaponSlot.Medkit:
+				if ( Medkit.IsValid() ) return false;
+				Secondary = weapon;
+				break;
+			case WeaponSlot.Pills:
+				if ( Pills.IsValid() ) return false;
+				Secondary = weapon;
+				break;
 
-			if ( ammo > 0 )
-			{
-				var taken = player.GiveAmmo( ammoType, ammo );
-				if ( taken == 0 )
-					return false;
-
-				if ( notices && taken > 0 )
-				{
-					Sound.FromWorld( "dm.pickup_ammo", ent.Position );
-					PickupFeed.OnPickup( To.Single( player ), $"+{taken} {ammoType}" );
-				}
-			}
-
-			ItemRespawn.Taken( ent );
-
-			// Despawn it
-			ent.Delete();
-			return false;
 		}
-		*/
 
 		if ( !base.Add( ent, makeActive ) )
 			return false;
