@@ -33,13 +33,13 @@ partial class LootBox : Prop
 				"HealthKit",
 				"HealthKit",
 				"HealthKit",
-				"Python",
+				"Magnum",
 				"Shotgun",
 				"SMG",
 				"AK47",
 				"Crossbow",
-				"GrenadeWeapon",
-				"GrenadeWeapon",
+				//"GrenadeWeapon",
+				//"GrenadeWeapon",
 				"TripmineWeapon"
 			};
 

@@ -8,6 +8,7 @@ partial class BaseZomWeapon : BaseWeapon
 	public virtual int AmmoMax => 60;
 	public virtual float BulletSpread => .05f;
 	public virtual float ShotSpreadMultiplier => 2f;
+	public virtual float ShotSpreadLerp => .2f;
 
 	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]
@@ -36,6 +37,7 @@ partial class BaseZomWeapon : BaseWeapon
 	{
 		var owner = Owner as HumanPlayer;
 		if ( owner == null ) return 0;
+		if ( AmmoMax == -1 ) return -1;
 		return AmmoReserve;
 	}
 
@@ -65,7 +67,7 @@ partial class BaseZomWeapon : BaseWeapon
 		if ( AmmoClip >= ClipSize )
 			return;
 
-		if ( AmmoReserve <= 0 )
+		if ( AmmoReserve <= 0 && AmmoMax != -1)
 		{
 			return;
 		}
@@ -108,7 +110,7 @@ partial class BaseZomWeapon : BaseWeapon
 		AdjustAccuracyMultiplier();
 	}
 
-	public void AdjustAccuracyMultiplier()
+	public virtual void AdjustAccuracyMultiplier()
 	{
 		if ( Owner is HumanPlayer ply )
 		{
@@ -132,10 +134,10 @@ partial class BaseZomWeapon : BaseWeapon
 			}
 
 			// prediction issue: velocity gets set to 0 when attacked. this can not be predicted! what do I do?
-			SpreadMultiplier = SpreadMultiplier.LerpTo( targetMultipler, .25f );
+			SpreadMultiplier = SpreadMultiplier.LerpTo( targetMultipler, ShotSpreadLerp );
 
 			//SpreadMultiplier = MathF.Floor( SpreadMultiplier * 1000 ) / 1000;
-			//SpreadMultiplier = SpreadMultiplier.Clamp( 0, 8 );
+			SpreadMultiplier = SpreadMultiplier.Clamp( 0, 12 );
 
 			//Log.Info( SpreadMultiplier + ", " + targetMultipler);
 		}
@@ -155,6 +157,13 @@ partial class BaseZomWeapon : BaseWeapon
 	public virtual void OnReloadFinish()
 	{
 		IsReloading = false;
+		
+		// infinite ammo?
+		if(AmmoMax == -1 )
+		{
+			AmmoClip = ClipSize;
+			return;
+		}
 
 		var ammo = Math.Min(AmmoReserve, ClipSize - AmmoClip);
 
@@ -401,7 +410,7 @@ partial class BaseZomWeapon : BaseWeapon
 	public virtual void RenderHud( in Vector2 screensize )
 	{
 		var scale = Screen.Height / 1080.0f;
-		var center = new Vector2(Screen.Width * .5f / scale, Screen.Height * .56f / scale);
+		var center = new Vector2(Screen.Width * .5f / scale, Screen.Height * .565f / scale);
 
 		if ( IsReloading || (AmmoClip == 0 && ClipSize > 1) )
 			CrosshairLastReload = 0;

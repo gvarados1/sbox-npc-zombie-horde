@@ -42,10 +42,8 @@ public partial class HumanPlayer : Player, IUse
 		SupressPickupNotices = true;
 
 		Inventory.DeleteContents();
-		/*
-		Inventory.Add( new Crowbar() );
+
 		Inventory.Add( new Pistol(), true );
-		*/
 
 		SupressPickupNotices = false;
 		Health = 100;
@@ -244,7 +242,7 @@ public partial class HumanPlayer : Player, IUse
 		if ( best == null ) return;
 
 		// let's not do this yet
-		//ActiveChild = best;
+		ActiveChild = best;
 	}
 
 	public override void StartTouch( Entity other )
