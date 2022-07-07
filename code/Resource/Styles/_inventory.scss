@@ -2,28 +2,30 @@
 {
 	position: absolute;
 	width: 100%;
-	bottom: 48px;
+	bottom: 106px;
 	justify-content: center;
 	align-items: flex-end;
+	flex-direction: column-reverse;
 }
 
-InventoryIcon
-{
-	width: 80px;
-	height: 80px;
-	margin: 0px 2px;
+InventoryIcon {
+	width: 85px;
+	height: 75px;
+	margin: 0px 100px;
 	position: relative;
 	transition: all 0.6s ease-in-out;
 	margin-top: 10px;
-	font-family: poppins;
-	background-color: rgba( #333, 0.3 );
-	backdrop-filter: blur( 50px );
-	border-radius: 10px;
+	//font-family: poppins;
+	font-family: Roboto;
+	//background-color: rgba( #4F9C87, .1 );
+	background-color: rgba( #fa02, .1 );
+	backdrop-filter: blur( 2px );
+	border: 1px solid rgba( #fa0, 0.08 );
+	border-radius: 3px;
 
-	.item-name
-	{
+	.item-name {
 		padding: 5px;
-		color: white;
+		color: #fc0;
 		text-align: center;
 		left: 0;
 		right: 0;
@@ -36,10 +38,9 @@ InventoryIcon
 		mix-blend-mode: lighten;
 	}
 
-	.slot-number
-	{
+	.slot-number {
 		font-size: 25px;
-		color: black;
+		color: #fc0;
 		font-weight: 900;
 		opacity: 0.3;
 		position: absolute;
@@ -47,24 +48,23 @@ InventoryIcon
 		right: 5px;
 	}
 
-	&.active
-	{
-		background-color: rgba( #3472e6, 1 );
+	&.active {
+		//background-color: rgba( #52B37D, .5 );
+		background-color: rgba( f50, .5 );
 		transition: all 0.1s ease-out;
-		width: 100px;
-		height: 100px;
+		width: 95px;
+		height: 90px;
 
-		.slot-number
-		{
-			color: #fff;
-			opacity : 1;
+		.slot-number {
+			//color: #fff;
+			color: #ff0;
+			opacity: 1;
 		}
 
-		.item-name
-		{
+		.item-name {
 			opacity: 1;
 			transition: all 0.1s ease-out;
-			font-size: 13px;
+			font-size: 15px;
 		}
 	}
 }
