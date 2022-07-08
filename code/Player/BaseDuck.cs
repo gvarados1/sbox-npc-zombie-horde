@@ -26,7 +26,7 @@ namespace Sandbox
 			if ( IsActive )
 			{
 				Controller.SetTag( "ducked" );
-				Controller.EyeLocalPosition *= 0.5f;
+				Controller.EyeLocalPosition *= 0.6f;
 			}
 		}
 
@@ -54,7 +54,7 @@ namespace Sandbox
 			originalMaxs = maxs;
 
 			if ( IsActive )
-				maxs = maxs.WithZ( 36 * scale );
+				maxs = maxs.WithZ( 42 * scale ); //36 default
 		}
 
 		//
