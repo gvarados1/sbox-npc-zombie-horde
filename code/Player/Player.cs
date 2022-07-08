@@ -209,15 +209,6 @@ public partial class HumanPlayer : Player, IUse
 
 		SimulateActiveChild( cl, ActiveChild );
 
-		//
-		// If the current weapon is out of ammo and we last fired it over half a second ago
-		// lets try to switch to a better wepaon
-		//
-		if ( ActiveChild is BaseZomWeapon weapon && !weapon.IsUsable() && weapon.TimeSincePrimaryAttack > 0.5f && weapon.TimeSinceSecondaryAttack > 0.5f )
-		{
-			SwitchToBestWeapon();
-		}
-
 		//passively heal up to 20 hp
 		if ( Host.IsServer )
 		{
