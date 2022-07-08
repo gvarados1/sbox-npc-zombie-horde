@@ -43,7 +43,7 @@ partial class ZomViewModel : BaseViewModel
 			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2f;
 		}
 
-		if ( Owner.LifeState == LifeState.Alive && ((Owner as HumanPlayer).Controller as HumanWalkController).Duck.IsActive ) // big chonker to check if player is ducking
+		if ( Owner.LifeState == LifeState.Alive && ((Owner as HumanPlayer).Controller as BaseZomWalkController).Duck.IsActive ) // big chonker to check if player is ducking
 		{
 			var maxSwayAngle = 2;
 			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );

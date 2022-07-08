@@ -1,6 +1,6 @@
 ﻿namespace ZombieHorde;
 
-public partial class IncapacitatedController : WalkController
+public partial class IncapacitatedController : BaseZomWalkController
 	{
 	public IncapacitatedController()
 	{
