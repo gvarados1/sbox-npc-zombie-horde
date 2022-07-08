@@ -430,7 +430,7 @@ public partial class HumanPlayer : Player, IUse
 	}
 	public void RenderHud( Vector2 screenSize )
 	{
-		if ( LifeState != LifeState.Alive )
+		if ( LifeState != LifeState.Alive && LifeState != LifeState.Dying )
 			return;
 
 		if ( ActiveChild is BaseZomWeapon weapon )
