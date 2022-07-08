@@ -10,7 +10,7 @@ partial class Magnum : BaseZomWeapon
 
 	public override float PrimaryRate => 20.0f;
 	public override float SecondaryRate => 1.0f;
-	public override float ReloadTime => 1.7f;
+	public override float ReloadTime => 2f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
 	public override float BulletSpread => .05f;
 	public override float ShotSpreadMultiplier => 5f;
@@ -72,7 +72,10 @@ partial class Magnum : BaseZomWeapon
 			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 3.5f ) * 1.8f - .4f;
 
 
-
+			if ( adjustedVelocity == 0 )
+			{
+				targetMultipler *= .5f;
+			}
 			if ( controller.GroundEntity == null )
 			{
 				targetMultipler *= 2.2f;
