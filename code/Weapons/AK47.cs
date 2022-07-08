@@ -54,7 +54,7 @@ partial class AK47 : BaseZomWeapon
 		//
 		// Shoot the bullets
 		//
-		ShootBullet( BulletSpread, .5f, 12.0f, 3.0f );
+		ShootBullet( BulletSpread, .5f, 14.0f, 3.0f );
 
 	}
 
