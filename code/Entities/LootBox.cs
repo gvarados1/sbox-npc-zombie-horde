@@ -40,7 +40,8 @@ partial class LootBox : Prop
 				"Crossbow",
 				//"GrenadeWeapon",
 				//"GrenadeWeapon",
-				"TripmineWeapon"
+				"TripmineWeapon",
+				"AmmoPile"
 			};
 
 		for (var i = 0; i < Rand.Int(2)+1; i++ )

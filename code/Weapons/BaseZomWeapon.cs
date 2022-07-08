@@ -136,6 +136,13 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	{
 		if ( Owner is HumanPlayer ply )
 		{
+			if ( Owner.LifeState != LifeState.Alive )
+			{
+				SpreadMultiplier = SpreadMultiplier.LerpTo( 1, ShotSpreadLerp );
+				SpreadMultiplier = SpreadMultiplier.Clamp( 0, 12 );
+				return;
+			}
+
 			var controller = ply.Controller as HumanWalkController;
 			var targetMultipler = 1f;
 
