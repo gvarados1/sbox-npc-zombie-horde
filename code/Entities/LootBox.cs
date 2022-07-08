@@ -19,6 +19,8 @@ partial class LootBox : Prop
 		Transmit = TransmitType.Always;
 		EnableDrawOverWorld = true;
 
+		Health = 15;
+
 		//CollisionGroup = CollisionGroup.Debris;
 		//SetInteractsAs( CollisionLayer.Debris ); 
 	}
@@ -31,13 +33,13 @@ partial class LootBox : Prop
 				"HealthKit",
 				"HealthKit",
 				"HealthKit",
-				"Python",
+				"Magnum",
 				"Shotgun",
 				"SMG",
 				"AK47",
 				"Crossbow",
-				"GrenadeWeapon",
-				"GrenadeWeapon",
+				//"GrenadeWeapon",
+				//"GrenadeWeapon",
 				"TripmineWeapon"
 			};
 

@@ -19,7 +19,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public HumanPlayer()
 	{
-		Inventory = new DmInventory( this );
+		Inventory = new ZomInventory( this );
 	}
 
 	public override void Respawn()
@@ -28,7 +28,7 @@ public partial class HumanPlayer : Player, IUse
 
 		Controller = new HumanWalkController();
 
-		Animator = new StandardPlayerAnimator();
+		Animator = new HumanPlayerAnimator();
 
 		CameraMode = new FirstPersonCamera();
 
@@ -37,24 +37,13 @@ public partial class HumanPlayer : Player, IUse
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		ClearAmmo();
 		Clothing.DressEntity( this );
 
 		SupressPickupNotices = true;
 
 		Inventory.DeleteContents();
-		Inventory.Add( new Crowbar() );
+
 		Inventory.Add( new Pistol(), true );
-
-		GiveAmmo( AmmoType.Pistol, 2500 );
-
-		//temp give a ton of ammo
-		GiveAmmo( AmmoType.Pistol, 1000 );
-		GiveAmmo( AmmoType.Python, 1000 );
-		GiveAmmo( AmmoType.Buckshot, 1000 );
-		GiveAmmo( AmmoType.Crossbow, 1000 );
-		GiveAmmo( AmmoType.Grenade, 1000 );
-		GiveAmmo( AmmoType.Tripmine, 1000 );
 
 		SupressPickupNotices = false;
 		Health = 100;
@@ -69,7 +58,7 @@ public partial class HumanPlayer : Player, IUse
 	{
 		SetModel( "models/citizen/citizen.vmdl" );
 
-		Animator = new StandardPlayerAnimator();
+		Animator = new HumanPlayerAnimator();
 
 		CameraMode = new SpectatePlayerCamera();
 
@@ -89,6 +78,9 @@ public partial class HumanPlayer : Player, IUse
 	{
 		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
+		ply.Inventory.Add( new SMG() );
+
+		/*
 		ply.GiveAmmo( AmmoType.Pistol, 1000 );
 		ply.GiveAmmo( AmmoType.Python, 1000 );
 		ply.GiveAmmo( AmmoType.Buckshot, 1000 );
@@ -104,6 +96,7 @@ public partial class HumanPlayer : Player, IUse
 		ply.Inventory.Add( new GrenadeWeapon() );
 		ply.Inventory.Add( new TripmineWeapon() );
 		ply.Inventory.Add( new NpcSpawner() );
+		*/
 	}
 
 	[ConCmd.Admin]
@@ -117,13 +110,6 @@ public partial class HumanPlayer : Player, IUse
 	public override void OnKilled()
 	{
 		base.OnKilled();
-
-		var coffin = new Coffin();
-		coffin.Position = Position + Vector3.Up * 30;
-		coffin.Rotation = Rotation;
-		coffin.PhysicsBody.Velocity = Velocity + Rotation.Forward * 100;
-
-		coffin.Populate( this );
 
 		Inventory.DeleteContents();
 
@@ -192,6 +178,7 @@ public partial class HumanPlayer : Player, IUse
 		}
 
 		TickPlayerUse();
+		TickFlashlight();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
@@ -222,15 +209,6 @@ public partial class HumanPlayer : Player, IUse
 
 		SimulateActiveChild( cl, ActiveChild );
 
-		//
-		// If the current weapon is out of ammo and we last fired it over half a second ago
-		// lets try to switch to a better wepaon
-		//
-		if ( ActiveChild is DeathmatchWeapon weapon && !weapon.IsUsable() && weapon.TimeSincePrimaryAttack > 0.5f && weapon.TimeSinceSecondaryAttack > 0.5f )
-		{
-			SwitchToBestWeapon();
-		}
-
 		//passively heal up to 20 hp
 		if ( Host.IsServer )
 		{
@@ -247,13 +225,14 @@ public partial class HumanPlayer : Player, IUse
 
 	public void SwitchToBestWeapon()
 	{
-		var best = Children.Select( x => x as DeathmatchWeapon )
+		var best = Children.Select( x => x as BaseZomWeapon )
 			.Where( x => x.IsValid() && x.IsUsable() )
-			.OrderByDescending( x => x.BucketWeight )
+			//.OrderByDescending( x => x.BucketWeight )
 			.FirstOrDefault();
 
 		if ( best == null ) return;
 
+		// let's not do this yet
 		ActiveChild = best;
 	}
 
@@ -453,7 +432,7 @@ public partial class HumanPlayer : Player, IUse
 		if ( LifeState != LifeState.Alive )
 			return;
 
-		if ( ActiveChild is DeathmatchWeapon weapon )
+		if ( ActiveChild is BaseZomWeapon weapon )
 		{
 			weapon.RenderHud( screenSize );
 		}

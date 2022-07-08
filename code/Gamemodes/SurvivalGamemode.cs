@@ -152,16 +152,13 @@ public partial class SurvivalGamemode : BaseGamemode
 			foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
 				npc.Delete();
 
-			foreach ( var item in Entity.All.OfType<DeathmatchWeapon>().ToArray() )
+			foreach ( var item in Entity.All.OfType<BaseZomWeapon>().ToArray() )
 				item.Delete();
 
 			foreach ( var item in Entity.All.OfType<LootBox>().ToArray() )
 				item.Delete();
 
-			foreach ( var item in Entity.All.OfType<Coffin>().ToArray() )
-				item.Delete();
-
-			foreach ( var item in Entity.All.OfType<BaseAmmo>().ToArray() )
+			foreach ( var item in Entity.All.OfType<AmmoPile>().ToArray() )
 				item.Delete();
 
 			foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )

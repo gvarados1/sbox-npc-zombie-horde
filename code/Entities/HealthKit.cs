@@ -8,7 +8,7 @@ namespace ZombieHorde;
 [Library( "dm_healthkit" ), HammerEntity]
 [EditorModel( "models/gameplay/healthkit/healthkit.vmdl" )]
 [Title( "Health Kit" )]
-partial class HealthKit : ModelEntity, IRespawnableEntity
+partial class HealthKit : ModelEntity
 {
 	public static readonly Model WorldModel = Model.Load( "models/gameplay/healthkit/healthkit.vmdl" );
 
@@ -39,7 +39,6 @@ partial class HealthKit : ModelEntity, IRespawnableEntity
 		pl.Health = newhealth;
 
 		Sound.FromWorld( "dm.item_health", Position );
-		ItemRespawn.Taken( this );
 		Delete();
 	}
 }

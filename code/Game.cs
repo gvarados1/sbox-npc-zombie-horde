@@ -45,8 +45,6 @@ partial class ZombieGame : Game
 	{
 		base.PostLevelLoaded();
 
-		ItemRespawn.Init();
-
 		// hack to disable nav blockers on "static" prop_physics
 		foreach ( var prop in Entity.All.OfType<Prop>().ToArray() )
 			prop.Components.RemoveAll();
@@ -61,13 +59,8 @@ partial class ZombieGame : Game
 		var gameDirector = new GameDirector();
 
 		// create MASTER GAMEMODE!
-		
-	}
-
-	[Event.Entity.PostSpawn]
-	public void PostEntitySpawn()
-	{
 		Gamemode = new SurvivalGamemode();
+
 	}
 
 	public override void ClientJoined( Client cl )
