@@ -1,6 +1,8 @@
-﻿namespace ZombieHorde;
+﻿using Sandbox.Component;
 
-partial class BaseZomWeapon : BaseWeapon
+namespace ZombieHorde;
+
+partial class BaseZomWeapon : BaseWeapon, IUse
 {
 	public virtual int ClipSize => 16;
 	public virtual float ReloadTime => 3.0f;
@@ -57,6 +59,26 @@ partial class BaseZomWeapon : BaseWeapon
 		base.Spawn();
 
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
+
+		var glow = Components.GetOrCreate<Glow>();
+		glow.Active = true;
+		glow.Color = Color.Yellow;
+		glow.RangeMin = 0;
+		glow.RangeMax = int.MaxValue;
+	}
+
+	public override void OnCarryStart( Entity carrier )
+	{
+		base.OnCarryStart( carrier );
+		var glow = Components.GetOrCreate<Glow>();
+		glow.Active = false;
+	}
+
+	public override void OnCarryDrop( Entity dropper )
+	{
+		base.OnCarryDrop( dropper );
+		var glow = Components.GetOrCreate<Glow>();
+		glow.Active = true;
 	}
 
 	public override void Reload()
@@ -421,6 +443,20 @@ partial class BaseZomWeapon : BaseWeapon
 	public virtual void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
 		var draw = Render.Draw2D;
+	}
+
+	public bool OnUse( Entity user )
+	{
+		var ply = user as HumanPlayer;
+		if ( ply.LifeState != LifeState.Alive ) return false;
+
+		ply.Inventory.Add( this, true );
+		return true;
+	}
+
+	public bool IsUsable( Entity user )
+	{
+		return true;
 	}
 }
 
