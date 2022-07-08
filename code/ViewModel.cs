@@ -2,7 +2,7 @@
 partial class ZomViewModel : BaseViewModel
 {
 	private float WalkBob = 0;
-	private Rotation MeleeRotationOffset, MeleeRotationTarget = Rotation.Identity;
+	private Transform MeleeOffset, MeleeTarget = Transform.Zero;
 	private Transform ModelOffset, OffsetTarget = Transform.Zero;
 	private float MeleeRotationLerpSpeed = .2f;
 	private bool IsMeleeShoving = false;
@@ -15,7 +15,8 @@ partial class ZomViewModel : BaseViewModel
 		AddCameraEffects( ref camSetup );
 
 		// rotation
-		MeleeRotationOffset = Rotation.Lerp( MeleeRotationOffset, MeleeRotationTarget, MeleeRotationLerpSpeed );
+		MeleeOffset.Rotation = Rotation.Lerp( MeleeOffset.Rotation, MeleeTarget.Rotation, MeleeRotationLerpSpeed * Time.Delta * 120 );
+		MeleeOffset.Position = Vector3.Lerp( MeleeOffset.Position, MeleeTarget.Position, MeleeRotationLerpSpeed * Time.Delta * 120 );
 
 
 		// position
@@ -61,22 +62,24 @@ partial class ZomViewModel : BaseViewModel
 		}
 		
 
-		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f );
-		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f );
+		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f * Time.Delta * 100 );
+		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f * Time.Delta * 100 );
 
 		// finally set it
-		Position = camSetup.Position + ModelOffset.Position;
-		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeRotationOffset * ModelOffset.Rotation;
+		Position = camSetup.Position + ModelOffset.Position + MeleeOffset.Position;
+		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeOffset.Rotation * ModelOffset.Rotation;
 
 	}
 
 	public async void PlayMeleeAnimation()
 	{
 		IsMeleeShoving = true;
-		MeleeRotationTarget = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -10 );
+		MeleeTarget.Rotation = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -15 );
+		MeleeTarget.Position = Vector3.Up * -7;
 		MeleeRotationLerpSpeed = .3f;
 		await Task.Delay( 180 );
-		MeleeRotationTarget = Rotation.Identity;
+		MeleeTarget.Rotation = Rotation.Identity;
+		MeleeTarget.Position = Vector3.Zero;
 		MeleeRotationLerpSpeed = .1f;
 		IsMeleeShoving = false;
 	}
