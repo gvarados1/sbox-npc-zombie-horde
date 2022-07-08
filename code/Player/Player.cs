@@ -349,13 +349,14 @@ public partial class HumanPlayer : Player, IUse
 	{
 		if( RevivesRemaining > 0 )
 		{
-			RevivesRemaining -= 1;
-			LifeState = LifeState.Dying;
 			SetAnimParameter( "sit", 2 );
 			SetAnimParameter( "sit_pose", Rand.Int(3) );
 
 			Controller = new IncapacitatedController();
 			if ( Host.IsServer ) PlaySound( "human.incapacitate" );
+
+			RevivesRemaining -= 1;
+			LifeState = LifeState.Dying;
 		}
 		else
 		{
