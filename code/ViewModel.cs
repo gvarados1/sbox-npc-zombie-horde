@@ -17,9 +17,6 @@ partial class ZomViewModel : BaseViewModel
 		// rotation
 		MeleeRotationOffset = Rotation.Lerp( MeleeRotationOffset, MeleeRotationTarget, MeleeRotationLerpSpeed );
 
-		var maxAngle = 5;
-		OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp(Input.MouseDelta.x * -.5f, -maxAngle, maxAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxAngle, maxAngle ) );
-		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f );
 
 		// position
 		var speed = Owner.Velocity.Length.LerpInverse( 0, 400 );
@@ -40,12 +37,32 @@ partial class ZomViewModel : BaseViewModel
 		if ( Owner.GroundEntity == null )
 		{
 			var maxDist = 5;
-			OffsetTarget.Position += (Owner.Velocity * -.01f).Clamp(new Vector3( -maxDist, -maxDist, -maxDist), new Vector3( maxDist, maxDist, maxDist ) );
+			OffsetTarget.Position += (Owner.Velocity * -.01f).Clamp( new Vector3( -maxDist, -maxDist, -maxDist ), new Vector3( maxDist, maxDist, maxDist ) );
 			OffsetTarget.Position += up * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -3;
 			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2f;
 		}
 
+		
+		if ( ((Owner as HumanPlayer).Controller as HumanWalkController).Duck.IsActive ) // big chonker to check if player is ducking
+		{
+			var maxSwayAngle = 2;
+			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+
+			OffsetTarget.Rotation += Rotation.FromRoll( -30 );
+			OffsetTarget.Rotation += Rotation.FromYaw( -5 );
+			OffsetTarget.Position += up * -3f;
+			OffsetTarget.Position += left * 2f;
+			OffsetTarget.Position += camSetup.Rotation.Backward * 5f;
+		}
+		else
+		{
+			var maxSwayAngle = 5;
+			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+		}
+		
+
 		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f );
+		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f );
 
 		// finally set it
 		Position = camSetup.Position + ModelOffset.Position;

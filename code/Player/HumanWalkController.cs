@@ -1,7 +1,7 @@
 ﻿namespace ZombieHorde;
 
-public partial class HumanWalkController : WalkController
-	{
+public partial class HumanWalkController : BaseZomWalkController
+{
 	public HumanWalkController()
 	{
 		WalkSpeed = 240;
