@@ -13,7 +13,7 @@ partial class PipeBomb : BaseZomWeapon
 	public override float ReloadTime => 1.0f;
 	public override int ClipSize => 1;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
-	public override int AmmoMax => 100;
+	public override int AmmoMax => 0;
 
 	public override void Spawn()
 	{
