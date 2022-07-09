@@ -96,6 +96,7 @@ namespace Sandbox
 			EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale); ;
 			UpdateBBox();
 
+			// note: I need to multiply pitch by fov/90 (90/fov?). How do I bring the fov over here?
 			EyeLocalPosition += TraceOffset;
 			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 ); ;
 
