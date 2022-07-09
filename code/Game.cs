@@ -189,11 +189,14 @@ partial class ZombieGame : Game
 		}
 	}
 
-	public static void Explosion( Entity weapon, Entity owner, Vector3 position, float radius, float damage, float forceScale )
+	public static void Explosion( Entity weapon, Entity owner, Vector3 position, float radius, float damage, float forceScale, bool doEffects = true)
 	{
 		// Effects
-		Sound.FromWorld( "rust_pumpshotgun.shootdouble", position );
-		Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", position );
+		if ( doEffects )
+		{
+			Sound.FromWorld( "rust_pumpshotgun.shootdouble", position );
+			Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", position );
+		}
 
 		// Damage, etc
 		var overlaps = Entity.FindInSphere( position, radius );
