@@ -64,18 +64,9 @@ partial class Crossbow : BaseZomWeapon
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-
 		if ( Input.Pressed( InputButton.Zoom ) )
 		{
-			if ( Zoomed )
-			{
-				Zoomed = !Zoomed;
-			}
-			else
-			{
-				Zoomed = !Zoomed;
-				Owner.EyeRotation *= Rotation.FromPitch( 50 );
-			}
+			Zoomed = !Zoomed;
 		}
 	}
 
@@ -87,6 +78,8 @@ partial class Crossbow : BaseZomWeapon
 		{
 			camSetup.FieldOfView = 20;
 			camSetup.ViewModel.FieldOfView = 40;
+			Input.Rotation *= Rotation.FromPitch( 5 );
+			camSetup.Rotation *= Rotation.FromPitch( 4 );
 		}
 	}
 
