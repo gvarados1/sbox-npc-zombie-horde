@@ -31,6 +31,7 @@ partial class Pistol : BaseZomWeapon
 		//anim.SetAnimParameter( "holdtype_handedness", 2 );
 		anim.SetAnimParameter( "holdtype_attack", 1 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype_handedness", 0 );
 	}
 
 	public override bool CanPrimaryAttack()

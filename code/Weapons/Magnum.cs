@@ -98,9 +98,9 @@ partial class Magnum : BaseZomWeapon
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		anim.SetAnimParameter( "holdtype", 1 );
-		//anim.SetAnimParameter( "holdtype_handedness", 2 );
 		anim.SetAnimParameter( "holdtype_attack", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
+		anim.SetAnimParameter( "holdtype_handedness", 0 );
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )

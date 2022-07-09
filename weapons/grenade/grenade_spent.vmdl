@@ -39,15 +39,11 @@
 						remaps = 
 						[
 							{
-								from = "revolver.vmat"
-								to = "weapons/magnum/magnum.vmat"
-							},
-							{
 								from = "mat.vmat"
 								to = "weapons/grenade/grenade.vmat"
 							},
 							{
-								from = ""
+								from = "mat.1.vmat"
 								to = "weapons/grenade/grenade.vmat"
 							},
 						]
@@ -64,7 +60,10 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "rubber"
-						collision_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
 						radius = 3.04824
 						point0 = [ 0.0, 0.0, 7.807292 ]
 						point1 = [ 0.0, 0.0, 2.68389 ]
@@ -112,5 +111,6 @@
 		model_archetype = "physics_prop_model"
 		primary_associated_entity = "prop_physics"
 		anim_graph_name = ""
+		base_model_name = ""
 	}
 }

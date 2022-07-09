@@ -3,17 +3,17 @@
 	data = 
 	{
 		UI = false
-		Volume = 3
+		Volume = 1
 		VolumeRandom = 0
 		Pitch = 1
 		PitchRandom = 0.05
-		Decibels = 180
+		Decibels = 60
 		Sounds = 
 		[
-			resource:"weapons/pipebomb/sounds/pipebomb.beep.vsnd",
+			resource:"weapons/grenade/grenade.pinpull.vsnd",
 		]
 		SelectionMode = "Random"
-		MaximumDistance = 7384.377
-		MinimumDistance = 369.21884
+		MaximumDistance = 848.93066
+		MinimumDistance = 42.446533
 	}
 }

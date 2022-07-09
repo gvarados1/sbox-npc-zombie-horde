@@ -93,15 +93,11 @@
 								to = "materials/rust_hands.vmat"
 							},
 							{
-								from = "test:default1.vmat"
-								to = "models/dev/materialforerrormodel.vmat"
-							},
-							{
-								from = ""
+								from = "mat.vmat"
 								to = "weapons/grenade/grenade.vmat"
 							},
 							{
-								from = "mat.vmat"
+								from = "mat.1.vmat"
 								to = "weapons/grenade/grenade.vmat"
 							},
 						]
@@ -132,6 +128,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -152,6 +149,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -172,6 +170,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -192,6 +191,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -212,6 +212,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -232,6 +233,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -252,6 +254,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -272,6 +275,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 					{
@@ -292,6 +296,7 @@
 						start_frame = -1
 						end_frame = -1
 						framerate = -1.0
+						take = 0
 						reverse = false
 					},
 				]
@@ -301,5 +306,6 @@
 		model_archetype = "physics_prop_model"
 		primary_associated_entity = "prop_physics"
 		anim_graph_name = "weapons/rust_boneknife/v_rust_boneknife.vanmgrph"
+		base_model_name = ""
 	}
 }
