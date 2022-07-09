@@ -130,16 +130,6 @@ public partial class CommonZombie : BaseZombie
 					//  randomly play sounds
 					if ( Rand.Int( 300 ) == 1 )
 						PlaySound( "zombie.attack" );
-
-					// attack if near target
-					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
-					{
-						if ( (Position - Target.Position).Length < 80 )
-						{
-							MeleeAttack();
-							TimeSinceAttacked = 0;
-						}
-					}
 				}
 			}
 			else
