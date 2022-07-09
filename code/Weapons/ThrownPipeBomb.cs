@@ -39,7 +39,7 @@ partial class ThrownPipeBomb : BasePhysics
 		await Task.DelaySeconds( seconds );
 
 		Sound.FromWorld( "grenade.explode", Position );
-		PipeExplosion( this, Owner, Position, 700, 100, .2f );
+		PipeExplosion( this, Owner, Position, 700, 100, .18f );
 		ZombieGame.Explosion( this, Owner, Position, 300, 60, 1f );
 		Delete();
 	}
