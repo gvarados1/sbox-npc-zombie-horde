@@ -102,7 +102,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		// kill angry zombies!
 		foreach ( var zom in Entity.All.OfType<CommonZombie>().ToList() )
 		{
-			if(zom.ZombieState == ZombieState.Chase )
+			//if(zom.ZombieState == ZombieState.Chase )
 			{
 				Velocity = 0;
 				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
