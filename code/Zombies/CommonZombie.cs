@@ -109,6 +109,45 @@ public partial class CommonZombie : BaseZombie
 				// probably return to wander state or find a new target after x time
 			}
 		}
+		else if ( ZombieState == ZombieState.Lure )
+		{
+			if ( Steer == null )
+			{
+				if(BaseGamemode.Ent is SurvivalGamemode )
+				{
+					StartChase();
+				}
+				else
+				{
+					StartWander();
+				}
+			}
+			if ( Target != null )
+			{
+				// don't do anything if stunned
+				if ( TimeUntilUnstunned < 0 )
+				{
+					//  randomly play sounds
+					if ( Rand.Int( 300 ) == 1 )
+						PlaySound( "zombie.attack" );
+
+					// attack if near target
+					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
+					{
+						if ( (Position - Target.Position).Length < 80 )
+						{
+							MeleeAttack();
+							TimeSinceAttacked = 0;
+						}
+					}
+				}
+			}
+			else
+			{
+				// do something if we have an invalid target?
+				// probably return to wander state or find a new target after x time
+			}
+		}
 
 
 		// random deletion checks
@@ -119,6 +158,14 @@ public partial class CommonZombie : BaseZombie
 		base.Tick();
 	}
 
+	public void StartLure(Vector3 position )
+	{
+		ZombieState = ZombieState.Lure;
+		Speed = RunSpeed;
+
+		Steer = new NavSteer();
+		Steer.Target = position;
+	}
 	public void Stun(float seconds )
 	{
 		TimeUntilUnstunned = seconds;
@@ -269,7 +316,9 @@ public partial class CommonZombie : BaseZombie
 
 	public bool TryAlert(Entity target, float percent)
 	{
-		if(Rand.Float(1) < percent )
+		if ( ZombieState == ZombieState.Lure ) return false;
+
+		if (Rand.Float(1) < percent )
 		{
 			StartChase(target);
 

@@ -25,6 +25,12 @@ partial class ThrownPipeBomb : BasePhysics
 		{
 			TimeSinceBeeped = 0;
 			PlaySound( "pipebomb.beep" );
+
+			// lure zombies
+			foreach ( CommonZombie zom in Entity.FindInSphere( Position, 1400 ).OfType<CommonZombie>() )
+			{
+				zom.StartLure( Position);
+			}
 		}
 	}
 
@@ -65,7 +71,7 @@ partial class ThrownPipeBomb : BasePhysics
 			var distanceMul = 1.0f - Math.Clamp( dist / radius, 0.0f, 1.0f );
 			var dmg = damage * distanceMul;
 			var force = (forceScale * distanceMul) * ent.PhysicsBody.Mass;
-			var forceDir = (targetPos - position - Vector3.Down*30).Normal;
+			var forceDir = (targetPos - position - Vector3.Down*80).Normal;
 
 			var damageInfo = DamageInfo.FromBullet( position, forceDir * force, dmg )
 				.WithWeapon( weapon )
