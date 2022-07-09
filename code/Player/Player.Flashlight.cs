@@ -44,7 +44,7 @@ public partial class HumanPlayer
 
 		if ( FlashlightEnabled )
 		{
-			var forward = (EyeRotation * Rotation.FromPitch( 5 )).Forward;
+			var forward = EyeRotation.Forward;
 
 			// the lights don't look good if I don't constantly set this?
 			if ( IsClient )

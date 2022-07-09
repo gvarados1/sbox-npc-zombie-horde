@@ -242,7 +242,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		Rand.SetSeed( Time.Tick );
 
-		var forward = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward.Normal;
+		var forward = Owner.EyeRotation.Forward.Normal;
 
 		foreach ( var tr in TraceShove( Owner.EyePosition, Owner.EyePosition + forward * 90, 8 ) )
 		{
@@ -337,7 +337,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		for ( int i = 0; i < bulletCount; i++ )
 		{
-			var forward = (Owner.EyeRotation * Rotation.FromPitch( 5 )).Forward;
+			var forward = Owner.EyeRotation.Forward;
 			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f; //0.25f;
 			forward = forward.Normal;
 

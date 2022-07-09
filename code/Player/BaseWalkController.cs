@@ -93,11 +93,11 @@ namespace Sandbox
 
 		public override void Simulate()
 		{
-			EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale);
+			EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale); ;
 			UpdateBBox();
 
 			EyeLocalPosition += TraceOffset;
-			EyeRotation = Input.Rotation;
+			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 ); ;
 
 			RestoreGroundPos();
 

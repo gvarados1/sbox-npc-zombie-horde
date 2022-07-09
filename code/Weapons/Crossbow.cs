@@ -51,8 +51,7 @@ partial class Crossbow : BaseZomWeapon
 
 		if ( IsServer )
 		{
-			var eyeRot = (Owner.EyeRotation * Rotation.FromPitch( 5 ));
-			if(Zoomed) eyeRot = (Owner.EyeRotation * Rotation.FromPitch( 1 ));
+			var eyeRot = Owner.EyeRotation;
 
 			var bolt = new CrossbowBolt();
 			bolt.Position = Owner.EyePosition;
@@ -66,7 +65,18 @@ partial class Crossbow : BaseZomWeapon
 	{
 		base.Simulate( cl );
 
-		if ( Input.Pressed( InputButton.Zoom ) ) Zoomed = !Zoomed;
+		if ( Input.Pressed( InputButton.Zoom ) )
+		{
+			if ( Zoomed )
+			{
+				Zoomed = !Zoomed;
+			}
+			else
+			{
+				Zoomed = !Zoomed;
+				Owner.EyeRotation *= Rotation.FromPitch( 50 );
+			}
+		}
 	}
 
 	public override void PostCameraSetup( ref CameraSetup camSetup )
