@@ -151,7 +151,8 @@ public partial class CommonZombie : BaseZombie
 	public void StartLure(Vector3 position )
 	{
 		ZombieState = ZombieState.Lure;
-		Speed = RunSpeed;
+		Speed = RunSpeed * 1.2f;
+		SetAnimParameter( "b_jump", true );
 
 		Steer = new NavSteer();
 		Steer.Target = position;
