@@ -111,10 +111,11 @@ public partial class CommonZombie : BaseZombie
 		}
 		else if ( ZombieState == ZombieState.Lure )
 		{
-			if ( Steer == null )
+			if ( Steer == null || Steer.Output.Finished )
 			{
 				if(BaseGamemode.Ent is SurvivalGamemode )
 				{
+					StartWander();
 					StartChase();
 				}
 				else
