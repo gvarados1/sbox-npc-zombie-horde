@@ -6,16 +6,16 @@ using ZombieHorde;
 public class InventoryIcon : Panel
 {
 	public Entity TargetEnt;
-	public Label Number;
 	public Label Bullets; // note: "Ammo" is a class
 	public Label BulletReserve;
 	public Image Icon;
 	public Label RarityBar;
+	public Image Glyph;
 
 	public InventoryIcon( int i, Panel parent )
 	{
 		Parent = parent;
-		Number = Add.Label( $"{i}", "slot-number" );
+		Glyph = Add.Image( null, "glyph" );
 		Bullets = Add.Label( "?/?", "ammo-count" );
 		BulletReserve = Add.Label( "?/?", "ammo-reserve" );
 		RarityBar = Add.Label( "", "right-bar" );

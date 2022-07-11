@@ -52,7 +52,21 @@ public class InventoryBar : Panel
 
 		inventoryIcon.TargetEnt = ent;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
-		
+
+		var input = InputButton.Slot0;
+		Enum.TryParse( $"Slot{i+1}", out input );
+
+		var glyphTexture = Input.GetGlyph( input );
+		inventoryIcon.Glyph.Texture = glyphTexture;
+
+		// I don't want to deal with this right now. If somebody complains I will fix it.
+		// glyphs like space and ctrl have different widths.
+		//inventoryIcon.Glyph.Style.Width = glyphTexture.Width;
+		//inventoryIcon.Glyph.Style.Height = glyphTexture.Height;
+		//Log.Info( $"{glyphTexture.Width}, {glyphTexture.Height}" );
+		//inventoryIcon.Glyph.Style.Width = glyphTexture.Width > glyphTexture.Height ? 64 : 32;
+		//inventoryIcon.Glyph.Style.Right = glyphTexture.Width > glyphTexture.Height ? -80 : -50 ;
+
 
 		if (ent is BaseZomWeapon wep )
 		{

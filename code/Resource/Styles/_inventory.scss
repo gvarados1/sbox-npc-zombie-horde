@@ -46,15 +46,17 @@ InventoryIcon {
 		transition: all 0.1s ease-out;
 	}
 
-	.slot-number {
-		font-size: 25px;
-		color: #C5E0E3;
-		font-weight: 900;
-		opacity: 0.1;
+	.glyph {
+		width: 32px;
+		height: 32px;
+		background-size: 100%;
+		//background-image-tint: #4E9E89;
+		//background-image-tint: #50B3B5;
+		background-image-tint: #C5E0E3;
 		position: absolute;
-		top: 30%;
-		text-align: center;
-		right: -30px;
+		right: -50px;
+		top: 25%;
+		opacity: .1;
 		transition: all 0.1s ease-out;
 	}
 
@@ -97,7 +99,7 @@ InventoryIcon {
 			transition: all 0.1s ease-out;
 		}
 
-		.slot-number {
+		.glyph {
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
