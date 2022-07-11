@@ -8,83 +8,116 @@
 	flex-direction: column-reverse;
 }
 
+$rarity-color: #5EF23D; // how do I set this in C# ???
 InventoryIcon {
-	width: 220px;
-	height: 80px;
-	margin: 0px 100px;
+	//width: 220px;
+	width: 240px;
+	height: 70px;
+	margin: 0px 110px;
 	position: relative;
-	transition: all 0.6s ease-in-out;
-	margin-top: 10px;
+	transition: all 0.1s ease-in-out;
+	margin-top: 4px;
 	//font-family: poppins;
 	font-family: Roboto;
-	//background-color: rgba( #4F9C87, .1 );
-	//background-color: rgba( #fa02, .1 );
-	backdrop-filter: blur( 1px );
-	background-image: linear-gradient(to left, rgba( #808080, .05 ), rgba( #808080, 0 ));
+	background-image: linear-gradient(to left, rgba( #000000, .5 ), rgba( #000000, 0 ));
+
 
 	.right-bar {
-		color: #fc0;
 		left: 100%;
 		opacity: 0.1;
 		transition: all 0.5s ease-in-out;
 		mix-blend-mode: lighten;
-		background-color: springgreen;
+		//background-color: springgreen;
+		//background-color: #5EF23D;
+		//background-color: var(--rarity-color, darkred);
+		background-color: $rarity-color;
 	}
 
 	.icon {
-		width: 80px;
-		height: 80px;
+		width: 140px;
+		height: 140px;
 		background-size: 100%;
-		background-image-tint: #fa0;
+		//background-image-tint: #4E9E89;
+		background-image-tint: #50B3B5;
 		position: absolute;
-		left: 100px;
-		opacity: 1;
+		left: 95px;
+		top: -35px;
+		opacity: .1;
 	}
 
 	.slot-number {
 		font-size: 25px;
-		color: #fc0;
+		color: #50B3B5;
 		font-weight: 900;
-		opacity: 0.3;
+		opacity: 0.1;
 		position: absolute;
-		top: 23px;
+		top: 30%;
+		text-align: center;
 		right: -30px;
 	}
 
 	.ammo-count {
 		font-size: 25px;
-		color: #fc0;
+		color: #50B3B5;
 		font-weight: 900;
-		opacity: 0.3;
+		opacity: 0.1;
 		position: absolute;
-		top: 22px;
-		left: 0px;
+		top: 30%;
+		left: 30px;
 	}
 
 	&.active {
 		//background-color: rgba( #52B37D, .5 );
-		background-image: linear-gradient(to left, rgba( #808080, .2 ), rgba( #808080, 0 ));
+		background-image: linear-gradient(to left, rgba( #070707, 1 ), rgba( #070707, .0 ));
 		transition: all 0.1s ease-out;
 		//width: 190px;
 		//height: 60px;
 
+		.icon {
+			background-image-tint: #50B3B5;
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+
 		.right-bar {
-			opacity: .7;
+			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
 
 		.slot-number {
-			//color: #fff;
-			color: #ff0;
+			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
 
 		.ammo-count {
-			//color: #fff;
-			color: #ff0;
+			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
+	}
+	// smaller icon for things like grenades
+	&.small {
+		width: 90px;
+		height: 60px;
+
+		.icon {
+			width: 100px;
+			height: 100px;
+			left: 10px;
+			top: -20px;
+		}
+
+		.ammo-count {
+			left: 10px;
+			top: 30%;
+		}
+	}
+	// hide the smaller icons when empty
+	&.hidden {
+		opacity: 0;
+		width: 90px;
+		height: 20px;
+		transition: all 0.1s ease-out;
 	}
 }

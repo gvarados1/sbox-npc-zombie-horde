@@ -16,7 +16,7 @@ partial class Pistol : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 2f;
 	public override int ClipSize => 14;
 	public override int AmmoMax => -1;
-	public override string Icon => "/ui/weapons/dm_pistol.png";
+	public override string Icon => "/ui/weapons/pistol.png";
 
 	public override void Spawn()
 	{

@@ -17,6 +17,7 @@ public class InventoryIcon : Panel
 		Bullets = Add.Label( "?/?", "ammo-count" );
 		Add.Label( "", "right-bar" );
 		Icon = Add.Image( null, "icon" );
+		//SetProperty( "#50B3B5", "rarity-color" );
 	}
 
 	public void Clear()

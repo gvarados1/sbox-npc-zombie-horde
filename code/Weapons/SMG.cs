@@ -17,7 +17,7 @@ partial class SMG : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "/ui/weapons/dm_smg.png";
+	public override string Icon => "/ui/weapons/smg.png";
 
 	public override void Spawn()
 	{

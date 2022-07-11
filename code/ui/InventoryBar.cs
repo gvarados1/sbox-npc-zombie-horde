@@ -14,6 +14,7 @@ public class InventoryBar : Panel
 		{
 			var icon = new InventoryIcon( i + 1, this );
 			slots.Add( icon );
+			icon.SetClass( "small", i >= 3 );
 		}
 	}
 
@@ -38,19 +39,27 @@ public class InventoryBar : Panel
 		if ( ent == null )
 		{
 			inventoryIcon.Clear();
+
+			//if ( i >= 3 )
+			{
+				inventoryIcon.SetClass( "hidden", true );
+			}
 			return;
 		}
+		inventoryIcon.SetClass( "hidden", false );
 
 		var di = DisplayInfo.For( ent );
 
 		inventoryIcon.TargetEnt = ent;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
+		//inventoryIcon.SetProperty( "#50B3B5", "rarity-color" );
 
 		if (ent is BaseZomWeapon wep )
 		{
 			var ammo = "";
 			// format ammo count depending on single use, infite, or refillable reserve
 			ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
+			//ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}<br />{wep.AmmoReserve}";
 			inventoryIcon.Bullets.Text = ammo;
 			inventoryIcon.Icon.SetTexture( wep.Icon );
 		}
