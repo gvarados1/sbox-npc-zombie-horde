@@ -1,6 +1,8 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System;
 using System.Collections.Generic;
+using static Sandbox.Clothing;
 
 namespace ZombieHorde;
 
@@ -124,7 +126,8 @@ public class InventoryBar : Panel
 		if ( input.Pressed( InputButton.Slot8 ) ) SetActiveSlot( input, inventory, 7 );
 		if ( input.Pressed( InputButton.Slot9 ) ) SetActiveSlot( input, inventory, 8 );
 
-		if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, -input.MouseWheel );
+		if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, input.MouseWheel );
+		Log.Info( $"{inventory.GetActiveSlot()}, {inventory.Count()}" );
 	}
 
 	private static void SetActiveSlot( InputBuilder input, IBaseInventory inventory, int i )
@@ -146,14 +149,18 @@ public class InventoryBar : Panel
 
 	private static void SwitchActiveSlot( InputBuilder input, IBaseInventory inventory, int idelta )
 	{
-		var count = inventory.Count();
-		if ( count == 0 ) return;
+		//var count = inventory.Count()-1;
+		var count = 5;
 
 		var slot = inventory.GetActiveSlot();
 		var nextSlot = slot + idelta;
 
-		while ( nextSlot < 0 ) nextSlot += count;
-		while ( nextSlot >= count ) nextSlot -= count;
+		if ( nextSlot < 0 ) nextSlot = count;
+		if ( nextSlot > count ) nextSlot = 0;
+		while(inventory.GetSlot(nextSlot) == null )
+		{
+			nextSlot += idelta;
+		}
 
 		SetActiveSlot( input, inventory, nextSlot );
 	}
