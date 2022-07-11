@@ -130,6 +130,12 @@ InventoryIcon {
 			right: 60px;
 			top: 25%;
 		}
+
+		.ammo-reserve {
+			// why does this use 2 lines if I use left: ?
+			right: 60px;
+			top: 32%;
+		}
 	}
 	// hide the smaller icons when empty
 	&.hidden {

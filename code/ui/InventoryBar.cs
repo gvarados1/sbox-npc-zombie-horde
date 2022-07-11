@@ -87,12 +87,17 @@ public class InventoryBar : Panel
 			{
 				if(wep.AmmoMax > 0 )
 				{
-					inventoryIcon.Bullets.Text = $"{wep.AmmoClip + wep.AmmoReserve}/{wep.AmmoMax + wep.ClipSize}";
-					inventoryIcon.BulletReserve.Text = "";
+					inventoryIcon.Bullets.Text = $"{wep.AmmoClip + wep.AmmoReserve}";
+					inventoryIcon.BulletReserve.Text = $"/{wep.AmmoMax + wep.ClipSize}";
+					inventoryIcon.Bullets.Style.Right = 81;
 				}
 				else if(wep.AmmoMax == 0)
 				{
 					inventoryIcon.Bullets.Text = "";
+				}
+				else
+				{
+					inventoryIcon.Bullets.Style.Right = 60;
 				}
 			}
 		}
