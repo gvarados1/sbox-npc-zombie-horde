@@ -79,6 +79,8 @@ public partial class HumanPlayer : Player, IUse
 		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
 		ply.Inventory.Add( new SMG() );
+		ply.Inventory.Add( new Shotgun() );
+		ply.Inventory.Add( new PipeBomb() );
 
 		/*
 		ply.GiveAmmo( AmmoType.Pistol, 1000 );
