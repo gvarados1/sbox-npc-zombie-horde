@@ -37,7 +37,8 @@ InventoryIcon {
 		height: 140px;
 		background-size: 100%;
 		//background-image-tint: #4E9E89;
-		background-image-tint: #50B3B5;
+		//background-image-tint: #50B3B5;
+		background-image-tint: #4E9E89;
 		position: absolute;
 		left: 95px;
 		top: -35px;
@@ -87,7 +88,6 @@ InventoryIcon {
 		//height: 60px;
 
 		.icon {
-			background-image-tint: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
@@ -98,19 +98,16 @@ InventoryIcon {
 		}
 
 		.slot-number {
-			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
 
 		.ammo-count {
-			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
 
 		.ammo-reserve {
-			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;
 		}
