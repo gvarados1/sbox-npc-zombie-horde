@@ -56,13 +56,21 @@ public class InventoryBar : Panel
 
 		if (ent is BaseZomWeapon wep )
 		{
-			var ammo = "";
 			// format ammo count depending on single use, infite, or refillable reserve
-			//ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
-			ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}\n∞" : $"{wep.AmmoClip}\n{wep.AmmoReserve}";
-			inventoryIcon.Bullets.Text = ammo;
+			//var ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
+			inventoryIcon.Bullets.Text = wep.AmmoClip.ToString();
+			inventoryIcon.BulletReserve.Text = wep.AmmoMax == 0 ? "" : wep.AmmoMax == -1 ? "∞" : wep.AmmoReserve.ToString();
 			inventoryIcon.Icon.SetTexture( wep.Icon );
 			inventoryIcon.RarityBar.Style.BackgroundColor = wep.RarityColor;
+
+			if(i >= 3 )
+			{
+				if(wep.AmmoMax > 0 )
+				{
+					inventoryIcon.Bullets.Text = $"{wep.AmmoClip}/{wep.AmmoReserve}";
+					inventoryIcon.BulletReserve.Text = "";
+				}
+			}
 		}
 	}
 

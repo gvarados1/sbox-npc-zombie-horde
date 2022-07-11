@@ -63,19 +63,19 @@ InventoryIcon {
 		font-weight: 900;
 		opacity: 0.1;
 		position: absolute;
-		top: 30%;
-		left: 30px;
+		top: 10%;
+		right: 160px;
 		transition: all 0.1s ease-out;
 	}
 
 	.ammo-reserve {
-		font-size: 25px;
+		font-size: 20px;
 		color: #50B3B5;
 		font-weight: 900;
 		opacity: 0.1;
 		position: absolute;
-		top: 30%;
-		left: 30px;
+		top: 50%;
+		right: 160px;
 		transition: all 0.1s ease-out;
 	}
 
@@ -128,8 +128,8 @@ InventoryIcon {
 		}
 
 		.ammo-count {
-			left: 10px;
-			top: 30%;
+			right: 60px;
+			top: 25%;
 		}
 	}
 	// hide the smaller icons when empty
