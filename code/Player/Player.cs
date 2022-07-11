@@ -81,6 +81,8 @@ public partial class HumanPlayer : Player, IUse
 		ply.Inventory.Add( new SMG() );
 		ply.Inventory.Add( new Shotgun() );
 		ply.Inventory.Add( new PipeBomb() );
+		ply.Inventory.Add( new MedKit() );
+		ply.Inventory.Add( new HealthSyringe() );
 
 		/*
 		ply.GiveAmmo( AmmoType.Pistol, 1000 );
