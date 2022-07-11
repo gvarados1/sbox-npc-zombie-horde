@@ -17,6 +17,7 @@ partial class Magnum : BaseZomWeapon
 	public override float ShotSpreadLerp => .1f;
 	public override int ClipSize => 6;
 	public override int AmmoMax => -1;
+	public override string Icon => "/ui/weapons/dm_357.png";
 
 	public override void Spawn()
 	{

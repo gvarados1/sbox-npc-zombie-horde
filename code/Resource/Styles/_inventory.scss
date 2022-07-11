@@ -9,8 +9,8 @@
 }
 
 InventoryIcon {
-	width: 85px;
-	height: 75px;
+	width: 220px;
+	height: 80px;
 	margin: 0px 100px;
 	position: relative;
 	transition: all 0.6s ease-in-out;
@@ -18,24 +18,27 @@ InventoryIcon {
 	//font-family: poppins;
 	font-family: Roboto;
 	//background-color: rgba( #4F9C87, .1 );
-	background-color: rgba( #fa02, .1 );
-	backdrop-filter: blur( 2px );
-	border: 1px solid rgba( #fa0, 0.08 );
-	border-radius: 3px;
+	//background-color: rgba( #fa02, .1 );
+	backdrop-filter: blur( 1px );
+	background-image: linear-gradient(to left, rgba( #808080, .05 ), rgba( #808080, 0 ));
 
-	.item-name {
-		padding: 5px;
+	.right-bar {
 		color: #fc0;
-		text-align: center;
-		left: 0;
-		right: 0;
-		font-size: 10px;
-		position: absolute;
-		bottom: 0;
-		opacity: 0.7;
+		left: 100%;
+		opacity: 0.1;
 		transition: all 0.5s ease-in-out;
-		text-transform: uppercase;
 		mix-blend-mode: lighten;
+		background-color: springgreen;
+	}
+
+	.icon {
+		width: 80px;
+		height: 80px;
+		background-size: 100%;
+		background-image-tint: #fa0;
+		position: absolute;
+		left: 100px;
+		opacity: 1;
 	}
 
 	.slot-number {
@@ -44,27 +47,44 @@ InventoryIcon {
 		font-weight: 900;
 		opacity: 0.3;
 		position: absolute;
-		top: 1px;
-		right: 5px;
+		top: 23px;
+		right: -30px;
+	}
+
+	.ammo-count {
+		font-size: 25px;
+		color: #fc0;
+		font-weight: 900;
+		opacity: 0.3;
+		position: absolute;
+		top: 22px;
+		left: 0px;
 	}
 
 	&.active {
 		//background-color: rgba( #52B37D, .5 );
-		background-color: rgba( f50, .5 );
+		background-image: linear-gradient(to left, rgba( #808080, .2 ), rgba( #808080, 0 ));
 		transition: all 0.1s ease-out;
-		width: 95px;
-		height: 90px;
+		//width: 190px;
+		//height: 60px;
+
+		.right-bar {
+			opacity: .7;
+			transition: all 0.1s ease-out;
+		}
 
 		.slot-number {
 			//color: #fff;
 			color: #ff0;
 			opacity: 1;
+			transition: all 0.1s ease-out;
 		}
 
-		.item-name {
+		.ammo-count {
+			//color: #fff;
+			color: #ff0;
 			opacity: 1;
 			transition: all 0.1s ease-out;
-			font-size: 15px;
 		}
 	}
 }

@@ -15,6 +15,7 @@ partial class Crowbar : BaseZomWeapon
 	public override float ReloadTime => 3.0f;
 	public override int ClipSize => 0;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
+	public override string Icon => "/ui/weapons/dm_crowbar.png";
 
 	public override void Spawn()
 	{

@@ -44,8 +44,16 @@ public class InventoryBar : Panel
 		var di = DisplayInfo.For( ent );
 
 		inventoryIcon.TargetEnt = ent;
-		inventoryIcon.Label.Text = di.Name;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
+
+		if (ent is BaseZomWeapon wep )
+		{
+			var ammo = "";
+			// format ammo count depending on single use, infite, or refillable reserve
+			ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
+			inventoryIcon.Bullets.Text = ammo;
+			inventoryIcon.Icon.SetTexture( wep.Icon );
+		}
 	}
 
 	[Event( "buildinput" )]

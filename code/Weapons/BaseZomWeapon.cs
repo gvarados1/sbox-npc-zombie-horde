@@ -1,4 +1,5 @@
 ﻿using Sandbox.Component;
+using Sandbox.UI;
 
 namespace ZombieHorde;
 
@@ -11,6 +12,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual float BulletSpread => .05f;
 	public virtual float ShotSpreadMultiplier => 2f;
 	public virtual float ShotSpreadLerp => .2f;
+	public virtual string Icon => "";
 
 	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]

@@ -15,6 +15,7 @@ partial class Shotgun : BaseZomWeapon
 	public override int AmmoMax => 80;
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
+	public override string Icon => "/ui/weapons/dm_shotgun.png";
 
 	[Net, Predicted]
 	public bool StopReloading { get; set; }

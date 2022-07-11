@@ -16,6 +16,7 @@ partial class Crossbow : BaseZomWeapon
 	public override int AmmoMax => 40;
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
+	public override string Icon => "/ui/weapons/dm_crossbow.png";
 
 	[Net, Predicted]
 	public bool Zoomed { get; set; }

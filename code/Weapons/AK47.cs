@@ -17,6 +17,7 @@ partial class AK47 : BaseZomWeapon
 	public override int AmmoMax => 210;
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
+	public override string Icon => "/ui/weapons/zom_ak47.png";
 	public override void Spawn()
 	{
 		base.Spawn();
