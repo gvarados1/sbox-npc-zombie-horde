@@ -19,6 +19,7 @@ partial class TripmineWeapon : BaseZomWeapon
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "/ui/weapons/dm_tripmine.png";
+	public override Color RarityColor => WeaponRarity.Rare;
 
 	public override void Spawn()
 	{

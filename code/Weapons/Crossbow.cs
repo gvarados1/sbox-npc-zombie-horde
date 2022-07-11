@@ -17,6 +17,7 @@ partial class Crossbow : BaseZomWeapon
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "/ui/weapons/dm_crossbow.png";
+	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	[Net, Predicted]
 	public bool Zoomed { get; set; }

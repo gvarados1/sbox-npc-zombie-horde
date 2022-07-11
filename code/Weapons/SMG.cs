@@ -18,6 +18,7 @@ partial class SMG : BaseZomWeapon
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "/ui/weapons/smg.png";
+	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()
 	{

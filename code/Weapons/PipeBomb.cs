@@ -15,6 +15,7 @@ partial class PipeBomb : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
 	public override int AmmoMax => 0;
 	public override string Icon => "/ui/weapons/zom_pipebomb.png";
+	public override Color RarityColor => WeaponRarity.Rare;
 
 	public override void Spawn()
 	{

@@ -8,7 +8,6 @@
 	flex-direction: column-reverse;
 }
 
-$rarity-color: #5EF23D; // how do I set this in C# ???
 InventoryIcon {
 	//width: 220px;
 	width: 240px;
@@ -25,12 +24,12 @@ InventoryIcon {
 	.right-bar {
 		left: 100%;
 		opacity: 0.1;
-		transition: all 0.5s ease-in-out;
+		transition: all 0.1s ease-out;
 		mix-blend-mode: lighten;
 		//background-color: springgreen;
 		//background-color: #5EF23D;
 		//background-color: var(--rarity-color, darkred);
-		background-color: $rarity-color;
+		background-color: white;
 	}
 
 	.icon {
@@ -43,6 +42,7 @@ InventoryIcon {
 		left: 95px;
 		top: -35px;
 		opacity: .1;
+		transition: all 0.1s ease-out;
 	}
 
 	.slot-number {
@@ -54,6 +54,7 @@ InventoryIcon {
 		top: 30%;
 		text-align: center;
 		right: -30px;
+		transition: all 0.1s ease-out;
 	}
 
 	.ammo-count {
@@ -64,6 +65,18 @@ InventoryIcon {
 		position: absolute;
 		top: 30%;
 		left: 30px;
+		transition: all 0.1s ease-out;
+	}
+
+	.ammo-reserve {
+		font-size: 25px;
+		color: #50B3B5;
+		font-weight: 900;
+		opacity: 0.1;
+		position: absolute;
+		top: 30%;
+		left: 30px;
+		transition: all 0.1s ease-out;
 	}
 
 	&.active {
@@ -91,6 +104,12 @@ InventoryIcon {
 		}
 
 		.ammo-count {
+			color: #50B3B5;
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+
+		.ammo-reserve {
 			color: #50B3B5;
 			opacity: 1;
 			transition: all 0.1s ease-out;

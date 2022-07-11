@@ -52,17 +52,17 @@ public class InventoryBar : Panel
 
 		inventoryIcon.TargetEnt = ent;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
-		//inventoryIcon.SetProperty( "#50B3B5", "rarity-color" ); // ????
-		//inventoryIcon.Style.Set( "$rarity-color", "#50B3B5" );
+		
 
 		if (ent is BaseZomWeapon wep )
 		{
 			var ammo = "";
 			// format ammo count depending on single use, infite, or refillable reserve
-			ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
-			//ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}<br />{wep.AmmoReserve}";
+			//ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
+			ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}\n∞" : $"{wep.AmmoClip}\n{wep.AmmoReserve}";
 			inventoryIcon.Bullets.Text = ammo;
 			inventoryIcon.Icon.SetTexture( wep.Icon );
+			inventoryIcon.RarityBar.Style.BackgroundColor = wep.RarityColor;
 		}
 	}
 

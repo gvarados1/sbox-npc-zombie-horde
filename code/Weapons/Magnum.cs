@@ -18,6 +18,7 @@ partial class Magnum : BaseZomWeapon
 	public override int ClipSize => 6;
 	public override int AmmoMax => -1;
 	public override string Icon => "/ui/weapons/dm_357.png";
+	public override Color RarityColor => WeaponRarity.Common;
 
 	public override void Spawn()
 	{
