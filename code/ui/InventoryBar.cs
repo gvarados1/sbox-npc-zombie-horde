@@ -127,7 +127,6 @@ public class InventoryBar : Panel
 		if ( input.Pressed( InputButton.Slot9 ) ) SetActiveSlot( input, inventory, 8 );
 
 		if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, input.MouseWheel );
-		Log.Info( $"{inventory.GetActiveSlot()}, {inventory.Count()}" );
 	}
 
 	private static void SetActiveSlot( InputBuilder input, IBaseInventory inventory, int i )
