@@ -63,6 +63,12 @@ public class InventoryBar : Panel
 			inventoryIcon.Icon.SetTexture( wep.Icon );
 			inventoryIcon.RarityBar.Style.BackgroundColor = wep.RarityColor;
 
+			if(wep.AmmoMax == -2 )
+			{
+				inventoryIcon.Bullets.Text = "";
+				inventoryIcon.BulletReserve.Text = "";
+			}
+
 			if(i >= 3 )
 			{
 				if(wep.AmmoMax > 0 )
