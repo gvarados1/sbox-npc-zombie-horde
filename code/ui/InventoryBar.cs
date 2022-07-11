@@ -52,7 +52,8 @@ public class InventoryBar : Panel
 
 		inventoryIcon.TargetEnt = ent;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
-		//inventoryIcon.SetProperty( "#50B3B5", "rarity-color" );
+		//inventoryIcon.SetProperty( "#50B3B5", "rarity-color" ); // ????
+		//inventoryIcon.Style.Set( "$rarity-color", "#50B3B5" );
 
 		if (ent is BaseZomWeapon wep )
 		{
