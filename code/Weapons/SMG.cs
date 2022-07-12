@@ -17,6 +17,8 @@ partial class SMG : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
+	public override string Icon => "/ui/weapons/smg.png";
+	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()
 	{
@@ -77,7 +79,7 @@ partial class SMG : BaseZomWeapon
 		// one day I will make my own crosshairs!
 		var draw = Render.Draw2D;
 
-		var color = Color.Lerp( Color.Red, Color.Yellow, lastReload.LerpInverse( 0.0f, 0.4f ) );
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
 		draw.BlendMode = BlendMode.Lighten;
 		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
 

@@ -14,7 +14,10 @@ partial class Crowbar : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 3.0f;
 	public override int ClipSize => 0;
+	public override int AmmoMax => -2;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
+	public override string Icon => "/ui/weapons/crowbar.png";
+	public override Color RarityColor => WeaponRarity.Common;
 
 	public override void Spawn()
 	{

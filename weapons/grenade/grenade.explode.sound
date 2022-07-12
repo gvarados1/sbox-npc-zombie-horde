@@ -3,7 +3,7 @@
 	data = 
 	{
 		UI = false
-		Volume = 10
+		Volume = 5
 		VolumeRandom = 0
 		Pitch = 1
 		PitchRandom = 0.03

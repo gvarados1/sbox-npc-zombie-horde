@@ -15,9 +15,11 @@ partial class TripmineWeapon : BaseZomWeapon
 	public override float ReloadTime => 0.1f;
 	public override int ClipSize => 1;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
-	public override int AmmoMax => 4;
+	public override int AmmoMax => 3;
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
+	public override string Icon => "/ui/weapons/tripmine.png";
+	public override Color RarityColor => WeaponRarity.Rare;
 
 	public override void Spawn()
 	{

@@ -83,6 +83,27 @@ partial class ZomInventory : BaseInventory
 		return true;
 	}
 
+	public override int GetActiveSlot()
+	{
+		var wep = Active;
+		if ( wep == Secondary ) return 0;
+		if ( wep == Primary1 ) return 1;
+		if ( wep == Primary2 ) return 2;
+		if ( wep == Grenade ) return 3;
+		if ( wep == Medkit ) return 4;
+		if ( wep == Pills ) return 5;
+
+		var count = Count();
+
+		for ( int i = 0; i < count; i++ )
+		{
+			if ( List[i] == wep )
+				return i;
+		}
+
+		return -1;
+	}
+
 	public override Entity GetSlot( int i )
 	{
 		//Log.Info( Host.Name );

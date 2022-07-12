@@ -2,69 +2,142 @@
 {
 	position: absolute;
 	width: 100%;
-	bottom: 106px;
+	bottom: 80px;
 	justify-content: center;
 	align-items: flex-end;
 	flex-direction: column-reverse;
 }
 
 InventoryIcon {
-	width: 85px;
-	height: 75px;
-	margin: 0px 100px;
+	//width: 220px;
+	width: 240px;
+	height: 70px;
+	margin: 0px 110px;
 	position: relative;
-	transition: all 0.6s ease-in-out;
-	margin-top: 10px;
+	transition: all 0.1s ease-in-out;
+	margin-top: 4px;
 	//font-family: poppins;
 	font-family: Roboto;
-	//background-color: rgba( #4F9C87, .1 );
-	background-color: rgba( #fa02, .1 );
-	backdrop-filter: blur( 2px );
-	border: 1px solid rgba( #fa0, 0.08 );
-	border-radius: 3px;
+	background-image: linear-gradient(to left, rgba( #000000, .5 ), rgba( #000000, 0 ));
 
-	.item-name {
-		padding: 5px;
-		color: #fc0;
-		text-align: center;
-		left: 0;
-		right: 0;
-		font-size: 10px;
-		position: absolute;
-		bottom: 0;
-		opacity: 0.7;
-		transition: all 0.5s ease-in-out;
-		text-transform: uppercase;
+
+	.right-bar {
+		left: 100%;
+		opacity: 0.1;
+		transition: all 0.1s ease-out;
 		mix-blend-mode: lighten;
+		//background-color: springgreen;
+		//background-color: #5EF23D;
+		//background-color: var(--rarity-color, darkred);
+		background-color: white;
 	}
 
-	.slot-number {
-		font-size: 25px;
-		color: #fc0;
-		font-weight: 900;
-		opacity: 0.3;
+	.icon {
+		width: 140px;
+		height: 140px;
+		background-size: 100%;
+		background-image-tint: $color-primary;
 		position: absolute;
-		top: 1px;
-		right: 5px;
+		left: 95px;
+		top: -35px;
+		opacity: .1;
+		transition: all 0.1s ease-out;
+	}
+
+	.glyph {
+		width: 32px;
+		height: 32px;
+		background-size: 100%;
+		background-image-tint: $color-primary;
+		position: absolute;
+		right: -50px;
+		top: 25%;
+		opacity: .1;
+		transition: all 0.1s ease-out;
+	}
+
+	.ammo-count {
+		font-size: 25px;
+		color: $color-primary;
+		font-weight: 900;
+		opacity: 0.1;
+		position: absolute;
+		top: 10%;
+		right: 160px;
+		transition: all 0.1s ease-out;
+	}
+
+	.ammo-reserve {
+		font-size: 20px;
+		color: $color-secondary;
+		font-weight: 500;
+		opacity: 0.1;
+		position: absolute;
+		top: 50%;
+		right: 160px;
+		transition: all 0.1s ease-out;
 	}
 
 	&.active {
 		//background-color: rgba( #52B37D, .5 );
-		background-color: rgba( f50, .5 );
+		background-image: linear-gradient(to left, rgba( #070707, 1 ), rgba( #070707, .0 ));
 		transition: all 0.1s ease-out;
-		width: 95px;
-		height: 90px;
+		//width: 190px;
+		//height: 60px;
 
-		.slot-number {
-			//color: #fff;
-			color: #ff0;
-			opacity: 1;
-		}
-
-		.item-name {
+		.icon {
 			opacity: 1;
 			transition: all 0.1s ease-out;
-			font-size: 15px;
 		}
+
+		.right-bar {
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+
+		.glyph {
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+
+		.ammo-count {
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+
+		.ammo-reserve {
+			opacity: 1;
+			transition: all 0.1s ease-out;
+		}
+	}
+	// smaller icon for things like grenades
+	&.small {
+		width: 90px;
+		height: 60px;
+
+		.icon {
+			width: 100px;
+			height: 100px;
+			left: 10px;
+			top: -20px;
+		}
+
+		.ammo-count {
+			right: 60px;
+			top: 25%;
+		}
+
+		.ammo-reserve {
+			// why does this use 2 lines if I use left: ?
+			right: 60px;
+			top: 32%;
+		}
+	}
+	// hide the smaller icons when empty
+	&.hidden {
+		opacity: 0;
+		width: 90px;
+		height: 20px;
+		transition: all 0.1s ease-out;
 	}
 }

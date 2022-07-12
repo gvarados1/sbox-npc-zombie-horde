@@ -33,8 +33,8 @@ namespace Sandbox
 				SetAnimParameter( "voice", Client.TimeSinceLastVoice < 0.5f ? Client.VoiceLevel : 0.0f );
 			}
 
-			//Vector3 aimPos = Pawn.EyePosition + Input.Rotation.Forward * 200;
-			Vector3 aimPos = Pawn.EyePosition + Input.Rotation.Forward * Rotation.FromPitch( -5 ) * 200;
+			Vector3 aimPos = Pawn.EyePosition + Input.Rotation.Forward * 200;
+			//Vector3 aimPos = Pawn.EyePosition + Input.Rotation.Forward * Rotation.FromPitch( -5 ) * 200;
 			Vector3 lookPos = aimPos;
 
 			//

@@ -29,7 +29,7 @@ internal class NameTagComponent : EntityComponent<HumanPlayer>
 	public void FrameUpdate()
 	{
 		var tx = Entity.GetAttachment( "hat" ) ?? Entity.Transform;
-		tx.Position += Vector3.Up * 10.0f;
+		tx.Position += Vector3.Up * 15.0f;
 		tx.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
 
 		NameTag.Transform = tx;

@@ -2,10 +2,14 @@
 $yellow: #ff0;
 $orange: #f70;
 
-@import "_crosshair.scss";
+$color-primary: #C5E0E3;
+$color-secondary: #90A4A6;
+
 @import "_damageindicator.scss";
 @import "_hitindicator.scss";
 @import "_inventory.scss";
+@import "_healthbar.scss";
+@import "_infobar.scss";
 @import "_killfeed.scss";
 @import "_pickupfeed.scss";
 @import "_scoreboard.scss";
@@ -43,17 +47,17 @@ vitals
 
 
 
-.dm_pistol .icon
+.zom_pistol .icon
 {
     background-image: url( /ui/weapons/dm_pistol.png );
 }
 
-.dm_shotgun .icon
+.zom_shotgun .icon
 {
     background-image: url( /ui/weapons/dm_shotgun.png );
 }
 
-.dm_smg .icon
+.zom_smg .icon
 {
     background-image: url( /ui/weapons/dm_smg.png );
 }
@@ -63,27 +67,27 @@ vitals
     background-image: url( /ui/weapons/zom_ak47.png );
 }
 
-.dm_crossbow .icon, .crossbow_bolt .icon
+.zom_crossbow .icon, .crossbow_bolt .icon
 {
     background-image: url( /ui/weapons/dm_crossbow.png );
 }
 
-.dm_357 .icon
+.zom_magnum .icon
 {
     background-image: url( /ui/weapons/dm_357.png );
 }
 
-.dm_crowbar .icon
+.zom_crowbar .icon
 {
     background-image: url( /ui/weapons/dm_crowbar.png );
 }
 
-.dm_grenade .icon, .dm_handgrenade .icon
+.zom_grenade .icon, .zom_handgrenade .icon
 {
     background-image: url( /ui/weapons/dm_grenade.png );
 }
 
-.dm_tripmine .icon, .dm_tripmine_planted .icon
+.zom_tripmine .icon, .zom_tripmine_planted .icon
 {
     background-image: url( /ui/weapons/dm_tripmine.png );
 }
@@ -91,6 +95,10 @@ vitals
 .zom_npcspawner .icon
 {
     background-image: url( /ui/weapons/zom_npcspawner.png );
+}
+
+.zom_pipebomb .icon {
+    background-image: url( /ui/weapons/zom_pipebomb.png );
 }
 
 .bottom-left
@@ -132,95 +140,6 @@ vitals
     mix-blend-mode: lighten;
     position: absolute;
     bottom: 100px;
-}
-
-.bottom-right
-{
-    ammo
-    {
-        flex-direction: row;
-        mix-blend-mode: lighten;
-        font-family: Roboto;
-        width: 100%;
-        height: 100%;
-
-        .ammobar
-        {
-            flex-direction: row-reverse;
-            flex-shrink: 0;
-            align-items: center;
-
-
-            .bullet
-            {
-                width: 8px;
-                flex-shrink: 0;
-                flex-grow: 0;
-                height: 30px;
-                background-color: $yellow;
-                border-radius: 3px 3px 2px 2px;
-                margin-left: 2px;
-                transition: all 0.1s ease-out;
-                box-shadow: 0px 0px 20px $orange;
-
-                &.empty
-                {
-                    background-color: #fa0;
-                    opacity: 0.04;
-                    box-shadow: none;
-                }
-            }
-
-            &.is-shotgun .bullet
-            {
-                width: 12px;
-                height: 35px;
-                margin-left: 10px;
-                border-radius: 1px 1px 1px 1px;
-            }
-
-            &.is-crossbow .bullet
-            {
-                width: 3px;
-                height: 35px;
-                margin-left: 5px;
-                border-radius: 1px 1px 1px 1px;
-            }
-
-            &.is-smg .bullet
-            {
-                width: 4px;
-                margin-left: 2px;
-                border-radius: 2px 2px 1px 1px;
-            }
-        }
-
-        label
-        {
-            text-align: right;
-
-            &.danger
-            {
-                color: #f00;
-            }
-        }
-    }
-}
-
-.inventory, .ammobar, healthhud, gamehud 
-{
-    background-color: rgba( #fa0, 0.06 );
-    padding: 16px;
-    margin: 5px;
-    font-size: 32px;
-    font-weight: bolder;
-    color: #ff0;
-    text-shadow: 0px 0px 10px $orange;
-    min-width: 130px;
-    text-align: center;
-    align-items: center;
-    border: 1px solid rgba( #fa0, 0.08 );
-    border-radius: 3px;
 }
 
 iconpanel

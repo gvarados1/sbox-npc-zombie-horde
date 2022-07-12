@@ -1,4 +1,5 @@
 ﻿using Sandbox.Component;
+using Sandbox.UI;
 
 namespace ZombieHorde;
 
@@ -11,6 +12,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual float BulletSpread => .05f;
 	public virtual float ShotSpreadMultiplier => 2f;
 	public virtual float ShotSpreadLerp => .2f;
+	public virtual string Icon => "";
+	public virtual Color RarityColor => WeaponRarity.Common;
 
 	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]
@@ -475,4 +478,13 @@ public enum WeaponSlot
 	Medkit,
 	Pills,
 	Prop
+}
+
+// I was thinking about doing weapon rarities but this will probably just be used to differentiate weapon slots.
+public struct WeaponRarity
+{
+	public static readonly Color Common = Color.Yellow;
+	public static readonly Color Uncommon = Color.Green;
+	public static readonly Color Rare = Color.Orange;
+	public static readonly Color Epic = Color.Magenta;
 }

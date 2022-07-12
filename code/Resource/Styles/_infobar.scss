@@ -1,0 +1,37 @@
+﻿InfoBar {
+	top: 80px;
+	//width: 240px;
+	width: 500px;
+	height: 29px;
+	margin: 0px 0px;
+	position: absolute;
+	transition: all 0.1s ease-in-out;
+	margin-top: 4px;
+	font-family: Roboto;
+	//background-color: white;
+	background-image: linear-gradient(to left, rgba( #000000, 0 ), rgba( #000000, .5 ));
+
+	.title-bar {
+		height: 28px;
+		width: 500px;
+		left: 110px;
+		position: absolute;
+		transition: all 0.1s ease-out;
+		font-size: 25px;
+		text-stroke: 4px black;
+		color: $color-primary;
+		font-weight: 900;
+	}
+
+	.description {
+		font-size: 22px;
+		color: $color-primary;
+		text-stroke: 4px black;
+		font-weight: 900;
+		opacity: 1;
+		position: absolute;
+		top: 30px;
+		left: 110px;
+		transition: all 0.1s ease-out;
+	}
+}

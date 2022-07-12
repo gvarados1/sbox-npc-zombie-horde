@@ -1,9 +1,9 @@
 ﻿namespace ZombieHorde;
 
-[Library( "zom_pipebomb" ), HammerEntity]
+[Library( "zom_medkit" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Pipe Bomb" ), Category( "Weapons" )]
-partial class PipeBomb : BaseZomWeapon
+[Title( "Medical Kit" ), Category( "Weapons" )]
+partial class MedKit : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
 	public override string ViewModelPath => "weapons/grenade/v_grenade.vmdl";
@@ -12,9 +12,9 @@ partial class PipeBomb : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 1.0f;
 	public override int ClipSize => 1;
-	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
+	public override WeaponSlot WeaponSlot => WeaponSlot.Medkit;
 	public override int AmmoMax => 0;
-	public override string Icon => "/ui/weapons/zom_pipebomb.png";
+	public override string Icon => "/ui/weapons/medkit.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 
 	public override void Spawn()

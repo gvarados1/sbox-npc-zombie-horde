@@ -1,6 +1,8 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System;
 using System.Collections.Generic;
+using static Sandbox.Clothing;
 
 namespace ZombieHorde;
 
@@ -14,6 +16,7 @@ public class InventoryBar : Panel
 		{
 			var icon = new InventoryIcon( i + 1, this );
 			slots.Add( icon );
+			icon.SetClass( "small", i >= 3 );
 		}
 	}
 
@@ -38,14 +41,68 @@ public class InventoryBar : Panel
 		if ( ent == null )
 		{
 			inventoryIcon.Clear();
+
+			//if ( i >= 3 )
+			{
+				inventoryIcon.SetClass( "hidden", true );
+			}
 			return;
 		}
+		inventoryIcon.SetClass( "hidden", false );
 
 		var di = DisplayInfo.For( ent );
 
 		inventoryIcon.TargetEnt = ent;
-		inventoryIcon.Label.Text = di.Name;
 		inventoryIcon.SetClass( "active", player.ActiveChild == ent );
+
+		var input = InputButton.Slot0;
+		Enum.TryParse( $"Slot{i+1}", out input );
+
+		var glyphTexture = Input.GetGlyph( input );
+		inventoryIcon.Glyph.Texture = glyphTexture;
+
+		// I don't want to deal with this right now. If somebody complains I will fix it.
+		// glyphs like space and ctrl have different widths.
+		//inventoryIcon.Glyph.Style.Width = glyphTexture.Width;
+		//inventoryIcon.Glyph.Style.Height = glyphTexture.Height;
+		//Log.Info( $"{glyphTexture.Width}, {glyphTexture.Height}" );
+		//inventoryIcon.Glyph.Style.Width = glyphTexture.Width > glyphTexture.Height ? 64 : 32;
+		//inventoryIcon.Glyph.Style.Right = glyphTexture.Width > glyphTexture.Height ? -80 : -50 ;
+
+
+		if (ent is BaseZomWeapon wep )
+		{
+			// format ammo count depending on single use, infite, or refillable reserve
+			//var ammo = wep.AmmoMax == 0 ? wep.AmmoClip.ToString() : wep.AmmoMax == -1 ? $"{wep.AmmoClip}/∞" : $"{wep.AmmoClip}/{wep.AmmoReserve}";
+			inventoryIcon.Bullets.Text = wep.AmmoClip.ToString();
+			inventoryIcon.BulletReserve.Text = wep.AmmoMax == 0 ? "" : wep.AmmoMax == -1 ? "∞" : wep.AmmoReserve.ToString();
+			inventoryIcon.Icon.SetTexture( wep.Icon );
+			inventoryIcon.RarityBar.Style.BackgroundColor = wep.RarityColor;
+
+			if(wep.AmmoMax == -2 )
+			{
+				inventoryIcon.Bullets.Text = "";
+				inventoryIcon.BulletReserve.Text = "";
+			}
+
+			if(i >= 3 )
+			{
+				if(wep.AmmoMax > 0 )
+				{
+					inventoryIcon.Bullets.Text = $"{wep.AmmoClip + wep.AmmoReserve}";
+					inventoryIcon.BulletReserve.Text = $"/{wep.AmmoMax + wep.ClipSize}";
+					inventoryIcon.Bullets.Style.Right = 81;
+				}
+				else if(wep.AmmoMax == 0)
+				{
+					inventoryIcon.Bullets.Text = "";
+				}
+				else
+				{
+					inventoryIcon.Bullets.Style.Right = 60;
+				}
+			}
+		}
 	}
 
 	[Event( "buildinput" )]
@@ -69,7 +126,7 @@ public class InventoryBar : Panel
 		if ( input.Pressed( InputButton.Slot8 ) ) SetActiveSlot( input, inventory, 7 );
 		if ( input.Pressed( InputButton.Slot9 ) ) SetActiveSlot( input, inventory, 8 );
 
-		if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, -input.MouseWheel );
+		if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, input.MouseWheel );
 	}
 
 	private static void SetActiveSlot( InputBuilder input, IBaseInventory inventory, int i )
@@ -91,14 +148,18 @@ public class InventoryBar : Panel
 
 	private static void SwitchActiveSlot( InputBuilder input, IBaseInventory inventory, int idelta )
 	{
-		var count = inventory.Count();
-		if ( count == 0 ) return;
+		//var count = inventory.Count()-1;
+		var count = 5;
 
 		var slot = inventory.GetActiveSlot();
 		var nextSlot = slot + idelta;
 
-		while ( nextSlot < 0 ) nextSlot += count;
-		while ( nextSlot >= count ) nextSlot -= count;
+		if ( nextSlot < 0 ) nextSlot = count;
+		if ( nextSlot > count ) nextSlot = 0;
+		while(inventory.GetSlot(nextSlot) == null )
+		{
+			nextSlot += idelta;
+		}
 
 		SetActiveSlot( input, inventory, nextSlot );
 	}
