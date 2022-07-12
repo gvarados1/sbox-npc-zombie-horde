@@ -41,14 +41,15 @@ public partial class SurvivalGamemode : BaseGamemode
 
 		if ( RoundState == RoundState.PreGame )
 		{
-			RoundName = "Pre-Game";
+			RoundName = "Get Ready to Survive the Horde!";
+			RoundInfo = "Wave coming in " + RoundInfo;
 
 			if( TimeUntilNextState <= 0 ) StartWave();
 		}
 		else if(RoundState == RoundState.WaveActive )
 		{
 			RoundName = "Wave " + WaveNumber;
-			RoundInfo = ZombiesRemaining.ToString() + " remain";
+			RoundInfo = ZombiesRemaining.ToString() + " Remain";
 
 			if ( ZombiesRemaining <= 0 ) StartIntermission();
 			if ( GetLivePlayerCount() <= 0 ) StartPostGame();
@@ -56,6 +57,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		else if ( RoundState == RoundState.Intermission )
 		{
 			RoundName = "Intermission";
+			RoundInfo = $"Wave {WaveNumber + 1} coming in " + RoundInfo;
 
 			if ( TimeUntilNextState <= 0 ) StartWave();
 		}

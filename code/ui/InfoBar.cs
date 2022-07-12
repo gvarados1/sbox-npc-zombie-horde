@@ -4,15 +4,15 @@ using System;
 
 namespace ZombieHorde;
 
-internal class GameHud : Panel
+internal class InfoBar : Panel
 {
 	public Label Timer;
 	public Label State;
 
-	public GameHud()
+	public InfoBar()
 	{
-		State = Add.Label( string.Empty, "game-state" );
-		Timer = Add.Label( string.Empty, "game-timer" );
+		State = Add.Label( string.Empty, "title-bar" );
+		Timer = Add.Label( string.Empty, "description" );
 	}
 
 	public override void Tick()
@@ -23,7 +23,7 @@ internal class GameHud : Panel
 		if ( !game.IsValid() ) return;
 
 		var gamemode = BaseGamemode.Ent;
-		Timer.Text = gamemode.RoundInfo;
+		Timer.Text = "- " + gamemode.RoundInfo;
 		State.Text = gamemode.RoundName;
 	}
 

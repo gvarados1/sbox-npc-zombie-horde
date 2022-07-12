@@ -9,6 +9,7 @@ $color-secondary: #90A4A6;
 @import "_hitindicator.scss";
 @import "_inventory.scss";
 @import "_healthbar.scss";
+@import "_infobar.scss";
 @import "_killfeed.scss";
 @import "_pickupfeed.scss";
 @import "_scoreboard.scss";
@@ -139,22 +140,6 @@ vitals
     mix-blend-mode: lighten;
     position: absolute;
     bottom: 100px;
-}
-
-.inventory, gamehud
-{
-    background-color: rgba( #fa0, 0.06 );
-    padding: 16px;
-    margin: 5px;
-    font-size: 32px;
-    font-weight: bolder;
-    color: #ff0;
-    text-shadow: 0px 0px 10px $orange;
-    min-width: 130px;
-    text-align: center;
-    align-items: center;
-    border: 1px solid rgba( #fa0, 0.08 );
-    border-radius: 3px;
 }
 
 iconpanel
