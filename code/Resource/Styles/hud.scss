@@ -2,9 +2,13 @@
 $yellow: #ff0;
 $orange: #f70;
 
+$color-primary: #C5E0E3;
+$color-secondary: #90A4A6;
+
 @import "_damageindicator.scss";
 @import "_hitindicator.scss";
 @import "_inventory.scss";
+@import "_healthbar.scss";
 @import "_killfeed.scss";
 @import "_pickupfeed.scss";
 @import "_scoreboard.scss";
@@ -137,7 +141,7 @@ vitals
     bottom: 100px;
 }
 
-.inventory, healthhud, gamehud 
+.inventory, gamehud
 {
     background-color: rgba( #fa0, 0.06 );
     padding: 16px;

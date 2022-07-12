@@ -1,0 +1,70 @@
+﻿HealthBar {
+	bottom: 80px;
+	//width: 240px;
+	width: 280px;
+	height: 70px;
+	margin: 0px 110px;
+	position: absolute;
+	transition: all 0.1s ease-in-out;
+	margin-top: 4px;
+	font-family: Roboto;
+	background-image: linear-gradient(to left, rgba( #000000, 0 ), rgba( #000000, .5 ));
+	//background-color: white;
+
+
+	.health-bar-gray {
+		height: 10px;
+		width: 200px;
+		left: 80px;
+		bottom: 10px;
+		opacity: .5;
+		position: absolute;
+		transition: all 0.1s ease-out;
+		mix-blend-mode: lighten;
+		background-color: $color-secondary;
+	}
+
+	.health-bar {
+		height: 10px;
+		width: 200px;
+		left: 80px;
+		bottom: 10px;
+		opacity: 1;
+		position: absolute;
+		transition: all 0.1s ease-out;
+		mix-blend-mode: lighten;
+		background-color: springgreen;
+	}
+
+	.health-current {
+		font-size: 25px;
+		color: $color-primary;
+		font-weight: 900;
+		opacity: 1;
+		position: absolute;
+		bottom: 24px;
+		right: 158px;
+		transition: all 0.1s ease-out;
+	}
+
+	.health-max {
+		font-size: 20px;
+		color: $color-secondary;
+		font-weight: 500;
+		opacity: .8;
+		position: absolute;
+		left: 125px;
+		bottom: 26px;
+		transition: all 0.1s ease-out;
+	}
+
+	.icon {
+		width: 90px;
+		height: 90px;
+		background-size: 100%;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		transition: all 0.1s ease-out;
+	}
+}
