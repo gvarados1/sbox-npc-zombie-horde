@@ -149,6 +149,7 @@ public class InventoryBar : Panel
 	private static void SwitchActiveSlot( InputBuilder input, IBaseInventory inventory, int idelta )
 	{
 		//var count = inventory.Count()-1;
+		if( inventory.Count() <= 1) return;
 		var count = 5;
 
 		var slot = inventory.GetActiveSlot();
@@ -156,9 +157,14 @@ public class InventoryBar : Panel
 
 		if ( nextSlot < 0 ) nextSlot = count;
 		if ( nextSlot > count ) nextSlot = 0;
-		while(inventory.GetSlot(nextSlot) == null )
+
+		var tries= 0; // where is the infinite loop? am I just dumb?
+		while(inventory.GetSlot(nextSlot) == null && tries < 6)
 		{
 			nextSlot += idelta;
+			if ( nextSlot < 0 ) nextSlot = count;
+			if ( nextSlot > count ) nextSlot = 0;
+			tries++;
 		}
 
 		SetActiveSlot( input, inventory, nextSlot );
