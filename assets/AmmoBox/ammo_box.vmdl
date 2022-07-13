@@ -53,7 +53,6 @@
 						placement_bone = ""
 						placement_attach = ""
 						is_ragdoll = false
-						collision_group = "debris"
 						offset = [ 0.0, 0.0, 0.0 ]
 						fadetime = 20.0
 						fade_min_dist = 0.0
@@ -61,6 +60,7 @@
 						name_mode = "none"
 						random_spawn_chance = 0.6
 						is_essential_piece = false
+						collision_tags = "solid"
 						manual_mode = false
 						surface_prop_override = ""
 					},
@@ -93,7 +93,6 @@
 						placement_bone = ""
 						placement_attach = ""
 						is_ragdoll = false
-						collision_group = "debris"
 						offset = [ 0.0, 0.0, 0.0 ]
 						fadetime = 20.0
 						fade_min_dist = 0.0
@@ -101,6 +100,7 @@
 						name_mode = "none"
 						random_spawn_chance = 0.6
 						is_essential_piece = false
+						collision_tags = "solid"
 						manual_mode = false
 						surface_prop_override = ""
 					},
@@ -133,7 +133,6 @@
 						placement_bone = ""
 						placement_attach = ""
 						is_ragdoll = false
-						collision_group = "debris"
 						offset = [ 0.0, 0.0, 0.0 ]
 						fadetime = 20.0
 						fade_min_dist = 0.0
@@ -141,6 +140,7 @@
 						name_mode = "none"
 						random_spawn_chance = 0.6
 						is_essential_piece = false
+						collision_tags = "solid"
 						manual_mode = false
 						surface_prop_override = ""
 					},
@@ -173,7 +173,6 @@
 						placement_bone = ""
 						placement_attach = ""
 						is_ragdoll = false
-						collision_group = "debris"
 						offset = [ 0.0, 0.0, 0.0 ]
 						fadetime = 20.0
 						fade_min_dist = 0.0
@@ -181,6 +180,7 @@
 						name_mode = "none"
 						random_spawn_chance = 0.6
 						is_essential_piece = false
+						collision_tags = "solid"
 						manual_mode = false
 						surface_prop_override = ""
 					},
@@ -213,7 +213,6 @@
 						placement_bone = ""
 						placement_attach = ""
 						is_ragdoll = false
-						collision_group = "debris"
 						offset = [ 0.0, 0.0, 0.0 ]
 						fadetime = 20.0
 						fade_min_dist = 0.0
@@ -221,6 +220,7 @@
 						name_mode = "none"
 						random_spawn_chance = 0.6
 						is_essential_piece = false
+						collision_tags = "solid"
 						manual_mode = false
 						surface_prop_override = ""
 					},
@@ -235,7 +235,6 @@
 						game_class = "prop_data"
 						game_keys = 
 						{
-							allowstatic = false
 							bakelighting = true
 							spawn_motion_disabled = false
 							health = 30.0
@@ -273,7 +272,7 @@
 						_class = "PhysicsHullFromRender"
 						parent_bone = ""
 						surface_prop = "metal"
-						collision_prop = "default"
+						collision_tags = "solid"
 						faceMergeAngle = 20.0
 						maxHullVertices = 32
 					},
@@ -306,5 +305,6 @@
 		model_archetype = "physics_prop_model"
 		primary_associated_entity = "prop_physics"
 		anim_graph_name = ""
+		base_model_name = ""
 	}
 }

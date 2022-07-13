@@ -16,13 +16,75 @@
   "Metadata": {
     "MinPlayers": 1,
     "MaxPlayers": 32,
-    "GameNetworkType": 0,
+    "GameNetworkType": "Multiplayer",
     "MapList": [
       "gvar.npc_playground"
     ],
-    "MapSelect": 0,
+    "MapSelect": "Unrestricted",
     "PerMapRanking": false,
-    "LeaderboardType": 0,
-    "RankType": 0
+    "LeaderboardType": "None",
+    "RankType": "None",
+    "Collision": {
+      "Defaults": {
+        "solid": "Collide",
+        "trigger": "Trigger",
+        "ladder": "Ignore",
+        "water": "Trigger",
+        "gib": "Collide",
+        "player": "Unset"
+      },
+      "Pairs": [
+        {
+          "a": "solid",
+          "b": "solid",
+          "r": "Collide"
+        },
+        {
+          "a": "trigger",
+          "b": "playerclip",
+          "r": "Ignore"
+        },
+        {
+          "a": "trigger",
+          "b": "solid",
+          "r": "Trigger"
+        },
+        {
+          "a": "solid",
+          "b": "trigger",
+          "r": "Collide"
+        },
+        {
+          "a": "playerclip",
+          "b": "solid",
+          "r": "Collide"
+        },
+        {
+          "a": "solid",
+          "b": "player",
+          "r": "Collide"
+        },
+        {
+          "a": "solid",
+          "b": "gib",
+          "r": "Collide"
+        },
+        {
+          "a": "player",
+          "b": "player",
+          "r": "Collide"
+        },
+        {
+          "a": "gib",
+          "b": "player",
+          "r": "Ignore"
+        },
+        {
+          "a": "gib",
+          "b": "gib",
+          "r": "Collide"
+        }
+      ]
+    }
   }
 }
