@@ -81,6 +81,25 @@ namespace Sandbox
 			SetBBox( mins, maxs );
 		}
 
+		public override TraceResult TraceBBox( Vector3 start, Vector3 end, Vector3 mins, Vector3 maxs, float liftFeet = 0.0f )
+		{
+			if ( liftFeet > 0 )
+			{
+				start += Vector3.Up * liftFeet;
+				maxs = maxs.WithZ( maxs.z - liftFeet );
+			}
+
+			var tr = Trace.Ray( start + TraceOffset, end + TraceOffset )
+						.Size( mins, maxs )
+						.WithAnyTags( "solid", "playerclip", "passbullets", "player" )
+						.WithoutTags( "gib" )
+						.Ignore( Pawn )
+						.Run();
+
+			tr.EndPosition -= TraceOffset;
+			return tr;
+		}
+
 		protected float SurfaceFriction;
 
 
@@ -557,8 +576,7 @@ namespace Sandbox
 
 			var pm = Trace.Ray( start, end )
 						.Size( mins, maxs )
-						.HitLayer( CollisionLayer.All, false )
-						.HitLayer( CollisionLayer.LADDER, true )
+						.WithTag( "ladder" )
 						.Ignore( Pawn )
 						.Run();
 
