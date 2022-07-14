@@ -13,6 +13,12 @@ public partial class BaseNpc : AnimatedEntity
 
 	DamageInfo LastDamage;
 
+	public override void Spawn()
+	{
+		base.Spawn();
+		Tags.Add( "npc" );
+	}
+
 	public override void TakeDamage( DamageInfo info )
 	{
 		LastDamage = info;
