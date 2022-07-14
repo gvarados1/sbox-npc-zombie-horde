@@ -31,7 +31,8 @@
         "ladder": "Ignore",
         "water": "Trigger",
         "gib": "Collide",
-        "player": "Unset"
+        "player": "Unset",
+        "item": "Collide"
       },
       "Pairs": [
         {
@@ -81,8 +82,25 @@
         },
         {
           "a": "gib",
-          "b": "gib",
-          "r": "Collide"
+          "b": "gib"
+        },
+        {
+          "a": "trigger",
+          "b": "item",
+          "r": "Trigger"
+        },
+        {
+          "a": "ladder",
+          "b": "item"
+        },
+        {
+          "a": "water",
+          "b": "item"
+        },
+        {
+          "a": "player",
+          "b": "item",
+          "r": "Trigger"
         }
       ]
     }

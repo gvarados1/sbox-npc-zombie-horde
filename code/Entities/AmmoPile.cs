@@ -40,8 +40,7 @@ partial class AmmoPile : ModelEntity, IUse
 		glow.RangeMin = 0;
 		glow.RangeMax = int.MaxValue;
 
-		//CollisionGroup = CollisionGroup.Weapon;
-		//SetInteractsAs( CollisionLayer.Debris );
+		Tags.Add( "item" );
 	}
 
 	[Event.Tick]

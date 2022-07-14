@@ -5,7 +5,7 @@ namespace ZombieHorde;
 
 public partial class HumanPlayer : Player, IUse
 {
-	TimeSince timeSinceDropped;
+	public TimeSince timeSinceDropped;
 
 	[Net]
 	public float MaxHealth { get; set; } = 100;
@@ -83,24 +83,6 @@ public partial class HumanPlayer : Player, IUse
 		ply.Inventory.Add( new PipeBomb() );
 		ply.Inventory.Add( new MedKit() );
 		ply.Inventory.Add( new HealthSyringe() );
-
-		/*
-		ply.GiveAmmo( AmmoType.Pistol, 1000 );
-		ply.GiveAmmo( AmmoType.Python, 1000 );
-		ply.GiveAmmo( AmmoType.Buckshot, 1000 );
-		ply.GiveAmmo( AmmoType.Crossbow, 1000 );
-		ply.GiveAmmo( AmmoType.Grenade, 1000 );
-		ply.GiveAmmo( AmmoType.Tripmine, 1000 );
-
-		ply.Inventory.Add( new Python() );
-		ply.Inventory.Add( new Shotgun() );
-		ply.Inventory.Add( new SMG() );
-		ply.Inventory.Add( new AK47() );
-		ply.Inventory.Add( new Crossbow() );
-		ply.Inventory.Add( new GrenadeWeapon() );
-		ply.Inventory.Add( new TripmineWeapon() );
-		ply.Inventory.Add( new NpcSpawner() );
-		*/
 	}
 
 	[ConCmd.Admin]
@@ -223,7 +205,7 @@ public partial class HumanPlayer : Player, IUse
 			{
 				if ( dropped.PhysicsGroup != null )
 				{
-					dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 300;
+					dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 200;
 				}
 
 				timeSinceDropped = 0;
@@ -471,6 +453,11 @@ public partial class HumanPlayer : Player, IUse
 			var chance = percent; // todo: decrease chance further away from position;
 			zom.TryAlert( target, chance );
 		}
+	}
+
+	public void StopUse()
+	{
+		StopUsing();
 	}
 
 	public bool OnUse( Entity user )

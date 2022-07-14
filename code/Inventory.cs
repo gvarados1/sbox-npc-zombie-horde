@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace ZombieHorde;
 
+//
+// Note: This inventory is awful! Don't use it as reference.
+//
 partial class ZomInventory : BaseInventory
 {
 	// probably should have used an array or something for this
@@ -78,7 +81,7 @@ partial class ZomInventory : BaseInventory
 			PickupFeed.OnPickupWeapon( To.Single( player ), display.Name );
 		}
 
-		Log.Info( $"{Host.Name}: 1:{Secondary} 2:{Primary1} 3:{Primary2} 4:{Grenade} 5:{Medkit} 6:{Pills}" );
+		//Log.Info( $"{Host.Name}: 1:{Secondary} 2:{Primary1} 3:{Primary2} 4:{Grenade} 5:{Medkit} 6:{Pills}" );
 
 		return true;
 	}
@@ -119,6 +122,18 @@ partial class ZomInventory : BaseInventory
 		return base.GetSlot( i );
 	}
 
+	public Entity GetSlot( WeaponSlot slot )
+	{
+		var i = 0;
+		if ( slot == WeaponSlot.Secondary ) i = 0;
+		if ( slot == WeaponSlot.Primary ) i = 1;
+		if ( slot == WeaponSlot.Grenade ) i = 3;
+		if ( slot == WeaponSlot.Medkit ) i = 4;
+		if ( slot == WeaponSlot.Pills ) i = 5;
+
+		return GetSlot( i );
+	}
+
 	public override Entity DropActive()
 	{
 		// is there a better way to do this?
@@ -131,6 +146,20 @@ partial class ZomInventory : BaseInventory
 		if ( weapon == Pills ) Pills = null;
 
 		return base.DropActive();
+	}
+
+	public Entity DropItem( Entity weapon )
+	{
+		// is there a better way to do this?
+		if ( weapon == Secondary ) Secondary = null;
+		if ( weapon == Primary1 ) Primary1 = null;
+		if ( weapon == Primary2 ) Primary2 = null;
+		if ( weapon == Grenade ) Grenade = null;
+		if ( weapon == Medkit ) Medkit = null;
+		if ( weapon == Pills ) Pills = null;
+
+		Drop( weapon );
+		return (weapon);
 	}
 
 	public override void DeleteContents()
@@ -150,6 +179,45 @@ partial class ZomInventory : BaseInventory
 		base.OnChildAdded( child );
 
 		if ( Host.IsServer ) return;
+		var weapon = child as BaseZomWeapon;
+		if ( !weapon.IsValid() ) return;
+		// figure out which weapon we have
+		switch ( weapon.WeaponSlot )
+		{
+			case WeaponSlot.Secondary:
+				Secondary = weapon;
+				break;
+			case WeaponSlot.Primary:
+				if ( Primary1.IsValid() )
+				{
+					if ( !Primary2.IsValid() )
+					{
+						Primary2 = weapon;
+					}
+				}
+				else
+				{
+					Primary1 = weapon;
+				}
+				break;
+			case WeaponSlot.Grenade:
+				Grenade = weapon;
+				break;
+			case WeaponSlot.Medkit:
+				Medkit = weapon;
+				break;
+			case WeaponSlot.Pills:
+				Pills = weapon;
+				break;
+		}
+		OnChildAdded2( child );
+	}
+
+	// dumb hack
+	private async void OnChildAdded2( Entity child )
+	{
+		if ( Host.IsServer ) return;
+		await Task.Delay( 1 );
 		var weapon = child as BaseZomWeapon;
 		if ( !weapon.IsValid() ) return;
 		// figure out which weapon we have

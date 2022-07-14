@@ -460,12 +460,67 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		var ply = user as HumanPlayer;
 		if ( ply.LifeState != LifeState.Alive ) return false;
 
-		ply.Inventory.Add( this, true );
+		// this inventory system sucks
+		var inv = ply.Inventory as ZomInventory;
+		Entity dropped = null;
+		switch ( WeaponSlot )
+		{
+			case WeaponSlot.Secondary:
+			case WeaponSlot.Grenade:
+			case WeaponSlot.Medkit:
+			case WeaponSlot.Pills:
+				{
+					dropped = inv.DropItem( inv.GetSlot( WeaponSlot ) );
+					break;
+				}
+			case WeaponSlot.Primary:
+				{
+					if ( inv.Add( this, true ) )
+					{
+						ply.StopUse();
+						ply.timeSinceDropped = 0;
+						return true;
+					}
+					if(ply.ActiveChild != null && (ply.ActiveChild as BaseZomWeapon).WeaponSlot == WeaponSlot.Primary )
+					{
+						dropped = inv.DropItem( inv.DropActive() );
+						SetActive();
+					}
+					else
+					{
+						dropped = inv.DropItem( inv.GetSlot( WeaponSlot ) );
+					}
+					break;
+				}
+		}
+		ply.Inventory.Add( this , ply.ActiveChild == dropped );
+
+
+		//Log.Info( $"{Host.Name}: 1:{inv.Secondary} 2:{inv.Primary1} 3:{inv.Primary2} 4:{inv.Grenade} 5:{inv.Medkit} 6:{inv.Pills}" );
+
+		if (dropped != null && dropped.PhysicsGroup != null )
+		{
+			dropped.PhysicsGroup.Velocity = ply.Velocity + (ply.EyeRotation.Forward + ply.EyeRotation.Up) * 200;
+		}
+
+		ply.StopUse();
+		ply.timeSinceDropped = 0;
 		return true;
+	}
+
+	public async void SetActive()
+	{
+		// dumb hack because it takes a tick to update active on the client
+		await Task.Delay( 1 );
+		(Owner as HumanPlayer).Inventory.SetActive( this );
+		Log.Info( "set" );
 	}
 
 	public bool IsUsable( Entity user )
 	{
+		var ply = user as HumanPlayer;
+		if ( ply.timeSinceDropped < .5f ) return false;
+		//if ( ply.ActiveChild == this ) return false;
 		return true;
 	}
 }
