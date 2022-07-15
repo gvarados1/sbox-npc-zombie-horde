@@ -20,9 +20,6 @@ partial class LootBox : Prop
 		EnableDrawOverWorld = true;
 
 		Health = 15;
-
-		//CollisionGroup = CollisionGroup.Debris;
-		//SetInteractsAs( CollisionLayer.Debris ); 
 	}
 
 	public override void OnKilled()
