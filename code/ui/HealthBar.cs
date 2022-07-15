@@ -3,18 +3,19 @@ using Sandbox.UI;
 using Sandbox.UI.Construct;
 
 namespace ZombieHorde;
-public class HealthBar : Panel
+public partial class HealthBar : Panel
 {
 	public Image Icon;
 	public Label CurrentHealth, MaxHealth, Bar, BarGray;
 
 	public HealthBar()
 	{
-		Icon = Add.Image( "ui/character.png", "icon" );
+		//Icon = Add.Image( "ui/character.png", "icon" );
 		CurrentHealth = Add.Label( "0", "health-current" );
 		MaxHealth = Add.Label( "100", "health-max" );
 		BarGray = Add.Label( "", "health-bar-gray" );
 		Bar = Add.Label( "", "health-bar" );
+		CreateAvatar();
 	}
 
 	public override void Tick()
