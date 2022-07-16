@@ -27,7 +27,6 @@ namespace Sandbox
 			else
 			{
 				Wants = Input.Down( InputButton.Duck );
-				Log.Info( Host.Name );
 			}
 
 			if ( Wants != IsActive ) 
@@ -35,7 +34,7 @@ namespace Sandbox
 				if ( Wants ) TryDuck();
 				else TryUnDuck();
 			}
-			Log.Info( $"{Host.Name}: {Wants}" );
+
 			if ( IsActive )
 			{
 				Controller.SetTag( "ducked" );
