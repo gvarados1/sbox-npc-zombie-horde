@@ -4,25 +4,41 @@ namespace Sandbox
 	[Library]
 	public class BaseZomDuck : BaseNetworkable
 	{
+		[ConVar.Replicated]
+		public static bool zom_toggleduck { get; set; } = false;
+
 		public BasePlayerController Controller;
 
 		public bool IsActive; // replicate
+		public bool Wants = false;
 
 		public BaseZomDuck( BasePlayerController controller )
 		{
 			Controller = controller;
 		}
 
+		[ConVar.ClientData]
+		public static string test_uservar { get; set; } = "Client User Var";
+
 		public virtual void PreTick() 
 		{
-			bool wants = Input.Down( InputButton.Duck );
-
-			if ( wants != IsActive ) 
+			if ( zom_toggleduck )
 			{
-				if ( wants ) TryDuck();
-				else TryUnDuck();
+				if ( Input.Pressed( InputButton.Duck ) )
+					Wants = !Wants;
+			}
+			else
+			{
+				Wants = Input.Down( InputButton.Duck );
+				Log.Info( Host.Name );
 			}
 
+			if ( Wants != IsActive ) 
+			{
+				if ( Wants ) TryDuck();
+				else TryUnDuck();
+			}
+			Log.Info( $"{Host.Name}: {Wants}" );
 			if ( IsActive )
 			{
 				Controller.SetTag( "ducked" );
