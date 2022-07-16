@@ -47,7 +47,7 @@ public partial class HealthBar
 		light1.Rotation = Rotation.LookAt( -light1.Position );
 		light1.SpotCone = new SpotLightCone { Inner = 90, Outer = 90 };
 
-		var randpos2 = Vector3.Up * (50.0f + Rand.Float( 200 )) + Vector3.Forward * (100.0f + Rand.Float( 30 )) + Vector3.Right * (-200 + Rand.Float(100));
+		var randpos2 = Vector3.Up * (50.0f + Rand.Float( 100 )) + Vector3.Forward * (100.0f + Rand.Float( 20 )) + Vector3.Right * (-200 + Rand.Float(150));
 		var light2 = new SceneSpotLight( AvatarWorld, randpos2, new Color( .8f + Rand.Float(.2f), 0.8f + +Rand.Float( .2f ), 0.8f + Rand.Float( .2f ) ) * (80.0f + Rand.Float(10)) );
 		light2.Rotation = Rotation.LookAt( -light2.Position );
 		light2.SpotCone = new SpotLightCone { Inner = 90, Outer = 90 };
