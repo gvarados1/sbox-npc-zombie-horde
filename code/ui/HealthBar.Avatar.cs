@@ -13,7 +13,7 @@ public partial class HealthBar
 	private List<SceneModel> ClothingObjects = new();
 	public ClothingContainer ClothingContainer = new();
 
-	void CreateAvatar()
+	public void CreateAvatar()
 	{
 		ClothingObjects?.Clear();
 		AvatarScene?.Delete();
@@ -53,6 +53,29 @@ public partial class HealthBar
 		light2.SpotCone = new SpotLightCone { Inner = 90, Outer = 90 };
 	}
 
+	public void TickAvatar()
+	{
+		var ply = Local.Pawn as HumanPlayer;
+		if(ply.LifeState == LifeState.Alive )
+		{
+			AvatarScene.Style.FilterSepia = 0;
+			AvatarScene.Style.FilterSaturate = 1;
+			AvatarScene.Style.FilterTint = Color.White;
+		}
+		else if ( ply.LifeState == LifeState.Dying )
+		{
+			AvatarScene.Style.FilterSepia = 0;
+			AvatarScene.Style.FilterSaturate = 1;
+			AvatarScene.Style.FilterTint = Color.Parse( "#EB3F3F" );
+		}
+		else if ( ply.LifeState == LifeState.Dead )
+		{
+			AvatarScene.Style.FilterSepia = 1;
+			AvatarScene.Style.FilterSaturate = 0;
+			AvatarScene.Style.FilterTint = Color.White;
+		}
+	}
+
 	public override void OnHotloaded()
 	{
 		base.OnHotloaded();
@@ -74,11 +97,12 @@ public partial class HealthBar
 		}
 
 		ClothingObjects = ClothingContainer.DressSceneObject( CitizenModel );
-		Log.Info(ClothingObjects.Count );
-		foreach ( var model in ClothingObjects )
-		{
-			Log.Info(model?.ToString());
-		}
+	}
+
+	[ClientRpc]
+	public static void RefreshAvatar()
+	{
+		Current.CreateAvatar();
 	}
 }
 

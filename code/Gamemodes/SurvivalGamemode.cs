@@ -88,8 +88,13 @@ public partial class SurvivalGamemode : BaseGamemode
 		if ( Host.IsServer ) PlaySound( "wave.end" );
 		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
+		
 
-		if ( Host.IsClient ) return;
+		if ( Host.IsClient ) 
+		{
+			//HealthBar.RefreshAvatar();
+			return; 
+		}
 
 		// revive all incapacitated players!
 		foreach ( var ply in Entity.All.OfType<HumanPlayer>() )
@@ -145,7 +150,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		if ( Host.IsServer )
 		{
 			PlaySound( "bell" );
-
+			HealthBar.RefreshAvatar(To.Everyone);
 
 			// surely there's a better way of doing this
 			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )

@@ -7,9 +7,11 @@ public partial class HealthBar : Panel
 {
 	public Image Icon;
 	public Label CurrentHealth, MaxHealth, Bar, BarGray;
+	public static HealthBar Current { get; private set; }
 
 	public HealthBar()
 	{
+		Current = this;
 		//Icon = Add.Image( "ui/character.png", "icon" );
 		CurrentHealth = Add.Label( "0", "health-current" );
 		MaxHealth = Add.Label( "100", "health-max" );
@@ -22,6 +24,8 @@ public partial class HealthBar : Panel
 	{
 		var player = Local.Pawn as HumanPlayer;
 		if ( player == null ) return;
+
+		TickAvatar();
 
 		CurrentHealth.Text = $"{player.Health.CeilToInt()}";
 		MaxHealth.Text = $"/{player.MaxHealth.CeilToInt()}";
