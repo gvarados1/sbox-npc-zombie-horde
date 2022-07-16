@@ -29,7 +29,12 @@ public partial class HealthBar
 		Vector3 pos = Vector3.Up * 63 + Vector3.Left * 2 + angles.Direction * -40;
 
 		CitizenModel.SetAnimGraph( "models/zombie/citizen_zombie/citizen_avatar.vanmgrph" );
-		CitizenModel.Update( RealTime.Delta );
+
+		foreach( SceneModel model in AvatarWorld.SceneObjects )
+		{
+			model.Update( RealTime.Delta );
+		}
+		//CitizenModel.Update( RealTime.Delta );
 
 		AvatarScene = Add.ScenePanel( AvatarWorld, Vector3.Zero, Rotation.Identity, 35, "avatar");
 
