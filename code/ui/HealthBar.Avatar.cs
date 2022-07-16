@@ -28,6 +28,9 @@ public partial class HealthBar
 		Angles angles = new( -2 + Rand.Float(4), 170 + Rand.Float(20), -1 + Rand.Float(2) );
 		Vector3 pos = Vector3.Up * 63 + Vector3.Left * 2 + angles.Direction * -40;
 
+		CitizenModel.SetAnimGraph( "models/zombie/citizen_zombie/citizen_avatar.vanmgrph" );
+		CitizenModel.Update( RealTime.Delta );
+
 		AvatarScene = Add.ScenePanel( AvatarWorld, Vector3.Zero, Rotation.Identity, 35, "avatar");
 
 		AvatarScene.CameraPosition = pos;
