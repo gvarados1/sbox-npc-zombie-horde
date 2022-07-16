@@ -32,23 +32,50 @@ public partial class HealthBar : Panel
 		var width = 200;
 		Bar.Style.Width = (width * (player.Health / player.MaxHealth).Clamp( 0, 1 ));
 
-		// set healthbar color
-		var color = Color.Green;
-		if ( player.Health / player.MaxHealth <= .8f ) color = Color.Yellow;
-		if ( player.Health / player.MaxHealth <= .5f ) color = Color.Orange;
-		if ( player.Health / player.MaxHealth <= .2f ) color = Color.Red;
-
-		Bar.Style.BackgroundColor = color;
-
-		SetClass( "low", player.Health < 40.0f );
-		SetClass( "empty", player.Health <= 0.0f );
-
 		// probably a better way to do this. todo: research flexboxes ??
 		var right = 158;
 		var left = 125;
 		var offset = -24;//-12;
 		offset += 15 * (int)Math.Log10( player.Health.CeilToInt() );
 		CurrentHealth.Style.Right = right - offset;
+		CurrentHealth.Style.FontColor = (Color)Color.Parse( "#C5E0E3" );
 		MaxHealth.Style.Left = left + offset;
+
+		var color = Color.Green;
+		// set healthbar color
+		if (player.LifeState == LifeState.Dying )
+		{
+			color = (Color)Color.Parse( "#FF0000" );
+			if ( player.Health / player.MaxHealth <= .8f ) color = (Color)Color.Parse( "#BD0000" );
+			if ( player.Health / player.MaxHealth <= .5f ) color = (Color)Color.Parse( "#9C0000" );
+			if ( player.Health / player.MaxHealth <= .2f ) color = (Color)Color.Parse( "#800000" );
+			CurrentHealth.Text = $"Incapacitated!";
+			CurrentHealth.Style.Right = 41;
+			CurrentHealth.Style.FontColor = (Color)Color.Parse( "#FF5B71" );
+			MaxHealth.Text = $"";
+			MaxHealth.Style.Left = 240;
+			Bar.Style.Width = (width * (player.Health / 200).Clamp( 0, 1 ));
+		}
+		else if(player.LifeState == LifeState.Dead){
+			CurrentHealth.Text = $"R.I.P.";
+			CurrentHealth.Style.Right = 140;
+			CurrentHealth.Style.FontColor = (Color)Color.Parse( "#90A4A6" );
+			MaxHealth.Text = $"";
+			MaxHealth.Style.Left = 142;
+			Bar.Style.Width = 0;
+		}
+		else
+		{
+			color = Color.Green;
+			if ( player.Health / player.MaxHealth <= .8f ) color = Color.Yellow;
+			if ( player.Health / player.MaxHealth <= .5f ) color = Color.Orange;
+			if ( player.Health / player.MaxHealth <= .2f ) color = Color.Red;
+		}
+		
+
+		Bar.Style.BackgroundColor = color;
+
+		SetClass( "low", player.Health < 40.0f );
+		SetClass( "empty", player.Health <= 0.0f );
 	}
 }
