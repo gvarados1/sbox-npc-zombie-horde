@@ -30,11 +30,10 @@ public partial class HealthBar
 
 		CitizenModel.SetAnimGraph( "models/zombie/citizen_zombie/citizen_avatar.vanmgrph" );
 
-		foreach( SceneModel model in AvatarWorld.SceneObjects )
+		foreach ( SceneModel model in AvatarWorld.SceneObjects.OfType<SceneModel>() )
 		{
 			model.Update( RealTime.Delta );
 		}
-		//CitizenModel.Update( RealTime.Delta );
 
 		AvatarScene = Add.ScenePanel( AvatarWorld, Vector3.Zero, Rotation.Identity, 35, "avatar");
 
@@ -43,11 +42,13 @@ public partial class HealthBar
 		AvatarScene.AmbientColor = Color.Gray * 0.2f;
 		AvatarScene.RenderOnce = true;
 
-		var light1  = new SceneSpotLight( AvatarWorld, Vector3.Up * 100.0f + Vector3.Forward * -100.0f + Vector3.Right * 100, new Color( 0.1f, 0.1f, .2f ) * 80.0f );
+		var randpos1 = Vector3.Up * (100.0f + Rand.Float( 20 )) + Vector3.Forward * (-100.0f + Rand.Float( 30 )) + Vector3.Right * (100 + Rand.Float( 20 ));
+		var light1  = new SceneSpotLight( AvatarWorld, randpos1, new Color( 0.05f + Rand.Float( .1f ), 0.05f + Rand.Float( .1f ), .1f + Rand.Float( .1f ) ) * (80.0f + Rand.Float( 10 )) );
 		light1.Rotation = Rotation.LookAt( -light1.Position );
 		light1.SpotCone = new SpotLightCone { Inner = 90, Outer = 90 };
 
-		var light2 = new SceneSpotLight( AvatarWorld, Vector3.Up * 100.0f + Vector3.Forward * 100.0f + Vector3.Right * -200, new Color( 1.0f, 0.95f, 0.8f ) * 80.0f );
+		var randpos2 = Vector3.Up * (50.0f + Rand.Float( 200 )) + Vector3.Forward * (100.0f + Rand.Float( 30 )) + Vector3.Right * (-200 + Rand.Float(100));
+		var light2 = new SceneSpotLight( AvatarWorld, randpos2, new Color( .8f + Rand.Float(.2f), 0.8f + +Rand.Float( .2f ), 0.8f + Rand.Float( .2f ) ) * (80.0f + Rand.Float(10)) );
 		light2.Rotation = Rotation.LookAt( -light2.Position );
 		light2.SpotCone = new SpotLightCone { Inner = 90, Outer = 90 };
 	}
