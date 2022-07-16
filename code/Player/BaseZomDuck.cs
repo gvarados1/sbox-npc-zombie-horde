@@ -17,9 +17,6 @@ namespace Sandbox
 			Controller = controller;
 		}
 
-		[ConVar.ClientData]
-		public static string test_uservar { get; set; } = "Client User Var";
-
 		public virtual void PreTick() 
 		{
 			if ( zom_toggleduck )
