@@ -36,8 +36,7 @@ public partial class CommonZombie : BaseZombie
 		base.Spawn();
 
 		Tags.Add( "Zombie" );
-		SetMaterialGroup( 4 );
-		RenderColor = new Color32( (byte)(105 + Rand.Int( 20 )), (byte)(174 + Rand.Int( 20 )), (byte)(59 + Rand.Int( 20 )), 255 ).ToColor();
+		//RenderColor = new Color32( (byte)(105 + Rand.Int( 20 )), (byte)(174 + Rand.Int( 20 )), (byte)(59 + Rand.Int( 20 )), 255 ).ToColor();
 
 		UpdateClothes();
 		Clothing.DressEntity( this );

@@ -1,0 +1,62 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "eyeball.vfx"
+
+	//---- Animation ----
+	F_MORPH_SUPPORTED 1
+
+	//---- Specular ----
+	F_SPECULAR_CUBE_MAP 1 // In-game Cube Map
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[0.941177 0.909804 0.874510 1.000000]"
+	TextureColor "models/citizen/skin/citizen_eyes_advanced_color.png"
+
+	//---- Fade ----
+	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Iris ----
+	g_flIrisBumpStrength "0.989"
+	g_flParallaxStrength "0.100"
+	IrisNormal "models/citizen/skin/citizen_eyes_advanced_iris_normal.png"
+	IrisRoughness "[0.607843 0.607843 0.607843 0.000000]"
+	TextureIrisMask "models/citizen/skin/citizen_eyes_advanced_iris_mask.png"
+
+	//---- Lighting ----
+	g_vReflectanceRange "[0.000 0.300]"
+	TextureReflectance "models/citizen/skin/citizen_eyes_advanced_iris_refl.png"
+
+	//---- Normal ----
+	g_flCorneaScleraBumpStrength "1.000"
+	g_flScleraDiffuseExponent "1.500"
+	g_flScleraDiffuseWrap "0.131"
+	TextureNormal "models/citizen/skin/citizen_eyes_advanced_normal.png"
+
+	//---- Occlusion ----
+	g_flOcclusionStrength "0.750"
+	g_flOcclusionWidth "2.550"
+	TextureOcclusion "[1.000000 1.000000 1.000000 0.000000]"
+
+	//---- Texture Coordinates ----
+	g_nScaleTexCoordUByModelScaleAxis "0"
+	g_nScaleTexCoordVByModelScaleAxis "0"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "flesh"
+	}
+
+	DynamicParams
+	{
+		g_vColorTint "hello"
+	}
+}

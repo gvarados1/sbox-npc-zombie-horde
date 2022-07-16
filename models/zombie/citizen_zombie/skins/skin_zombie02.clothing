@@ -1,0 +1,16 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Title = "Skin Zombie 02"
+		Subtitle = "02"
+		Category = "Skin"
+		Model = null
+		SkinMaterial = resource:"models/zombie/citizen_zombie/skins/citizen_skin_zombie02.vmat"
+		EyesMaterial = resource:"models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+		MaterialGroup = ""
+		SlotsUnder = "Skin"
+		SlotsOver = 0
+		HideBody = 0
+	}
+}

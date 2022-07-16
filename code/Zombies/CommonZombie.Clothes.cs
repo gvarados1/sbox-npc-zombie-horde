@@ -13,6 +13,14 @@ public partial class CommonZombie
 
 		model = Rand.FromArray( new[]
 			{
+				"models/zombie/citizen_zombie/skins/skin_zombie01.clothing",
+				"models/zombie/citizen_zombie/skins/skin_zombie02.clothing",
+				"models/zombie/citizen_zombie/skins/skin_zombie03.clothing",
+			} );
+		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
+
+		model = Rand.FromArray( new[]
+			{
 				"models/citizen_clothes/trousers/jeans/jeans.clothing",
 				"models/citizen_clothes/shorts/summer_shorts/summer shorts.clothing",
 				"models/citizen_clothes/trousers/smarttrousers/trousers.smart.clothing",

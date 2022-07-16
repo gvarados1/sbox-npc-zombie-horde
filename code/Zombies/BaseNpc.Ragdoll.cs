@@ -6,7 +6,7 @@ public partial class BaseNpc
 	static EntityLimit RagdollLimit = new EntityLimit { MaxTotal = 25 };
 
 	[ClientRpc]
-	void BecomeRagdollOnClient( Vector3 force, int forceBone, int materialGroup, Color color )
+	void BecomeRagdollOnClient( Vector3 force, int forceBone)
 	{
 		// TODO - lets not make everyone write this shit out all the time
 		// maybe a CreateRagdoll<T>() on ModelEntity?
@@ -16,9 +16,6 @@ public partial class BaseNpc
 		ent.MoveType = MoveType.Physics;
 		ent.UsePhysicsCollision = true;
 		ent.Tags.Add( "gib" );
-
-		ent.RenderColor = color;
-		ent.SetMaterialGroup( materialGroup );
 
 		ent.CopyFrom( this );
 		ent.CopyBonesFrom( this );

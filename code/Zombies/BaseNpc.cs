@@ -52,7 +52,7 @@ public partial class BaseNpc : AnimatedEntity
 		}
 		else
 		{
-			BecomeRagdollOnClient( LastDamage.Force*5, GetHitboxBone( LastDamage.HitboxIndex ), GetMaterialGroup(), RenderColor ); // increased damage force, make ragdolls go flying!
+			BecomeRagdollOnClient( LastDamage.Force*5, GetHitboxBone( LastDamage.HitboxIndex )); // increased damage force, make ragdolls go flying!
 		}
 	}
 }
