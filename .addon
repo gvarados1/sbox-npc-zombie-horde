@@ -15,7 +15,7 @@
   "RootNamespace": "ZombieHorde",
   "Metadata": {
     "MinPlayers": 1,
-    "MaxPlayers": 32,
+    "MaxPlayers": 8,
     "GameNetworkType": "Multiplayer",
     "MapList": [
       "gvar.npc_playground"
