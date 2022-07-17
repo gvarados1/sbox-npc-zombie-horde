@@ -32,7 +32,8 @@
         "water": "Trigger",
         "gib": "Collide",
         "player": "Unset",
-        "item": "Collide"
+        "item": "Collide",
+        "glass": "Unset"
       },
       "Pairs": [
         {
@@ -101,6 +102,21 @@
           "a": "player",
           "b": "item",
           "r": "Trigger"
+        },
+        {
+          "a": "player",
+          "b": "glass",
+          "r": "Trigger"
+        },
+        {
+          "a": "glass",
+          "b": "glass",
+          "r": "Ignore"
+        },
+        {
+          "a": "trigger",
+          "b": "glass",
+          "r": "Ignore"
         }
       ]
     }
