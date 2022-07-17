@@ -73,7 +73,10 @@ public partial class SurvivalGamemode : BaseGamemode
 		if(Host.IsServer) PlaySound( "wave.start" );
 		WaveNumber++;
 
-		ZombiesRemaining += 10 + 4 * (WaveNumber - 1);
+		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
+		var difficultyMultiplier = .75f + playerCount * .25f;
+
+		ZombiesRemaining += 10 + (int)(3 * (WaveNumber - 1) * difficultyMultiplier);
 		if ( ZombiesRemaining < 5 ) ZombiesRemaining = 5;
 		RoundState = RoundState.WaveActive;
 
@@ -88,7 +91,8 @@ public partial class SurvivalGamemode : BaseGamemode
 		if ( Host.IsServer ) PlaySound( "wave.end" );
 		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
-		
+
+		UpdateZombieStats();
 
 		if ( Host.IsClient ) 
 		{
@@ -175,6 +179,8 @@ public partial class SurvivalGamemode : BaseGamemode
 		ZombiesRemaining = 0;
 		TimeUntilNextState = 60;
 		RoundState = RoundState.PreGame;
+
+		UpdateZombieStats();
 	}
 	public override bool EnableRespawning()
 	{
@@ -184,6 +190,47 @@ public partial class SurvivalGamemode : BaseGamemode
 	public override bool PopulateZombiesAngry()
 	{
 		return RoundState == RoundState.WaveActive;
+	}
+
+	public void UpdateZombieStats()
+	{
+		switch ( WaveNumber +1)
+		{
+			case 0:
+			case 1:
+				ZomHealthMultiplier = 1;
+				ZomSpeedMultiplier = 1;
+				ZomSpawnRate = 1;
+				ZomMaxZombies = 5;
+				break;
+			case 2:
+				ZomSpeedMultiplier = 1.5f;
+				ZomMaxZombies = 7;
+				break;
+			case 3:
+				ZomSpeedMultiplier = 1.75f;
+				ZomSpawnRate = 1.1f;
+				ZomMaxZombies = 10;
+				break;
+			case 4:
+				ZomSpeedMultiplier = 2f;
+				break;
+			case 6:
+				ZomSpawnRate = 1.2f;
+				ZomSpawnRate = 1.5f;
+				break;
+			case 10:
+				ZomMaxZombies = 12;
+				break;
+			case 20:
+				ZomSpawnRate = 1.5f;
+				break;
+			default:
+				ZomSpeedMultiplier += .005f;
+				ZomHealthMultiplier += .02f;
+				break;
+		}
+		ZomMaxZombies.Clamp( 5, 20 );
 	}
 
 }

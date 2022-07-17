@@ -12,7 +12,11 @@ public partial class BaseGamemode : Entity
 	public string RoundName { get; set; } = "unknown";
 	[Net]
 	public int HumanMaxRevives { get; set; } = 3;
-
+	public float ZomHealthMultiplier { get; set; } = 1;
+	public float ZomSpeedMultiplier { get; set; } = 1;
+	public float ZomSpawnRate { get; set; } = 1;
+	public float ZomMaxZombies { get; set; } = 1;
+ 
 	public BaseGamemode()
 	{
 		Current = this;
@@ -24,9 +28,22 @@ public partial class BaseGamemode : Entity
 		Transmit = TransmitType.Always;
 	}
 
+	[ConVar.Server]
+	public static bool zom_debug_round_info { get; set; } = false;
+
 	[Event.Tick]
 	public virtual void Tick()
 	{
+		if ( zom_debug_round_info )
+		{
+			var i = 9;
+			DebugOverlay.ScreenText( $"HealthMultiplier: {ZomHealthMultiplier}", i ); i++;
+			DebugOverlay.ScreenText( $"SpeedMultiplier: {ZomSpeedMultiplier}", i ); i++;
+			DebugOverlay.ScreenText( $"ExampleSpeed: {140 * ZomSpeedMultiplier}", i ); i++;
+			DebugOverlay.ScreenText( $"ExampleHealth: {50 * ZomHealthMultiplier}", i ); i++;
+			DebugOverlay.ScreenText( $"SpawnRate: {1 / ZomSpawnRate}", i ); i++;
+			DebugOverlay.ScreenText( $"MaxZombies: {ZomMaxZombies}", i ); i++;
+		}
 		// empty for now :)
 	}
 	public int GetLivePlayerCount()

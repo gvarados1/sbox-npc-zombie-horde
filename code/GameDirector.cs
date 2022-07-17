@@ -4,9 +4,7 @@ public partial class GameDirector : Entity
 {
 	[ConVar.Replicated]
 	public static bool zom_disabledirector { get; set; }
-
-	[ConVar.Replicated]
-	public static int zom_max_zombies { get; set; } = 10;
+	public TimeSince TimeSinceSpawnedZombie { get; set; }
 
 	public override void Spawn()
 	{
@@ -31,15 +29,46 @@ public partial class GameDirector : Entity
 
 	private void PopulateZombies()
 	{
+		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
+		var difficultyMultiplier = .75f + playerCount * .25f;
+		var zombieCount = Entity.All.OfType<BaseZombie>().ToList().Count;
+		var currentWave = (BaseGamemode.Current as SurvivalGamemode).WaveNumber + 1;
+
+		var spawnRate = 1 / BaseGamemode.Current.ZomSpawnRate * difficultyMultiplier;
+		if(zombieCount > 3*difficultyMultiplier)
+			spawnRate *= 2;
+		if ( TimeSinceSpawnedZombie > spawnRate )
+		{
+			if ( zombieCount < BaseGamemode.Current.ZomMaxZombies * difficultyMultiplier )
+			{
+				SpawnZombie();
+				TimeSinceSpawnedZombie = 0;
+			}
+		}
+
+		// chance to spawn a ton of zombies if there aren't many
+		if( zombieCount < 3 && currentWave >= 3 )
+		{
+			if ( Rand.Int( 100 ) == 1 )
+			{
+				Log.Info( "Spawning Group!" );
+				SpawnZombie();
+				SpawnZombie();
+				SpawnZombie();
+				TimeSinceSpawnedZombie = 0;
+			}
+		}
+		/*
 		if ( Rand.Int( 100 ) == 1 )
 		{
 			var ZombieList = Entity.All
 				.OfType<BaseZombie>()
 				.ToList();
 
-			if ( ZombieList.Count < zom_max_zombies )
+			if ( ZombieList.Count < BaseGamemode.Current.ZomMaxZombies )
 				SpawnZombie();
 		}
+		*/
 	}
 
 	private int ZombieSpawnFails = 0;

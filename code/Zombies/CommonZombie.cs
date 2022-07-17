@@ -26,7 +26,8 @@ public partial class CommonZombie : BaseZombie
 
 	public ZombieState ZombieState = ZombieState.Wander;
 	public virtual float WalkSpeed => Rand.Float( 40, 50 );
-	public float RunSpeed = Rand.Float( 260, 280 );
+	//public float RunSpeed = Rand.Float( 260, 280 );
+	public float RunSpeed = Rand.Float( 130, 150 ); // player speed = 240
 	public TimeSince TimeSinceAttacked = 0;
 	public float AttackSpeed = .8f;
 	public TimeUntil TimeUntilUnstunned = 0;
@@ -44,6 +45,10 @@ public partial class CommonZombie : BaseZombie
 		Health = 50;
 
 		StartWander();
+
+		var gm = BaseGamemode.Current;
+		Health *= gm.ZomHealthMultiplier;
+		RunSpeed *= gm.ZomSpeedMultiplier;
 	}
 
 	public async void Dress()
