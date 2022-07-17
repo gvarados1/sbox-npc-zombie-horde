@@ -22,7 +22,7 @@ internal class InfoBar : Panel
 		var game = Game.Current as ZombieGame;
 		if ( !game.IsValid() ) return;
 
-		var gamemode = BaseGamemode.Ent;
+		var gamemode = BaseGamemode.Current;
 		Timer.Text = "- " + gamemode.RoundInfo;
 		State.Text = gamemode.RoundName;
 	}

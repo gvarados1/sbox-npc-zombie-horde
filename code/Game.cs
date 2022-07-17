@@ -85,7 +85,7 @@ partial class ZombieGame : Game
 		var player = new HumanPlayer();
 		player.UpdateClothes( cl );
 
-		if ( BaseGamemode.Ent.EnableRespawning() )
+		if ( BaseGamemode.Current.EnableRespawning() )
 		{
 			player.Respawn();
 		}

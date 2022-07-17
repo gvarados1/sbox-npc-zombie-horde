@@ -119,7 +119,7 @@ public partial class CommonZombie : BaseZombie
 		{
 			if ( Steer == null || Steer.Output.Finished )
 			{
-				if(BaseGamemode.Ent is SurvivalGamemode )
+				if(BaseGamemode.Current is SurvivalGamemode )
 				{
 					StartWander();
 					StartChase();

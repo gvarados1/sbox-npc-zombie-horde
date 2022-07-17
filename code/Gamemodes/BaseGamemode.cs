@@ -2,8 +2,8 @@
 
 public partial class BaseGamemode : Entity
 {
-	public static BaseGamemode Ent { get; set; } // this feels like a hack. I just want a static class
-												 //public static int TotalPlayers => Entity.All.OfType<Player>().Count(); // do I need this?
+	public static BaseGamemode Current { get; set; } // this feels like a hack. I just want a static class
+	//public static int TotalPlayers => Entity.All.OfType<Player>().Count(); // do I need this?
 	[Net]
 	public int ZombiesRemaining { get; set; } = 0;
 	[Net]
@@ -15,7 +15,7 @@ public partial class BaseGamemode : Entity
 
 	public BaseGamemode()
 	{
-		Ent = this;
+		Current = this;
 	}
 
 	public override void Spawn()

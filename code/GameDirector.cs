@@ -87,7 +87,7 @@ public partial class GameDirector : Entity
 			//Rotation = Rotation.Random // LOL this looks so stupid! The zombie usually spawns rotated underground and "rises from the grave" - note: probably only use this if spawning zombies in player los
 			//Rotation = Rotation.LookAt( Owner.EyeRotation.Backward.WithZ( 0 ) )
 		};
-		if ( BaseGamemode.Ent.PopulateZombiesAngry() )
+		if ( BaseGamemode.Current.PopulateZombiesAngry() )
 		{
 			npc.StartChase();
 		}

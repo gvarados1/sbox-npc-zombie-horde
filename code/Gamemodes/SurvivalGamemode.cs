@@ -7,7 +7,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		Log.Info( "Skipping round!" );
 
-		var gamemode = BaseGamemode.Ent as SurvivalGamemode;
+		var gamemode = BaseGamemode.Current as SurvivalGamemode;
 
 		gamemode.ZombiesRemaining = 0;
 		gamemode.TimeUntilNextState = 0;

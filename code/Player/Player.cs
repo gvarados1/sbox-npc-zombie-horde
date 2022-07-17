@@ -47,7 +47,7 @@ public partial class HumanPlayer : Player, IUse
 
 		SupressPickupNotices = false;
 		Health = 100;
-		RevivesRemaining = BaseGamemode.Ent.HumanMaxRevives;
+		RevivesRemaining = BaseGamemode.Current.HumanMaxRevives;
 
 		SetAnimParameter( "sit", 0 );
 
@@ -167,7 +167,7 @@ public partial class HumanPlayer : Player, IUse
 	{
 		if ( LifeState == LifeState.Dead )
 		{
-			if ( IsServer && BaseGamemode.Ent.EnableRespawning())
+			if ( IsServer && BaseGamemode.Current.EnableRespawning())
 			{
 				Respawn();
 			}
