@@ -582,7 +582,7 @@ namespace Sandbox
 
 			IsTouchingLadder = false;
 
-			if ( pm.Hit && !(pm.Entity is ModelEntity me && me.CollisionGroup == CollisionGroup.Always) )
+			if ( pm.Hit )
 			{
 				IsTouchingLadder = true;
 				LadderNormal = pm.Normal;

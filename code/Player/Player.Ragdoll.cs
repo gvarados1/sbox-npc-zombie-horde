@@ -15,9 +15,9 @@ public partial class HumanPlayer
 		ent.Rotation = Rotation;
 		ent.MoveType = MoveType.Physics;
 		ent.UsePhysicsCollision = true;
-		ent.SetInteractsAs( CollisionLayer.Debris );
-		ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );
-		ent.SetInteractsExclude( CollisionLayer.Player | CollisionLayer.Debris );
+
+		// I like being able to kick around the ragdolls clientside :)
+		//Tags.Add( "gib" );
 
 		ent.CopyFrom( this );
 		ent.CopyBonesFrom( this );

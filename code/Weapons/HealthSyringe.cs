@@ -67,11 +67,6 @@ partial class HealthSyringe : BaseZomWeapon
 
 				grenade.PhysicsBody.Velocity = Owner.EyeRotation.Forward * 600.0f + Owner.EyeRotation.Up * 200.0f + Owner.Velocity;
 
-				// This is fucked in the head, lets sort this this year
-				grenade.CollisionGroup = CollisionGroup.Debris;
-				grenade.SetInteractsExclude( CollisionLayer.Player );
-				grenade.SetInteractsAs( CollisionLayer.Debris );
-
 				_ = grenade.BlowIn( 8.0f );
 			}
 
@@ -99,9 +94,7 @@ partial class HealthSyringe : BaseZomWeapon
 		ent.SetModel( "weapons/grenade/grenade_pin.vmdl" );
 		ent.PhysicsBody.Velocity = Owner.EyeRotation.Forward * (100+Rand.Float(50)) + EyeRotation.Up * (200 + Rand.Float( 50 ) + EyeRotation.Right * (50 + Rand.Float( 100 )));
 		ent.MoveType = MoveType.Physics;
-		ent.SetInteractsAs( CollisionLayer.Debris );
-		ent.SetInteractsWith( CollisionLayer.WORLD_GEOMETRY );
-		ent.SetInteractsExclude( CollisionLayer.Player | CollisionLayer.Debris );
+		ent.Tags.Add( "gib" );
 		ent.DeleteAsync( 5.0f );
 	}
 

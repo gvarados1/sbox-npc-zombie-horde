@@ -298,9 +298,6 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		bool InWater = Map.Physics.IsPointWater( start );
 
 		var tr = Trace.Ray( start, end )
-				.UseHitboxes()
-				.HitLayer( CollisionLayer.Water, !InWater )
-				.HitLayer( CollisionLayer.Debris )
 				.Ignore( Owner )
 				.Ignore( this )
 				.WithoutTags( "zombie" )

@@ -27,13 +27,15 @@ public partial class BaseZombie : BaseNpc
 
 		SetModel( "models/zombie/citizen_zombie.vmdl" );
 		EyePosition = Position + Vector3.Up * 64;
-		CollisionGroup = CollisionGroup.Player;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 
 		EnableHitboxes = true;
 
 		Speed = Rand.Float( 270, 320 );
 		Health = 50;
+
+		// add "player" tag for collisions
+		Tags.Add( "player" );
 	}
 
 	public Sandbox.Debug.Draw Draw => Sandbox.Debug.Draw.Once;

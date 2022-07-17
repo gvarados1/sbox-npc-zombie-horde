@@ -51,10 +51,6 @@ partial class ZombieGame : Game
 		Precache.Add( "weapons/ak47/ak47.vmat" );
 		Precache.Add( "weapons/grenade/grenade.vmat" );
 		Precache.Add( "weapons/magnum/magnum.vmat" );
-		Precache.Add( "" );
-		Precache.Add( "" );
-		Precache.Add( "" );
-		Precache.Add( "" );
 	}
 
 	public override void PostLevelLoaded()

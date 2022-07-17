@@ -260,9 +260,6 @@ public partial class CommonZombie : BaseZombie
 		bool InWater = Map.Physics.IsPointWater( start );
 
 		var tr = Trace.Ray( start, end )
-				.UseHitboxes()
-				.HitLayer( CollisionLayer.Water, !InWater )
-				.HitLayer( CollisionLayer.Debris )
 				.Ignore( Owner )
 				.WithoutTags("Zombie")
 				.Ignore( this )

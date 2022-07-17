@@ -13,7 +13,6 @@ partial class SMGGrenade : BasePhysics
 	public void Simulate()
 	{
 		var trace = Trace.Ray( Position, Position )
-			.HitLayer( CollisionLayer.Water, true )
 			.Size( 24 )
 			.Ignore( this )
 			.Ignore( Owner )
