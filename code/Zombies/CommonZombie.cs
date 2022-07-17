@@ -55,8 +55,15 @@ public partial class CommonZombie : BaseZombie
 	{
 		// dumb hack to reduce the chance of skins not working
 		await Task.Delay( 500 );
-		if(this.IsValid())
-			Clothing.DressEntity( this );
+		if ( !this.IsValid() ) return;
+		Clothing.DressEntity( this );
+		foreach( var clothing in Children.OfType<ModelEntity>() )
+		{
+			if ( clothing.Tags.Has( "clothes" ) )
+			{
+				clothing.RenderColor = (Color)Color.Parse( "#A3A3A3" );
+			}
+		}
 	}
 
 	public override void Tick()
