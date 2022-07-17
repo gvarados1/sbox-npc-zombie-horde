@@ -196,6 +196,7 @@ public partial class SurvivalGamemode : BaseGamemode
 
 	public void UpdateZombieStats()
 	{
+		// would be nice to have a graph view of this
 		switch ( WaveNumber +1)
 		{
 			case 0:
@@ -212,14 +213,17 @@ public partial class SurvivalGamemode : BaseGamemode
 			case 3:
 				ZomSpeedMultiplier = 1.75f;
 				ZomSpawnRate = 1.1f;
-				ZomMaxZombies = 10;
+				ZomMaxZombies = 6;
 				break;
 			case 4:
 				ZomSpeedMultiplier = 2f;
+				ZomMaxZombies = 7;
+				break;
+			case 5:
 				break;
 			case 6:
 				ZomSpawnRate = 1.2f;
-				ZomSpawnRate = 1.5f;
+				ZomMaxZombies = 10;
 				break;
 			case 10:
 				ZomMaxZombies = 12;
