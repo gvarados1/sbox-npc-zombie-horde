@@ -56,6 +56,7 @@ public partial class CommonZombie : BaseZombie
 		// dumb hack to reduce the chance of skins not working
 		await Task.Delay( 500 );
 		if ( !this.IsValid() ) return;
+		RenderColor = (Color)Color.Parse( "#A3A3A3" );
 		Clothing.DressEntity( this );
 		foreach( var clothing in Children.OfType<ModelEntity>() )
 		{

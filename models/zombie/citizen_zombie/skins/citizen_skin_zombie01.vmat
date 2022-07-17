@@ -21,7 +21,7 @@ Layer0
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
-	g_vColorTint "[0.392157 0.596078 0.372549 1.000000]"
+	g_vColorTint "[0.564706 0.850980 0.533333 1.000000]"
 	TextureColor "models/zombie/citizen_zombie/skins/citizen_skin_color.png"
 	TextureTintMask "models/zombie/citizen_zombie/skins/citizen_skin_mask.png"
 
