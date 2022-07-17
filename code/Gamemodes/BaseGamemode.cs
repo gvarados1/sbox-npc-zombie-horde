@@ -42,7 +42,7 @@ public partial class BaseGamemode : Entity
 			DebugOverlay.ScreenText( $"ExampleSpeed: {140 * ZomSpeedMultiplier}", i ); i++;
 			DebugOverlay.ScreenText( $"ExampleHealth: {50 * ZomHealthMultiplier}", i ); i++;
 			DebugOverlay.ScreenText( $"SpawnRate: {1 / ZomSpawnRate}", i ); i++;
-			DebugOverlay.ScreenText( $"MaxZombies: {ZomMaxZombies}", i ); i++;
+			DebugOverlay.ScreenText( $"Zombies: {Entity.All.OfType<BaseZombie>().Count()}/{ZomMaxZombies}", i ); i++;
 		}
 		// empty for now :)
 	}
