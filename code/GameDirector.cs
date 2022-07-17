@@ -33,13 +33,16 @@ public partial class GameDirector : Entity
 		var difficultyMultiplier = .75f + playerCount * .25f;
 		var zombieCount = Entity.All.OfType<BaseZombie>().ToList().Count;
 		var currentWave = (BaseGamemode.Current as SurvivalGamemode).WaveNumber + 1;
+		var maxZombies = BaseGamemode.Current.ZomMaxZombies;
+		if ( (BaseGamemode.Current as SurvivalGamemode).RoundState != RoundState.WaveActive )
+			maxZombies *= .5f;
 
 		var spawnRate = 1 / BaseGamemode.Current.ZomSpawnRate * difficultyMultiplier;
 		if(zombieCount > 3*difficultyMultiplier)
 			spawnRate *= 2;
 		if ( TimeSinceSpawnedZombie > spawnRate )
 		{
-			if ( zombieCount < BaseGamemode.Current.ZomMaxZombies * difficultyMultiplier )
+			if ( zombieCount < maxZombies * difficultyMultiplier )
 			{
 				SpawnZombie();
 				TimeSinceSpawnedZombie = 0 - Rand.Float(1f);
