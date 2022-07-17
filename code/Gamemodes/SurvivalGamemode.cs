@@ -117,7 +117,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			{
 				Velocity = 0;
 				Sound.FromWorld( "rust_pumpshotgun.shootdouble", zom.Position );
-				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Zero,50 );
+				var damageInfo = DamageInfo.Explosion( zom.Position, Vector3.Zero,10000 );
 				zom.TakeDamage( damageInfo );
 			}
 		}
@@ -144,7 +144,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		{
 			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
 			{
-				var damageInfo = DamageInfo.Generic( 1000 );
+				var damageInfo = DamageInfo.Generic( 10000 );
 				ply.TakeDamage( damageInfo );
 				//ply.OnKilled();
 			}
