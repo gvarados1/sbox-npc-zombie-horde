@@ -49,7 +49,7 @@ public partial class CommonZombie : BaseZombie
 	public async void Dress()
 	{
 		// dumb hack to reduce the chance of skins not working
-		await Task.Delay( 1000 );
+		await Task.Delay( 500 );
 		Clothing.DressEntity( this );
 	}
 
