@@ -44,8 +44,10 @@ public partial class CommonZombie
 				"models/citizen_clothes/shirt/longsleeve_shirt/longsleeve_shirt.clothing",
 				"models/citizen_clothes/shirt/tanktop/tanktop.clothing",
 				"models/citizen_clothes/shirt/v_neck_tshirt/v_neck_tshirt.clothing",
+				"models/citizen_clothes/shirt/flannel_shirt/variations/blue_shirt/blue_shirt.clothing",
 				"models/citizen_clothes/jacket/brown_leather_jacket/brown_leather_jacket.clothing",
 				"models/citizen_clothes/jacket/longsleeve/longsleeve.clothing",
+				"models/citizen_clothes/jacket/hoodie/hoodie.clothing",
 				""
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
