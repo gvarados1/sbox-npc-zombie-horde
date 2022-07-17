@@ -17,16 +17,13 @@ public partial class HumanPlayer
 
 			PlaySound( FlashlightEnabled ? "flashlight-on" : "flashlight-off" );
 
-			if ( IsServer )
+			if ( !WorldLight.IsValid() )
 			{
-				if ( !WorldLight.IsValid() )
-				{
-					WorldLight = CreateLight();
-					WorldLight.Transform = Transform;
-					WorldLight.EnableHideInFirstPerson = true;
-				}
-				WorldLight.Enabled = FlashlightEnabled;
+				WorldLight = CreateLight();
+				WorldLight.Transform = Transform;
+				WorldLight.EnableHideInFirstPerson = true;
 			}
+			WorldLight.Enabled = FlashlightEnabled;
 
 			if ( IsClient )
 			{
@@ -58,13 +55,10 @@ public partial class HumanPlayer
 				ViewLight.SetParent( this, "eyes" );
 			}
 
-			if ( IsServer )
-			{
-				WorldLight.SetParent( null );
-				WorldLight.Rotation = EyeRotation;
-				WorldLight.Position = EyePosition + forward * 20f;
-				WorldLight.SetParent( this, "eyes" );
-			}
+			WorldLight.SetParent( null );
+			WorldLight.Rotation = EyeRotation;
+			WorldLight.Position = EyePosition + forward * 20f;
+			WorldLight.SetParent( this, "eyes" );
 		}
 	}
 
