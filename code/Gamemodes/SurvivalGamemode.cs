@@ -144,7 +144,9 @@ public partial class SurvivalGamemode : BaseGamemode
 		{
 			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
 			{
-				ply.OnKilled();
+				var damageInfo = DamageInfo.Generic( 1000 );
+				ply.TakeDamage( damageInfo );
+				//ply.OnKilled();
 			}
 		}
 	}
