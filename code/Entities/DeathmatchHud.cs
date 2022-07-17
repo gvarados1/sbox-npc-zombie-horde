@@ -1,5 +1,5 @@
 ﻿namespace ZombieHorde;
-public partial class DeathmatchHud : HudEntity<HudRootPanel>
+public partial class ZomHud : HudEntity<HudRootPanel>
 {
 	[ClientRpc]
 	public void OnPlayerDied( HumanPlayer player )

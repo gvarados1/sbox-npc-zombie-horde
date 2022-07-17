@@ -7,6 +7,7 @@ global using SandboxEditor;
 
 using Sandbox.Component;
 using System.ComponentModel;
+using Sandbox.UI;
 
 namespace ZombieHorde;
 
@@ -17,7 +18,7 @@ namespace ZombieHorde;
 partial class ZombieGame : Game
 {
 	[Net]
-	DeathmatchHud Hud { get; set; }
+	ZomHud Hud { get; set; }
 	[Net]
 	public BaseGamemode Gamemode { get; set; } = new();
 
@@ -31,7 +32,7 @@ partial class ZombieGame : Game
 		//
 		if ( IsServer )
 		{
-			Hud = new DeathmatchHud();
+			Hud = new ZomHud();
 		}
 
 		if ( IsClient )
@@ -78,6 +79,9 @@ partial class ZombieGame : Game
 	public override void ClientJoined( Client cl )
 	{
 		base.ClientJoined( cl );
+
+		Log.Info( $"\"{cl.Name}\" has joined the game" );
+		ZomChatBox.AddInformation( To.Everyone, $"{cl.Name} has joined", $"avatar:{cl.PlayerId}" );
 
 		var player = new HumanPlayer();
 		player.UpdateClothes( cl );
@@ -278,6 +282,19 @@ partial class ZombieGame : Game
 		{
 			localPawn.RenderHud( screenSize );
 		}
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+		Log.Info( $"\"{cl.Name}\" has left the game ({reason})" );
+		ZomChatBox.AddInformation( To.Everyone, $"{cl.Name} has left ({reason})", $"avatar:{cl.PlayerId}" );
+
+		if ( cl.Pawn.IsValid() )
+		{
+			cl.Pawn.Delete();
+			cl.Pawn = null;
+		}
+
 	}
 
 }
