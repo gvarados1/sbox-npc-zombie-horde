@@ -24,7 +24,7 @@ namespace ZombieHorde
 		{
 			base.Tick();
 
-			if ( TimeSinceBorn > 30 ) 
+			if ( TimeSinceBorn > 12 ) 
 			{ 
 				Delete();
 			}

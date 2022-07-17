@@ -81,7 +81,6 @@ partial class ZombieGame : Game
 		base.ClientJoined( cl );
 
 		Log.Info( $"\"{cl.Name}\" has joined the game" );
-		ZomChatBox.AddInformation( To.Everyone, $"{cl.Name} has joined", $"avatar:{cl.PlayerId}" );
 
 		var player = new HumanPlayer();
 		player.UpdateClothes( cl );

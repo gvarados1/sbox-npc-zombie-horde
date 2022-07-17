@@ -117,6 +117,8 @@ public partial class HumanPlayer : Player, IUse
 	{
 		base.OnKilled();
 
+		ZomChatBox.AddInformation( To.Everyone, $"{Client.Name} died!", $"avatar:{Client.PlayerId}", "#FF0000" );
+
 		Inventory.DeleteContents();
 
 		if ( LastDamage.Flags.HasFlag( DamageFlags.Blast ) )
@@ -356,6 +358,8 @@ public partial class HumanPlayer : Player, IUse
 	{
 		if( RevivesRemaining > 0 )
 		{
+			ZomChatBox.AddInformation( To.Everyone, $"{Client.Name} is incapacitated!", $"avatar:{Client.PlayerId}", "#FF5B71" );
+
 			SetAnimParameter( "sit", 2 );
 			SetAnimParameter( "sit_pose", Rand.Int(3) );
 

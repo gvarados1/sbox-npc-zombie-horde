@@ -1,6 +1,8 @@
 ﻿using Sandbox.UI.Construct;
 using Sandbox.UI;
 using System;
+using Sandbox.Internal;
+using Sandbox;
 
 namespace ZombieHorde
 {
@@ -53,7 +55,7 @@ namespace ZombieHorde
 			Say( msg );
 		}
 
-		public void AddEntry( string name, string message, string avatar, string lobbyState = null )
+		public void AddEntry( string name, string message, string avatar, string color = null, string lobbyState = null )
 		{
 			var e = Canvas.AddChild<ZomChatEntry>();
 
@@ -63,6 +65,8 @@ namespace ZombieHorde
 
 			e.SetClass( "noname", string.IsNullOrEmpty( name ) );
 			e.SetClass( "noavatar", string.IsNullOrEmpty( avatar ) );
+			if ( color != null )
+				e.NameLabel.Style.FontColor = color;
 
 			if ( lobbyState == "ready" || lobbyState == "staging" )
 			{
@@ -72,9 +76,9 @@ namespace ZombieHorde
 
 
 		[ConCmd.Client( "chat_add", CanBeCalledFromServer = true )]
-		public static void AddChatEntry( string name, string message, string avatar = null, string lobbyState = null )
+		public static void AddChatEntry( string name, string message, string avatar = null, string color = null, string lobbyState = null )
 		{
-			Current?.AddEntry( name, message, avatar, lobbyState );
+			Current?.AddEntry( name, message, avatar, color, lobbyState );
 
 			// Only log clientside if we're not the listen server host
 			if ( !Global.IsListenServer )
@@ -84,9 +88,9 @@ namespace ZombieHorde
 		}
 
 		[ConCmd.Client( "chat_addinfo", CanBeCalledFromServer = true )]
-		public static void AddInformation( string message, string avatar = null )
+		public static void AddInformation( string message, string avatar = null, string color = null )
 		{
-			Current?.AddEntry( null, message, avatar );
+			Current?.AddEntry( message, null, avatar, color );
 		}
 
 		[ConCmd.Server( "say" )]
@@ -96,10 +100,34 @@ namespace ZombieHorde
 
 			// todo - reject more stuff
 			if ( message.Contains( '\n' ) || message.Contains( '\r' ) )
-				return;
+			return;
+
+			var color = "#7DFF8A";
+			var player = ConsoleSystem.Caller.Pawn as HumanPlayer;
+			if ( player != null )
+			{
+				// set healthbar color
+				if ( player.LifeState == LifeState.Dying )
+				{
+					color = "#FF0000";
+					if ( player.Health / player.MaxHealth <= .8f ) color = "#BD0000";
+					if ( player.Health / player.MaxHealth <= .5f ) color = "#9C0000";
+					if ( player.Health / player.MaxHealth <= .2f ) color = "#800000";
+				}
+				else if ( player.LifeState == LifeState.Dead )
+				{
+					color = "#90A4A6";
+				}
+				else
+				{
+					if ( player.Health / player.MaxHealth <= .8f ) color = "#FFFF8E";
+					if ( player.Health / player.MaxHealth <= .5f ) color = "#FFC68B";
+					if ( player.Health / player.MaxHealth <= .2f ) color = "#FF8588";
+				}
+			}
 
 			Log.Info( $"{ConsoleSystem.Caller}: {message}" );
-			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message, $"avatar:{ConsoleSystem.Caller.PlayerId}" );
+			AddChatEntry( To.Everyone, ConsoleSystem.Caller.Name, message, $"avatar:{ConsoleSystem.Caller.PlayerId}", color );
 		}
 	}
 }
