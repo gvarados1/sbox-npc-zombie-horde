@@ -257,12 +257,6 @@ partial class ZombieGame : Game
 		}
 	}
 
-	[ClientRpc]
-	public override void OnKilledMessage( long leftid, string left, long rightid, string right, string method )
-	{
-		Sandbox.UI.KillFeed.Current?.AddEntry( leftid, left, rightid, right, method );
-	}
-
 	public override void RenderHud()
 	{
 		var localPawn = Local.Pawn as HumanPlayer;
