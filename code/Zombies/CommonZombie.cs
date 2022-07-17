@@ -39,11 +39,18 @@ public partial class CommonZombie : BaseZombie
 		//RenderColor = new Color32( (byte)(105 + Rand.Int( 20 )), (byte)(174 + Rand.Int( 20 )), (byte)(59 + Rand.Int( 20 )), 255 ).ToColor();
 
 		UpdateClothes();
-		Clothing.DressEntity( this );
+		Dress();
 
 		Health = 50;
 
 		StartWander();
+	}
+
+	public async void Dress()
+	{
+		// dumb hack to reduce the chance of skins not working
+		await Task.Delay( 1000 );
+		Clothing.DressEntity( this );
 	}
 
 	public override void Tick()
@@ -63,7 +70,7 @@ public partial class CommonZombie : BaseZombie
 				Steer = new NavSteer();
 				Steer.Target = Target.Position;
 			}
-			if ( Target != null )
+			if ( Target.IsValid() )
 			{
 				// don't do anything if stunned
 				if(TimeUntilUnstunned < 0 )

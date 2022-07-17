@@ -39,6 +39,22 @@ partial class ZombieGame : Game
 			postProcess = new StandardPostProcess();
 			PostProcess.Add( postProcess );
 		}
+
+		//precache a bunch of stuff
+		Precache.Add( "models/zombie/citizen_zombie/skins/citizen_skin_zombie01.vmat" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/citizen_skin_zombie02.vmat" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/citizen_skin_zombie03.vmat" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/skin_zombie01.clothing" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/skin_zombie02.clothing" );
+		Precache.Add( "models/zombie/citizen_zombie/skins/skin_zombie03.clothing" );
+		Precache.Add( "weapons/ak47/ak47.vmat" );
+		Precache.Add( "weapons/grenade/grenade.vmat" );
+		Precache.Add( "weapons/magnum/magnum.vmat" );
+		Precache.Add( "" );
+		Precache.Add( "" );
+		Precache.Add( "" );
+		Precache.Add( "" );
 	}
 
 	public override void PostLevelLoaded()

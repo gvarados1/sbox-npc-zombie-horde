@@ -4,21 +4,19 @@ Layer0
 {
 	shader "complex.vfx"
 
-	//---- Translucent ----
-	F_ALPHA_TEST 1
-
-	//---- Z-Buffering ----
-	F_DISABLE_Z_PREPASS 1
+	//---- PBR ----
+	F_RETRO_REFLECTIVE 1
+	F_SPECULAR 1
 
 	//---- Ambient Occlusion ----
 	g_flAmbientOcclusionDirectDiffuse "0.000"
 	g_flAmbientOcclusionDirectSpecular "0.000"
-	TextureAmbientOcclusion "[1.000000 1.000000 1.000000 0.000000]"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
-	g_vColorTint "[0.662745 0.662745 0.662745 0.000000]"
-	TextureColor "[1.000000 1.000000 1.000000 1.000000]"
+	g_vColorTint "[1.000000 0.945098 0.878431 0.000000]"
+	TextureColor "models/zombie/citizen_zombie/skins/Citizen_eyes_advanced_color.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -31,23 +29,21 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	g_flMetalness "0.478"
+	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "[0.501961 0.501961 1.000000 0.000000]"
+	TextureNormal "models/zombie/citizen_zombie/skins/citizen_eyes_advanced_iris_normal.png"
+
+	//---- Retro-Reflective ----
+	g_flRetroReflectivity "1.000"
 
 	//---- Roughness ----
-	TextureRoughness "[0.257000 0.257000 0.257000 0.000000]"
+	TextureRoughness "models/zombie/citizen_zombie/skins/citizen_eyes_advanced_iris_rough.png"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
 	g_nScaleTexCoordVByModelScaleAxis "0"
-	g_vTexCoordOffset "[0.000 0.000]"
-	g_vTexCoordScale "[1.000 1.000]"
+	g_vTexCoordOffset "[0.182 0.119]"
+	g_vTexCoordScale "[0.700 0.700]"
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
-
-	//---- Translucent ----
-	g_flAlphaTestReference "0.492"
-	g_flAntiAliasedEdgeStrength "0.000"
-	TextureTranslucency "models/citizen/skin/citizen_eyes_trans.png"
 }
