@@ -55,7 +55,8 @@ public partial class CommonZombie : BaseZombie
 	{
 		// dumb hack to reduce the chance of skins not working
 		await Task.Delay( 500 );
-		Clothing.DressEntity( this );
+		if(this.IsValid())
+			Clothing.DressEntity( this );
 	}
 
 	public override void Tick()

@@ -15,7 +15,7 @@ public partial class BaseGamemode : Entity
 	public float ZomHealthMultiplier { get; set; } = 1;
 	public float ZomSpeedMultiplier { get; set; } = 1;
 	public float ZomSpawnRate { get; set; } = 1;
-	public float ZomMaxZombies { get; set; } = 1;
+	public float ZomMaxZombies { get; set; } = 5;
  
 	public BaseGamemode()
 	{
