@@ -42,19 +42,21 @@ public partial class GameDirector : Entity
 			if ( zombieCount < BaseGamemode.Current.ZomMaxZombies * difficultyMultiplier )
 			{
 				SpawnZombie();
-				TimeSinceSpawnedZombie = 0;
+				TimeSinceSpawnedZombie = 0 - Rand.Float(1f);
 			}
 		}
 
 		// chance to spawn a ton of zombies if there aren't many
 		if( zombieCount < 3 && currentWave >= 3 )
 		{
-			if ( Rand.Int( 100 ) == 1 )
+			if ( Rand.Int( 300 ) == 1 )
 			{
-				Log.Info( "Spawning Group!" );
-				SpawnZombie();
-				SpawnZombie();
-				SpawnZombie();
+				var i = 0;
+				for( i = 0; i < 2+playerCount; i++ )
+				{
+					SpawnZombie();
+				}
+				Log.Info( "Spawned Group of " + i );
 				TimeSinceSpawnedZombie = 0;
 			}
 		}

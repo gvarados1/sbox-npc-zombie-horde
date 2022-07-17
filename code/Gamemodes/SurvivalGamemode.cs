@@ -160,7 +160,7 @@ public partial class SurvivalGamemode : BaseGamemode
 
 			// surely there's a better way of doing this
 			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
-				ply.OnKilled();
+				ply.TakeDamage( DamageInfo.Generic( 10000 ) );
 
 			foreach ( var npc in Entity.All.OfType<BaseZombie>().ToArray() )
 				npc.Delete();
