@@ -1,5 +1,5 @@
 ﻿
-namespace Sandbox
+namespace ZombieHorde
 {
 	[Library]
 	public partial class BaseZomWalkController : BasePlayerController
@@ -338,7 +338,7 @@ namespace Sandbox
 
 		public virtual void StepMove()
 		{
-			MoveHelper mover = new MoveHelper( Position, Velocity );
+			ZomMoveHelper mover = new ZomMoveHelper( Position, Velocity );
 			mover.Trace = mover.Trace.Size( mins, maxs ).Ignore( Pawn );
 			mover.MaxStandableAngle = GroundAngle;
 
@@ -350,7 +350,7 @@ namespace Sandbox
 
 		public virtual void Move()
 		{
-			MoveHelper mover = new MoveHelper( Position, Velocity );
+			ZomMoveHelper mover = new ZomMoveHelper( Position, Velocity );
 			mover.Trace = mover.Trace.Size( mins, maxs ).Ignore( Pawn );
 			mover.MaxStandableAngle = GroundAngle;
 
