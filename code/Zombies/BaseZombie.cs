@@ -90,7 +90,7 @@ public partial class BaseZombie : BaseNpc
 		var bbox = BBox.FromHeightAndRadius( 64, 4 );
 		//DebugOverlay.Box( Position, bbox.Mins, bbox.Maxs, Color.Green );
 
-		MoveHelper move = new( Position, Velocity );
+		ZomMoveHelper move = new( Position, Velocity );
 		move.MaxStandableAngle = 50;
 		move.Trace = move.Trace.Ignore( this ).Size( bbox );
 
