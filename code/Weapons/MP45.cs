@@ -9,7 +9,7 @@ partial class MP45 : BaseZomWeapon
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_smg/rust_smg.vmdl" );
 	public override string ViewModelPath => "weapons/djmaesen/fps-animated-smg/fps-animated-smg.vmdl";
 
-	public override float PrimaryRate => 16.0f;
+	public override float PrimaryRate => 12.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 30;
 	public override int AmmoMax => 250;
