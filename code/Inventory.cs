@@ -218,7 +218,7 @@ partial class ZomInventory : BaseInventory
 	{
 		if ( Host.IsServer ) return;
 		await Task.Delay( 1 );
-		if ( List.Contains( child ) ) return;
+		if ( Primary1 == child || Primary2 == child ) return;
 		var weapon = child as BaseZomWeapon;
 		if ( !weapon.IsValid() ) return;
 		// figure out which weapon we have
