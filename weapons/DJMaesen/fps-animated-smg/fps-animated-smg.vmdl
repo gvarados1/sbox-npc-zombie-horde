@@ -24,6 +24,16 @@
 						disabled = true
 						translation = [ 5.0, -4.0, -5.0 ]
 					},
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						disabled = true
+						scale = 1.0
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
 				]
 			},
 			{
@@ -36,19 +46,11 @@
 						[
 							{
 								from = "smg45color.vmat"
-								to = "materials/concrete/damage/concrete_damage_face.vmat"
+								to = "weapons/djmaesen/fps-animated-smg/fps-animated-smg.vmat"
 							},
 							{
 								from = "armcolor.vmat"
-								to = "materials/concrete/damage/concrete_damage_face.vmat"
-							},
-							{
-								from = "smg45color.png.vmat"
-								to = "materials/concrete/damage/concrete_damage_face.vmat"
-							},
-							{
-								from = "armcolor.png.vmat"
-								to = "materials/concrete/damage/concrete_damage_face.vmat"
+								to = "weapons/djmaesen/fps-animated-smg/arms01.vmat"
 							},
 						]
 						use_global_default = false
@@ -106,6 +108,69 @@
 					{
 						_class = "AnimFile"
 						name = "reload"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 0
+								event_keys = 
+								{
+									name = "rust_smg.reloadstart"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 12
+								event_keys = 
+								{
+									name = "rust_smg.clipout"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 29
+								event_keys = 
+								{
+									name = "rust_smg.clipin"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 47
+								event_keys = 
+								{
+									name = "rust_smg.boltback"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 57
+								event_keys = 
+								{
+									name = "rust_smg.boltshut"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -127,6 +192,33 @@
 					{
 						_class = "AnimFile"
 						name = "deploy"
+						children = 
+						[
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 6
+								event_keys = 
+								{
+									name = "rust_smg.boltback"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+							{
+								_class = "AnimEvent"
+								event_class = "AE_CL_PLAYSOUND"
+								event_frame = 16
+								event_keys = 
+								{
+									name = "rust_smg.boltshut"
+									stop_on_seq_change = false
+									use_layer_sequence = false
+									tags = ""
+								}
+							},
+						]
 						activity_name = ""
 						activity_weight = 1
 						weight_list_name = ""
@@ -168,6 +260,30 @@
 					},
 				]
 				default_root_bone_name = ""
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "muzzle"
+						parent_bone = "smg45"
+						relative_origin = [ 0.02992, 3.172829, 16.320866 ]
+						relative_angles = [ -86.247345, 128.327637, -127.607361 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "ejection_point"
+						parent_bone = "carrier"
+						relative_origin = [ -0.985291, 0.015974, 0.016872 ]
+						relative_angles = [ -24.831636, 125.021561, -136.403366 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
 			},
 		]
 		model_archetype = ""
