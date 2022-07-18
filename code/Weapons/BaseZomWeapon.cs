@@ -201,6 +201,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		AmmoReserve -= ammo;
 		AmmoClip += ammo;
+		ViewModelEntity?.SetAnimParameter( "idle", true );
 	}
 
 	[ClientRpc]
