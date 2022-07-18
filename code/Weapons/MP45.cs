@@ -48,7 +48,7 @@ partial class MP45 : BaseZomWeapon
 
 		// Tell the clients to play the shoot effects
 		ShootEffects();
-		PlaySound( "rust_smg.shoot" );
+		PlaySound( "9mm.shoot" );
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 12.0f, 3.0f );
