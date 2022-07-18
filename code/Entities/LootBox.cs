@@ -29,20 +29,32 @@ partial class LootBox : Prop
 			{
 				"HealthKit",
 				"HealthKit",
-				"HealthKit",
 				"Magnum",
 				"Shotgun",
 				"SMG",
 				"AK47",
 				"Crossbow",
-				//"GrenadeWeapon",
+				"Crowbar",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"AmmoPile",
 				"PipeBomb"
 			};
 
-		for (var i = 0; i < Rand.Int(2)+1; i++ )
+		if((BaseGamemode.Current as SurvivalGamemode).WaveNumber < 3 )
+		{
+			lootTable = new[]
+			{
+				"HealthKit",
+				"Magnum",
+				"Crowbar",
+				//"GrenadeWeapon",
+				"TripmineWeapon",
+				"PipeBomb"
+			};
+		}
+
+		for (var i = 0; i < Rand.Int(1)+1; i++ )
 		{
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
