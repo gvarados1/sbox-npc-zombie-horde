@@ -13,7 +13,7 @@ public partial class HumanPlayer
 		var ent = new ModelEntity();
 		ent.Position = Position;
 		ent.Rotation = Rotation;
-		ent.MoveType = MoveType.Physics;
+		ent.PhysicsEnabled = true;
 		ent.UsePhysicsCollision = true;
 
 		// I like being able to kick around the ragdolls clientside :)

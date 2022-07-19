@@ -5,7 +5,7 @@
 [Title( "M1911" ), Category( "Weapons" )]
 partial class M1911 : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/rust_pistol/rust_pistol.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/m1911/w_m1911.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/handguns/m1911/v_m1911.vmdl";
 
 	public override float PrimaryRate => 12.0f;

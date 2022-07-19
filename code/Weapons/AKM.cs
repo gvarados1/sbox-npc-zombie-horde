@@ -13,7 +13,7 @@ partial class AKM : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 30;
 	public override int AmmoMax => 250;
-	public override float ReloadTime => 2f;
+	public override float ReloadTime => 2.5f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
@@ -52,7 +52,7 @@ partial class AKM : BaseZomWeapon
 		PlaySound( "akm.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1.5f, 12.0f, 3.0f );
+		ShootBullet( BulletSpread, 1.5f, 22.0f, 3.0f );
 
 	}
 

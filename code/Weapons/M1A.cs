@@ -6,14 +6,14 @@
 [Title( "M1A" ), Category( "Weapons" )]
 partial class M1A : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/w_akm.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/m1a/w_m1a.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/m1a/v_m1a.vmdl";
 
 	public override float PrimaryRate => 3.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 15;
 	public override int AmmoMax => 250;
-	public override float ReloadTime => 2f;
+	public override float ReloadTime => 3.5f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .05f;
 	public override float ShotSpreadMultiplier => 2.5f;
@@ -59,7 +59,7 @@ partial class M1A : BaseZomWeapon
 		PlaySound( "ar3.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1.5f, 12.0f, 3.0f );
+		ShootBullet( BulletSpread, 1f, 30.0f, 3.0f );
 
 	}
 
@@ -78,7 +78,7 @@ partial class M1A : BaseZomWeapon
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		if ( OverridingAnimator ) return;
-		anim.SetAnimParameter( "holdtype", 2 );
+		anim.SetAnimParameter( "holdtype", 3 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
 

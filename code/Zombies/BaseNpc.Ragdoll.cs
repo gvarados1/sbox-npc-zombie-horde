@@ -13,7 +13,7 @@ public partial class BaseNpc
 		var ent = new ModelEntity();
 		ent.Position = Position;
 		ent.Rotation = Rotation;
-		ent.MoveType = MoveType.Physics;
+		ent.PhysicsEnabled = true;
 		ent.UsePhysicsCollision = true;
 		ent.Tags.Add( "gib" );
 
