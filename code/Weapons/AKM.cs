@@ -17,7 +17,7 @@ partial class AKM : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .1f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "/ui/weapons/smg.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_AKM.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()
