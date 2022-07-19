@@ -44,6 +44,7 @@ namespace Sandbox
 
 		protected virtual void TryDuck()
 		{
+			Sound.FromWorld( "player.crouch", Controller.Position );
 			IsActive = true;
 		}
 
@@ -52,6 +53,7 @@ namespace Sandbox
 			var pm = Controller.TraceBBox( Controller.Position, Controller.Position, originalMins, originalMaxs );
 			if ( pm.StartedSolid ) return;
 
+			Sound.FromWorld( "player.stand", Controller.Position );
 			IsActive = false;
 		}
 

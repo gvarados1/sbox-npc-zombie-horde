@@ -6,10 +6,10 @@
 [Title( "AKM" ), Category( "Weapons" )]
 partial class AKM : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/rust_smg/rust_smg.vmdl" );
-	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/meshes/_fp_equipment/assaultrifles/akm/akm.vmdl";
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/w_akm.vmdl" );
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/v_akm.vmdl";
 
-	public override float PrimaryRate => 12.0f;
+	public override float PrimaryRate => 8.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 30;
 	public override int AmmoMax => 250;
@@ -48,7 +48,8 @@ partial class AKM : BaseZomWeapon
 
 		// Tell the clients to play the shoot effects
 		ShootEffects();
-		PlaySound( "9mm.shoot" );
+		PlaySound( "akm.shoot" );
+		PlaySound( "akm.shoot.tail" );
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 12.0f, 3.0f );
