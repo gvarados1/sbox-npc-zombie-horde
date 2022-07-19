@@ -17,3 +17,4 @@ Properties/launchSettings.json
 *.vsnd_c
 *.vanmgrph_c
 *.sound_c
+weapons/licensed/*
