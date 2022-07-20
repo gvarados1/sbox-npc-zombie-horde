@@ -230,6 +230,9 @@ public partial class HumanPlayer : Player, IUse
 				}
 			}
 		}
+
+		if ( Position.z < -20000 )
+			OnKilled();
 	}
 
 	public void SwitchToBestWeapon()
