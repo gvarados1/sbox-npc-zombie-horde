@@ -38,6 +38,7 @@ partial class HealthKit : ModelEntity
 		pl.Health = newhealth;
 
 		Sound.FromWorld( "dm.item_health", Position );
-		Delete();
+		if(IsServer)
+			Delete();
 	}
 }
