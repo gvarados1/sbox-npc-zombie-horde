@@ -12,7 +12,7 @@ partial class M1A : BaseZomWeapon
 	public override float PrimaryRate => 3.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 15;
-	public override int AmmoMax => 250;
+	public override int AmmoMax => 180;
 	public override float ReloadTime => 3.8f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .05f;
