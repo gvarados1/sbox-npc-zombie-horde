@@ -227,7 +227,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 	public async void MeleeAttack()
 	{
-		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 2f ) - 1f ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f ) );
+		//(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 2f ) - 1f ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f ) );
+		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .25f ) + .25f ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f ) );
 		// pause reloading
 		var wasReloading = IsReloading;
 		var timeSinceReload = TimeSinceReload;

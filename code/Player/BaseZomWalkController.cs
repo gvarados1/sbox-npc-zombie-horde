@@ -111,8 +111,6 @@ namespace ZombieHorde
 
 			EyeRotation = Input.Rotation;
 			EyeRotation *= PunchRotation;
-			DebugOverlay.ScreenText( PunchVelocity.ToString(), 10 );
-			DebugOverlay.ScreenText( PunchRotation.ToString(), 11 );
 		}
 
 		public Rotation PunchRotation = Rotation.Identity;
