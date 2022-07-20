@@ -60,6 +60,7 @@ partial class M1A : BaseZomWeapon
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1f, 30.0f, 3.0f );
+		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -1f ) + -1f ) );
 
 	}
 

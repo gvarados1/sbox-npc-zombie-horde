@@ -53,7 +53,8 @@ partial class AKM : BaseZomWeapon
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 22.0f, 3.0f );
-
+		//(Owner as HumanPlayer).ViewPunch( Rotation.FromPitch(-1f) );
+		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.25f ) + -.25f) );
 	}
 
 	[ClientRpc]

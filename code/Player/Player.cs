@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.Component;
+using System.Reflection.Metadata;
 
 namespace ZombieHorde;
 
@@ -294,7 +295,13 @@ public partial class HumanPlayer : Player, IUse
 		fov = fov.LerpTo( speed * 20 * MathF.Abs( forwardspeed ), Time.Delta * 4.0f );
 
 		setup.FieldOfView += fov;
+	}
 
+	[ClientRpc]
+	public void ViewPunch(Rotation rotation)
+	{
+		//(Controller as BaseZomWalkController).PunchRotation *= rotation;
+		(Controller as BaseZomWalkController).PunchVelocity *= rotation;
 	}
 
 	DamageInfo LastDamage;
@@ -310,6 +317,9 @@ public partial class HumanPlayer : Player, IUse
 		Velocity = 0;
 
 		this.ProceduralHitReaction( info );
+
+		var punchRot = Rotation.FromYaw( (Rand.Float( .5f ) + 1) * (Rand.Int( 1 ) * 2 - 1) ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f );
+		ViewPunch( punchRot );
 
 		LastAttacker = info.Attacker;
 		LastAttackerWeapon = info.Weapon;

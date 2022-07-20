@@ -1,4 +1,6 @@
 ﻿
+using static Sandbox.Event;
+
 namespace ZombieHorde
 {
 	[Library]
@@ -108,7 +110,13 @@ namespace ZombieHorde
 			base.FrameSimulate();
 
 			EyeRotation = Input.Rotation;
+			EyeRotation *= PunchRotation;
+			DebugOverlay.ScreenText( PunchVelocity.ToString(), 10 );
+			DebugOverlay.ScreenText( PunchRotation.ToString(), 11 );
 		}
+
+		public Rotation PunchRotation;
+		public Rotation PunchVelocity;
 
 		public override void Simulate()
 		{
@@ -117,7 +125,12 @@ namespace ZombieHorde
 
 			// note: I need to multiply pitch by fov/90 (90/fov?). How do I bring the fov over here?
 			EyeLocalPosition += TraceOffset;
-			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 ); ;
+			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 );
+
+			EyeRotation *= PunchRotation;
+			PunchVelocity = Rotation.Slerp( PunchVelocity, Rotation.Identity, Time.Delta * 4f );
+			PunchRotation *= PunchVelocity;
+			PunchRotation = Rotation.Slerp( PunchRotation, Rotation.Identity, Time.Delta * 8f );
 
 			RestoreGroundPos();
 
@@ -501,7 +514,7 @@ namespace ZombieHorde
 
 			Velocity = Velocity.WithZ( startz + flMul * flGroundFactor );
 
-			Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
+			//Velocity -= new Vector3( 0, 0, Gravity * 0.5f ) * Time.Delta;
 
 			// mv->m_outJumpVel.z += mv->m_vecVelocity[2] - startz;
 			// mv->m_outStepHeight += 0.15f;
@@ -509,8 +522,13 @@ namespace ZombieHorde
 			// don't jump again until released
 			//mv->m_nOldButtons |= IN_JUMP;
 
+			ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.1f ) );
 			AddEvent( "jump" );
+		}
 
+		public void ViewPunch( Rotation rotation )
+		{
+			PunchVelocity *= rotation;
 		}
 
 		public virtual void AirMove()
@@ -681,7 +699,13 @@ namespace ZombieHorde
 
 			bool wasOffGround = GroundEntity == null;
 
+			var prevGround = GroundEntity;
 			GroundEntity = tr.Entity;
+			if(GroundEntity != null && prevGround == null )
+			{
+				// viewpunch when landing
+				ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( .1f ) + .1f ));
+			}
 
 			if ( GroundEntity != null )
 			{
