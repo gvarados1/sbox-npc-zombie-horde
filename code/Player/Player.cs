@@ -297,7 +297,6 @@ public partial class HumanPlayer : Player, IUse
 		setup.FieldOfView += fov;
 	}
 
-	[ClientRpc]
 	public void ViewPunch(Rotation rotation)
 	{
 		//(Controller as BaseZomWalkController).PunchRotation *= rotation;

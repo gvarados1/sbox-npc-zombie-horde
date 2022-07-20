@@ -113,8 +113,10 @@ namespace ZombieHorde
 			EyeRotation *= PunchRotation;
 		}
 
-		public Rotation PunchRotation = Rotation.Identity;
-		public Rotation PunchVelocity = Rotation.Identity;
+		[Net,Predicted]
+		public Rotation PunchRotation { get; set; } = Rotation.Identity;
+		[Net, Predicted]
+		public Rotation PunchVelocity { get; set; } = Rotation.Identity;
 
 		public override void Simulate()
 		{
