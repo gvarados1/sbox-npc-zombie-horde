@@ -69,10 +69,12 @@ public partial class CommonZombie : BaseZombie
 			}
 		}
 
-		await Task.Delay(500);
+		await Task.Delay(1000);
+		if ( !this.IsValid() ) return;
 		ClearMaterialOverride();
 
 		await Task.Delay( 200 );
+		if ( !this.IsValid() ) return;
 		var SkinMaterial = Clothing.Clothing.Select( x => x.SkinMaterial ).Select( x => Material.Load( x ) ).FirstOrDefault();
 		var EyesMaterial = Clothing.Clothing.Select( x => x.EyesMaterial ).Select( x => Material.Load( x ) ).FirstOrDefault();
 
