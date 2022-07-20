@@ -99,7 +99,7 @@ public partial class HumanPlayer : Player, IUse
 					.Ignore( ply )
 					.Size( 2 );
 
-		ent.Position = tr.Run().HitPosition;
+		ent.Position = tr.Run().HitPosition + Vector3.Up * 10;
 
 		//var prize = TypeLibrary.Create( lootTable[index], t ) as Entity;
 		//prize.Position = Position;
