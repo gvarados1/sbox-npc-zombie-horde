@@ -41,7 +41,7 @@ partial class LootBox : Prop
 				"PipeBomb"
 			};
 
-		if((BaseGamemode.Current as SurvivalGamemode).WaveNumber < 3 )
+		if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 3 )
 		{
 			lootTable = new[]
 			{
@@ -54,7 +54,7 @@ partial class LootBox : Prop
 			};
 		}
 
-		for (var i = 0; i < Rand.Int(1)+1; i++ )
+		for ( var i = 0; i < Rand.Int( 1 ) + 1; i++ )
 		{
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
@@ -69,5 +69,12 @@ partial class LootBox : Prop
 		medkit.Velocity = Vector3.Random * 100;
 
 		base.OnKilled();
+	}
+
+	[ConCmd.Admin]
+	public static void zom_clear_lootboxs()
+	{
+		foreach ( var box in Entity.All.OfType<LootBox>() )
+			box.Delete();
 	}
 }
