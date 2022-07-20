@@ -232,8 +232,12 @@ public partial class HumanPlayer : Player, IUse
 		}
 
 		// kill the player if they fall out of the map somehow
-		if ( Position.z < -20000 )
-			OnKilled();
+		DebugOverlay.ScreenText( Position.z.ToString(), 11 );
+		if ( IsServer )
+		{
+			if ( Position.z < -20000 )
+				OnKilled();
+		}
 	}
 
 	public void SwitchToBestWeapon()
