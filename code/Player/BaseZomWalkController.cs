@@ -115,8 +115,8 @@ namespace ZombieHorde
 			DebugOverlay.ScreenText( PunchRotation.ToString(), 11 );
 		}
 
-		public Rotation PunchRotation;
-		public Rotation PunchVelocity;
+		public Rotation PunchRotation = Rotation.Identity;
+		public Rotation PunchVelocity = Rotation.Identity;
 
 		public override void Simulate()
 		{

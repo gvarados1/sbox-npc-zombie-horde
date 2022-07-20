@@ -13,7 +13,7 @@ partial class M1A : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 15;
 	public override int AmmoMax => 250;
-	public override float ReloadTime => 3.5f;
+	public override float ReloadTime => 3.8f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .05f;
 	public override float ShotSpreadMultiplier => 2.5f;
@@ -60,7 +60,7 @@ partial class M1A : BaseZomWeapon
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1f, 30.0f, 3.0f );
-		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -1f ) + -1f ) );
+		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -.5f ) + -.5f ) );
 
 	}
 
