@@ -44,7 +44,8 @@ public partial class HumanPlayer : Player, IUse
 
 		Inventory.DeleteContents();
 
-		Inventory.Add( new Pistol(), true );
+		//Inventory.Add( new Pistol(), true );
+		Inventory.Add( new M1911(), true );
 
 		SupressPickupNotices = false;
 		Health = 100;
