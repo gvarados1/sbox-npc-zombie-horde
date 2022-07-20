@@ -232,7 +232,6 @@ public partial class HumanPlayer : Player, IUse
 		}
 
 		// kill the player if they fall out of the map somehow
-		DebugOverlay.ScreenText( Position.z.ToString(), 11 );
 		if ( IsServer )
 		{
 			if ( Position.z < -20000 )
