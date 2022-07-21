@@ -8,7 +8,8 @@
   "AssetsPath": "",
   "ResourcePaths": [
     "/resource/*",
-    "/ui/*"
+    "/ui/*",
+    "/weapons/licensed/HQFPSWeapons/Icons/*"
   ],
   "HasCode": true,
   "CodePath": "code",
