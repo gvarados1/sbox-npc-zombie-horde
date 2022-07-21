@@ -52,7 +52,7 @@ partial class MP5 : BaseZomWeapon
 		PlaySound( "smg1.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1.5f, 14.0f, 3.0f );
+		ShootBullet( BulletSpread, 1.5f, 5.0f, 3.0f );
 		//(Owner as HumanPlayer).ViewPunch( Rotation.FromPitch(-1f) );
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.2f) );
 	}

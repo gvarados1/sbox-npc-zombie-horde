@@ -69,7 +69,7 @@ partial class R870 : BaseZomWeapon
 		//
 		// Shoot the bullets
 		//
-		ShootBullet( BulletSpread, 0.8f, 20.0f, 20.0f, 6 );
+		ShootBullet( BulletSpread, 0.8f, 15.0f, 20.0f, 6 );
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -.5f ) + -.5f ) );
 	}
 
