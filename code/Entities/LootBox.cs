@@ -28,13 +28,14 @@ partial class LootBox : Prop
 		var lootTable = new[]
 			{
 				"HealthKit",
-				"HealthKit",
-				"Magnum",
-				"Shotgun",
-				"SMG",
-				"AK47",
-				"Crossbow",
-				"Crowbar",
+				//"Magnum",
+				"F1",
+				"AKM",
+				"M1A",
+				"Mp5",
+				"BaseballBat",
+				"FireAxe",
+				"R870",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"AmmoPile",
@@ -46,20 +47,22 @@ partial class LootBox : Prop
 			lootTable = new[]
 			{
 				"HealthKit",
-				"Magnum",
-				"Crowbar",
+				//"Magnum",
+				"BaseballBat",
+				"FireAxe",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"PipeBomb"
 			};
 		}
 
-		for ( var i = 0; i < Rand.Int( 1 ) + 1; i++ )
+		// lol just 1 item for now
+		for ( var i = 0; i < Rand.Int( 0 ) + 1; i++ )
 		{
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
 			var prize = TypeLibrary.Create( lootTable[index], t ) as Entity;
-			prize.Position = Position;
+			prize.Position = Position + Vector3.Up * 8;
 			prize.Velocity = Vector3.Random * 100;
 		}
 
