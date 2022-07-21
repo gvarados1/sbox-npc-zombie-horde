@@ -219,6 +219,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	{
 		if(TimeSinceShove > 1 )
 		{
+			ViewModelEntity?.SetAnimParameter( "fire", true );
 			MeleeAttack();
 			TimeSinceShove = 0;
 			//TimeSincePrimaryAttack = -2;
@@ -241,7 +242,6 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		PlaySound( "dm.crowbar_attack" );
 		var ply = (Owner as AnimatedEntity);
 		OverridingAnimator = true;
-		ViewModelEntity?.SetAnimParameter( "fire", true );
 		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation();
 		ply.SetAnimParameter( "holdtype", 5 );
 		ply.SetAnimParameter( "b_attack", true );
