@@ -72,15 +72,16 @@ partial class ZomViewModel : BaseViewModel
 			var maxSwayAngle = 5;
 			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 		}
-		
 
 		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f * Time.Delta * 100 );
 		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f * Time.Delta * 100 );
 
 		// finally set it
 		Position = camSetup.Position + ModelOffset.Position + MeleeOffset.Position;
-		Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeOffset.Rotation * ModelOffset.Rotation;
+		//Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeOffset.Rotation * ModelOffset.Rotation;
+		Rotation = camSetup.Rotation * Rotation.FromPitch(3) * MeleeOffset.Rotation * ModelOffset.Rotation;
 
+		camSetup.ViewModel.FieldOfView = 60;
 	}
 
 	public async void PlayMeleeAnimation()
