@@ -1,23 +1,23 @@
 ﻿namespace ZombieHorde;
 
 
-[Library( "zom_mp5" ), HammerEntity]
+[Library( "zom_f1" ), HammerEntity]
 [EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
-[Title( "MP5" ), Category( "Weapons" )]
-partial class MP5 : BaseZomWeapon
+[Title( "F1" ), Category( "Weapons" )]
+partial class F1 : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/w_mp5.vmdl" );
-	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/v_mp5.vmdl";
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/w_f1.vmdl" );
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/v_f1.vmdl";
 
-	public override float PrimaryRate => 9.0f;
+	public override float PrimaryRate => 11.0f;
 	public override float SecondaryRate => 1.0f;
-	public override int ClipSize => 35;
+	public override int ClipSize => 25;
 	public override int AmmoMax => 250;
-	public override float ReloadTime => 3.4f;
+	public override float ReloadTime => 3.3f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .12f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MP5.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_F1.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()
@@ -48,8 +48,8 @@ partial class MP5 : BaseZomWeapon
 
 		// Tell the clients to play the shoot effects
 		ShootEffects();
-		PlaySound( "smg1.shoot" );
-		PlaySound( "smg1.shoot.tail" );
+		PlaySound( "ar1.shoot" );
+		PlaySound( "ar1.shoot.tail" );
 
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 5.0f, 3.0f );

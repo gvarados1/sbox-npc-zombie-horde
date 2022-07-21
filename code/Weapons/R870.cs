@@ -5,7 +5,7 @@
 [Title( "R-870" ), Category( "Weapons" )]
 partial class R870 : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/v_r870.vmdl";
 	public override float PrimaryRate => 1.4f;
 	public override float SecondaryRate => 1.5f;
@@ -39,6 +39,17 @@ partial class R870 : BaseZomWeapon
 		if ( IsReloading && (Input.Pressed( InputButton.PrimaryAttack ) || Input.Pressed( InputButton.SecondaryAttack )) )
 		{
 			StopReloading = true;
+		}
+	}
+
+	public override void AttackSecondary()
+	{
+		if ( TimeSinceShove > 1 )
+		{
+			//ViewModelEntity?.SetAnimParameter( "fire", true );
+			MeleeAttack();
+			TimeSinceShove = 0;
+			//TimeSincePrimaryAttack = -2;
 		}
 	}
 
