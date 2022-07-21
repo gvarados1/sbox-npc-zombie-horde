@@ -1,23 +1,23 @@
 ﻿namespace ZombieHorde;
 
 
-[Library( "zom_akm" ), HammerEntity]
+[Library( "zom_mp5" ), HammerEntity]
 [EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
-[Title( "AKM" ), Category( "Weapons" )]
-partial class AKM : BaseZomWeapon
+[Title( "MP5" ), Category( "Weapons" )]
+partial class MP5 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/w_akm.vmdl" );
-	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/v_akm.vmdl";
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/v_mp5.vmdl";
 
-	public override float PrimaryRate => 8.0f;
+	public override float PrimaryRate => 9.0f;
 	public override float SecondaryRate => 1.0f;
-	public override int ClipSize => 24;
-	public override int AmmoMax => 320;
-	public override float ReloadTime => 2.8f;
+	public override int ClipSize => 35;
+	public override int AmmoMax => 250;
+	public override float ReloadTime => 3.4f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
-	public override float BulletSpread => .1f;
+	public override float BulletSpread => .12f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_AKM.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MP5.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()
@@ -48,11 +48,11 @@ partial class AKM : BaseZomWeapon
 
 		// Tell the clients to play the shoot effects
 		ShootEffects();
-		PlaySound( "akm.shoot" );
-		PlaySound( "akm.shoot.tail" );
+		PlaySound( "smg1.shoot" );
+		PlaySound( "smg1.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1.5f, 22.0f, 3.0f );
+		ShootBullet( BulletSpread, 1.5f, 14.0f, 3.0f );
 		//(Owner as HumanPlayer).ViewPunch( Rotation.FromPitch(-1f) );
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.2f) );
 	}

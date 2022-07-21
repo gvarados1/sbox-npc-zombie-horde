@@ -15,7 +15,7 @@ partial class R870 : BaseZomWeapon
 	public override int AmmoMax => 80;
 	public override float BulletSpread => 0.2f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "/ui/weapons/shotgun.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	[Net, Predicted]
@@ -69,7 +69,7 @@ partial class R870 : BaseZomWeapon
 		//
 		// Shoot the bullets
 		//
-		ShootBullet( BulletSpread, 0.8f, 20.0f, 2.0f, 4 );
+		ShootBullet( BulletSpread, 0.8f, 20.0f, 20.0f, 6 );
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -.5f ) + -.5f ) );
 	}
 
