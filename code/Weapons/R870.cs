@@ -21,6 +21,8 @@ partial class R870 : BaseZomWeapon
 	[Net, Predicted]
 	public bool StopReloading { get; set; }
 
+	// HEY!! THIS WEAPON HAS A SECOND SKIN THAT COULD BE USED AS A FASTER-FIRING VERSION!!!
+
 	public override void Spawn()
 	{
 		base.Spawn();
