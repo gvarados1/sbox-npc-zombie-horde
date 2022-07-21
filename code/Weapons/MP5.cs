@@ -2,7 +2,7 @@
 
 
 [Library( "zom_mp5" ), HammerEntity]
-[EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/w_mp5.vmdl" )]
 [Title( "MP5" ), Category( "Weapons" )]
 partial class MP5 : BaseZomWeapon
 {

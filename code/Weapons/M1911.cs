@@ -1,7 +1,7 @@
 ﻿namespace ZombieHorde;
 
 [Library( "zom_m1911" ), HammerEntity]
-[EditorModel( "weapons/rust_pistol/rust_pistol.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/m1911/w_m1911.vmdl" )]
 [Title( "M1911" ), Category( "Weapons" )]
 partial class M1911 : BaseZomWeapon
 {

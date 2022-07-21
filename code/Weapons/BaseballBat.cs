@@ -3,7 +3,7 @@
 namespace ZombieHorde;
 
 [Library( "zom_baseballbat" ), HammerEntity]
-[EditorModel( "models/dm_crowbar.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/baseballbat/w_baseballbat.vmdl" )]
 [Title( "Baseball Bat" ), Category( "Weapons" )]
 partial class BaseballBat : BaseZomWeapon
 {

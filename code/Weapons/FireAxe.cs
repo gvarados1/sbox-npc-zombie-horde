@@ -3,7 +3,7 @@
 namespace ZombieHorde;
 
 [Library( "zom_fireaxe" ), HammerEntity]
-[EditorModel( "models/dm_crowbar.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/fireaxe/w_fireaxe.vmdl" )]
 [Title( "Fire Axe" ), Category( "Weapons" )]
 partial class FireAxe : BaseZomWeapon
 {

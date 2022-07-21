@@ -2,7 +2,7 @@
 
 
 [Library( "zom_f1" ), HammerEntity]
-[EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/w_f1.vmdl" )]
 [Title( "F1" ), Category( "Weapons" )]
 partial class F1 : BaseZomWeapon
 {

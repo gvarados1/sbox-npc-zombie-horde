@@ -1,7 +1,7 @@
 ﻿namespace ZombieHorde;
 
 [Library( "zom_r870" ), HammerEntity]
-[EditorModel( "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" )]
 [Title( "R-870" ), Category( "Weapons" )]
 partial class R870 : BaseZomWeapon
 {
