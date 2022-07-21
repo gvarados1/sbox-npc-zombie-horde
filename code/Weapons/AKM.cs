@@ -2,7 +2,7 @@
 
 
 [Library( "zom_akm" ), HammerEntity]
-[EditorModel( "weapons/rust_smg/rust_smg.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/w_akm.vmdl" )]
 [Title( "AKM" ), Category( "Weapons" )]
 partial class AKM : BaseZomWeapon
 {
