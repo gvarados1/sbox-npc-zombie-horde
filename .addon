@@ -19,7 +19,7 @@
     "MaxPlayers": 8,
     "GameNetworkType": "Multiplayer",
     "MapList": [
-      "gvar.npc_playground"
+      "baks.officee"
     ],
     "MapSelect": "Unrestricted",
     "PerMapRanking": false,
