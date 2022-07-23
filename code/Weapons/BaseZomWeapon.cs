@@ -526,6 +526,21 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		if (dropped != null && dropped.PhysicsGroup != null )
 		{
+			// do a trace to check if we're throwing the gun through a wall/floor
+			var tr = Trace.Ray( Owner.EyePosition, Owner.EyePosition + Owner.EyeRotation.Forward * 64 )
+			.UseHitboxes()
+			.WorldOnly()
+			.Ignore( this )
+			.Size( 8 );
+
+			var hit = tr.Run().Hit;
+			if ( hit )
+			{
+				Log.Info( hit );
+				dropped.Position = Owner.EyePosition + Vector3.Down * 16;
+				dropped.Rotation = Owner.EyeRotation * Rotation.FromYaw( 90 );
+			}
+
 			dropped.PhysicsGroup.Velocity = ply.Velocity + (ply.EyeRotation.Forward + ply.EyeRotation.Up) * 200;
 		}
 

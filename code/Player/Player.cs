@@ -204,17 +204,7 @@ public partial class HumanPlayer : Player, IUse
 
 		if ( Input.Pressed( InputButton.Drop ) )
 		{
-			var dropped = Inventory.DropActive();
-			if ( dropped != null )
-			{
-				if ( dropped.PhysicsGroup != null )
-				{
-					dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 200;
-				}
-
-				timeSinceDropped = 0;
-				SwitchToBestWeapon();
-			}
+			DropActive();
 		}
 
 		SimulateActiveChild( cl, ActiveChild );
@@ -251,6 +241,36 @@ public partial class HumanPlayer : Player, IUse
 
 		// let's not do this yet
 		ActiveChild = best;
+	}
+
+	public void DropActive()
+	{
+		var dropped = Inventory.DropActive();
+		if ( dropped != null )
+		{
+			if ( dropped.PhysicsGroup != null )
+			{
+				// do a trace to check if we're throwing the gun through a wall/floor
+				var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 64 )
+				.UseHitboxes()
+				.WorldOnly()
+				.Ignore( this )
+				.Size( 8 );
+
+				var hit = tr.Run().Hit;
+				if ( hit )
+				{
+					Log.Info( hit );
+					dropped.Position = EyePosition + Vector3.Down * 16;
+					dropped.Rotation = EyeRotation * Rotation.FromYaw( 90 );
+				}
+
+				dropped.PhysicsGroup.Velocity = Velocity + (EyeRotation.Forward + EyeRotation.Up) * 200;
+			}
+
+			timeSinceDropped = 0;
+			SwitchToBestWeapon();
+		}
 	}
 
 	public override void StartTouch( Entity other )
