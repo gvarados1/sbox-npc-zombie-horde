@@ -317,7 +317,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		var trace = Trace.Ray( start, end )
 				.UseHitboxes()
-				.WithAnyTags( "solid", "player", "npc", "glass" )
+				.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
 				.Ignore( this )
 				.Size( radius );
 
