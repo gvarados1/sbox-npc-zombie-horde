@@ -1,4 +1,6 @@
-﻿namespace ZombieHorde;
+﻿using Sandbox.Internal;
+
+namespace ZombieHorde;
 public partial class HumanPlayer
 {
 	private SpotLightEntity WorldLight;
@@ -8,6 +10,8 @@ public partial class HumanPlayer
 	private bool FlashlightEnabled { get; set; } = false;
 
 	TimeSince TimeSinceLightToggled;
+
+	Entity LastViewmodelEntity;
 
 	private void TickFlashlight()
 	{
@@ -45,6 +49,43 @@ public partial class HumanPlayer
 		if ( FlashlightEnabled )
 		{
 			var forward = EyeRotation.Forward;
+
+			// let's assume if the worldmodel has a muzzle, the viewmodel also has one.
+			if(ActiveChild is BaseZomWeapon gun )
+			{
+				var worldTrans = gun.GetAttachment( "muzzle" );
+				if (worldTrans != null)
+				{
+
+					if ( IsClient )
+					{
+						var viewTrans = gun.ViewModelEntity?.GetAttachment( "muzzle" );
+						if( viewTrans != null )
+						{
+							// why do I need to make a new viewlight when I switch weapons? I don't have to do this for the worldlight.
+							if ( !ViewLight.IsValid() )
+							{
+								var lightOffset = Vector3.Forward * 10;
+								ViewLight = CreateLight();
+								ViewLight.Transform = Transform;
+								ViewLight.EnableViewmodelRendering = true;
+							}
+							ViewLight.Enabled = FlashlightEnabled;
+
+							ViewLight.SetParent( null );
+							ViewLight.Rotation = (Rotation)viewTrans?.Rotation;
+							ViewLight.Position = (Vector3)viewTrans?.Position;
+							ViewLight.SetParent( gun.ViewModelEntity, "muzzle" );
+						}
+					}
+
+					WorldLight.SetParent( null );
+					WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
+					WorldLight.Position = (Vector3)worldTrans?.Position;
+					WorldLight.SetParent( gun, "muzzle" );
+					return;
+				}
+			}
 
 			// the lights don't look good if I don't constantly set this?
 			if ( IsClient )
