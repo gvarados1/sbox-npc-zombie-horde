@@ -113,14 +113,16 @@ public partial class HumanPlayer
 			Falloff = 1.0f,
 			LinearAttenuation = 0.0f,
 			QuadraticAttenuation = 1.0f,
-			Brightness = 2,
-			Color = Color.White,
-			InnerConeAngle = 20,
-			OuterConeAngle = 50,
-			FogStrength = 10,
+			Brightness = 1.5f,
+			//Color = Color.White,
+			Color = (Color)Color.Parse( "#EDEAD2" ),
+			InnerConeAngle = 10,
+			OuterConeAngle = 40,
+			FogStrength = 2,
 			Owner = this,
 			LightCookie = Texture.Load( "materials/effects/lightcookie.vtex" )
 		};
+		light.UseFogNoShadows();
 
 		return light;
 	}
