@@ -219,7 +219,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	{
 		if(TimeSinceShove > 1 )
 		{
-			ViewModelEntity?.SetAnimParameter( "fire", true );
+			//ViewModelEntity?.SetAnimParameter( "fire", true );
 			MeleeAttack();
 			TimeSinceShove = 0;
 			//TimeSincePrimaryAttack = -2;
@@ -236,7 +236,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		if ( wasReloading )
 		{
 			// when I make my own weapons I will be able store/pause reload states during melee shove. Currently we have to start the animation over (even though reloading doesn't restart)
-			IsReloading = false;
+			//IsReloading = false;
 		}
 
 		PlaySound( "dm.crowbar_attack" );
@@ -291,8 +291,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		// continue reloading
 		if ( wasReloading )
 		{
-			Reload();
-			TimeSinceReload = timeSinceReload;
+			//Reload();
+			//TimeSinceReload = timeSinceReload;
 		}
 	}
 
