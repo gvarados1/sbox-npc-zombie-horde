@@ -519,7 +519,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 					break;
 				}
 		}
-		ply.Inventory.Add( this , ply.ActiveChild == dropped );
+		ply.Inventory.Add( this , ply.ActiveChild == dropped || WeaponSlot == WeaponSlot.Secondary || WeaponSlot == WeaponSlot.Primary );
 
 
 		//Log.Info( $"{Host.Name}: 1:{inv.Secondary} 2:{inv.Primary1} 3:{inv.Primary2} 4:{inv.Grenade} 5:{inv.Medkit} 6:{inv.Pills}" );
