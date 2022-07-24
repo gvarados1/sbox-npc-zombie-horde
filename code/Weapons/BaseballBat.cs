@@ -108,6 +108,12 @@ partial class BaseballBat : BaseZomWeapon
 				.WithWeapon( this );
 
 			tr.Entity.TakeDamage( damageInfo );
+
+			if ( tr.Entity is CommonZombie zom )
+			{
+				zom.Stun( 1f );
+				zom.Velocity = forward * 100;
+			}
 		}
 
 		if ( TimeSincePrimaryAttack < .8f || TimeSinceSecondaryAttack < .8f )

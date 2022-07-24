@@ -83,6 +83,12 @@ partial class FireAxe : BaseZomWeapon
 				.WithWeapon( this );
 
 			tr.Entity.TakeDamage( damageInfo );
+
+			if( tr.Entity is CommonZombie zom )
+			{
+				zom.Stun( 1f );
+				zom.Velocity = forward * 100;
+			}
 		}
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
