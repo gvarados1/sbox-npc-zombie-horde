@@ -80,8 +80,8 @@ public partial class HumanPlayer : Player, IUse
 	{
 		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
-		ply.Inventory.Add( new SMG() );
-		ply.Inventory.Add( new Shotgun() );
+		ply.Inventory.Add( new F1() );
+		ply.Inventory.Add( new R870() );
 		ply.Inventory.Add( new PipeBomb() );
 		ply.Inventory.Add( new MedKit() );
 		ply.Inventory.Add( new HealthSyringe() );
