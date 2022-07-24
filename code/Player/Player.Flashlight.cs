@@ -54,15 +54,14 @@ public partial class HumanPlayer
 			if(ActiveChild is BaseZomWeapon gun )
 			{
 				var worldTrans = gun.GetAttachment( "muzzle" );
-				if (worldTrans != null)
+				if ( worldTrans != null )
 				{
 
 					if ( IsClient )
 					{
 						var viewTrans = gun.ViewModelEntity?.GetAttachment( "muzzle" );
-						if( viewTrans != null )
+						if ( viewTrans != null )
 						{
-							// why do I need to make a new viewlight when I switch weapons? I don't have to do this for the worldlight.
 							if ( !ViewLight.IsValid() )
 							{
 								var lightOffset = Vector3.Forward * 10;
@@ -78,6 +77,14 @@ public partial class HumanPlayer
 							ViewLight.SetParent( gun.ViewModelEntity, "muzzle" );
 						}
 					}
+
+					if ( !WorldLight.IsValid() )
+					{
+						WorldLight = CreateLight();
+						WorldLight.Transform = Transform;
+						WorldLight.EnableHideInFirstPerson = true;
+					}
+					WorldLight.Enabled = FlashlightEnabled;
 
 					WorldLight.SetParent( null );
 					WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
