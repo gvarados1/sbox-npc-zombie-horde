@@ -255,6 +255,7 @@ public partial class CommonZombie : BaseZombie
 		// initial delay too?
 		await Task.Delay( 100 );
 		if ( !IsValid ) return;
+		if ( TimeUntilUnstunned > 0 ) return;
 		PlaySound( "zombie.attack" );
 		SetAnimParameter("b_attack", true);
 		Velocity = 0;
@@ -262,6 +263,7 @@ public partial class CommonZombie : BaseZombie
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
 		await Task.Delay( 200 );
 		if ( !IsValid ) return;
+		if ( TimeUntilUnstunned > 0 ) return;
 		Velocity = 0;
 
 		var forward = Rotation.Forward;
