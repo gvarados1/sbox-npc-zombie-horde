@@ -57,6 +57,12 @@ partial class AKM : BaseZomWeapon
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.2f) );
 	}
 
+	public override void SetCarryPosition()
+	{
+		EnableDrawing = true;
+		SetParent( Owner, "clavical_R" );
+	}
+
 	[ClientRpc]
 	protected override void ShootEffects()
 	{

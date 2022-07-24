@@ -49,10 +49,25 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public override void ActiveStart( Entity ent )
 	{
 		base.ActiveStart( ent );
+		SetParent( Owner, true );
 
 		TimeSinceDeployed = 0;
 
 		IsReloading = false;
+	}
+
+	public override void ActiveEnd( Entity ent, bool dropped )
+	{
+		base.ActiveEnd( ent, dropped );
+
+		if ( dropped ) return;
+
+		SetCarryPosition();
+	}
+
+	public virtual void SetCarryPosition()
+	{
+		EnableDrawing = false;
 	}
 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";

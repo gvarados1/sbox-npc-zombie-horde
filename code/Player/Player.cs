@@ -25,7 +25,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public override void Respawn()
 	{
-		SetModel( "models/citizen/citizen.vmdl" );
+		SetModel( "models/human/citizen_human.vmdl" );
 
 		Controller = new HumanWalkController();
 
