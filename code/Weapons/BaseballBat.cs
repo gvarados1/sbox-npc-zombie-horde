@@ -95,7 +95,7 @@ partial class BaseballBat : BaseZomWeapon
 		forward = forward.Normal;
 
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .25f ) + .25f ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f ) );
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 90, 15 ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 100, 30 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 
