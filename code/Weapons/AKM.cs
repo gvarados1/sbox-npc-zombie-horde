@@ -57,12 +57,6 @@ partial class AKM : BaseZomWeapon
 		(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.2f) );
 	}
 
-	public override void SetCarryPosition()
-	{
-		EnableDrawing = true;
-		SetParent( Owner, "clavical_R" );
-	}
-
 	[ClientRpc]
 	protected override void ShootEffects()
 	{
@@ -80,6 +74,20 @@ partial class AKM : BaseZomWeapon
 		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
+	}
+
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 6.5f;
+		transform.Position += Vector3.Down * 3;
+		transform.Position += Vector3.Forward * -2;
+		transform.Rotation *= Rotation.FromPitch( 220 );
+		transform.Rotation *= Rotation.FromYaw( -15 );
+		transform.Rotation *= Rotation.FromRoll( -30 );
+		SetParent( Owner, "spine_2", transform );
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )

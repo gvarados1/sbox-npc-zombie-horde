@@ -98,6 +98,19 @@ partial class PipeBomb : BaseZomWeapon
 		ent.DeleteAsync( 5.0f );
 	}
 
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 3;
+		transform.Position += Vector3.Up * -4;
+		transform.Position += Vector3.Forward * -3;
+		transform.Rotation *= Rotation.FromPitch( 0 );
+		transform.Rotation *= Rotation.FromRoll( 270 );
+		SetParent( Owner, "leg_upper_L", transform );
+	}
+
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
 		var draw = Render.Draw2D;

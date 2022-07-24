@@ -58,7 +58,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public void SpawnAsSpectator()
 	{
-		SetModel( "models/citizen/citizen.vmdl" );
+		SetModel( "models/human/citizen_human.vmdl" );
 
 		Animator = new HumanPlayerAnimator();
 

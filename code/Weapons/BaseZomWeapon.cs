@@ -123,6 +123,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 	public override void Simulate( Client owner )
 	{
+		//SetCarryPosition();
 		if ( TimeSinceDeployed < 0.6f )
 			return;
 

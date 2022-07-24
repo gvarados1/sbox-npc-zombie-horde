@@ -69,6 +69,19 @@ partial class M1911 : BaseZomWeapon
 
 	}
 
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 5;
+		transform.Position += Vector3.Up * 4;
+		transform.Position += Vector3.Forward * -3;
+		transform.Rotation *= Rotation.FromPitch( 0 );
+		transform.Rotation *= Rotation.FromRoll( 270 );
+		SetParent( Owner, "leg_upper_R", transform );
+	}
+
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
 		var draw = Render.Draw2D;

@@ -139,4 +139,18 @@ partial class BaseballBat : BaseZomWeapon
 		anim.SetAnimParameter( "holdtype", 5 ); // TODO this is shit
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
+
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 8.5f;
+		transform.Position += Vector3.Down * -4;
+		transform.Position += Vector3.Forward * 5;
+		transform.Rotation *= Rotation.FromPitch( 220 );
+		transform.Rotation *= Rotation.FromYaw( -15 );
+		transform.Rotation *= Rotation.FromRoll( -10 );
+		SetParent( Owner, "spine_2", transform );
+	}
 }
