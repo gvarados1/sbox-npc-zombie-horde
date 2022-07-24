@@ -88,6 +88,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public override void OnCarryStart( Entity carrier )
 	{
 		base.OnCarryStart( carrier );
+		SetCarryPosition();
 		var glow = Components.GetOrCreate<Glow>();
 		glow.Active = false;
 	}
