@@ -107,13 +107,15 @@ partial class BaseballBat : BaseZomWeapon
 				.WithAttacker( Owner )
 				.WithWeapon( this );
 
-			tr.Entity.TakeDamage( damageInfo );
-
 			if ( tr.Entity is CommonZombie zom )
 			{
 				zom.Stun( 1f );
 				zom.Velocity = forward * 100;
+				if ( zom.ZombieState == ZombieState.Wander )
+					damageInfo.Damage *= 1.5f;
 			}
+
+			tr.Entity.TakeDamage( damageInfo );
 		}
 
 		if ( TimeSincePrimaryAttack < .8f || TimeSinceSecondaryAttack < .8f )
@@ -131,7 +133,7 @@ partial class BaseballBat : BaseZomWeapon
 		}
 
 		TimeSincePrimaryAttack = 0;
-		TimeSinceSecondaryAttack = 0;
+		TimeSinceSecondaryAttack = .25f;
 
 
 		if ( Owner is HumanPlayer player )
