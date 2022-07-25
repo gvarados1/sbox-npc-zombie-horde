@@ -93,7 +93,7 @@ namespace ZombieHorde
 
 			var tr = Trace.Ray( start + TraceOffset, end + TraceOffset )
 						.Size( mins, maxs )
-						.WithAnyTags( "solid", "playerclip", "passbullets", "player" )
+						.WithAnyTags( "solid", "playerclip", "passbullets", "zombie" )
 						.WithoutTags( "gib" )
 						.Ignore( Pawn )
 						.Run();

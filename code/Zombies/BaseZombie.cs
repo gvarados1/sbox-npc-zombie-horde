@@ -34,8 +34,8 @@ public partial class BaseZombie : BaseNpc
 		Speed = Rand.Float( 270, 320 );
 		Health = 50;
 
-		// add "player" tag for collisions
-		Tags.Add( "player" );
+		// add "Zombie" tag for collisions
+		Tags.Add( "Zombie" );
 	}
 
 	public Sandbox.Debug.Draw Draw => Sandbox.Debug.Draw.Once;

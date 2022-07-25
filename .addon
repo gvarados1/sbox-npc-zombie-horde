@@ -19,7 +19,7 @@
     "MaxPlayers": 8,
     "GameNetworkType": "Multiplayer",
     "MapList": [
-      "baks.officee"
+      "baks.office"
     ],
     "MapSelect": "Unrestricted",
     "PerMapRanking": false,
@@ -75,7 +75,7 @@
         {
           "a": "player",
           "b": "player",
-          "r": "Collide"
+          "r": "Ignore"
         },
         {
           "a": "gib",

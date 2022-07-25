@@ -58,7 +58,7 @@
 		/// <example>
 		/// var move = new MoveHelper( Position, Velocity )
 		/// </example>
-		public ZomMoveHelper( Vector3 position, Vector3 velocity ) : this( position, velocity, "solid", "playerclip", "passbullets", "player" )
+		public ZomMoveHelper( Vector3 position, Vector3 velocity ) : this( position, velocity, "solid", "playerclip", "passbullets", "zombie" )
 		{
 
 		}
