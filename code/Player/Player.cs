@@ -328,7 +328,6 @@ public partial class HumanPlayer : Player, IUse
 			if ( !zom.IsValid() )
 				continue;
 
-			Log.Info( "touchj!" );
 			zom.Velocity += (zom.Position - Position).WithZ( 0 ).Normal * 10;
 		}
 	}
