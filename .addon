@@ -75,7 +75,7 @@
         {
           "a": "player",
           "b": "player",
-          "r": "Ignore"
+          "r": "Trigger"
         },
         {
           "a": "gib",

@@ -189,6 +189,7 @@ public partial class HumanPlayer : Player, IUse
 
 		TickPlayerUse();
 		TickFlashlight();
+		NudgeNearbyPlayers();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
@@ -273,11 +274,54 @@ public partial class HumanPlayer : Player, IUse
 		}
 	}
 
+	public IEnumerable<Entity> TouchingEntities => touchingEntities;
+	public int TouchingEntityCount => touchingEntities.Count;
+
+	readonly List<Entity> touchingEntities = new();
+
 	public override void StartTouch( Entity other )
 	{
+		if(other is HumanPlayer) // only list humas for now. not sure if we'll need to list other entities in the future.
+			AddToucher( other );
+
 		if ( timeSinceDropped < 1 ) return;
 
 		base.StartTouch( other );
+	}
+
+	public override void EndTouch( Entity other )
+	{
+		base.EndTouch( other );
+
+		if ( other.IsWorld )
+			return;
+
+		if ( touchingEntities.Contains( other ) )
+		{
+			touchingEntities.Remove( other );
+		}
+	}
+
+	protected void AddToucher( Entity toucher )
+	{
+		if ( !toucher.IsValid() )
+			return;
+
+		if ( touchingEntities.Contains( toucher ) )
+			return;
+
+		touchingEntities.Add( toucher );
+	}
+
+	public void NudgeNearbyPlayers()
+	{
+		foreach ( var ply in TouchingEntities.OfType<HumanPlayer>() )
+		{
+			if ( !ply.IsValid() )
+				continue;
+
+			Velocity += (Position - ply.Position).WithZ(0).Normal * 10;
+		}
 	}
 
 	public override void PostCameraSetup( ref CameraSetup setup )
