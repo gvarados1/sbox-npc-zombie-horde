@@ -81,7 +81,7 @@ partial class F1 : BaseZomWeapon
 		// dumb hard-coded positions
 		EnableDrawing = true;
 		var transform = Transform.Zero;
-		transform.Position += Vector3.Right * 6.5f;
+		transform.Position += Vector3.Right * 7.5f;
 		transform.Position += Vector3.Down * 3;
 		transform.Position += Vector3.Forward * -2;
 		transform.Rotation *= Rotation.FromPitch( 220 );
