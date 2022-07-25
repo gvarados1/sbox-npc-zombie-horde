@@ -281,7 +281,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public override void StartTouch( Entity other )
 	{
-		if(other is HumanPlayer) // only list humas for now. not sure if we'll need to list other entities in the future.
+		if(other is HumanPlayer || other is CommonZombie ) // only list humans & zombies for now. not sure if we'll need to list other entities in the future.
 			AddToucher( other );
 
 		if ( timeSinceDropped < 1 ) return;
@@ -321,6 +321,15 @@ public partial class HumanPlayer : Player, IUse
 				continue;
 
 			Velocity += (Position - ply.Position).WithZ(0).Normal * 10;
+		}
+
+		foreach ( var zom in TouchingEntities.OfType<CommonZombie>() )
+		{
+			if ( !zom.IsValid() )
+				continue;
+
+			Log.Info( "touchj!" );
+			zom.Velocity += (zom.Position - Position).WithZ( 0 ).Normal * 10;
 		}
 	}
 

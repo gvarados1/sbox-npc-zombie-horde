@@ -34,7 +34,8 @@
         "gib": "Collide",
         "player": "Unset",
         "item": "Collide",
-        "glass": "Unset"
+        "glass": "Unset",
+        "zombie": "Unset"
       },
       "Pairs": [
         {
@@ -126,6 +127,11 @@
         {
           "a": "trigger",
           "b": "trigger",
+          "r": "Trigger"
+        },
+        {
+          "a": "player",
+          "b": "zombie",
           "r": "Trigger"
         }
       ]
