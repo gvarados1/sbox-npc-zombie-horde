@@ -261,6 +261,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		OverridingAnimator = true;
 		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation();
 		ply.SetAnimParameter( "holdtype", 5 );
+		ply.SetAnimParameter( "holdtype_handedness", 0 );
+		ply.SetAnimParameter( "holdtype_attack", 1.0f );
 		ply.SetAnimParameter( "b_attack", true );
 
 		Rand.SetSeed( Time.Tick );
@@ -302,7 +304,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		}
 
 		// note: using Task.Delay causes prediction issues here but I don't think I care?
-		await Task.Delay( 210 );
+		//await Task.Delay( 210 );
+		await Task.Delay( 300 );
 		OverridingAnimator = false;
 
 		// continue reloading

@@ -116,6 +116,7 @@ partial class HealthSyringe : BaseZomWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
+		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 4 );
 		anim.SetAnimParameter( "aimat_weight", 1.0f );
 		anim.SetAnimParameter( "holdtype_attack", 2.0f );

@@ -28,6 +28,7 @@ partial class M1911 : BaseZomWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
+		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 1 );
 		//anim.SetAnimParameter( "holdtype_handedness", 2 );
 		anim.SetAnimParameter( "holdtype_attack", 1 );

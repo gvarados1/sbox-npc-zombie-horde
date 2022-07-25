@@ -146,6 +146,7 @@ partial class R870 : BaseZomWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
+		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 3 ); // TODO this is shit
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 	}
