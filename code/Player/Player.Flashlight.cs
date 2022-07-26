@@ -6,12 +6,10 @@ public partial class HumanPlayer
 	private SpotLightEntity WorldLight;
 	private SpotLightEntity ViewLight;
 
-	[Net, Local, Predicted]
+	[Net, Predicted]
 	private bool FlashlightEnabled { get; set; } = false;
 
 	TimeSince TimeSinceLightToggled;
-
-	Entity LastViewmodelEntity;
 
 	private void TickFlashlight()
 	{
@@ -107,6 +105,14 @@ public partial class HumanPlayer
 			WorldLight.Rotation = EyeRotation;
 			WorldLight.Position = EyePosition + forward * 20f;
 			WorldLight.SetParent( this, "eyes" );
+		}
+		else
+		{
+			// I need to constantly set this or the flashlight will bug out on high ping.
+			if(WorldLight.IsValid())
+				WorldLight.Enabled = FlashlightEnabled;
+			if(ViewLight.IsValid())
+				ViewLight.Enabled = FlashlightEnabled;
 		}
 	}
 
