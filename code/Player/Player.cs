@@ -31,7 +31,7 @@ public partial class HumanPlayer : Player, IUse
 
 		Animator = new HumanPlayerAnimator();
 
-		CameraMode = new FirstPersonCamera();
+		CameraMode = new ZomFirstPersonCamera();
 
 		EnableAllCollisions = true;
 		EnableDrawing = true;
@@ -195,7 +195,7 @@ public partial class HumanPlayer : Player, IUse
 		{
 			if ( CameraMode is ThirdPersonCamera )
 			{
-				CameraMode = new FirstPersonCamera();
+				CameraMode = new ZomFirstPersonCamera();
 			}
 			else
 			{
@@ -380,7 +380,6 @@ public partial class HumanPlayer : Player, IUse
 	public void ViewPunch(Rotation rotation)
 	{
 		//(Controller as BaseZomWalkController).PunchRotation *= rotation;
-		(Controller as BaseZomWalkController).PunchVelocity *= rotation;
 	}
 
 	DamageInfo LastDamage;
