@@ -9,7 +9,8 @@ public partial class HumanPlayer
 	[Net, Predicted]
 	private bool FlashlightEnabled { get; set; } = false;
 
-	TimeSince TimeSinceLightToggled;
+	[Net, Predicted]
+	TimeSince TimeSinceLightToggled { get; set; }
 
 	private void TickFlashlight()
 	{
