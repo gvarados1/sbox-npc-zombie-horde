@@ -5,6 +5,7 @@ namespace ZombieHorde;
 public partial class ZomFirstPersonCamera : CameraMode
 {
 	Vector3 lastPos;
+	public Entity Owner;
 
 	public override void Activated()
 	{
@@ -35,7 +36,7 @@ public partial class ZomFirstPersonCamera : CameraMode
 
 		Rotation = pawn.EyeRotation;
 
-		if(Local.Pawn is HumanPlayer ply )
+		if ( Owner is HumanPlayer ply )
 		{
 			Rotation *= ply.ViewPunchOffset.ToRotation();
 		}

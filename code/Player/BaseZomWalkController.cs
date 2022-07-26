@@ -1,5 +1,6 @@
 ﻿
 using static Sandbox.Event;
+using static Sandbox.Package;
 
 namespace ZombieHorde
 {
@@ -28,6 +29,8 @@ namespace ZombieHorde
 		[Net] public float AirControl { get; set; } = 30.0f;
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
+
+		public Sandbox.Entity Owner;
 
 		public BaseZomDuck Duck;
 		public Unstuck Unstuck;
@@ -110,6 +113,10 @@ namespace ZombieHorde
 			base.FrameSimulate();
 
 			EyeRotation = Input.Rotation;
+			if ( Local.Pawn is HumanPlayer ply )
+			{
+				EyeRotation *= ply.ViewPunchOffset.ToRotation();
+			}
 		}
 
 		public override void Simulate()
@@ -121,8 +128,16 @@ namespace ZombieHorde
 			EyeLocalPosition += TraceOffset;
 			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 );
 
-			if(Local.Pawn is HumanPlayer ply)
+			if ( Host.IsServer && Owner is HumanPlayer ply )
+			{
 				EyeRotation *= ply.ViewPunchOffset.ToRotation();
+				//Log.Info( $"{Host.Name}, {EyeRotation}" );
+			}
+			
+			if(Host.IsClient && Local.Pawn is HumanPlayer ply1 )
+			{
+				EyeRotation *= ply1.ViewPunchOffset.ToRotation();
+			}
 
 			RestoreGroundPos();
 

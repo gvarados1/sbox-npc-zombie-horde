@@ -32,7 +32,9 @@ public partial class HumanPlayer : Player, IUse
 	{
 		SetModel( "models/human/citizen_human.vmdl" );
 
+		// need to set owner for camera shake
 		Controller = new HumanWalkController();
+		(Controller as BaseZomWalkController).Owner = this;
 
 		Animator = new HumanPlayerAnimator();
 
@@ -399,6 +401,10 @@ public partial class HumanPlayer : Player, IUse
 		ViewPunchOffset += ViewPunchVelocity;
 		ViewPunchOffset = Angles.Lerp( ViewPunchOffset, Angles.Zero, Time.Delta * 8f );
 		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
+
+		// this badboy gets reset every tick, so I need to constantly reset it!
+		if(CameraMode is ZomFirstPersonCamera cam)
+			cam.Owner = this;
 	}
 
 	DamageInfo LastDamage;
@@ -471,6 +477,7 @@ public partial class HumanPlayer : Player, IUse
 			SetAnimParameter( "sit_pose", Rand.Int(3) );
 
 			Controller = new IncapacitatedController();
+			(Controller as BaseZomWalkController).Owner = this;
 			if ( Host.IsServer ) PlaySound( "human.incapacitate" );
 
 			RevivesRemaining -= 1;
@@ -488,6 +495,7 @@ public partial class HumanPlayer : Player, IUse
 		LifeState = LifeState.Alive;
 		SetAnimParameter( "sit", 0 );
 		Controller = new HumanWalkController();
+		(Controller as BaseZomWalkController).Owner = this;
 		Health = 20;
 	}
 
