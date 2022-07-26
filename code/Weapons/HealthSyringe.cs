@@ -93,7 +93,6 @@ partial class HealthSyringe : BaseZomWeapon
 		ent.Rotation = Rotation.Random;
 		ent.SetModel( "weapons/grenade/grenade_pin.vmdl" );
 		ent.PhysicsBody.Velocity = Owner.EyeRotation.Forward * (100+Rand.Float(50)) + EyeRotation.Up * (200 + Rand.Float( 50 ) + EyeRotation.Right * (50 + Rand.Float( 100 )));
-		ent.MoveType = MoveType.Physics;
 		ent.Tags.Add( "gib" );
 		ent.DeleteAsync( 5.0f );
 	}
