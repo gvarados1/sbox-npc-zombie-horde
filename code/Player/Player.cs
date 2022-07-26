@@ -427,8 +427,8 @@ public partial class HumanPlayer : Player, IUse
 
 		this.ProceduralHitReaction( info );
 
-		var punchRot = Rotation.FromYaw( (Rand.Float( .5f ) + 1) * (Rand.Int( 1 ) * 2 - 1) ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f );
-		ViewPunch( punchRot );
+		Rand.SetSeed( Time.Tick );
+		ViewPunch( Rand.Float( .5f ) + -.25f, (Rand.Float( .5f ) + 1) * (Rand.Int( 1 ) * 2 - 1) );
 
 		LastAttacker = info.Attacker;
 		LastAttackerWeapon = info.Weapon;
