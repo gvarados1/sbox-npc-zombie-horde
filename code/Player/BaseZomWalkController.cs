@@ -529,12 +529,13 @@ namespace ZombieHorde
 			// don't jump again until released
 			//mv->m_nOldButtons |= IN_JUMP;
 
+			Rand.SetSeed( Time.Tick );
 			// viewpunch when jumpping
-			if ( Local.Pawn is HumanPlayer ply )
-			{
-				Rand.SetSeed( Time.Tick );
-				ply.ViewPunch( Rand.Float( .1f ) + .1f, Rand.Float( 1f ) - .5f );
-			}
+			// this feels dumb. is there a better way to do this?
+			if ( Host.IsServer && Owner is HumanPlayer ply )
+				ply.ViewPunch( Rand.Float( .1f ) + -.2f, Rand.Float( 1f ) - .5f );
+			if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
+				ply1.ViewPunch( Rand.Float( .1f ) + -.2f, Rand.Float( 1f ) - .5f );
 			AddEvent( "jump" );
 		}
 
@@ -711,11 +712,12 @@ namespace ZombieHorde
 			if(GroundEntity != null && prevGround == null )
 			{
 				// viewpunch when landing
-				if(Local.Pawn is HumanPlayer ply )
-				{
-					Rand.SetSeed( Time.Tick );
-					ply.ViewPunch( Rand.Float( .1f ) + .1f, Rand.Float( 1f ) - .5f );
-				}
+				Rand.SetSeed( Time.Tick );
+
+				if ( Host.IsServer && Owner is HumanPlayer ply )
+					ply.ViewPunch( Rand.Float( .1f ) + .2f, Rand.Float( .3f ) - .15f );
+				if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
+					ply1.ViewPunch( Rand.Float( .1f ) + .2f, Rand.Float( .3f ) - .15f );
 			}
 
 			if ( GroundEntity != null )
