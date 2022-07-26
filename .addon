@@ -156,6 +156,7 @@
     "ControlModes": {
       "Keyboard": true,
       "Gamepad": true
-    }
+    },
+    "GameCategory": "Survival"
   }
 }
