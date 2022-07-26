@@ -332,12 +332,15 @@ public partial class HumanPlayer : Player, IUse
 			Velocity += (Position - ply.Position).WithZ(0).Normal * 10;
 		}
 
-		foreach ( var zom in TouchingEntities.OfType<CommonZombie>() )
+		if ( IsServer )
 		{
-			if ( !zom.IsValid() )
-				continue;
+			foreach ( var zom in TouchingEntities.OfType<CommonZombie>() )
+			{
+				if ( !zom.IsValid() )
+					continue;
 
-			zom.Velocity += (zom.Position - Position).WithZ( 0 ).Normal * 10;
+				zom.Velocity += (zom.Position - Position).WithZ( 0 ).Normal * 10;
+			}
 		}
 	}
 
