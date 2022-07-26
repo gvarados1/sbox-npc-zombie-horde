@@ -19,6 +19,7 @@ public partial class ZomFirstPersonCamera : CameraMode
 
 	public override void Update()
 	{
+
 		var pawn = Local.Pawn;
 		if ( pawn == null ) return;
 
@@ -34,33 +35,12 @@ public partial class ZomFirstPersonCamera : CameraMode
 
 		Rotation = pawn.EyeRotation;
 
-		Viewer = pawn;
-		lastPos = Position;
-	}
-
-	[Net, Predicted]
-	public Vector3 PunchOffset { get; set; } = Vector3.Zero;
-	[Net, Predicted]
-	public Vector3 PunchVelocity { get; set; } = Vector3.Zero;
-
-	public override void BuildInput( InputBuilder input )
-	{
-		if ( Input.Pressed( InputButton.Menu ) )
+		if(Local.Pawn is HumanPlayer ply )
 		{
-			PunchVelocity += Vector3.Up * -5;
-			Log.Info( PunchVelocity.ToString() );
+			Rotation *= ply.ViewPunchOffset.ToRotation();
 		}
 
-		PunchOffset += PunchVelocity;
-		PunchOffset = Vector3.Lerp( PunchOffset, Vector3.Zero, Time.Delta * 8f );
-		PunchVelocity = Vector3.Lerp( PunchVelocity, Vector3.Zero, Time.Delta * 4f );
-
-		input.ViewAngles.pitch += PunchOffset.z;
-
-		DebugOverlay.ScreenText( PunchOffset.x.ToString(), 11 );
-		DebugOverlay.ScreenText( PunchOffset.y.ToString(), 12 );
-		DebugOverlay.ScreenText( PunchOffset.z.ToString(), 13 );
-
-		base.BuildInput( input );
+		Viewer = pawn;
+		lastPos = Position;
 	}
 }

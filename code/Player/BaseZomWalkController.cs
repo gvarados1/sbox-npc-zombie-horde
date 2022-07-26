@@ -110,13 +110,7 @@ namespace ZombieHorde
 			base.FrameSimulate();
 
 			EyeRotation = Input.Rotation;
-			EyeRotation *= PunchRotation;
 		}
-
-		[Net,Predicted]
-		public Rotation PunchRotation { get; set; } = Rotation.Identity;
-		[Net, Predicted]
-		public Rotation PunchVelocity { get; set; } = Rotation.Identity;
 
 		public override void Simulate()
 		{
@@ -127,10 +121,8 @@ namespace ZombieHorde
 			EyeLocalPosition += TraceOffset;
 			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 );
 
-			EyeRotation *= PunchRotation;
-			PunchVelocity = Rotation.Slerp( PunchVelocity, Rotation.Identity, Time.Delta * 4f );
-			PunchRotation *= PunchVelocity;
-			PunchRotation = Rotation.Slerp( PunchRotation, Rotation.Identity, Time.Delta * 8f );
+			if(Local.Pawn is HumanPlayer ply)
+				EyeRotation *= ply.ViewPunchOffset.ToRotation();
 
 			RestoreGroundPos();
 
@@ -522,13 +514,13 @@ namespace ZombieHorde
 			// don't jump again until released
 			//mv->m_nOldButtons |= IN_JUMP;
 
-			ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( -.1f ) + -.1f ) );
+			// viewpunch when jumpping
+			if ( Local.Pawn is HumanPlayer ply )
+			{
+				Rand.SetSeed( Time.Tick );
+				ply.ViewPunch( Rand.Float( .1f ) + .1f, Rand.Float( 1f ) - .5f );
+			}
 			AddEvent( "jump" );
-		}
-
-		public void ViewPunch( Rotation rotation )
-		{
-			PunchVelocity *= rotation;
 		}
 
 		public virtual void AirMove()
@@ -704,7 +696,11 @@ namespace ZombieHorde
 			if(GroundEntity != null && prevGround == null )
 			{
 				// viewpunch when landing
-				ViewPunch( Rotation.FromYaw( Rand.Float( 1f ) - .5f ) * Rotation.FromPitch( Rand.Float( .1f ) + .1f ));
+				if(Local.Pawn is HumanPlayer ply )
+				{
+					Rand.SetSeed( Time.Tick );
+					ply.ViewPunch( Rand.Float( .1f ) + .1f, Rand.Float( 1f ) - .5f );
+				}
 			}
 
 			if ( GroundEntity != null )

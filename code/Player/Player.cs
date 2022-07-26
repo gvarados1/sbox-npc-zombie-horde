@@ -18,6 +18,11 @@ public partial class HumanPlayer : Player, IUse
 	public TimeSince TimeSinceLastKill { get; set; }
 	private TimeSince TimeSincePassiveHealed = 0;
 
+	[Net, Predicted]
+	public Angles ViewPunchOffset { get; set; } = Angles.Zero;
+	[Net, Predicted]
+	public Angles ViewPunchVelocity { get; set; } = Angles.Zero;
+
 	public HumanPlayer()
 	{
 		Inventory = new ZomInventory( this );
@@ -167,6 +172,8 @@ public partial class HumanPlayer : Player, IUse
 
 	public override void Simulate( Client cl )
 	{
+		UpdateViewOffset();
+
 		if ( LifeState == LifeState.Dead )
 		{
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
@@ -377,9 +384,40 @@ public partial class HumanPlayer : Player, IUse
 		setup.FieldOfView += fov;
 	}
 
-	public void ViewPunch(Rotation rotation)
+	public void ViewPunch( Rotation rot )
 	{
-		//(Controller as BaseZomWalkController).PunchRotation *= rotation;
+		// dummy to stop errors
+	}
+
+	public void ViewPunch(Angles angles)
+	{
+		ViewPunchVelocity += angles;
+	}
+
+	public void ViewPunch( float pitch, float yaw = 0, float roll = 0 )
+	{
+		ViewPunchVelocity += new Angles(pitch, yaw, roll);
+	}
+
+	public void UpdateViewOffset()
+	{
+		if ( Input.Pressed( InputButton.Menu ) )
+		{
+			ViewPunchVelocity += Vector3.Forward * -5;
+			//ViewPunchOffset += Vector3.Forward * -5;
+		}
+
+		ViewPunchOffset += ViewPunchVelocity;
+		ViewPunchOffset = Angles.Lerp( ViewPunchOffset, Angles.Zero, Time.Delta * 8f );
+		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
+
+		DebugOverlay.ScreenText( ViewPunchOffset.pitch.ToString(), 11 );
+		DebugOverlay.ScreenText( ViewPunchOffset.yaw.ToString(), 12 );
+		DebugOverlay.ScreenText( ViewPunchOffset.roll.ToString(), 13 );
+
+		DebugOverlay.ScreenText( ViewPunchVelocity.pitch.ToString(), 15 );
+		DebugOverlay.ScreenText( ViewPunchVelocity.yaw.ToString(), 16 );
+		DebugOverlay.ScreenText( ViewPunchVelocity.roll.ToString(), 17 );
 	}
 
 	DamageInfo LastDamage;
