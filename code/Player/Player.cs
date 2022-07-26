@@ -396,12 +396,6 @@ public partial class HumanPlayer : Player, IUse
 
 	public void UpdateViewOffset()
 	{
-		if ( Input.Pressed( InputButton.Menu ) )
-		{
-			ViewPunchVelocity += Vector3.Forward * -5;
-			//ViewPunchOffset += Vector3.Forward * -5;
-		}
-
 		ViewPunchOffset += ViewPunchVelocity;
 		ViewPunchOffset = Angles.Lerp( ViewPunchOffset, Angles.Zero, Time.Delta * 8f );
 		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
