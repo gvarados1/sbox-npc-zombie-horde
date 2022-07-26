@@ -62,7 +62,6 @@ partial class M1A : BaseZomWeapon
 		ShootBullet( BulletSpread, 1f, 30.0f, 3.0f );
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
-
 	}
 
 	[ClientRpc]
