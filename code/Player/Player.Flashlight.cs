@@ -20,13 +20,16 @@ public partial class HumanPlayer
 
 			PlaySound( FlashlightEnabled ? "flashlight-on" : "flashlight-off" );
 
-			if ( !WorldLight.IsValid() )
+			if ( IsServer )
 			{
-				WorldLight = CreateLight();
-				WorldLight.Transform = Transform;
-				WorldLight.EnableHideInFirstPerson = true;
+				if ( !WorldLight.IsValid() )
+				{
+					WorldLight = CreateLight();
+					WorldLight.Transform = Transform;
+					WorldLight.EnableHideInFirstPerson = true;
+				}
+				WorldLight.Enabled = FlashlightEnabled;
 			}
-			WorldLight.Enabled = FlashlightEnabled;
 
 			if ( IsClient )
 			{
@@ -77,18 +80,21 @@ public partial class HumanPlayer
 						}
 					}
 
-					if ( !WorldLight.IsValid() )
+					if ( IsServer )
 					{
-						WorldLight = CreateLight();
-						WorldLight.Transform = Transform;
-						WorldLight.EnableHideInFirstPerson = true;
-					}
-					WorldLight.Enabled = FlashlightEnabled;
+						if ( !WorldLight.IsValid() )
+						{
+							WorldLight = CreateLight();
+							WorldLight.Transform = Transform;
+							WorldLight.EnableHideInFirstPerson = true;
+						}
+						WorldLight.Enabled = FlashlightEnabled;
 
-					WorldLight.SetParent( null );
-					WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
-					WorldLight.Position = (Vector3)worldTrans?.Position;
-					WorldLight.SetParent( gun, "muzzle" );
+						WorldLight.SetParent( null );
+						WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
+						WorldLight.Position = (Vector3)worldTrans?.Position;
+						WorldLight.SetParent( gun, "muzzle" );
+					}
 					return;
 				}
 			}
@@ -101,11 +107,13 @@ public partial class HumanPlayer
 				ViewLight.Position = EyePosition + forward * 1f;
 				ViewLight.SetParent( this, "eyes" );
 			}
-
-			WorldLight.SetParent( null );
-			WorldLight.Rotation = EyeRotation;
-			WorldLight.Position = EyePosition + forward * 20f;
-			WorldLight.SetParent( this, "eyes" );
+			else
+			{
+				WorldLight.SetParent( null );
+				WorldLight.Rotation = EyeRotation;
+				WorldLight.Position = EyePosition + forward * 20f;
+				WorldLight.SetParent( this, "eyes" );
+			}
 		}
 		else
 		{
