@@ -384,6 +384,7 @@ public partial class HumanPlayer : Player, IUse
 		setup.FieldOfView += fov;
 	}
 
+	[Obsolete]
 	public void ViewPunch( Rotation rot )
 	{
 		// dummy to stop errors
