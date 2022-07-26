@@ -202,13 +202,13 @@ public partial class HumanPlayer : Player, IUse
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
-			if ( CameraMode is ThirdPersonCamera )
+			if ( CameraMode is ZomThirdPersonCamera )
 			{
 				CameraMode = new ZomFirstPersonCamera();
 			}
 			else
 			{
-				CameraMode = new ThirdPersonCamera();
+				CameraMode = new ZomThirdPersonCamera();
 			}
 		}
 
@@ -403,8 +403,11 @@ public partial class HumanPlayer : Player, IUse
 		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
 
 		// this badboy gets reset every tick, so I need to constantly reset it!
+		// I have a lot of CameraModes. I should consider making a custom base for them all
 		if(CameraMode is ZomFirstPersonCamera cam)
 			cam.Owner = this;
+		if ( CameraMode is ZomThirdPersonCamera cam1 )
+			cam1.Owner = this;
 	}
 
 	DamageInfo LastDamage;
