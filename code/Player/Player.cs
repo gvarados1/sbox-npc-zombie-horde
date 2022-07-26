@@ -411,14 +411,6 @@ public partial class HumanPlayer : Player, IUse
 		ViewPunchOffset += ViewPunchVelocity;
 		ViewPunchOffset = Angles.Lerp( ViewPunchOffset, Angles.Zero, Time.Delta * 8f );
 		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
-
-		DebugOverlay.ScreenText( ViewPunchOffset.pitch.ToString(), 11 );
-		DebugOverlay.ScreenText( ViewPunchOffset.yaw.ToString(), 12 );
-		DebugOverlay.ScreenText( ViewPunchOffset.roll.ToString(), 13 );
-
-		DebugOverlay.ScreenText( ViewPunchVelocity.pitch.ToString(), 15 );
-		DebugOverlay.ScreenText( ViewPunchVelocity.yaw.ToString(), 16 );
-		DebugOverlay.ScreenText( ViewPunchVelocity.roll.ToString(), 17 );
 	}
 
 	DamageInfo LastDamage;
