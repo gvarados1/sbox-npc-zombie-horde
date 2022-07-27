@@ -203,6 +203,7 @@ public partial class BaseZombie : BaseNpc
 			//if ( nav_drawpath )
 			//	DebugOverlay.TraceResult( tr, .1f );
 
+			// I should probably use a lastscene position, but it doesn't really matter.
 			InputVelocity = (Target.Position - Position).WithZ( 0 ).Normal;
 
 			if (tr.Entity == Target )
