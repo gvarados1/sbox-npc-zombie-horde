@@ -12,7 +12,8 @@ partial class HealthSyringe : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 1.0f;
 	public override int ClipSize => 1;
-	public override WeaponSlot WeaponSlot => WeaponSlot.Pills;
+	//public override WeaponSlot WeaponSlot => WeaponSlot.Pills;
+	public override WeaponSlot WeaponSlot => WeaponSlot.Medkit;
 	public override int AmmoMax => 0;
 	public override string Icon => "/ui/weapons/health_syringe.png";
 	public override Color RarityColor => WeaponRarity.Rare;
