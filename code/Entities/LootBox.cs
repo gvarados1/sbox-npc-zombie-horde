@@ -66,8 +66,15 @@ partial class LootBox : Prop
 			prize.Velocity = Vector3.Random * 100;
 		}
 
-		// always spawn a medkit
-		var medkit = new HealthKit();
+		// always spawn a healing item
+		lootTable = new[]
+		{
+				"HealthKit",
+				"HealthSyringe",
+		};
+		var index1 = Rand.Int( lootTable.Length - 1 );
+		Type t1 = Type.GetType( lootTable[index1] );
+		var medkit = TypeLibrary.Create( lootTable[index1], t1 ) as Entity;
 		medkit.Position = Position;
 		medkit.Velocity = Vector3.Random * 100;
 
