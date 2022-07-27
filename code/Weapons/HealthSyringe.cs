@@ -5,8 +5,8 @@
 [Title( "Health Syringe" ), Category( "Weapons" )]
 partial class HealthSyringe : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
-	public override string ViewModelPath => "weapons/grenade/v_grenade.vmdl";
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" );
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/v_syringe.vmdl";
 
 	public override float PrimaryRate => 1.0f;
 	public override float SecondaryRate => 1.0f;
@@ -31,11 +31,16 @@ partial class HealthSyringe : BaseZomWeapon
 		return Input.Released( InputButton.PrimaryAttack );
 	}
 
-	public override void AttackPrimary()
+	public async override void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
 
 		if ( Owner is not HumanPlayer player ) return;
+		if ( Owner.Health >= 100 )
+		{
+			PlaySound( "player_use_fail" );
+			return;
+		}
 
 		if ( !TakeAmmo( 1 ) )
 		{
@@ -43,58 +48,51 @@ partial class HealthSyringe : BaseZomWeapon
 			return;
 		}
 
-		// woosh sound
-		// screen shake
-
-		//PlaySound( "dm.grenade_throw" );
 		ViewModelEntity?.SetAnimParameter( "fire", true );
-		PlaySound( "rust_boneknife.attack" );
-		//PlaySound( "grenade.pinpull" );
-		PlaySound( "pipebomb.activate" );
+		PlaySound( "rust_syringe.inject" );
 
 
 		Rand.SetSeed( Time.Tick );
-
-
-		if ( IsServer )
-			using ( Prediction.Off() )
-			{
-				var grenade = new ThrownPipeBomb
-				{
-					Position = Owner.EyePosition + Owner.EyeRotation.Forward * 3.0f,
-					Owner = Owner
-				};
-
-				grenade.PhysicsBody.Velocity = Owner.EyeRotation.Forward * 600.0f + Owner.EyeRotation.Up * 200.0f + Owner.Velocity;
-
-				_ = grenade.BlowIn( 8.0f );
-			}
-
-		DropPin();
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( .25f ) + .3f, Rand.Float( .25f ) + .25f );
 
 		player.SetAnimParameter( "b_attack", true );
+
+		await Task.Delay( 1000 );
+		if ( IsServer )
+		{
+			Owner.Health += 50;
+			if ( Owner.Health > 100 )
+				Owner.Health = 100;
+		}
 
 		Reload();
 
 		if ( IsServer && AmmoClip == 0 && AmmoReserve == 0 )
 		{
+			await Task.Delay( 730 );
 			Delete();
 			player.SwitchToBestWeapon();
 		}
 	}
 
-	public void DropPin()
+	public override void Reload()
 	{
-		// thrown pin
-		var ent = new ModelEntity();
-		ent.PhysicsEnabled = true;
-		ent.UsePhysicsCollision = true;
-		ent.Position = Owner.EyePosition + Owner.Rotation.Right*10 + Owner.Rotation.Down*20 + Owner.Rotation.Forward * 10;
-		ent.Rotation = Rotation.Random;
-		ent.SetModel( "weapons/grenade/grenade_pin.vmdl" );
-		ent.PhysicsBody.Velocity = Owner.EyeRotation.Forward * (100+Rand.Float(50)) + EyeRotation.Up * (200 + Rand.Float( 50 ) + EyeRotation.Right * (50 + Rand.Float( 100 )));
-		ent.Tags.Add( "gib" );
-		ent.DeleteAsync( 5.0f );
+		if ( IsReloading )
+			return;
+
+		if ( AmmoClip >= ClipSize )
+			return;
+
+		if ( AmmoReserve <= 0 && AmmoMax != -1 )
+		{
+			return;
+		}
+
+		TimeSinceReload = 0;
+
+		IsReloading = true;
+
+		StartReloadEffects();
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
@@ -118,7 +116,8 @@ partial class HealthSyringe : BaseZomWeapon
 		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 4 );
 		anim.SetAnimParameter( "aimat_weight", 1.0f );
-		anim.SetAnimParameter( "holdtype_attack", 2.0f );
+		anim.SetAnimParameter( "holdtype_attack", 0.0f );
 		anim.SetAnimParameter( "holdtype_handedness", 1 );
+		anim.SetAnimParameter( "holdtype_pose_hand", .07f );
 	}
 }
