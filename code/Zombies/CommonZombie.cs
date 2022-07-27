@@ -307,6 +307,7 @@ public partial class CommonZombie : BaseZombie
 		var tr = Trace.Ray( start, end )
 				.Ignore( Owner )
 				.WithoutTags("Zombie")
+				.EntitiesOnly() // should we hit the world? probably not.
 				.Ignore( this )
 				.Size( radius )
 				.Run();
