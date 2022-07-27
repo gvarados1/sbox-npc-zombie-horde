@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace ZombieHorde;
+﻿namespace ZombieHorde;
 
 public partial class BaseZombie : BaseNpc
 {
@@ -159,6 +157,7 @@ public partial class BaseZombie : BaseNpc
 				var jumpTrace = Trace.Ray( Position + Vector3.Up * 100, EyePosition + Vector3.Up * 40 + Rotation.Forward * 60 )
 				.UseHitboxes()
 				.WithoutTags( "Zombie" )
+				.EntitiesOnly()
 				.Ignore( this )
 				.Size( 10 )
 				//.WorldOnly()
@@ -183,6 +182,30 @@ public partial class BaseZombie : BaseNpc
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	public virtual void TryPathOffNav()
+	{
+		DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
+		//Log.Info( "i am off nav!" );
+		// let's only deal with players for now
+		if ( Target is HumanPlayer )
+		{
+			// not sure if we should trace.
+			//var tr = Trace.Ray( EyePosition, Target.EyePosition )
+			//	.WorldOnly()
+			//	.WithAnyTags( "player", "solid" )
+			//	.UseHitboxes()
+			//	.Run();
+
+			//DebugOverlay.TraceResult( tr, .1f );
+
+
+			// might give zombies a boost of speed ocasionally :)
+			InputVelocity = (Target.Position - Position).WithZ(0).Normal;
+			Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 2000, Speed ); //500
+			// zombies seem to speed up sometimes when jumping. not sure what's going on there.
+		}
 	}
 
 	public virtual void HitBreakableObject()
