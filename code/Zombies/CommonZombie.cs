@@ -126,13 +126,13 @@ public partial class CommonZombie : BaseZombie
 					//if(Steer.Output.Direction == 0 )
 					//if(NavMesh.GetClosestPoint(Position) == null)
 					Vector3 pNearestPosOut = Vector3.Zero;
-					NavArea closestNav = NavArea.GetClosestNav( Position, NavAgentHull.Default, GetNavAreaFlags.NoFlags, ref pNearestPosOut, 20, 600 );
+					NavArea closestNav = NavArea.GetClosestNav( Position, NavAgentHull.Default, GetNavAreaFlags.NoFlags, ref pNearestPosOut, 200, 600, 70, 20 );
 					if(!closestNav.Valid)
 					{
 						Steer = null;
 						TryPathOffNav();
 					}
-					else if( Steer.Output.Finished && (Position - Target.Position).Length > 80 )
+					else if( Steer.Output.Finished && (Position - Target.Position).Length > 70 )
 					{
 						Steer = null;
 						TryPathOffNav();

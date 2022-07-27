@@ -184,27 +184,42 @@ public partial class BaseZombie : BaseNpc
 		Velocity = move.Velocity;
 	}
 
+	TimeSince TimeSinceSeenTarget;
+
 	public virtual void TryPathOffNav()
 	{
-		DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
-		//Log.Info( "i am off nav!" );
+		if ( nav_drawpath )
+			DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
 		// let's only deal with players for now
 		if ( Target is HumanPlayer )
 		{
 			// not sure if we should trace.
-			//var tr = Trace.Ray( EyePosition, Target.EyePosition )
-			//	.WorldOnly()
-			//	.WithAnyTags( "player", "solid" )
-			//	.UseHitboxes()
-			//	.Run();
+			var tr = Trace.Ray( EyePosition, Target.EyePosition )
+				.WorldOnly()
+				.WithAnyTags( "player", "solid" )
+				.UseHitboxes()
+				.Run();
 
-			//DebugOverlay.TraceResult( tr, .1f );
+			//if ( nav_drawpath )
+			//	DebugOverlay.TraceResult( tr, .1f );
 
+			InputVelocity = (Target.Position - Position).WithZ( 0 ).Normal;
 
-			// might give zombies a boost of speed ocasionally :)
-			InputVelocity = (Target.Position - Position).WithZ(0).Normal;
+			if (tr.Entity == Target )
+			{
+				TimeSinceSeenTarget = 0;
+			}
+
+			// try getting back on the navmesh if we lost the player
+			if(TimeSinceSeenTarget > 5 )
+			{
+				var pos = NavMesh.GetClosestPoint( Position );
+				if( pos!= null )
+					InputVelocity = ((Vector3)pos - Position).WithZ( 0 ).Normal;
+			}
+
+			// zombies gain a ton of speed while in the air. not sure what's going on there.
 			Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 2000, Speed ); //500
-			// zombies seem to speed up sometimes when jumping. not sure what's going on there.
 		}
 	}
 
