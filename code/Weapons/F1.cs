@@ -9,7 +9,7 @@ partial class F1 : BaseZomWeapon
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/w_f1.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/v_f1.vmdl";
 
-	public override float PrimaryRate => 11.0f;
+	public override float PrimaryRate => 10.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 25;
 	public override int AmmoMax => 250;
