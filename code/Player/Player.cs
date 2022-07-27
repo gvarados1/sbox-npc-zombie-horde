@@ -219,17 +219,30 @@ public partial class HumanPlayer : Player, IUse
 
 		SimulateActiveChild( cl, ActiveChild );
 
-		//passively heal up to 20 hp
+
+		//passively heal up to 20 hp or take damage while incapacitated
 		if ( Host.IsServer )
 		{
-			if(Health < 20 )
+			if ( LifeState == LifeState.Alive )
 			{
-				if(TimeSincePassiveHealed > .5f)
+				if ( Health < 20 )
 				{
-					TimeSincePassiveHealed = 0;
-					Health += 1;
+					if ( TimeSincePassiveHealed > .5f )
+					{
+						TimeSincePassiveHealed = 0;
+						Health += 1;
+					}
 				}
 			}
+			else if (LifeState == LifeState.Dying )
+			{
+				if ( TimeSincePassiveHealed > .5f )
+				{
+					TimeSincePassiveHealed = 0;
+					Health -= 1;
+				}
+			}
+
 		}
 
 		// kill the player if they fall out of the map somehow
