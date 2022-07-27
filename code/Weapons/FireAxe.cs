@@ -122,4 +122,12 @@ partial class FireAxe : BaseZomWeapon
 		transform.Rotation *= Rotation.FromRoll( -5 );
 		SetParent( Owner, "spine_2", transform );
 	}
+
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Circle( center, 3 );
+	}
 }
