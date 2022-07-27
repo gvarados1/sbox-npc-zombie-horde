@@ -70,7 +70,7 @@ partial class FireAxe : BaseZomWeapon
 		forward = forward.Normal;
 
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( 1f ) + -.5f, Rand.Float( .1f ) + .5f );
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 120, 30 ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 120, 15 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 

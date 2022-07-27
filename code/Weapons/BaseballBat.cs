@@ -96,7 +96,7 @@ partial class BaseballBat : BaseZomWeapon
 
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( .5f ) + -.25f, Rand.Float( .25f ) + .25f );
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 100, 30 ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 100, 15 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 
