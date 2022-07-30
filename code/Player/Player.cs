@@ -586,7 +586,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public override float FootstepVolume()
 	{
-		return Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 5.0f;
+		return Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 1.0f;
 	}
 
 	public void TryAlertZombies( Entity target, float percent, float radius )
