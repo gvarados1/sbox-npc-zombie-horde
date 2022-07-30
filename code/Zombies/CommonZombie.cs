@@ -122,6 +122,21 @@ public partial class CommonZombie : BaseZombie
 						Steer.Target = Target.Position;
 					}
 
+					// check if we're on the navmesh
+					//if(Steer.Output.Direction == 0 )
+					//if(NavMesh.GetClosestPoint(Position) == null)
+					Vector3 pNearestPosOut = Vector3.Zero;
+					NavArea closestNav = NavArea.GetClosestNav( Position, NavAgentHull.Default, GetNavAreaFlags.NoFlags, ref pNearestPosOut, 200, 600, 70, 16 );
+					if(!closestNav.Valid)
+					{
+						Steer = null;
+						TryPathOffNav();
+					}
+					else if( Steer.Output.Finished && (Position - Target.Position).Length > 70 )
+					{
+						Steer = null;
+						TryPathOffNav();
+					}
 					//  randomly play sounds
 					if ( Rand.Int( 300 ) == 1 )
 						PlaySound( "zombie.attack" );
@@ -292,6 +307,7 @@ public partial class CommonZombie : BaseZombie
 		var tr = Trace.Ray( start, end )
 				.Ignore( Owner )
 				.WithoutTags("Zombie")
+				.EntitiesOnly() // should we hit the world? probably not.
 				.Ignore( this )
 				.Size( radius )
 				.Run();

@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace ZombieHorde;
+﻿namespace ZombieHorde;
 
 public partial class BaseZombie : BaseNpc
 {
@@ -159,6 +157,7 @@ public partial class BaseZombie : BaseNpc
 				var jumpTrace = Trace.Ray( Position + Vector3.Up * 100, EyePosition + Vector3.Up * 40 + Rotation.Forward * 60 )
 				.UseHitboxes()
 				.WithoutTags( "Zombie" )
+				.EntitiesOnly()
 				.Ignore( this )
 				.Size( 10 )
 				//.WorldOnly()
@@ -183,6 +182,46 @@ public partial class BaseZombie : BaseNpc
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	TimeSince TimeSinceSeenTarget;
+
+	public virtual void TryPathOffNav()
+	{
+		if ( nav_drawpath )
+			DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
+		// let's only deal with players for now
+		if ( Target is HumanPlayer )
+		{
+			// not sure if we should trace.
+			var tr = Trace.Ray( EyePosition, Target.EyePosition )
+				.WorldOnly()
+				.WithAnyTags( "player", "solid" )
+				.UseHitboxes()
+				.Run();
+
+			//if ( nav_drawpath )
+			//	DebugOverlay.TraceResult( tr, .1f );
+
+			// I should probably use a LastScenePosition, but it doesn't really matter.
+			InputVelocity = (Target.Position - Position).WithZ( 0 ).Normal;
+
+			if (tr.Entity == Target )
+			{
+				TimeSinceSeenTarget = 0;
+			}
+
+			// try getting back on the navmesh if we lost the player
+			if(TimeSinceSeenTarget > 5 )
+			{
+				var pos = NavMesh.GetClosestPoint( Position );
+				if( pos!= null )
+					InputVelocity = ((Vector3)pos - Position).WithZ( 0 ).Normal;
+			}
+
+			// zombies gain a ton of speed while in the air. not sure what's going on there.
+			Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 2000, Speed ); //500
+		}
 	}
 
 	public virtual void HitBreakableObject()
