@@ -48,7 +48,7 @@ partial class MP5 : BaseZomWeapon
 
 		// Tell the clients to play the shoot effects
 		ShootEffects();
-		PlaySound( "smg1.shoot" );
+		PlaySound( "ar2.shoot" );
 		PlaySound( "smg1.shoot.tail" );
 
 		// Shoot the bullets
