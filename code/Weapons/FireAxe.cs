@@ -70,7 +70,7 @@ partial class FireAxe : BaseZomWeapon
 		forward = forward.Normal;
 
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( 1f ) + -.5f, Rand.Float( .1f ) + .5f );
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 120, 30 ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 120, 15 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 
@@ -121,5 +121,14 @@ partial class FireAxe : BaseZomWeapon
 		transform.Rotation *= Rotation.FromYaw( 90 );
 		transform.Rotation *= Rotation.FromRoll( -5 );
 		SetParent( Owner, "spine_2", transform );
+	}
+
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+		draw.Circle( center, 3 );
 	}
 }

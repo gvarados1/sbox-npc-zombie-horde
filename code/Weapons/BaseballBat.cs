@@ -96,7 +96,7 @@ partial class BaseballBat : BaseZomWeapon
 
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( .5f ) + -.25f, Rand.Float( .25f ) + .25f );
-		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 100, 30 ) )
+		foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 100, 15 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 
@@ -161,5 +161,14 @@ partial class BaseballBat : BaseZomWeapon
 		transform.Rotation *= Rotation.FromYaw( -15 );
 		transform.Rotation *= Rotation.FromRoll( -10 );
 		SetParent( Owner, "spine_2", transform );
+	}
+
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+		draw.Circle( center, 3 );
 	}
 }
