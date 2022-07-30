@@ -188,7 +188,7 @@ partial class ZombieGame : Game
 			}
 
 
-			var healthDelta = localPlayer.Health.LerpInverse( 0, 90.0f, true ); // start lowhp effects at 90 instead of 100
+			var healthDelta = localPlayer.Health.LerpInverse( 0, 80.0f, true ); // start lowhp effects at 90 instead of 100
 			if ( localPlayer.LifeState == LifeState.Dying ) healthDelta = 0;
 
 			healthDelta = MathF.Pow( healthDelta, 0.5f );
