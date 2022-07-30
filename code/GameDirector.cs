@@ -46,6 +46,14 @@ public partial class GameDirector : Entity
 			{
 				SpawnZombie();
 				TimeSinceSpawnedZombie = 0 - Rand.Float(1f);
+
+				// less random time if above wave 15
+				if ( currentWave > 15 )
+					TimeSinceSpawnedZombie = 0 - Rand.Float( .5f );
+
+				// spawn instantly above wave 18 lol
+				if ( currentWave > 18 )
+					TimeSinceSpawnedZombie = 0;
 			}
 		}
 
