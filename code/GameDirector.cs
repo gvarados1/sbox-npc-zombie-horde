@@ -120,7 +120,7 @@ public partial class GameDirector : Entity
 			Log.Warning( "Can't Find Valid Zombie Spawn" );
 			ZombieSpawnFails += 1;
 
-			if ( ZombieSpawnFails > 10 ) Log.Error( "Map doesn't have a navmesh. Can't spawn zombies!" ); // do I really need to do this?
+			if ( ZombieSpawnFails > 10 ) Log.Error( "Can't spawn zombies! Map doesn't have a navmesh or is too small." ); // do I really need to do this?
 			return null;
 		}
 
