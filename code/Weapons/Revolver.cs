@@ -1,7 +1,7 @@
 ﻿namespace ZombieHorde;
 
 [Library( "zom_revolver" ), HammerEntity]
-[EditorModel( "weapons/rust_pistol/rust_pistol.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/revolver/w_revolver.vmdl" )]
 [Title( "Magnum Revolver" ), Category( "Weapons" )]
 partial class Revolver : BaseZomWeapon
 {

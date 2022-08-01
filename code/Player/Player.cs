@@ -228,7 +228,7 @@ public partial class HumanPlayer : Player, IUse
 		}
 
 		SimulateActiveChild( cl, ActiveChild );
-
+		TickHeartBeat();
 
 		//passively heal up to 20 hp or take damage while incapacitated
 		if ( Host.IsServer )
@@ -237,7 +237,7 @@ public partial class HumanPlayer : Player, IUse
 			{
 				if ( Health < 20 )
 				{
-					if ( TimeSincePassiveHealed > .5f )
+					if ( TimeSincePassiveHealed > 1f )
 					{
 						TimeSincePassiveHealed = 0;
 						Health += 1;
@@ -260,6 +260,22 @@ public partial class HumanPlayer : Player, IUse
 		{
 			if ( Position.z < -20000 )
 				OnKilled();
+		}
+	}
+
+	TimeSince TimeSinceHeartBeat = 0;
+	public void TickHeartBeat()
+	{
+		if ( IsServer ) return;
+		if ( Health > 19 ) return;
+
+		var time = 0.4f + Health/80;
+		if(TimeSinceHeartBeat > time )
+		{
+			TimeSinceHeartBeat = 0;
+			var snd = PlaySound( "human.heartbeat" );
+			snd.SetVolume( 1 - Health / 20 );
+			//snd.SetPitch( 1.1f );
 		}
 	}
 
