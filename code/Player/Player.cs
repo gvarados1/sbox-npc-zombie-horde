@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.Component;
+using System.ComponentModel;
 using System.Reflection.Metadata;
 
 namespace ZombieHorde;
@@ -127,6 +128,15 @@ public partial class HumanPlayer : Player, IUse
 		base.OnKilled();
 
 		ZomChatBox.AddInformation( To.Everyone, $"{Client.Name} died!", $"avatar:{Client.PlayerId}", "#FF0000" );
+
+		foreach ( var item in Children.ToList() )
+		{
+			if(item is BaseZomWeapon )
+			{
+				if(item is not M1911)
+				Inventory.Drop( item );
+			}
+		}
 
 		Inventory.DeleteContents();
 
