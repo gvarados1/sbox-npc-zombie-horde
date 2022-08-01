@@ -64,16 +64,9 @@ partial class Revolver : BaseZomWeapon
 
 	}
 
-	public override void Reload()
+	public async override void StartReloadEffects()
 	{
-		base.Reload();
-		ReloadEffects();
-	}
-
-	[ClientRpc]
-	private async void ReloadEffects()
-	{
-		Host.AssertClient();
+		base.StartReloadEffects();
 		await Task.Delay( 600 );
 
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
@@ -120,6 +113,7 @@ partial class Revolver : BaseZomWeapon
 
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
+		if ( OverridingAnimator ) return;
 		anim.SetAnimParameter( "holdtype", 1 );
 		anim.SetAnimParameter( "holdtype_attack", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
