@@ -64,6 +64,24 @@ partial class Revolver : BaseZomWeapon
 
 	}
 
+	public override void Reload()
+	{
+		base.Reload();
+		ReloadEffects();
+	}
+
+	[ClientRpc]
+	private async void ReloadEffects()
+	{
+		Host.AssertClient();
+		await Task.Delay( 600 );
+
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+	}
+
 	public override void AdjustAccuracyMultiplier()
 	{
 		if ( Owner is HumanPlayer ply )
@@ -106,6 +124,19 @@ partial class Revolver : BaseZomWeapon
 		anim.SetAnimParameter( "holdtype_attack", 2 );
 		anim.SetAnimParameter( "aim_body_weight", 1.0f );
 		anim.SetAnimParameter( "holdtype_handedness", 0 );
+	}
+
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 0;
+		transform.Position += Vector3.Up * 4.25f;
+		transform.Position += Vector3.Forward * 3f;
+		transform.Rotation *= Rotation.FromPitch( 0 );
+		transform.Rotation *= Rotation.FromRoll( 270 );
+		SetParent( Owner, "leg_upper_R", transform );
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
