@@ -26,6 +26,18 @@ partial class Revolver : BaseZomWeapon
 
 		Model = WorldModel;
 		AmmoClip = ClipSize;
+
+		if ( Rand.Int( 1 ) == 1 )
+		{
+			SetMaterialGroup( 1 );
+		}
+	}
+
+	public override void ActiveStart( Entity ent )
+	{
+		base.ActiveStart( ent );
+		if ( GetMaterialGroup() == 1 )
+			ViewModelEntity?.SetMaterialGroup( 1 );
 	}
 
 	public override bool CanPrimaryAttack()
