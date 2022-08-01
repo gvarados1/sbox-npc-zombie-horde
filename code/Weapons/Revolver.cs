@@ -79,7 +79,7 @@ partial class Revolver : BaseZomWeapon
 	public async override void StartReloadEffects()
 	{
 		base.StartReloadEffects();
-		await Task.Delay( 600 );
+		await Task.Delay( 1000 );
 
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
