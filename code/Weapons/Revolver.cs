@@ -5,19 +5,19 @@
 [Title( "Magnum Revolver" ), Category( "Weapons" )]
 partial class Revolver : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/magnum/magnum.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/revolver/w_revolver.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/handguns/revolver/v_revolver.vmdl";
 
 	public override float PrimaryRate => 20.0f;
 	public override float SecondaryRate => 1.0f;
-	public override float ReloadTime => 2f;
+	public override float ReloadTime => 2.8f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
 	public override float BulletSpread => .05f;
 	public override float ShotSpreadMultiplier => 5f;
 	public override float ShotSpreadLerp => .1f;
 	public override int ClipSize => 6;
 	public override int AmmoMax => -1;
-	public override string Icon => "/ui/weapons/magnum.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_Revolver.png";
 	public override Color RarityColor => WeaponRarity.Common;
 
 	public override void Spawn()
@@ -41,24 +41,27 @@ partial class Revolver : BaseZomWeapon
 		{
 			DryFire();
 
-			if ( AvailableAmmo() > 0 )
-			{
-				Reload();
-			}
+			Reload();
 			return;
 		}
+
 
 		//
 		// Tell the clients to play the shoot effects
 		//
 		(Owner as AnimatedEntity).SetAnimParameter( "b_attack", true );
 		ShootEffects();
-		PlaySound( "magnum.shoot" );
+		PlaySound( "revolver.shoot" );
+		PlaySound( "pistol.shoot.tail" );
 
 		//
 		// Shoot the bullets
 		//
-		ShootBullet( BulletSpread, 1.5f, 40.0f, 2.0f );
+		ShootBullet( BulletSpread, 1, 40.0f, 2.0f );
+		Rand.SetSeed( Time.Tick );
+		//(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.25f ) + -.25f ) );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.25f ) + -1.0f, Rand.Float( .5f ) - .25f );
+
 	}
 
 	public override void AdjustAccuracyMultiplier()
