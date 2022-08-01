@@ -35,6 +35,7 @@ partial class LootBox : Prop
 				"Mp5",
 				"BaseballBat",
 				"FireAxe",
+				"Revolver",
 				"R870",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
@@ -47,7 +48,7 @@ partial class LootBox : Prop
 			lootTable = new[]
 			{
 				"HealthKit",
-				//"Magnum",
+				"Revolver",
 				"BaseballBat",
 				"FireAxe",
 				//"GrenadeWeapon",
