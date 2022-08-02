@@ -354,6 +354,22 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		if ( tr.Hit )
 			yield return tr;
 
+		// penetrate 1 layer of glass
+		if ( tr.Entity is GlassShard )
+		{
+			var trace2 = Trace.Ray( tr.EndPosition + tr.Direction * 5, end )
+				.UseHitboxes()
+				.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
+				.Ignore( this )
+				.Ignore(tr.Entity)
+				.Size( radius );
+
+			var tr2 = trace2.Run();
+			if ( tr2.Hit )
+				yield return tr2;
+		}
+
+
 		//
 		// Another trace, bullet going through thin material, penetrating water surface?
 		//
