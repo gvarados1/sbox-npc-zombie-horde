@@ -112,6 +112,19 @@ partial class HealthSyringe : BaseZomWeapon
 		draw.Ring( center, length, length - 3.0f );
 	}
 
+	public override void SetCarryPosition()
+	{
+		// dumb hard-coded positions
+		EnableDrawing = true;
+		var transform = Transform.Zero;
+		transform.Position += Vector3.Right * 1;
+		transform.Position += Vector3.Up * -4;
+		transform.Position += Vector3.Forward * 0;
+		transform.Rotation *= Rotation.FromPitch( -40 );
+		transform.Rotation *= Rotation.FromRoll( 270 );
+		SetParent( Owner, "leg_upper_L", transform );
+	}
+
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		if ( OverridingAnimator ) return;
