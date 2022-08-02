@@ -1,6 +1,7 @@
 ﻿using Sandbox;
 using Sandbox.Component;
 using System.ComponentModel;
+using System.Numerics;
 using System.Reflection.Metadata;
 
 namespace ZombieHorde;
@@ -188,6 +189,11 @@ public partial class HumanPlayer : Player, IUse
 
 		if ( LifeState == LifeState.Dead )
 		{
+			if ( CameraMode is SpectatePlayerCamera cam )
+			{
+				Health = cam.SpectateTarget.Health;
+			}
+
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
 			{
 				Respawn();

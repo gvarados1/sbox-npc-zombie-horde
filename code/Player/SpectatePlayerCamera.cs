@@ -24,11 +24,6 @@ public class SpectatePlayerCamera : CameraMode
 		if( SpectateTarget is HumanPlayer ply )
 		{
 			if ( ply.LifeState == LifeState.Dead ) FindNewTarget();
-			if ( Local.Pawn is Player localPly )
-			{
-				localPly.Health = SpectateTarget.Health; // why doesn't this update the death postprocessing??
-				//Log.Info( $"{Host.Name}, {localPly.Health}" );
-			}
 		}
 
 		if ( Input.Pressed( InputButton.PrimaryAttack ) || Input.Pressed( InputButton.SecondaryAttack ) )
