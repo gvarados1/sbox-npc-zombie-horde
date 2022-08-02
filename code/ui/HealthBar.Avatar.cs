@@ -16,7 +16,6 @@ public partial class HealthBar
 
 	public void CreateAvatar()
 	{
-		Log.Info( "healthbar" );
 		ClothingObjects?.Clear();
 		AvatarScene?.Delete();
 		AvatarScene = null;
@@ -103,11 +102,16 @@ public partial class HealthBar
 		{
 			if ( ply.CameraMode is SpectatePlayerCamera cam )
 			{
-				if ( cam.SpectateTarget.Clothing != null )
-					ClothingContainer = cam.SpectateTarget.Clothing;
-				else
+				var targ = cam.SpectateTarget as HumanPlayer;
+				
+				if ( targ.Client.IsBot )
 				{
 					ClothingContainer = new();
+					// this is so dumb. why isn't ClothingContainer networkable?
+				}
+				else
+				{
+					ClothingContainer.LoadFromClient( targ.Client );
 				}
 			}
 		}
