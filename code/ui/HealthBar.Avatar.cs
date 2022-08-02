@@ -1,4 +1,5 @@
-﻿using Sandbox.Internal;
+﻿using Sandbox;
+using Sandbox.Internal;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 using System.ComponentModel;
@@ -56,19 +57,25 @@ public partial class HealthBar
 	public void TickAvatar()
 	{
 		var ply = Local.Pawn as HumanPlayer;
-		if(ply.LifeState == LifeState.Alive )
+		var lifeState = ply.LifeState;
+		if ( ply.CameraMode is SpectatePlayerCamera cam )
+		{
+			lifeState = cam.SpectateTarget.LifeState;
+		}
+
+		if( lifeState == LifeState.Alive )
 		{
 			AvatarScene.Style.FilterSepia = 0;
 			AvatarScene.Style.FilterSaturate = 1;
 			AvatarScene.Style.FilterTint = Color.White;
 		}
-		else if ( ply.LifeState == LifeState.Dying )
+		else if ( lifeState == LifeState.Dying )
 		{
 			AvatarScene.Style.FilterSepia = 0;
 			AvatarScene.Style.FilterSaturate = 1;
 			AvatarScene.Style.FilterTint = Color.Parse( "#EB3F3F" );
 		}
-		else if ( ply.LifeState == LifeState.Dead )
+		else if ( lifeState == LifeState.Dead )
 		{
 			AvatarScene.Style.FilterSepia = 1;
 			AvatarScene.Style.FilterSaturate = 0;
