@@ -10,5 +10,7 @@ public partial class HumanPlayer
 	{
 		Clothing ??= new();
 		Clothing.LoadFromClient( cl );
+		if(IsClient)
+			Clothing.Deserialize( ConsoleSystem.GetValue( "avatar" ) );
 	}
 }
