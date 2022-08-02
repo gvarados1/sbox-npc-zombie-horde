@@ -102,16 +102,17 @@ public partial class HealthBar
 		{
 			if ( ply.CameraMode is SpectatePlayerCamera cam )
 			{
-				var targ = cam.SpectateTarget as HumanPlayer;
-				
-				if ( targ.Client.IsBot )
+				if ( cam.SpectateTarget is HumanPlayer targ )
 				{
-					ClothingContainer = new();
-					// this is so dumb. why isn't ClothingContainer networkable?
-				}
-				else
-				{
-					ClothingContainer.LoadFromClient( targ.Client );
+					if ( targ.Client.IsBot )
+					{
+						ClothingContainer = new();
+						// this is so dumb. why isn't ClothingContainer networkable?
+					}
+					else
+					{
+						ClothingContainer.LoadFromClient( targ.Client );
+					}
 				}
 			}
 		}
