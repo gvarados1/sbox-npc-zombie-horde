@@ -8,7 +8,7 @@ public class SpectatePlayerCamera : CameraMode
 {
 	Vector3 FocusPoint;
 	Rotation FocusRotation;
-	private HumanPlayer SpectateTarget;
+	public HumanPlayer SpectateTarget;
 
 	public override void Activated()
 	{
@@ -27,6 +27,7 @@ public class SpectatePlayerCamera : CameraMode
 			if ( Local.Pawn is Player localPly )
 			{
 				localPly.Health = SpectateTarget.Health; // why doesn't this update the death postprocessing??
+				//Log.Info( $"{Host.Name}, {localPly.Health}" );
 			}
 		}
 

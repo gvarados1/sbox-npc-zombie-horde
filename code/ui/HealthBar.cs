@@ -1,4 +1,5 @@
-﻿using Sandbox.Internal;
+﻿using Sandbox;
+using Sandbox.Internal;
 using Sandbox.UI;
 using Sandbox.UI.Construct;
 
@@ -41,9 +42,15 @@ public partial class HealthBar : Panel
 		CurrentHealth.Style.FontColor = (Color)Color.Parse( "#C5E0E3" );
 		MaxHealth.Style.Left = left + offset;
 
+		var lifeState = player.LifeState;
+		if(player.CameraMode is SpectatePlayerCamera cam)
+		{
+			lifeState = cam.SpectateTarget.LifeState;
+		}
+
 		var color = Color.Green;
 		// set healthbar color
-		if (player.LifeState == LifeState.Dying )
+		if ( lifeState == LifeState.Dying )
 		{
 			color = (Color)Color.Parse( "#FF0000" );
 			if ( player.Health / player.MaxHealth <= .8f ) color = (Color)Color.Parse( "#BD0000" );
@@ -56,7 +63,7 @@ public partial class HealthBar : Panel
 			MaxHealth.Style.Left = 240;
 			Bar.Style.Width = (width * (player.Health / 200).Clamp( 0, 1 ));
 		}
-		else if(player.LifeState == LifeState.Dead){
+		else if( lifeState == LifeState.Dead){
 			CurrentHealth.Text = $"R.I.P.";
 			CurrentHealth.Style.Right = 140;
 			CurrentHealth.Style.FontColor = (Color)Color.Parse( "#90A4A6" );
