@@ -274,7 +274,7 @@ public partial class HumanPlayer : Player, IUse
 		{
 			TimeSinceHeartBeat = 0;
 			var snd = PlaySound( "human.heartbeat" );
-			snd.SetVolume( 1 - Health / 20 );
+			snd.SetVolume( 1.25f - Health / 20 );
 			//snd.SetPitch( 1.1f );
 		}
 	}
