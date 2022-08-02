@@ -338,7 +338,7 @@ public partial class CommonZombie : BaseZombie
 	{
 		TryAlert( info.Attacker, .5f );
 		base.TakeDamage( info );
-		Velocity = 0;
+		Velocity *= 0.1f;
 	}
 
 	public void CheckForDeletion()
