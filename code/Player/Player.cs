@@ -33,6 +33,7 @@ public partial class HumanPlayer : Player, IUse
 	public override void Respawn()
 	{
 		SetModel( "models/human/citizen_human.vmdl" );
+		UpdateClothes( Client );
 
 		// need to set owner for camera shake
 		Controller = new HumanWalkController();
@@ -192,10 +193,6 @@ public partial class HumanPlayer : Player, IUse
 			if ( CameraMode is SpectatePlayerCamera cam )
 			{
 				Health = cam.SpectateTarget.Health;
-			}
-			else
-			{
-				CameraMode = new SpectatePlayerCamera();
 			}
 
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
