@@ -184,6 +184,14 @@ public partial class HumanPlayer : Player, IUse
 		}
 	}
 
+	[Event.Hotload]
+	public void OnHotloaded()
+	{
+		if ( LifeState == LifeState.Dead )
+		{
+			CameraMode = new SpectatePlayerCamera();
+		}
+	}
 
 	public override void Simulate( Client cl )
 	{
@@ -195,10 +203,6 @@ public partial class HumanPlayer : Player, IUse
 			{
 				if(cam.SpectateTarget != null)
 					Health = cam.SpectateTarget.Health;
-			}
-			else
-			{
-				CameraMode = new SpectatePlayerCamera();
 			}
 
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
