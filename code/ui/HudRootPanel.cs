@@ -24,6 +24,8 @@ public class HudRootPanel : RootPanel
 		AddChild<ZomChatBox>();
 		Scoreboard = AddChild<Scoreboard>();
 		AddChild<VoiceList>();
+		AddChild<VoiceSpeaker>();
+
 	}
 
 	public override void Tick()
