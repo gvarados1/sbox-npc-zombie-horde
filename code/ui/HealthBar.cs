@@ -6,7 +6,7 @@ using Sandbox.UI.Construct;
 namespace ZombieHorde;
 public partial class HealthBar : Panel
 {
-	public Image Icon;
+	//public Image Icon;
 	public Label CurrentHealth, MaxHealth, Bar, BarGray;
 	public static HealthBar Current { get; private set; }
 

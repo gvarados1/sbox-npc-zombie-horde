@@ -193,6 +193,10 @@ public partial class HumanPlayer : Player, IUse
 			{
 				Health = cam.SpectateTarget.Health;
 			}
+			else
+			{
+				CameraMode = new SpectatePlayerCamera();
+			}
 
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
 			{
