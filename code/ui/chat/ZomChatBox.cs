@@ -75,7 +75,7 @@ namespace ZombieHorde
 		}
 
 
-		[ConCmd.Client( "chat_add", CanBeCalledFromServer = true )]
+		[ConCmd.Client( "zom_chat_add", CanBeCalledFromServer = true )]
 		public static void AddChatEntry( string name, string message, string avatar = null, string color = null, string lobbyState = null )
 		{
 			Current?.AddEntry( name, message, avatar, color, lobbyState );
@@ -87,13 +87,13 @@ namespace ZombieHorde
 			}
 		}
 
-		[ConCmd.Client( "chat_addinfo", CanBeCalledFromServer = true )]
+		[ConCmd.Client( "zom_chat_addinfo", CanBeCalledFromServer = true )]
 		public static void AddInformation( string message, string avatar = null, string color = null )
 		{
 			Current?.AddEntry( message, null, avatar, color );
 		}
 
-		[ConCmd.Server( "say" )]
+		[ConCmd.Server( "zom_say" )]
 		public static void Say( string message )
 		{
 			Assert.NotNull( ConsoleSystem.Caller );
