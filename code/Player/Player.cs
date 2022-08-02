@@ -192,7 +192,8 @@ public partial class HumanPlayer : Player, IUse
 		{
 			if ( CameraMode is SpectatePlayerCamera cam )
 			{
-				Health = cam.SpectateTarget.Health;
+				if(cam.SpectateTarget != null)
+					Health = cam.SpectateTarget.Health;
 			}
 
 			if ( IsServer && BaseGamemode.Current.EnableRespawning())
