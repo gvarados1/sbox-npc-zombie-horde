@@ -9,6 +9,7 @@ public class SpectatePlayerCamera : CameraMode
 	Vector3 FocusPoint;
 	Rotation FocusRotation;
 	public HumanPlayer SpectateTarget;
+	float FollowDistance = 150;
 
 	public override void Activated()
 	{
@@ -40,8 +41,10 @@ public class SpectatePlayerCamera : CameraMode
 		//FocusRotation = Rotation.Lerp( FocusRotation, SpectateTarget.EyeRotation, Time.Delta * 5.0f );
 		FocusRotation = Input.Rotation;
 
+		FollowDistance -= Input.MouseWheel * 5;
+		FollowDistance = FollowDistance.Clamp( 50, 150 );
 
-		var ViewOffset = FocusRotation.Forward * (-150 * 1) + FocusRotation.Right * 15 + Vector3.Up * (52 * 1);
+		var ViewOffset = FocusRotation.Forward * (-FollowDistance) + FocusRotation.Right * 15 + Vector3.Up * (52 * 1);
 		Position = FocusPoint + ViewOffset;
 		Rotation = FocusRotation;
 		FocusPoint = Vector3.Lerp( FocusPoint, SpectateTarget.Position, Time.Delta * 10.0f );
