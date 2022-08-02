@@ -16,6 +16,7 @@ public partial class HealthBar
 
 	public void CreateAvatar()
 	{
+		Log.Info( "healthbar" );
 		ClothingObjects?.Clear();
 		AvatarScene?.Delete();
 		AvatarScene = null;
@@ -97,6 +98,19 @@ public partial class HealthBar
 		//ClothingContainer.LoadFromClient( Local.Client );
 
 		ClothingContainer.Deserialize( ConsoleSystem.GetValue( "avatar" ) );
+		var ply = Local.Pawn as HumanPlayer;
+		if ( ply.IsValid() )
+		{
+			if ( ply.CameraMode is SpectatePlayerCamera cam )
+			{
+				if ( cam.SpectateTarget.Clothing != null )
+					ClothingContainer = cam.SpectateTarget.Clothing;
+				else
+				{
+					ClothingContainer = new();
+				}
+			}
+		}
 
 		foreach ( var model in ClothingObjects )
 		{

@@ -65,6 +65,9 @@ public class SpectatePlayerCamera : CameraMode
 		}
 
 		if ( SpectateTarget == null ) SpectateTarget = Local.Pawn as HumanPlayer;
+		//HealthBar.RefreshAvatar( To.Single(Local.Client) );
+		HealthBar.RefreshAvatar();
+		Log.Info( $"{Host.Name}, camera" );
 	}
 }
 

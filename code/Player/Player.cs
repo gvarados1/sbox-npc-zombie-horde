@@ -61,6 +61,7 @@ public partial class HumanPlayer : Player, IUse
 		RevivesRemaining = BaseGamemode.Current.HumanMaxRevives;
 
 		SetAnimParameter( "sit", 0 );
+		HealthBar.RefreshAvatar( To.Single(Client) );
 
 		base.Respawn();
 	}
@@ -79,6 +80,7 @@ public partial class HumanPlayer : Player, IUse
 		EnableShadowInFirstPerson = true;
 
 		Health = 100;
+		HealthBar.RefreshAvatar( To.Single( Client ) );
 
 		base.Respawn();
 		LifeState = LifeState.Dead;
