@@ -3,6 +3,9 @@ public partial class HumanPlayer
 {
 	public ClothingContainer Clothing { get; protected set; }
 
+	[Net]
+	public String ClothingString { get; set; }
+
 	/// <summary>
 	/// Set the clothes to whatever the player is wearing
 	/// </summary>
@@ -21,6 +24,7 @@ public partial class HumanPlayer
 				Clothing.Deserialize( ConsoleSystem.GetValue( "avatar" ) );
 			}
 		}
+		ClothingString = Clothing.Serialize();
 	}
 
 	public void RandomizeClothes()

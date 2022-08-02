@@ -107,11 +107,7 @@ public partial class HealthBar
 					if ( targ.Client.IsBot )
 					{
 						ClothingContainer = new();
-						// this is so dumb. why isn't ClothingContainer networkable?
-					}
-					else
-					{
-						ClothingContainer.LoadFromClient( targ.Client );
+						ClothingContainer.Deserialize( targ.ClothingString );
 					}
 				}
 			}
