@@ -30,7 +30,7 @@ public partial class GameDirector : Entity
 	private void PopulateZombies()
 	{
 		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
-		var difficultyMultiplier = .75f + playerCount * .25f;
+		var difficultyMultiplier = .5f + playerCount * .5f;
 		var zombieCount = Entity.All.OfType<BaseZombie>().ToList().Count;
 		var currentWave = (BaseGamemode.Current as SurvivalGamemode).WaveNumber + 1;
 		var maxZombies = BaseGamemode.Current.ZomMaxZombies;

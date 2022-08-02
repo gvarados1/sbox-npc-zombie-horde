@@ -74,7 +74,7 @@ public partial class SurvivalGamemode : BaseGamemode
 		WaveNumber++;
 
 		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
-		var difficultyMultiplier = .75f + playerCount * .25f;
+		var difficultyMultiplier = .5f + playerCount * .5f;
 
 		ZombiesRemaining += 10 + (int)(3 * (WaveNumber - 1) * difficultyMultiplier);
 		if ( ZombiesRemaining < 5 ) ZombiesRemaining = 5;
