@@ -104,11 +104,8 @@ public partial class HealthBar
 			{
 				if ( cam.SpectateTarget is HumanPlayer targ )
 				{
-					if ( targ.Client.IsBot )
-					{
-						ClothingContainer = new();
-						ClothingContainer.Deserialize( targ.ClothingString );
-					}
+					ClothingContainer = new();
+					ClothingContainer.Deserialize( targ.ClothingString );
 				}
 			}
 		}
