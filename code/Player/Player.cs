@@ -267,6 +267,8 @@ public partial class HumanPlayer : Player, IUse
 				{
 					TimeSincePassiveHealed = 0;
 					Health -= 1;
+					if ( Health < 0 )
+						OnKilled();
 				}
 			}
 
