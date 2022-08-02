@@ -37,7 +37,7 @@ public partial class GameDirector : Entity
 		if ( (BaseGamemode.Current as SurvivalGamemode).RoundState != RoundState.WaveActive )
 			maxZombies *= .5f;
 
-		var spawnRate = 1 / BaseGamemode.Current.ZomSpawnRate * difficultyMultiplier;
+		var spawnRate = 1 / BaseGamemode.Current.ZomSpawnRate / difficultyMultiplier;
 		if(zombieCount > 3*difficultyMultiplier)
 			spawnRate *= 2;
 		if ( TimeSinceSpawnedZombie > spawnRate )
