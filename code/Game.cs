@@ -192,9 +192,12 @@ partial class ZombieGame : Game
 			if ( localPlayer.LifeState == LifeState.Dying ) healthDelta = 0;
 			if( localPlayer.CameraMode is SpectatePlayerCamera cam )
 			{
-				if(cam.SpectateTarget.LifeState == LifeState.Dying )
+				if(cam.SpectateTarget != null )
 				{
-					healthDelta = 0;
+					if ( cam.SpectateTarget.LifeState == LifeState.Dying )
+					{
+						healthDelta = 0;
+					}
 				}
 			}
 
