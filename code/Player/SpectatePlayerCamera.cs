@@ -60,8 +60,11 @@ public class SpectatePlayerCamera : CameraMode
 		{
 			if( targ.LifeState != LifeState.Dead )
 			{
-				SpectateTarget = targ;
-				break;
+				if(SpectateTarget != targ )
+				{
+					SpectateTarget = targ;
+					break;
+				}
 			}
 		}
 
