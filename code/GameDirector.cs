@@ -1,4 +1,6 @@
-﻿namespace ZombieHorde;
+﻿using System.Linq.Expressions;
+
+namespace ZombieHorde;
 
 public partial class GameDirector : Entity
 {
@@ -31,6 +33,7 @@ public partial class GameDirector : Entity
 	{
 		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
 		var difficultyMultiplier = .5f + playerCount * .5f;
+		var zombieMultiplier = .75f + playerCount * .25f;
 		var zombieCount = Entity.All.OfType<BaseZombie>().ToList().Count;
 		var currentWave = (BaseGamemode.Current as SurvivalGamemode).WaveNumber + 1;
 		var maxZombies = BaseGamemode.Current.ZomMaxZombies;
@@ -42,7 +45,8 @@ public partial class GameDirector : Entity
 			spawnRate *= 2;
 		if ( TimeSinceSpawnedZombie > spawnRate )
 		{
-			if ( zombieCount < maxZombies * difficultyMultiplier )
+			// hard-limit 25 zombies
+			if ( zombieCount < maxZombies.Clamp(maxZombies * zombieMultiplier, 25) )
 			{
 				SpawnZombie();
 				TimeSinceSpawnedZombie = 0 - Rand.Float(1f);

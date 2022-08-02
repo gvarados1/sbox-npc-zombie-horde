@@ -11,15 +11,27 @@ partial class LootBox : Prop
 	{
 		base.Spawn();
 		SetModel( "models/sbox_props/wooden_crate/wooden_crate.vmdl" );
+
+		// I have to enable this dumb broken glow to get the crate to render through the world
 		var glow = Components.GetOrCreate<Glow>();
 		glow.Active = true;
 		glow.Color = Color.Yellow;
 		glow.RangeMin = 0;
-		glow.RangeMax = int.MaxValue;
+		//glow.RangeMax = int.MaxValue;
+		glow.RangeMax = 1;
+
 		Transmit = TransmitType.Always;
 		EnableDrawOverWorld = true;
+		SetGlowMaterial();
 
 		Health = 15;
+	}
+
+	[ClientRpc]
+	public void SetGlowMaterial()
+	{
+		SetMaterialOverride( Material.Load( "models/sbox_props/wooden_crate/wooden_crate_glow.vmat" ) );
+		var glow = Components.GetOrCreate<Glow>();
 	}
 
 	public override void OnKilled()

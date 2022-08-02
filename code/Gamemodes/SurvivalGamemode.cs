@@ -245,7 +245,7 @@ public partial class SurvivalGamemode : BaseGamemode
 				ZomHealthMultiplier += .02f;
 				break;
 		}
-		ZomMaxZombies.Clamp( 5, 20 );
+		ZomMaxZombies.Clamp( 5, 25 );
 	}
 
 }
