@@ -36,7 +36,7 @@ partial class R870 : BaseZomWeapon
 	{
 		base.Simulate( owner );
 
-		if ( IsReloading && (Input.Pressed( InputButton.PrimaryAttack ) || Input.Pressed( InputButton.SecondaryAttack )) )
+		if ( IsReloading && (Input.Pressed( InputButton.PrimaryAttack )) )
 		{
 			StopReloading = true;
 		}
@@ -137,6 +137,10 @@ partial class R870 : BaseZomWeapon
 				FinishReload();
 			}
 		}
+		if ( stop )
+		{
+			AttackPrimary();
+		}
 	}
 
 	[ClientRpc]
@@ -168,6 +172,44 @@ partial class R870 : BaseZomWeapon
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
 	{
+		// one day I will make my own crosshairs!
+		var draw = Render.Draw2D;
+
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+		// center circle
+		{
+			var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.1f, 0.0f ) );
+			var length = 2.0f + shootEase * 2.0f;
+			draw.Circle( center, length );
+		}
+
+
+		draw.Color = draw.Color.WithAlpha( draw.Color.a * 0.2f );
+
+		// outer lines
+		{
+			//var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.2f, 0.0f ) );
+			var shootEase = SpreadMultiplier * 1f;
+			//var length = 3.0f + shootEase * 2.0f;
+			var length = 6.0f + shootEase * 2.0f;
+			//var gap = 30.0f + shootEase * 50.0f;
+			var gap = 12.0f + shootEase * 20.0f;
+			var thickness = 2.0f;
+
+			draw.Line( thickness, center + Vector2.Up * gap + Vector2.Left * length, center + Vector2.Up * gap - Vector2.Left * length );
+			draw.Line( thickness, center - Vector2.Up * gap + Vector2.Left * length, center - Vector2.Up * gap - Vector2.Left * length );
+
+			draw.Line( thickness, center + Vector2.Left * gap + Vector2.Up * length, center + Vector2.Left * gap - Vector2.Up * length );
+			draw.Line( thickness, center - Vector2.Left * gap + Vector2.Up * length, center - Vector2.Left * gap - Vector2.Up * length );
+		}
+	}
+
+	/*
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
 		var draw = Render.Draw2D;
 
 		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
@@ -196,4 +238,5 @@ partial class R870 : BaseZomWeapon
 			draw.CircleEx( center - Vector2.Right * gap * 2.6f, length, length - thickness * 0.5f, 32, 40, 140 );
 		}
 	}
+	*/
 }
