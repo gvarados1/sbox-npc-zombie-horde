@@ -68,6 +68,7 @@ partial class LootBox : Prop
 				"FireAxe",
 				"Revolver",
 				"R870",
+				"HuntingRifle",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"AmmoPile",
