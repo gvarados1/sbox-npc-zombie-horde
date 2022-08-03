@@ -99,28 +99,10 @@
 						_class = "PhysicsShapeCapsule"
 						parent_bone = ""
 						surface_prop = "default"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
+						collision_tags = "solid"
 						radius = 3.04824
 						point0 = [ 0.0, 0.0, 7.807292 ]
 						point1 = [ 0.0, 0.0, 2.68389 ]
-					},
-				]
-			},
-			{
-				_class = "AttachmentList"
-				children = 
-				[
-					{
-						_class = "Attachment"
-						name = "muzzle"
-						parent_bone = "root"
-						relative_origin = [ 16.897694, 0.0, 6.399422 ]
-						relative_angles = [ 0.0, 0.0, 0.0 ]
-						weight = 1.0
-						ignore_rotation = false
 					},
 				]
 			},
