@@ -24,9 +24,16 @@ partial class LootBox : Prop
 		EnableDrawOverWorld = true;
 		SetGlowMaterial();
 
-		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", -1, this );
+		AsyncPing( .5f );
 
 		Health = 15;
+	}
+
+	public async void AsyncPing(float time )
+	{
+		// need a slight delay to make sure the parent gets set properly on clients!
+		await Task.DelaySeconds( time );
+		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", -1, this );
 	}
 
 	[ClientRpc]
