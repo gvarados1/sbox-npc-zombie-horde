@@ -16,7 +16,7 @@
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = "models/zombie/citizen_zombie/citizen_zombie.vanmgrph"
+		anim_graph_name = "models/zombie/citizen_zombie/citizen_zombie_new.vanmgrph"
 		base_model_name = "models/citizen/citizen.vmdl"
 	}
 }
