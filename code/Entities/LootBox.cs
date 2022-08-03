@@ -67,6 +67,7 @@ partial class LootBox : Prop
 				"BaseballBat",
 				"FireAxe",
 				"Revolver",
+				"Shovel",
 				"R870",
 				"HuntingRifle",
 				//"GrenadeWeapon",
@@ -83,6 +84,7 @@ partial class LootBox : Prop
 				"Revolver",
 				"BaseballBat",
 				"FireAxe",
+				"Shovel",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"PipeBomb"
