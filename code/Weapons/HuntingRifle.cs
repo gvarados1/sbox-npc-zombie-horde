@@ -15,7 +15,7 @@ partial class HuntingRifle : BaseZomWeapon
 	public override float PrimaryRate => .5f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 5;
-	public override int AmmoMax => 80;
+	public override int AmmoMax => 60;
 	public override float ReloadTime => 3.2f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .01f;
