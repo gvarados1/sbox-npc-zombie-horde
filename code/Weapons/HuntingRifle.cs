@@ -137,7 +137,7 @@ partial class HuntingRifle : BaseZomWeapon
 			{
 				var trace2 = Trace.Ray( startPos + direction * 15, end )
 					.UseHitboxes()
-					.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
+					.WithAnyTags( "solid", "npc", "glass", "gib" )
 					.Ignore( this )
 					.Ignore( hitEnt )
 					.Size( radius );
@@ -148,6 +148,7 @@ partial class HuntingRifle : BaseZomWeapon
 				hitEnt = tr2.Entity;
 				startPos = tr2.EndPosition;
 				direction = tr2.Direction;
+				//DebugOverlay.TraceResult( tr2, 5 );
 			}
 		}
 	}
