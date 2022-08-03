@@ -94,7 +94,7 @@ partial class LootBox : Prop
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
 			var prize = TypeLibrary.Create( lootTable[index], t ) as Entity;
-			prize.Position = Position + Vector3.Up * 8;
+			prize.Position = Position + Vector3.Up * 16;
 			prize.Velocity = Vector3.Random * 100;
 		}
 
@@ -107,7 +107,7 @@ partial class LootBox : Prop
 		var index1 = Rand.Int( lootTable.Length - 1 );
 		Type t1 = Type.GetType( lootTable[index1] );
 		var medkit = TypeLibrary.Create( lootTable[index1], t1 ) as Entity;
-		medkit.Position = Position;
+		medkit.Position = Position + Vector3.Up * 8;
 		medkit.Velocity = Vector3.Random * 100;
 
 		base.OnKilled();
