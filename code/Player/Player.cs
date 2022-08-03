@@ -193,6 +193,12 @@ public partial class HumanPlayer : Player, IUse
 		}
 	}
 
+	public override void FrameSimulate( Client cl )
+	{
+		base.FrameSimulate( cl );
+		FrameUpdateViewOffset();
+	}
+
 	public override void Simulate( Client cl )
 	{
 		UpdateViewOffset();
@@ -485,6 +491,20 @@ public partial class HumanPlayer : Player, IUse
 		// this badboy gets reset every tick, so I need to constantly reset it!
 		// I have a lot of CameraModes. I should consider making a custom base for them all
 		if(CameraMode is ZomFirstPersonCamera cam)
+			cam.Owner = this;
+		if ( CameraMode is ZomThirdPersonCamera cam1 )
+			cam1.Owner = this;
+	}
+
+	public void FrameUpdateViewOffset()
+	{
+		Host.AssertClient();
+		ViewPunchOffset = Angles.Lerp( ViewPunchOffset, Angles.Zero, Time.Delta * 8f );
+		ViewPunchVelocity = Angles.Lerp( ViewPunchVelocity, Angles.Zero, Time.Delta * 4f );
+
+		// this badboy gets reset every tick, so I need to constantly reset it!
+		// I have a lot of CameraModes. I should consider making a custom base for them all
+		if ( CameraMode is ZomFirstPersonCamera cam )
 			cam.Owner = this;
 		if ( CameraMode is ZomThirdPersonCamera cam1 )
 			cam1.Owner = this;

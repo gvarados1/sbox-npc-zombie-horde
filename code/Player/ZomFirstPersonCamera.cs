@@ -18,6 +18,16 @@ public partial class ZomFirstPersonCamera : CameraMode
 		lastPos = Position;
 	}
 
+	public override void BuildInput( InputBuilder input )
+	{
+		base.BuildInput( input );
+
+		if ( Owner is HumanPlayer ply )
+		{
+			Rotation *= ply.ViewPunchOffset.ToRotation();
+		}
+	}
+
 	public override void Update()
 	{
 
@@ -36,10 +46,11 @@ public partial class ZomFirstPersonCamera : CameraMode
 
 		Rotation = pawn.EyeRotation;
 
-		if ( Owner is HumanPlayer ply )
-		{
-			Rotation *= ply.ViewPunchOffset.ToRotation();
-		}
+		// set this in BuildInput aka every frame instead of every tick
+		//if ( Owner is HumanPlayer ply )
+		//{
+			//Rotation *= ply.ViewPunchOffset.ToRotation();
+		//}
 
 		Viewer = pawn;
 		lastPos = Position;
