@@ -90,7 +90,7 @@ partial class F1 : BaseZomWeapon
 		transform.Position += Vector3.Forward * -2;
 		transform.Rotation *= Rotation.FromPitch( 220 );
 		transform.Rotation *= Rotation.FromYaw( -15 );
-		transform.Rotation *= Rotation.FromRoll( -30 );
+		transform.Rotation *= Rotation.FromRoll( -20 );
 		SetParent( Owner, "spine_2", transform );
 	}
 
