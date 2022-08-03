@@ -26,6 +26,7 @@ partial class ZombieGame : Game
 
 	public ZombieGame()
 	{
+		Global.TickRate = 30;
 		//
 		// Create the HUD entity. This is always broadcast to all clients
 		// and will create the UI panels clientside.
