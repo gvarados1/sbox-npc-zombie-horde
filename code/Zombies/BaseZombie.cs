@@ -42,9 +42,15 @@ public partial class BaseZombie : BaseNpc
 
 	Vector3 LookDir;
 
+
+	bool AltTick = false;
 	[Event.Tick.Server]
 	public virtual void Tick()
 	{
+		// only update zombie every other tick
+		AltTick = !AltTick;
+		if ( !AltTick ) return;
+
 		//SetAnimParameter( "b_grounded", true ); ;
 		InputVelocity = 0;
 
@@ -55,7 +61,7 @@ public partial class BaseZombie : BaseNpc
 			if ( !Steer.Output.Finished )
 			{
 				InputVelocity = Steer.Output.Direction.Normal;
-				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 200, Speed ); //500
+				Velocity = Velocity.AddClamped( 2 * InputVelocity * Time.Delta * 200, Speed ); //500
 			}
 
 			if ( nav_drawpath )
@@ -64,8 +70,8 @@ public partial class BaseZombie : BaseNpc
 			}
 		}
 
-
-		Move( Time.Delta );
+		// multiply delta * 2 because every other frame
+		Move( Time.Delta * 2 );
 
 		var walkVelocity = Velocity.WithZ( 0 );
 		if ( walkVelocity.Length > 1f )
