@@ -28,7 +28,7 @@ public partial class BaseNpc : AnimatedEntity
 		// we should be able to get this from somewhere (it's pretty specific to citizen though?)
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
-			info.Damage *= 2.0f;
+			info.Damage *= 1.5f;
 		}
 
 		this.ProceduralHitReaction( info );

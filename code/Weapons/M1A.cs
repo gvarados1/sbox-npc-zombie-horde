@@ -62,7 +62,7 @@ partial class M1A : BaseZomWeapon
 		PlaySound( "ar3.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1f, 30.0f);
+		ShootBullet( BulletSpread, 1f, 40.0f);
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
 	}
