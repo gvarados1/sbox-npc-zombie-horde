@@ -26,7 +26,8 @@ partial class ZombieGame : Game
 
 	public ZombieGame()
 	{
-		Global.TickRate = 30;
+		// 24 tick looks fine. High tickrate doesn't matter if people's computers can't reach it :/
+		Global.TickRate = 24;
 		//
 		// Create the HUD entity. This is always broadcast to all clients
 		// and will create the UI panels clientside.
