@@ -20,7 +20,7 @@ partial class HuntingRifle : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .01f;
 	public override float ShotSpreadMultiplier => 2.5f;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_M1A.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_HuntingRifle.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	public override void Spawn()

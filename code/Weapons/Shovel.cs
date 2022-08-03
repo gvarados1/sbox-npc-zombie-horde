@@ -19,7 +19,7 @@ partial class Shovel : BaseZomWeapon
 	public override int ClipSize => 0;
 	public override int AmmoMax => -2;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_BaseballBat.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_Shovel.png";
 	public override Color RarityColor => WeaponRarity.Common;
 
 	public override void Spawn()
