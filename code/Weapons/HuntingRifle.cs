@@ -151,6 +151,9 @@ partial class HuntingRifle : BaseZomWeapon
 				//DebugOverlay.TraceResult( tr2, 5 );
 			}
 		}
+		//var particleStart = ((Transform)Model.GetAttachment( "muzzle" )).Position;
+		//var particleStart = ((Transform)GetAttachment( "muzzle" )).Position;
+		//DebugOverlay.Line( particleStart, startPos, Color.White , 1 );
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
