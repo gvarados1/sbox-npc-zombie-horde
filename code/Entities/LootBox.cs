@@ -75,7 +75,7 @@ partial class LootBox : Prop
 				"PipeBomb"
 			};
 
-		if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 3 )
+		if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 2 )
 		{
 			lootTable = new[]
 			{
