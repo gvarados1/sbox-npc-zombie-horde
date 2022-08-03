@@ -157,9 +157,9 @@ partial class Shovel : BaseZomWeapon
 		// dumb hard-coded positions
 		EnableDrawing = true;
 		var transform = Transform.Zero;
-		transform.Position += Vector3.Right * 8.5f;
-		transform.Position += Vector3.Down * 5;
-		transform.Position += Vector3.Forward * -2;
+		transform.Position += Vector3.Right * 10.5f;
+		transform.Position += Vector3.Down * -3;
+		transform.Position += Vector3.Forward * 3;
 		transform.Rotation *= Rotation.FromPitch( 220 );
 		transform.Rotation *= Rotation.FromYaw( -15 );
 		transform.Rotation *= Rotation.FromRoll( -10 );
