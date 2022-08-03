@@ -29,12 +29,21 @@ partial class LootBox : Prop
 		Health = 15;
 	}
 
+	[Event.Tick.Server]
+	public void Tick()
+	{
+		// delete box if it somehow fell out of the map
+		if ( Position.z < -20000 )
+		Delete();
+	}
+
 	public async void AsyncPing(float time )
 	{
 		// need a slight delay to make sure the parent gets set properly on clients!
 		await Task.DelaySeconds( time );
 		if ( !IsValid ) return;
-		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", -1, this );
+		// set the ping time to 5 minutes instead of infinite. If you don't collect it by then it's probably inaccessable.
+		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", 300, this );
 	}
 
 	[ClientRpc]
