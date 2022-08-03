@@ -45,8 +45,8 @@ public partial class GameDirector : Entity
 			spawnRate *= 2;
 		if ( TimeSinceSpawnedZombie > spawnRate )
 		{
-			// hard-limit 25 zombies
-			if ( zombieCount < maxZombies.Clamp(maxZombies * zombieMultiplier, 25) )
+			// hard-limit 20 zombies
+			if ( zombieCount < maxZombies.Clamp(maxZombies * zombieMultiplier, 20) )
 			{
 				SpawnZombie();
 				TimeSinceSpawnedZombie = 0 - Rand.Float(1f);
