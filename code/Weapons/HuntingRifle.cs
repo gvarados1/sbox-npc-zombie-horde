@@ -63,7 +63,7 @@ partial class HuntingRifle : BaseZomWeapon
 		//PlaySound( "ar3.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 2f, 80.0f);
+		ShootBullet( BulletSpread, 1f, 60.0f, 12);
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -3f, Rand.Float( 1f ) - .5f );
 	}
@@ -102,6 +102,54 @@ partial class HuntingRifle : BaseZomWeapon
 		transform.Rotation *= Rotation.FromYaw( -15 );
 		transform.Rotation *= Rotation.FromRoll( -10 );
 		SetParent( Owner, "spine_2", transform );
+	}
+
+	// todo: set this up better.
+	public override IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
+	{
+		bool underWater = Trace.TestPoint( start, "water" );
+
+		var trace = Trace.Ray( start, end )
+				.UseHitboxes()
+				.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
+				.Ignore( this )
+				.Size( radius );
+
+		//
+		// If we're not underwater then we can hit water
+		//
+		if ( !underWater )
+			trace = trace.WithAnyTags( "water" );
+
+		var tr = trace.Run();
+
+		if ( tr.Hit )
+			yield return tr;
+
+		// penetrate 5 objects
+		var startPos = tr.EndPosition;
+		var direction = tr.Direction;
+		var hitEnt = tr.Entity;
+		for ( int i = 0; i < 5; i++ )
+		{
+			// penetrate through the world too!
+			//if ( tr.Entity is not WorldEntity )
+			{
+				var trace2 = Trace.Ray( startPos + direction * 15, end )
+					.UseHitboxes()
+					.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
+					.Ignore( this )
+					.Ignore( hitEnt )
+					.Size( radius );
+
+				var tr2 = trace2.Run();
+				if ( tr2.Hit )
+					yield return tr2;
+				hitEnt = tr2.Entity;
+				startPos = tr2.EndPosition;
+				direction = tr2.Direction;
+			}
+		}
 	}
 
 	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
