@@ -65,19 +65,22 @@ partial class HuntingRifle : BaseZomWeapon
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 2f, 80.0f);
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -2f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -3f, Rand.Float( 1f ) - .5f );
 	}
 
 	[ClientRpc]
-	protected override void ShootEffects()
+	protected override async void ShootEffects()
 	{
 		Host.AssertClient();
 
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
-		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		CrosshairLastShoot = 0;
+
+		await Task.Delay( 1250 );
+		if(!IsReloading)
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )
