@@ -96,7 +96,7 @@ partial class M1A : BaseZomWeapon
 		transform.Position += Vector3.Forward * -0;
 		transform.Rotation *= Rotation.FromPitch( 220 );
 		transform.Rotation *= Rotation.FromYaw( -15 );
-		transform.Rotation *= Rotation.FromRoll( -30 );
+		transform.Rotation *= Rotation.FromRoll( -10 );
 		SetParent( Owner, "spine_2", transform );
 	}
 
