@@ -104,6 +104,67 @@ partial class HuntingRifle : BaseZomWeapon
 		SetParent( Owner, "spine_2", transform );
 	}
 
+	// bullets gib zombies
+	public override void ShootBullet( float spread, float force, float damage, float bulletSize = 4, int bulletCount = 1 )
+	{
+		//
+		// Seed rand using the tick, so bullet cones match on client and server
+		//
+		Rand.SetSeed( Time.Tick );
+
+		spread *= SpreadMultiplier;
+		//Log.Info( spread + ", " + SpreadMultiplier );
+
+		SpreadMultiplier *= ShotSpreadMultiplier;
+
+		for ( int i = 0; i < bulletCount; i++ )
+		{
+			var forward = Owner.EyeRotation.Forward;
+			forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * spread * 0.25f; //0.25f;
+			forward = forward.Normal;
+
+			//
+			// ShootBullet is coded in a way where we can have bullets pass through shit
+			// or bounce off shit, in which case it'll return multiple results
+			//
+			var firstDamage = true;
+			foreach ( var tr in TraceBullet( Owner.EyePosition, Owner.EyePosition + forward * 5000, bulletSize ) )
+			{
+				tr.Surface.DoBulletImpact( tr );
+
+				if ( tr.Distance > 200 )
+				{
+					CreateTracerEffect( tr.EndPosition );
+				}
+
+				if ( !IsServer ) continue;
+				if ( !tr.Entity.IsValid() ) continue;
+
+				var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100 * force, damage )
+					.UsingTraceResult( tr )
+					.WithAttacker( Owner )
+					.WithWeapon( this );
+
+				// gib collateral kills
+				if ( !firstDamage )
+				{
+					damageInfo = DamageInfo.Explosion( tr.EndPosition, forward * 100 * force, damage )
+					.UsingTraceResult( tr )
+					.WithAttacker( Owner )
+					.WithWeapon( this );
+				}
+				firstDamage = false;
+
+				tr.Entity.TakeDamage( damageInfo );
+
+				// alert zombies where the bullet hits
+				TryAlertZombies( damageInfo.Attacker, .2f, 500f, tr.HitPosition );
+			}
+		}
+		// alert zombies where the bullet is shot from
+		TryAlertZombies( Owner, .2f, 500f, Position );
+	}
+
 	// todo: set this up better.
 	public override IEnumerable<TraceResult> TraceBullet( Vector3 start, Vector3 end, float radius = 2.0f )
 	{
