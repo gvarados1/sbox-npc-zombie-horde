@@ -239,6 +239,11 @@ public partial class HumanPlayer : Player, IUse
 			}
 		}
 
+		if ( Input.Pressed( InputButton.Menu ) )
+		{
+			TryPing();
+		}
+
 		if ( Input.Pressed( InputButton.Drop ) )
 		{
 			DropActive();
@@ -280,6 +285,20 @@ public partial class HumanPlayer : Player, IUse
 			if ( Position.z < -20000 )
 				OnKilled();
 		}
+	}
+
+	private TimeSince TimeSincePinged = 0;
+
+	public void TryPing()
+	{
+		if ( TimeSincePinged < .5f ) return;
+		TimeSincePinged = 0;
+
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).Radius( 5 ).Run();
+		var pos = tr.EndPosition + Vector3.Up * 10;
+		var type = PingType.Generic;
+		//var ping = new PingMarker(pos, type, "Ping!", 5);
+		PingMarker.Ping( To.Everyone, pos, type, "Ping!", 5 );
 	}
 
 	TimeSince TimeSinceHeartBeat = 0;
@@ -543,6 +562,7 @@ public partial class HumanPlayer : Player, IUse
 			Controller = new IncapacitatedController();
 			(Controller as BaseZomWalkController).Owner = this;
 			if ( Host.IsServer ) PlaySound( "human.incapacitate" );
+			PingMarker.Ping( Position, PingType.DownedPlayer, $"Save {Client.Name}!", -1, this );
 
 			RevivesRemaining -= 1;
 			LifeState = LifeState.Dying;

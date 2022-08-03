@@ -1,0 +1,15 @@
+﻿HudMarker {
+	position: absolute;
+	transform: translateX(-50%);
+	//font-family: poppins;
+	font-family: Roboto;
+	//background-image: linear-gradient(to left, rgba( #000000, .5 ), rgba( #000000, 0 ));
+
+	.title {
+		font-family: Roboto;
+		font-size: 30px;
+		color: #C5E0E3;
+		mix-blend-mode: lighten;
+		text-shadow: 0px 0px 4px #90A4A6;
+	}
+}

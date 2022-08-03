@@ -24,6 +24,8 @@ partial class LootBox : Prop
 		EnableDrawOverWorld = true;
 		SetGlowMaterial();
 
+		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", -1, this );
+
 		Health = 15;
 	}
 
