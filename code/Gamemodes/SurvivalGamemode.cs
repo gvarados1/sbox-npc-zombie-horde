@@ -177,6 +177,10 @@ public partial class SurvivalGamemode : BaseGamemode
 			foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
 				item.Delete();
 		}
+		
+		foreach ( var item in Entity.All.OfType<PingMarker>().ToArray() )
+			item.Delete();
+
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
 		TimeUntilNextState = 60;
