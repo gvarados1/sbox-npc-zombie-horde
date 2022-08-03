@@ -390,7 +390,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	/// <summary>
 	/// Shoot a single bullet
 	/// </summary>
-	public virtual void ShootBullet( float spread, float force, float damage, float bulletSize, int bulletCount = 1 )
+	public virtual void ShootBullet( float spread, float force, float damage, float bulletSize = 4, int bulletCount = 1 )
 	{
 		//
 		// Seed rand using the tick, so bullet cones match on client and server
