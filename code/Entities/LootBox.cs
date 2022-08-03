@@ -79,7 +79,6 @@ partial class LootBox : Prop
 		{
 			lootTable = new[]
 			{
-				"HealthKit",
 				"Revolver",
 				"BaseballBat",
 				"FireAxe",
@@ -89,11 +88,10 @@ partial class LootBox : Prop
 				"PipeBomb"
 			};
 		}
-		else if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 4 )
+		else if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 5 )
 		{
 			lootTable = new[]
 			{
-				"HealthKit",
 				"F1",
 				"M1A",
 				"Mp5",
