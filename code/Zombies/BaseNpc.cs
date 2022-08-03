@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZombieHorde;
 
+[Category( "NPC" )]
 public partial class BaseNpc : AnimatedEntity
 {
 	// it's nothing lol
