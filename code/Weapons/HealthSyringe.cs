@@ -5,7 +5,7 @@
 /// </summary>
 [Library( "zom_healthsyringe" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Health Syringe" ), Category( "Healing" )]
+[Title( "Health Syringe" ), Category( "Healing" ), Icon( "favorite" )]
 partial class HealthSyringe : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" );

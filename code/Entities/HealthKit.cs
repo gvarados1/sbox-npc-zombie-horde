@@ -7,7 +7,7 @@ namespace ZombieHorde;
 /// </summary>
 [Library( "dm_healthkit" ), HammerEntity]
 [EditorModel( "models/gameplay/healthkit/healthkit.vmdl" )]
-[Title( "Health Kit" ), Category( "World" )]
+[Title( "Health Kit" ), Category( "World" ), Icon( "favorite" )]
 partial class HealthKit : ModelEntity
 {
 	public static readonly Model WorldModel = Model.Load( "models/gameplay/healthkit/healthkit.vmdl" );
