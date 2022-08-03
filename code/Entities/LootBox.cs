@@ -33,6 +33,7 @@ partial class LootBox : Prop
 	{
 		// need a slight delay to make sure the parent gets set properly on clients!
 		await Task.DelaySeconds( time );
+		if ( !IsValid ) return;
 		PingMarker.Ping( To.Everyone, Position, PingType.Lootbox, "Treasure!", -1, this );
 	}
 
