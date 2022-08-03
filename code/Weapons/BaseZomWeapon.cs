@@ -357,7 +357,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		// penetrate 1 layer of glass
 		if ( tr.Entity is GlassShard )
 		{
-			var trace2 = Trace.Ray( tr.EndPosition + tr.Direction * 5, end )
+			var trace2 = Trace.Ray( tr.EndPosition + tr.Direction * 10, end )
 				.UseHitboxes()
 				.WithAnyTags( "solid", "player", "npc", "glass", "gib" )
 				.Ignore( this )
