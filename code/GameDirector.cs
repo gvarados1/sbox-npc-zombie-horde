@@ -87,10 +87,10 @@ public partial class GameDirector : Entity
 		}
 		*/
 
-		if ( zombieCount > 10 )
-			CommonZombie.UsingAltTick = true;
-		else
-			CommonZombie.UsingAltTick = false;
+		//if ( zombieCount > 10 )
+		//	CommonZombie.UsingAltTick = true;
+		//else
+		//	CommonZombie.UsingAltTick = false;
 	}
 
 	private int ZombieSpawnFails = 0;
