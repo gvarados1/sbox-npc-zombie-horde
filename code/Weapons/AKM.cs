@@ -11,7 +11,7 @@ partial class AKM : BaseZomWeapon
 
 	public override float PrimaryRate => 8.0f;
 	public override float SecondaryRate => 1.0f;
-	public override int ClipSize => 24;
+	public override int ClipSize => 30;
 	public override int AmmoMax => 320;
 	public override float ReloadTime => 2.8f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
