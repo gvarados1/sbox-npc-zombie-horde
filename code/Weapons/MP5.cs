@@ -11,7 +11,7 @@ partial class MP5 : BaseZomWeapon
 
 	public override float PrimaryRate => 9.0f;
 	public override float SecondaryRate => 1.0f;
-	public override int ClipSize => 35;
+	public override int ClipSize => 40;
 	public override int AmmoMax => 250;
 	public override float ReloadTime => 3.4f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
