@@ -2,9 +2,12 @@
 
 namespace ZombieHorde;
 
+/// <summary>
+/// Melee Weapon
+/// </summary>
 [Library( "zom_fireaxe" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/fireaxe/w_fireaxe.vmdl" )]
-[Title( "Fire Axe" ), Category( "Weapons" )]
+[Title( "Fire Axe" ), Category( "Melee" )]
 partial class FireAxe : BaseZomWeapon
 {
 	public static Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/fireaxe/w_fireaxe.vmdl" );

@@ -3,11 +3,11 @@
 namespace ZombieHorde;
 
 /// <summary>
-/// Gives 25 health points.
+/// Gives 35 health points.
 /// </summary>
 [Library( "dm_healthkit" ), HammerEntity]
 [EditorModel( "models/gameplay/healthkit/healthkit.vmdl" )]
-[Title( "Health Kit" )]
+[Title( "Health Kit" ), Category( "World" )]
 partial class HealthKit : ModelEntity
 {
 	public static readonly Model WorldModel = Model.Load( "models/gameplay/healthkit/healthkit.vmdl" );

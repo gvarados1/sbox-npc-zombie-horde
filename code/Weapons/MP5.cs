@@ -1,9 +1,12 @@
 ﻿namespace ZombieHorde;
 
 
+/// <summary>
+/// Submachine Gun
+/// </summary>
 [Library( "zom_mp5" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/w_mp5.vmdl" )]
-[Title( "MP5" ), Category( "Weapons" )]
+[Title( "MP5" ), Category( "Primary Weapons" )]
 partial class MP5 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/smgs/mp5/w_mp5.vmdl" );

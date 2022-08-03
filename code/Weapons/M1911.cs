@@ -1,8 +1,11 @@
 ﻿namespace ZombieHorde;
 
+/// <summary>
+/// Standard Pistol
+/// </summary>
 [Library( "zom_m1911" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/m1911/w_m1911.vmdl" )]
-[Title( "M1911" ), Category( "Weapons" )]
+[Title( "Pistol" ), Category( "Pistols" )]
 partial class M1911 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/m1911/w_m1911.vmdl" );

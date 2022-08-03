@@ -2,9 +2,12 @@
 
 namespace ZombieHorde;
 
-[Library( "Zom_tripmine" ), HammerEntity]
+/// <summary>
+/// Place on wall and explode
+/// </summary>
+[Library( "zom_tripmine" ), HammerEntity]
 [EditorModel( "models/dm_tripmine.vmdl" )]
-[Title( "Tripmine" ), Category( "Weapons" )]
+[Title( "Tripmine" ), Category( "Grenades" )]
 partial class TripmineWeapon : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "models/dm_tripmine.vmdl" );

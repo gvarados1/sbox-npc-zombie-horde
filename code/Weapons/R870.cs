@@ -1,8 +1,11 @@
 ﻿namespace ZombieHorde;
 
+/// <summary>
+/// Pump Shotgun
+/// </summary>
 [Library( "zom_r870" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" )]
-[Title( "R-870" ), Category( "Weapons" )]
+[Title( "Pump Shotgun" ), Category( "Primary Weapons" )]
 partial class R870 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" );

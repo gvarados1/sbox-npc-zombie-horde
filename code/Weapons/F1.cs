@@ -1,9 +1,12 @@
 ﻿namespace ZombieHorde;
 
 
+/// <summary>
+/// Assault Rifle
+/// </summary>
 [Library( "zom_f1" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/w_f1.vmdl" )]
-[Title( "F1" ), Category( "Weapons" )]
+[Title( "FAMAS" ), Category( "Primary Weapons" )]
 partial class F1 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/f1/w_f1.vmdl" );

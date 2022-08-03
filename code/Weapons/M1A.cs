@@ -1,9 +1,12 @@
 ﻿namespace ZombieHorde;
 
 
+/// <summary>
+/// Semi-Auto Rifle
+/// </summary>
 [Library( "zom_m1a" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/m1a/w_m1a.vmdl" )]
-[Title( "M1A" ), Category( "Weapons" )]
+[Title( "M1A" ), Category( "Primary Weapons" )]
 partial class M1A : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/m1a/w_m1a.vmdl" );

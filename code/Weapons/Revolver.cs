@@ -1,8 +1,11 @@
 ﻿namespace ZombieHorde;
 
+/// <summary>
+/// Powerful Revolver
+/// </summary>
 [Library( "zom_revolver" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/revolver/w_revolver.vmdl" )]
-[Title( "Magnum Revolver" ), Category( "Weapons" )]
+[Title( "Magnum Revolver" ), Category( "Pistols" )]
 partial class Revolver : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/handguns/revolver/w_revolver.vmdl" );

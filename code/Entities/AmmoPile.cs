@@ -11,7 +11,7 @@ namespace ZombieHorde;
 /// </summary>
 [Library( "zom_ammopile" ), HammerEntity]
 [EditorModel( "assets/ammobox/ammo_box.vmdl" )]
-[Title( "Ammo Pile" )]
+[Title( "Ammo Pile" ), Category( "World" )]
 partial class AmmoPile : ModelEntity, IUse
 {
 	public static readonly Model WorldModel = Model.Load( "assets/ammobox/ammo_box.vmdl" );

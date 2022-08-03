@@ -1,8 +1,11 @@
 ﻿namespace ZombieHorde;
 
+/// <summary>
+/// Heals Player
+/// </summary>
 [Library( "zom_healthsyringe" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Health Syringe" ), Category( "Weapons" )]
+[Title( "Health Syringe" ), Category( "Healing" )]
 partial class HealthSyringe : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" );

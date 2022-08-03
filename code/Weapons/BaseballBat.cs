@@ -2,9 +2,12 @@
 
 namespace ZombieHorde;
 
+/// <summary>
+/// Melee Weapon
+/// </summary>
 [Library( "zom_baseballbat" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/baseballbat/w_baseballbat.vmdl" )]
-[Title( "Baseball Bat" ), Category( "Weapons" )]
+[Title( "Baseball Bat" ), Category( "Melee" )]
 partial class BaseballBat : BaseZomWeapon
 {
 	public static Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/meleeweapons/baseballbat/w_baseballbat.vmdl" );

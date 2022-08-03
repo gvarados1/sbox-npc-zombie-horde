@@ -1,8 +1,11 @@
 ﻿namespace ZombieHorde;
 
+/// <summary>
+/// Alerts Zombies, Explodes.
+/// </summary>
 [Library( "zom_pipebomb" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Pipe Bomb" ), Category( "Weapons" )]
+[Title( "Pipe Bomb" ), Category( "Grenades" )]
 partial class PipeBomb : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
