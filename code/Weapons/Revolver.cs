@@ -15,7 +15,7 @@ partial class Revolver : BaseZomWeapon
 	public override float SecondaryRate => 1.0f;
 	public override float ReloadTime => 2.8f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
-	public override float BulletSpread => .05f;
+	public override float BulletSpread => .02f;
 	public override float ShotSpreadMultiplier => 5f;
 	public override float ShotSpreadLerp => .1f;
 	public override int ClipSize => 6;
