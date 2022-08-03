@@ -76,6 +76,90 @@
 			{
 				key = 
 				{
+					m_id = 197056323
+				}
+				value = 
+				{
+					_class = "CSolveIKChainAnimNode"
+					m_sName = "Global Feet IK"
+					m_vecPosition = [ 4656.0, -400.0 ]
+					m_nNodeID = 
+					{
+						m_id = 197056323
+					}
+					m_networkMode = "ClientPredicted"
+					m_sNote = ""
+					m_inputConnection = 
+					{
+						m_nodeID = 
+						{
+							m_id = 1527735363
+						}
+						m_outputID = 
+						{
+							m_id = 4294967295
+						}
+					}
+					m_IkChains = 
+					[
+						{
+							_class = "CSolveIKChainAnimNodeChainData"
+							m_IkChain = "right_leg_IK"
+							m_SolverSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideSolverSettings = 
+							{
+								m_SolverType = "IKSOLVER_TwoBone"
+							}
+							m_TargetSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideTargetSettings = 
+							{
+								m_TargetSource = "Bone"
+								m_Bone = 
+								{
+									m_Name = ""
+								}
+								m_AnimgraphParameterNamePosition = 
+								{
+									m_id = 4294967295
+								}
+								m_TargetCoordSystem = "World Space"
+							}
+							m_DebugSetting = "SOLVEIKCHAINANIMNODEDEBUGSETTING_None"
+							m_flDebugNormalizedLength = 1.0
+							m_vDebugOffset = [ 0.0, 0.0, 0.0 ]
+						},
+						{
+							_class = "CSolveIKChainAnimNodeChainData"
+							m_IkChain = "left_leg_IK"
+							m_SolverSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideSolverSettings = 
+							{
+								m_SolverType = "IKSOLVER_TwoBone"
+							}
+							m_TargetSettingSource = "SOLVEIKCHAINANIMNODESETTINGSOURCE_Default"
+							m_OverrideTargetSettings = 
+							{
+								m_TargetSource = "Bone"
+								m_Bone = 
+								{
+									m_Name = ""
+								}
+								m_AnimgraphParameterNamePosition = 
+								{
+									m_id = 4294967295
+								}
+								m_TargetCoordSystem = "World Space"
+							}
+							m_DebugSetting = "SOLVEIKCHAINANIMNODEDEBUGSETTING_None"
+							m_flDebugNormalizedLength = 1.0
+							m_vDebugOffset = [ 0.0, 0.0, 0.0 ]
+						},
+					]
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 210491226
 				}
 				value = 
@@ -124,7 +208,7 @@
 				{
 					_class = "CBlend2DAnimNode"
 					m_sName = "Walk & Run 2D"
-					m_vecPosition = [ 272.0, -1424.0 ]
+					m_vecPosition = [ 432.0, -800.0 ]
 					m_nNodeID = 
 					{
 						m_id = 213225180
@@ -136,6 +220,54 @@
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
+							m_sequenceName = "Run_E"
+							m_blendValue = [ 177.0, 0.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_N"
+							m_blendValue = [ 0.0, 177.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_NE"
+							m_blendValue = [ 125.0, 125.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_NW"
+							m_blendValue = [ -125.0, 125.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_S"
+							m_blendValue = [ 0.0, -177.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_SE"
+							m_blendValue = [ 125.0, -125.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_SW"
+							m_blendValue = [ -125.0, -125.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Run_W"
+							m_blendValue = [ -177.0, 0.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
 							m_sequenceName = "Walk_E"
 							m_blendValue = [ 49.0, 0.0 ]
 						},
@@ -148,8 +280,32 @@
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
+							m_sequenceName = "Walk_NE"
+							m_blendValue = [ 34.0, 34.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Walk_NW"
+							m_blendValue = [ -34.0, 34.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
 							m_sequenceName = "Walk_S"
 							m_blendValue = [ 0.0, -49.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Walk_SE"
+							m_blendValue = [ 34.0, -34.0 ]
+						},
+						{
+							_class = "CBlend2DItem"
+							m_tagSpans = [  ]
+							m_sequenceName = "Walk_SW"
+							m_blendValue = [ -34.0, -34.0 ]
 						},
 						{
 							_class = "CBlend2DItem"
@@ -190,111 +346,14 @@
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_W"
-							m_blendValue = [ -354.0, 0.0 ]
+							m_sequenceName = "Run2X_SE"
+							m_blendValue = [ 250.0, -250.0 ]
 						},
 						{
 							_class = "CBlend2DItem"
 							m_tagSpans = [  ]
-							m_sequenceName = "IdlePose_Default"
-							m_blendValue = [ 0.0, 0.0 ]
-						},
-					]
-					m_blendSourceX = "Parameter"
-					m_paramX = 
-					{
-						m_id = 582995392
-					}
-					m_blendSourceY = "Parameter"
-					m_paramY = 
-					{
-						m_id = 48706934
-					}
-					m_bLoop = true
-					m_bLockBlendOnReset = false
-					m_bLockWhenWaning = false
-					m_playbackSpeed = 1.0
-					m_damping = 
-					{
-						_class = "CAnimInputDamping"
-						m_speedFunction = "Spring"
-						m_fSpeedScale = 50.0
-						m_fMinSpeed = 0.0
-						m_fMaxTension = 500.0
-					}
-				}
-			},
-			{
-				key = 
-				{
-					m_id = 254949196
-				}
-				value = 
-				{
-					_class = "CBlend2DAnimNode"
-					m_sName = "Walk & Run 2D"
-					m_vecPosition = [ 400.0, -784.0 ]
-					m_nNodeID = 
-					{
-						m_id = 254949196
-					}
-					m_networkMode = "ClientPredicted"
-					m_sNote = "(Run_2X is actually slightly wrong because I set it to 1.66x after deciding what the legs were a bit too fast. But it\'s fine because you can\'t notice.)"
-					m_items = 
-					[
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Walk_E"
-							m_blendValue = [ 49.0, 0.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Walk_N"
-							m_blendValue = [ 0.0, 49.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Walk_S"
-							m_blendValue = [ 0.0, -49.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Walk_W"
-							m_blendValue = [ -49.0, 0.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_E"
-							m_blendValue = [ 354.0, 0.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_N"
-							m_blendValue = [ 0.0, 354.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_NE"
-							m_blendValue = [ 250.0, 250.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_NW"
-							m_blendValue = [ -250.0, 250.0 ]
-						},
-						{
-							_class = "CBlend2DItem"
-							m_tagSpans = [  ]
-							m_sequenceName = "Run2X_S"
-							m_blendValue = [ 0.0, -354.0 ]
+							m_sequenceName = "Run2X_SW"
+							m_blendValue = [ -250.0, -250.0 ]
 						},
 						{
 							_class = "CBlend2DItem"
@@ -2442,6 +2501,191 @@
 			{
 				key = 
 				{
+					m_id = 1565270570
+				}
+				value = 
+				{
+					_class = "CStateMachineAnimNode"
+					m_sName = "Feet IK toggle SM"
+					m_vecPosition = [ 4864.0, -368.0 ]
+					m_nNodeID = 
+					{
+						m_id = 1565270570
+					}
+					m_networkMode = "ClientPredicted"
+					m_sNote = "Turn off feet IK when it\'s irrelevant. (Needs to be updated to use tags instead of individual states!)"
+					m_states = 
+					[
+						{
+							_class = "CAnimState"
+							m_transitions = 
+							[
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 1712449780
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = true
+											}
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 1397876336
+									}
+									m_bReset = false
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 660872845
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = false
+											}
+										},
+									]
+									m_blendDuration = 0.2
+									m_destState = 
+									{
+										m_id = 1397876336
+									}
+									m_bReset = true
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.5, 0.0 ]
+										m_vControlPoint2 = [ 0.5, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
+							]
+							m_tags = [  ]
+							m_tagBehaviors = [  ]
+							m_name = "On"
+							m_inputConnection = 
+							{
+								m_nodeID = 
+								{
+									m_id = 197056323
+								}
+								m_outputID = 
+								{
+									m_id = 4294967295
+								}
+							}
+							m_stateID = 
+							{
+								m_id = 245785958
+							}
+							m_position = [ -416.0, 64.0 ]
+							m_bIsStartState = true
+							m_bIsEndtState = false
+							m_bIsPassthrough = false
+							m_bIsRootMotionExclusive = false
+							m_bAlwaysEvaluate = false
+						},
+						{
+							_class = "CAnimState"
+							m_transitions = 
+							[
+								{
+									_class = "CAnimStateTransition"
+									m_conditions = 
+									[
+										{
+											_class = "CParameterAnimCondition"
+											m_comparisonOp = 0
+											m_paramID = 
+											{
+												m_id = 660872845
+											}
+											m_comparisonValue = 
+											{
+												m_nType = 1
+												m_data = true
+											}
+										},
+									]
+									m_blendDuration = 0.03
+									m_destState = 
+									{
+										m_id = 245785958
+									}
+									m_bReset = false
+									m_resetCycleOption = "Beginning"
+									m_flFixedCycleValue = 0.0
+									m_blendCurve = 
+									{
+										m_vControlPoint1 = [ 0.0, 0.786667 ]
+										m_vControlPoint2 = [ 0.14, 1.0 ]
+									}
+									m_bForceFootPlant = false
+									m_bDisabled = false
+								},
+							]
+							m_tags = [  ]
+							m_tagBehaviors = [  ]
+							m_name = "Off (airborne/jumping)"
+							m_inputConnection = 
+							{
+								m_nodeID = 
+								{
+									m_id = 1527735363
+								}
+								m_outputID = 
+								{
+									m_id = 4294967295
+								}
+							}
+							m_stateID = 
+							{
+								m_id = 1397876336
+							}
+							m_position = [ -208.0, 64.0 ]
+							m_bIsStartState = false
+							m_bIsEndtState = false
+							m_bIsPassthrough = false
+							m_bIsRootMotionExclusive = false
+							m_bAlwaysEvaluate = false
+						},
+					]
+					m_bBlockWaningTags = false
+					m_bLockStateWhenWaning = false
+				}
+			},
+			{
+				key = 
+				{
 					m_id = 1590508464
 				}
 				value = 
@@ -3511,7 +3755,7 @@
 					{
 						m_nodeID = 
 						{
-							m_id = 254949196
+							m_id = 213225180
 						}
 						m_outputID = 
 						{
@@ -3568,7 +3812,7 @@
 				{
 					_class = "CRootAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 4624.0, -384.0 ]
+					m_vecPosition = [ 5168.0, -432.0 ]
 					m_nNodeID = 
 					{
 						m_id = 2113332534
@@ -3579,7 +3823,7 @@
 					{
 						m_nodeID = 
 						{
-							m_id = 1527735363
+							m_id = 1565270570
 						}
 						m_outputID = 
 						{
