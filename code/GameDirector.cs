@@ -115,7 +115,6 @@ public partial class GameDirector : Entity
 				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
 				{
 					var tr = Trace.Ray( spawnPos, spawnPos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
-					DebugOverlay.TraceResult( tr, 10 );
 					if ( tr.Entity is HammerSpawnBlocker blocker )
 					{
 						if ( blocker.AffectsCommonZombies && blocker.BlockType == BlockType.BlockSpawning )

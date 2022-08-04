@@ -149,7 +149,6 @@ public partial class SurvivalGamemode : BaseGamemode
 				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
 				{
 					var tr = Trace.Ray( pos, pos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
-					DebugOverlay.TraceResult( tr, 10 );
 					if ( tr.Entity is HammerSpawnBlocker blocker )
 					{
 						if ( blocker.AffectsLootBoxes && blocker.BlockType == BlockType.BlockSpawning )
