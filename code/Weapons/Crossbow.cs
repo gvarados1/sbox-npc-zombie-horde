@@ -2,7 +2,7 @@
 
 [Library( "zom_crossbow" ), HammerEntity]
 [EditorModel( "weapons/rust_crossbow/rust_crossbow.vmdl" )]
-[Title( "Crossbow" ), Category( "Weapons" )]
+[Title( "Crossbow" ), Category( "Obsolete (Do Not Use)" )]
 partial class Crossbow : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/rust_crossbow/rust_crossbow.vmdl" );

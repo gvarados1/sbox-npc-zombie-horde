@@ -2,7 +2,7 @@
 
 [Library( "zom_medkit" ), HammerEntity]
 [EditorModel( "models/dm_grenade.vmdl" )]
-[Title( "Medical Kit" ), Category( "Weapons" )]
+[Title( "Medical Kit" ), Category( "Healing" )]
 partial class MedKit : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
