@@ -103,9 +103,14 @@ public partial class GameDirector : Entity
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 		if ( ply == null ) return null;
 
+		var minRadius = 1000;
+		// this chonker checks if the player is standing inside or near a no-spawn zone.
+		if ( Trace.Ray( ply.Position, ply.Position ).WithTag( "trigger" ).Radius( 500 ).Run().Entity is HammerSpawnBlocker block && block.AffectsCommonZombies && block.BlockType == BlockType.AllowSpawningRegardlessOfVision )
+			minRadius = 0;
+
 		while ( tries <= maxTries )
 		{
-			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
+			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, 4000 );
 			if ( t.HasValue )
 			{
 				spawnPos = t.Value;

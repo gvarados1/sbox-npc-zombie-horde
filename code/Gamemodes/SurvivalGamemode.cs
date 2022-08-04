@@ -138,10 +138,15 @@ public partial class SurvivalGamemode : BaseGamemode
 
 	public void SpawnLootbox(Player ply)
 	{
+		var minRadius = 1000;
+		// this chonker checks if the player is standing inside or near a no-spawn zone.
+		if ( Trace.Ray( ply.Position, ply.Position ).WithTag( "trigger" ).Radius( 500 ).Run().Entity is HammerSpawnBlocker block && block.AffectsCommonZombies && block.BlockType == BlockType.AllowSpawningRegardlessOfVision )
+			minRadius = 0;
+
 		// 30 tries to find a spawn
-		for( int i = 0; i < 30; i++ )
+		for ( int i = 0; i < 30; i++ )
 		{
-			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
+			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, 4000 );
 			if ( t.HasValue )
 			{
 				var pos = t.Value;
