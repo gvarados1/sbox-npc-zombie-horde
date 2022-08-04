@@ -412,7 +412,7 @@ public partial class HumanPlayer : Player, IUse
 			if ( !ply.IsValid() )
 				continue;
 
-			Velocity += (Position - ply.Position).WithZ(0).Normal * 10;
+			Velocity += (Position - ply.Position).WithZ(0).Normal * 20;
 		}
 
 		if ( IsServer )
