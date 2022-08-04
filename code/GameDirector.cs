@@ -138,11 +138,26 @@ public partial class GameDirector : Entity
 		}
 		if ( tries >= maxTries )
 		{
-			Log.Warning( "Can't Find Valid Zombie Spawn" );
-			ZombieSpawnFails += 1;
+			var foundSpawn = false;
+			// couldn't find a valid spawn. try to spawn in the center of an appropriate spawn blocker...
+			foreach ( var blocker in Entity.All.OfType<HammerSpawnBlocker>().ToList() )
+			{
+				if ( blocker.Tags.Has( "AllowCommonZombieSpawn" ) )
+				{
+					spawnPos = blocker.Position;
+					foundSpawn = true;
+					break;
+				}
+			}
+			if ( !foundSpawn )
+			{
+				// should we spawn on the player if we can't find a position?
+				Log.Warning( "Can't Find Valid Zombie Spawn" );
+				ZombieSpawnFails += 1;
 
-			if ( ZombieSpawnFails > 10 ) Log.Error( "Can't spawn zombies! Map doesn't have a navmesh or is too small." ); // do I really need to do this?
-			return null;
+				if ( ZombieSpawnFails > 10 ) Log.Error( "Can't spawn zombies! Map doesn't have a navmesh or is too small." ); // do I really need to do this?
+				return null;
+			}
 		}
 
 		var npc = new CommonZombie
