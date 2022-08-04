@@ -139,7 +139,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	public void SpawnLootbox(Player ply)
 	{
 		var minRadius = 1000;
-		if ( Trace.TestPoint( ply.Position, "AllowSpawning", 500 ) && Trace.TestPoint( ply.Position, "AffectsLootBoxes", 500 ) )
+		if ( Trace.TestPoint( ply.Position, "AllowLootBoxSpawn", 500 ) )
 			minRadius = 0;
 
 		// 30 tries to find a spawn
@@ -149,7 +149,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			if ( t.HasValue )
 			{
 				var pos = t.Value;
-				if ( Trace.TestPoint( t.Value, "BlockSpawning", 20 ) && Trace.TestPoint( t.Value, "AffectsLootBoxes", 20 ) )
+				if ( Trace.TestPoint( t.Value, "BlockLootBoxSpawn", 20 ) )
 				{
 					Log.Info( "lootbox spawn blocked! Tries: " + i.ToString() );
 					continue;

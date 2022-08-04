@@ -36,25 +36,39 @@ public partial class HammerSpawnBlocker : ModelEntity
 	{
 		base.Spawn();
 
-		Tags.Add( "trigger" );
-
-		if (BlockType == BlockType.BlockSpawning)
-			Tags.Add( "BlockSpawning" );
-		else if (BlockType == BlockType.AllowSpawningRegardlessOfVision)
-			Tags.Add( "AllowSpawning" );
-		
-		if(AffectsCommonZombies)
-			Tags.Add( "AffectsCommonZombies" );
-		if ( AffectsSpecialZombies )
-			Tags.Add( "AffectsSpecialZombies" );
-		if ( AffectsLootBoxes )
-			Tags.Add( "AffectsLootBoxes" );
+		SetupTags();
 
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
 		EnableSolidCollisions = false;
 		EnableTouch = true;
 
 		Transmit = TransmitType.Never;
+	}
+
+	public void SetupTags()
+	{
+		Tags.Clear();
+
+		Tags.Add( "trigger" );
+
+		if (BlockType == BlockType.BlockSpawning )
+		{
+			if ( AffectsCommonZombies )
+				Tags.Add( "BlockCommonZombieSpawn" );
+			if ( AffectsSpecialZombies )
+				Tags.Add( "BlockSpecialZombieSpawn" );
+			if ( AffectsLootBoxes )
+				Tags.Add( "BlockLootBoxSpawn" );
+		}
+		else if ( BlockType == BlockType.AllowSpawningRegardlessOfVision )
+		{
+			if ( AffectsCommonZombies )
+				Tags.Add( "AllowCommonZombieSpawn" );
+			if ( AffectsSpecialZombies )
+				Tags.Add( "AllowSpecialZombieSpawn" );
+			if ( AffectsLootBoxes )
+				Tags.Add( "AllowLootBoxSpawn" );
+		}
 	}
 
 	/// <summary>
@@ -80,4 +94,11 @@ public enum BlockType
 {
 	BlockSpawning,
 	AllowSpawningRegardlessOfVision
+}
+
+public enum AffectsType
+{
+	CommonZombies,
+	SpecialZombies,
+	LootBoxes
 }

@@ -105,7 +105,7 @@ public partial class GameDirector : Entity
 		
 		// might want to twitch these to a static method using enums instead of strings some time. The strings work but can be hard to remember.
 		var minRadius = 1000;
-		if ( Trace.TestPoint(ply.Position, "AllowSpawning", 500 ) && Trace.TestPoint( ply.Position, "AffectsCommonZombies", 500 ) )
+		if ( Trace.TestPoint(ply.Position, "AllowCommonZombieSpawn", 500 ))
 			minRadius = 0;
 
 		while ( tries <= maxTries )
@@ -116,13 +116,10 @@ public partial class GameDirector : Entity
 				spawnPos = t.Value;
 				if ( spawnPos.Length > 30000 ) return null; // Sometimes GetPointWithinRadius returns a wacky value? check for that here.
 
-				if ( Trace.TestPoint( t.Value, "AffectsCommonZombies", 20 ) )
-				{
-					if ( Trace.TestPoint( t.Value, "BlockSpawning", 20 ) )
-						continue;
-					if ( Trace.TestPoint( t.Value, "AllowSpawning", 20 ) )
-						break; // skip LOS trace
-				}
+				if ( Trace.TestPoint( t.Value, "BlockCommonZombieSpawn", 20 ) )
+					continue;
+				if ( Trace.TestPoint( t.Value, "AllowCommonZombieSpawn", 20 ) )
+					break; // skip LOS trace
 
 				var addHeight = new Vector3( 0, 0, 70 );
 
