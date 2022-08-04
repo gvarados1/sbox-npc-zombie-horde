@@ -169,7 +169,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 			// hack: floor velocity to limit prediction errors
 			var adjustedVelocity = MathF.Floor( ply.Velocity.WithZ( 0 ).Length);
 
-			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
+			//targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
+			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2f )* .7f + .3f;
 
 
 			
