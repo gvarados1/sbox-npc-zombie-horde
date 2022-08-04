@@ -102,10 +102,10 @@ public partial class GameDirector : Entity
 
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 		if ( ply == null ) return null;
-
+		
+		// might want to twitch these to a static method using enums instead of strings some time. The strings work but can be hard to remember.
 		var minRadius = 1000;
-		// this chonker checks if the player is standing inside or near a no-spawn zone.
-		if ( Trace.Ray( ply.Position, ply.Position ).WithTag( "trigger" ).Radius( 500 ).Run().Entity is HammerSpawnBlocker block && block.AffectsCommonZombies && block.BlockType == BlockType.AllowSpawningRegardlessOfVision )
+		if ( Trace.TestPoint(ply.Position, "AllowSpawning", 500 ) && Trace.TestPoint( ply.Position, "AffectsCommonZombies", 500 ) )
 			minRadius = 0;
 
 		while ( tries <= maxTries )
@@ -116,24 +116,19 @@ public partial class GameDirector : Entity
 				spawnPos = t.Value;
 				if ( spawnPos.Length > 30000 ) return null; // Sometimes GetPointWithinRadius returns a wacky value? check for that here.
 
-				// cheap test point first
-				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
+				if ( Trace.TestPoint( t.Value, "AffectsCommonZombies", 20 ) )
 				{
-					var tr = Trace.Ray( spawnPos, spawnPos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
-					if ( tr.Entity is HammerSpawnBlocker blocker )
-					{
-						if ( blocker.AffectsCommonZombies && blocker.BlockType == BlockType.BlockSpawning )
-							continue;
-						else if ( blocker.AffectsCommonZombies && blocker.BlockType == BlockType.AllowSpawningRegardlessOfVision )
-							break; // skip LOS trace
-					}
+					if ( Trace.TestPoint( t.Value, "BlockSpawning", 20 ) )
+						continue;
+					if ( Trace.TestPoint( t.Value, "AllowSpawning", 20 ) )
+						break; // skip LOS trace
 				}
 
 				var addHeight = new Vector3( 0, 0, 70 );
 
 				var playerPos = ply.EyePosition; 
 				var tr1 = Trace.Ray( spawnPos + addHeight, playerPos )
-							.UseHitboxes()
+							//.UseHitboxes()
 							.Run();
 
 				if ( Vector3.DistanceBetween( tr1.EndPosition, playerPos ) > 100 )

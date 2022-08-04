@@ -38,8 +38,19 @@ public partial class HammerSpawnBlocker : ModelEntity
 
 		Tags.Add( "trigger" );
 
+		if (BlockType == BlockType.BlockSpawning)
+			Tags.Add( "BlockSpawning" );
+		else if (BlockType == BlockType.AllowSpawningRegardlessOfVision)
+			Tags.Add( "AllowSpawning" );
+		
+		if(AffectsCommonZombies)
+			Tags.Add( "AffectsCommonZombies" );
+		if ( AffectsSpecialZombies )
+			Tags.Add( "AffectsSpecialZombies" );
+		if ( AffectsLootBoxes )
+			Tags.Add( "AffectsLootBoxes" );
+
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
-		//EnableAllCollisions = false;
 		EnableSolidCollisions = false;
 		EnableTouch = true;
 

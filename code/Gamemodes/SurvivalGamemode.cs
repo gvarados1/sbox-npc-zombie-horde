@@ -139,8 +139,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	public void SpawnLootbox(Player ply)
 	{
 		var minRadius = 1000;
-		// this chonker checks if the player is standing inside or near a no-spawn zone.
-		if ( Trace.Ray( ply.Position, ply.Position ).WithTag( "trigger" ).Radius( 500 ).Run().Entity is HammerSpawnBlocker block && block.AffectsCommonZombies && block.BlockType == BlockType.AllowSpawningRegardlessOfVision )
+		if ( Trace.TestPoint( ply.Position, "AllowSpawning", 500 ) && Trace.TestPoint( ply.Position, "AffectsLootBoxes", 500 ) )
 			minRadius = 0;
 
 		// 30 tries to find a spawn
@@ -150,16 +149,10 @@ public partial class SurvivalGamemode : BaseGamemode
 			if ( t.HasValue )
 			{
 				var pos = t.Value;
-				// cheap test point first
-				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
+				if ( Trace.TestPoint( t.Value, "BlockSpawning", 20 ) && Trace.TestPoint( t.Value, "AffectsLootBoxes", 20 ) )
 				{
-					var tr = Trace.Ray( pos, pos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
-					if ( tr.Entity is HammerSpawnBlocker blocker )
-					{
-						if ( blocker.AffectsLootBoxes && blocker.BlockType == BlockType.BlockSpawning )
-							Log.Info( "lootbox spawn blocked! Tries: " + i.ToString() );
-						continue;
-					}
+					Log.Info( "lootbox spawn blocked! Tries: " + i.ToString() );
+					continue;
 				}
 
 				var box = new LootBox();
