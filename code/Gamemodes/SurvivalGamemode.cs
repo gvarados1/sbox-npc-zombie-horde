@@ -72,6 +72,9 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		if(Host.IsServer) PlaySound( "wave.start" );
 		WaveNumber++;
+		foreach ( var hammerEnt in Entity.All.OfType<HammerWaveTracker>().ToList() )
+			hammerEnt.WaveStart();
+
 
 		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
 		var difficultyMultiplier = .75f + playerCount * .25f;
@@ -91,6 +94,8 @@ public partial class SurvivalGamemode : BaseGamemode
 		if ( Host.IsServer ) PlaySound( "wave.end" );
 		TimeUntilNextState = 40;
 		RoundState = RoundState.Intermission;
+		foreach ( var hammerEnt in Entity.All.OfType<HammerWaveTracker>().ToList() )
+			hammerEnt.WaveEnd();
 
 		UpdateZombieStats();
 
@@ -139,6 +144,9 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		TimeUntilNextState = 20;
 		RoundState = RoundState.PostGame;
+
+		foreach ( var hammerEnt in Entity.All.OfType<HammerWaveTracker>().ToList() )
+			hammerEnt.GameEnd();
 
 		if ( Host.IsServer )
 		{
