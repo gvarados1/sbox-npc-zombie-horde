@@ -19,7 +19,7 @@ partial class MP5 : BaseZomWeapon
 	public override float ReloadTime => 3.4f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override float BulletSpread => .12f;
-	public override float ShotSpreadMultiplier => 1.5f;
+	public override float ShotSpreadMultiplier => 1.25f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MP5.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
