@@ -106,7 +106,7 @@ public partial class GameDirector : Entity
 		// might want to twitch these to a static method using enums instead of strings some time. The strings work but can be hard to remember.
 		var minRadius = 1000;
 		if ( Trace.TestPoint(ply.Position, "AllowCommonZombieSpawn", 500 ))
-			minRadius = 0;
+			minRadius = 500;
 
 		while ( tries <= maxTries )
 		{

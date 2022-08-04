@@ -140,7 +140,7 @@ public partial class SurvivalGamemode : BaseGamemode
 	{
 		var minRadius = 1000;
 		if ( Trace.TestPoint( ply.Position, "AllowLootBoxSpawn", 500 ) )
-			minRadius = 0;
+			minRadius = 10;
 
 		// 30 tries to find a spawn
 		for ( int i = 0; i < 40; i++ )
