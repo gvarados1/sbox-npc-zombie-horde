@@ -7,7 +7,7 @@ namespace ZombieHorde;
 /// </summary>
 [Library( "zom_spawnblocker" )]
 [AutoApplyMaterial( "materials/tools/toolstrigger.vmat" )]
-[HammerEntity, Solid, HideProperty( "enable_shadows" )]
+[HammerEntity, Solid, VisGroup( VisGroup.Trigger ), HideProperty( "enable_shadows" )]
 [Title( "Spawn Blocker" ), Category( "Logic" ), Icon( "block" )]
 public partial class HammerSpawnBlocker : ModelEntity
 {
