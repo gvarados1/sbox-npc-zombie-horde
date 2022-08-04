@@ -15,7 +15,7 @@ partial class M1911 : BaseZomWeapon
 	public override float SecondaryRate => 4.5f;
 	public override float ReloadTime => 2.2f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
-	public override float BulletSpread => .1f;
+	public override float BulletSpread => .05f;
 	public override float ShotSpreadMultiplier => 1.8f;
 	public override int ClipSize => 14;
 	public override int AmmoMax => -1;
