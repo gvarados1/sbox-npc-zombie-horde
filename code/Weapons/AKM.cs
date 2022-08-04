@@ -56,7 +56,7 @@ partial class AKM : BaseZomWeapon
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 35.0f);
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -.2f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -.3f, Rand.Float( .5f ) - .25f );
 	}
 
 	[ClientRpc]
