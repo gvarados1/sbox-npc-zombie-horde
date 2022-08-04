@@ -143,7 +143,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			minRadius = 0;
 
 		// 30 tries to find a spawn
-		for ( int i = 0; i < 30; i++ )
+		for ( int i = 0; i < 40; i++ )
 		{
 			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, 4000 );
 			if ( t.HasValue )
