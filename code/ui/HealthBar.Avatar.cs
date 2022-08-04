@@ -41,6 +41,7 @@ public partial class HealthBar
 		AvatarScene.CameraPosition = pos;
 		AvatarScene.CameraRotation = Rotation.From( angles );
 		AvatarScene.AmbientColor = Color.Gray * 0.2f;
+		AvatarScene.DisablePostProcessing = true;
 		AvatarScene.RenderOnce = true;
 
 		var randpos1 = Vector3.Up * (100.0f + Rand.Float( 20 )) + Vector3.Forward * (-100.0f + Rand.Float( 30 )) + Vector3.Right * (100 + Rand.Float( 20 ));
