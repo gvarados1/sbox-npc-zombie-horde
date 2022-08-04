@@ -704,7 +704,7 @@ public partial class HumanPlayer : Player, IUse
 			tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
 			.Radius( 2 )
 			.Ignore( this )
-			.WithoutTags( "trigger" )
+			.WithoutTags( "trigger", "gib" )
 			.Run();
 
 			// See if any of the parent entities are usable if we ain't.
