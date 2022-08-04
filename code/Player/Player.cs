@@ -683,6 +683,44 @@ public partial class HumanPlayer : Player, IUse
 		}
 	}
 
+	protected override Entity FindUsable()
+	{
+		// First try a direct 0 width line
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
+			.Ignore( this )
+			.WithoutTags( "trigger" )
+			.Run();
+
+		// See if any of the parent entities are usable if we ain't.
+		var ent = tr.Entity;
+		while ( ent.IsValid() && !IsValidUseEntity( ent ) )
+		{
+			ent = ent.Parent;
+		}
+
+		// Nothing found, try a wider search
+		if ( !IsValidUseEntity( ent ) )
+		{
+			tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 85 )
+			.Radius( 2 )
+			.Ignore( this )
+			.WithoutTags( "trigger" )
+			.Run();
+
+			// See if any of the parent entities are usable if we ain't.
+			ent = tr.Entity;
+			while ( ent.IsValid() && !IsValidUseEntity( ent ) )
+			{
+				ent = ent.Parent;
+			}
+		}
+
+		// Still no good? Bail.
+		if ( !IsValidUseEntity( ent ) ) return null;
+
+		return ent;
+	}
+
 	public void StopUse()
 	{
 		StopUsing();
