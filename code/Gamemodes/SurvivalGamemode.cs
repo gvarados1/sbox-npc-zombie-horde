@@ -142,13 +142,16 @@ public partial class SurvivalGamemode : BaseGamemode
 		if ( Trace.TestPoint( ply.Position, "AllowLootBoxSpawn", 500 ) )
 			minRadius = 10;
 
-		// 30 tries to find a spawn
-		for ( int i = 0; i < 40; i++ )
+		bool SpawnedBox = false;
+		// we really want the lootbox to spawn so do a ton of tries
+		for ( int i = 0; i < 30; i++ )
 		{
 			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, 4000 );
 			if ( t.HasValue )
 			{
-				var pos = t.Value;
+				var spawnPos = t.Value;
+				if ( spawnPos.Length > 30000 ) continue; // Sometimes GetPointWithinRadius returns a wacky value? check for that here.
+
 				if ( Trace.TestPoint( t.Value, "BlockLootBoxSpawn", 20 ) )
 				{
 					Log.Info( "lootbox spawn blocked! Tries: " + i.ToString() );
@@ -156,9 +159,24 @@ public partial class SurvivalGamemode : BaseGamemode
 				}
 
 				var box = new LootBox();
-				box.Position = pos;
+				box.Position = spawnPos;
+				SpawnedBox = true;
 				break;
 			}
+		}
+		if ( !SpawnedBox )
+		{
+			// couldn't find a valid spawn. try to spawn in the center of an appropriate spawn blocker...
+			foreach (var blocker in Entity.All.OfType<HammerSpawnBlocker>().ToList())
+			{
+				if(blocker.Tags.Has( "AllowLootBoxSpawn" ) )
+				{
+					var box = new LootBox();
+					box.Position = blocker.Position;
+					break;
+				}
+			}
+			// should we spawn on the player if we can't find a position?
 		}
 	}
 
