@@ -98,30 +98,45 @@ public partial class GameDirector : Entity
 	{
 		var spawnPos = Position;
 		var tries = 0;
-		var maxTries = 50;
+		var maxTries = 30;
 
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 		if ( ply == null ) return null;
 
 		while ( tries <= maxTries )
 		{
-			tries += 1;
 			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
 			if ( t.HasValue )
 			{
 				spawnPos = t.Value;
 				if ( spawnPos.Length > 30000 ) return null; // Sometimes GetPointWithinRadius returns a wacky value? check for that here.
+
+				// cheap test point first
+				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
+				{
+					var tr = Trace.Ray( spawnPos, spawnPos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
+					DebugOverlay.TraceResult( tr, 10 );
+					if ( tr.Entity is HammerSpawnBlocker blocker )
+					{
+						if ( blocker.AffectsCommonZombies && blocker.BlockType == BlockType.BlockSpawning )
+							continue;
+						else if ( blocker.AffectsCommonZombies && blocker.BlockType == BlockType.AllowSpawningRegardlessOfVision )
+							break; // skip LOS trace
+					}
+				}
+
 				var addHeight = new Vector3( 0, 0, 70 );
 
 				var playerPos = ply.EyePosition; 
-				var tr = Trace.Ray( spawnPos + addHeight, playerPos )
+				var tr1 = Trace.Ray( spawnPos + addHeight, playerPos )
 							.UseHitboxes()
 							.Run();
 
-				if ( Vector3.DistanceBetween( tr.EndPosition, playerPos ) > 100 )
+				if ( Vector3.DistanceBetween( tr1.EndPosition, playerPos ) > 100 )
 				{
 					break;
 				}
+				tries += 1;
 			}
 		}
 		if ( tries >= maxTries )

@@ -34,7 +34,16 @@ public partial class HammerSpawnBlocker : ModelEntity
 
 	public override void Spawn()
 	{
-		// setup everything
+		base.Spawn();
+
+		Tags.Add( "trigger" );
+
+		SetupPhysicsFromModel( PhysicsMotionType.Static );
+		//EnableAllCollisions = false;
+		EnableSolidCollisions = false;
+		EnableTouch = true;
+
+		Transmit = TransmitType.Never;
 	}
 
 	/// <summary>

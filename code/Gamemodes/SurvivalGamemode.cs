@@ -129,13 +129,38 @@ public partial class SurvivalGamemode : BaseGamemode
 
 		ZombiesRemaining = 0;
 
+
 		foreach ( var ply in Entity.All.OfType<Player>().ToList())
+		{
+			SpawnLootbox( ply );
+		}
+	}
+
+	public void SpawnLootbox(Player ply)
+	{
+		// 30 tries to find a spawn
+		for( int i = 0; i < 30; i++ )
 		{
 			var t = NavMesh.GetPointWithinRadius( ply.Position, 1000, 4000 );
 			if ( t.HasValue )
 			{
+				var pos = t.Value;
+				// cheap test point first
+				if ( Trace.TestPoint( t.Value, "trigger", 20 ) )
+				{
+					var tr = Trace.Ray( pos, pos + Vector3.Up * 30 ).WithTag( "trigger" ).Radius( 20 ).Run();
+					DebugOverlay.TraceResult( tr, 10 );
+					if ( tr.Entity is HammerSpawnBlocker blocker )
+					{
+						if ( blocker.AffectsLootBoxes && blocker.BlockType == BlockType.BlockSpawning )
+							Log.Info( "lootbox spawn blocked! Tries: " + i.ToString() );
+						continue;
+					}
+				}
+
 				var box = new LootBox();
-				box.Position = t.Value;
+				box.Position = pos;
+				break;
 			}
 		}
 	}
