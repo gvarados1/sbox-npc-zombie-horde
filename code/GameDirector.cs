@@ -96,6 +96,7 @@ public partial class GameDirector : Entity
 	private int ZombieSpawnFails = 0;
 	public BaseZombie SpawnZombie()
 	{
+		Rand.SetSeed( Time.Tick );
 		var spawnPos = Position;
 		var tries = 0;
 		var maxTries = 30;
