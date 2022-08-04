@@ -326,7 +326,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		var tr = Trace.Ray( start, end )
 				.Ignore( Owner )
 				.Ignore( this )
-				.WithoutTags( "zombie" )
+				.WithoutTags( "zombie", "trigger" )
 				.Size( radius )
 				.Run();
 
