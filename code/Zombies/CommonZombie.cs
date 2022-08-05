@@ -211,7 +211,10 @@ public partial class CommonZombie : BaseZombie
 
 				Health -= 8;
 				if ( Health <= 0 )
+				{
 					OnKilled();
+					BaseGamemode.Current.ZombiesRemaining--;
+				}
 			}
 		}
 
