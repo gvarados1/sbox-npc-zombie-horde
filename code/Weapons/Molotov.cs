@@ -43,7 +43,6 @@ partial class Molotov : BaseZomWeapon
 		if ( Owner is not HumanPlayer player ) return;
 
 		if ( !TakeAmmo( 1 ) )
-		if ( false )
 		{
 			Reload();
 			return;
