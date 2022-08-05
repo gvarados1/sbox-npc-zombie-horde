@@ -68,7 +68,7 @@ partial class PipeBomb : BaseZomWeapon
 					Owner = Owner
 				};
 
-				grenade.PhysicsBody.Velocity = Owner.EyeRotation.Forward * 600.0f + Owner.EyeRotation.Up * 200.0f + Owner.Velocity;
+				grenade.PhysicsBody.Velocity = Owner.EyeRotation.Forward * 600.0f + Owner.EyeRotation.Up * 200.0f + Owner.Velocity.WithZ(0);
 
 				_ = grenade.BlowIn( 8.0f );
 			}
