@@ -195,6 +195,17 @@ public partial class CommonZombie : BaseZombie
 			{
 				TimeSinceBurnTicked = 0;
 				SetAnimParameter( "b_jump", true );
+				Velocity *= .9f;
+
+				RenderColor = Color.Lerp( RenderColor, Color.Black, .15f );
+
+				foreach ( var clothing in Children.OfType<ModelEntity>() )
+				{
+					if ( clothing.Tags.Has( "clothes" ) )
+					{
+						clothing.RenderColor = RenderColor;
+					}
+				}
 
 				PlaySound( "zombie.attack" );
 
@@ -266,7 +277,7 @@ public partial class CommonZombie : BaseZombie
 		if ( ZombieState == ZombieState.Burning ) return;
 		ZombieState = ZombieState.Burning;
 		Steer = new NavSteer();
-		Steer.Target = Position + Rotation.Forward * Velocity.Length * 1.3f;
+		Steer.Target = Position + Rotation.Forward * Velocity.Length * 3f;
 		//Speed = Speed * .25f;
 		Speed = 0;
 		TimeSinceBurnTicked = Rand.Float(.5f);
