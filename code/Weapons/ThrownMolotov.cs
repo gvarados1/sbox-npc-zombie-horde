@@ -49,6 +49,7 @@ partial class ThrownMolotov : BasePhysics
 		var flames = new Flames();
 		flames.Position = position + Vector3.Up * 8;
 
+		/*
 		// same thing as regular explosion but only zombies, don't check los, and don't gib
 		var overlaps = Entity.FindInSphere( position, radius ).OfType<CommonZombie>();
 
@@ -83,5 +84,6 @@ partial class ThrownMolotov : BasePhysics
 
 			ent.TakeDamage( damageInfo );
 		}
+		*/
 	}
 }
