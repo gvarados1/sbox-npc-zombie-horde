@@ -98,7 +98,7 @@ partial class LootBox : Prop
 				"HuntingRifle",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
-				"PipeBomb"
+				"PipeBomb",
 				"Molotov"
 			};
 		}
