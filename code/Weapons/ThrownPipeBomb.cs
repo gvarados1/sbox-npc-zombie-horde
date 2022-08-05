@@ -10,6 +10,7 @@ partial class ThrownPipeBomb : BasePhysics
 	public override void Spawn()
 	{
 		base.Spawn();
+		Tags.Add( "Grenade" );
 
 		Model = WorldModel;
 		SetupPhysicsFromModel( PhysicsMotionType.Dynamic );

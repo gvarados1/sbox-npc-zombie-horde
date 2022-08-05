@@ -35,7 +35,8 @@
         "player": "Unset",
         "item": "Collide",
         "glass": "Unset",
-        "zombie": "Unset"
+        "zombie": "Unset",
+        "grenade": "Collide"
       },
       "Pairs": [
         {
@@ -133,6 +134,21 @@
           "a": "player",
           "b": "zombie",
           "r": "Trigger"
+        },
+        {
+          "a": "player",
+          "b": "grenade",
+          "r": "Ignore"
+        },
+        {
+          "a": "item",
+          "b": "grenade",
+          "r": "Ignore"
+        },
+        {
+          "a": "grenade",
+          "b": "grenade",
+          "r": "Ignore"
         }
       ]
     },
