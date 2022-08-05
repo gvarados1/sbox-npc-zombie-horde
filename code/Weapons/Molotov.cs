@@ -18,7 +18,7 @@ partial class Molotov : BaseZomWeapon
 	public override float ReloadTime => 1.0f;
 	public override int ClipSize => 1;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
-	public override int AmmoMax => 100;
+	public override int AmmoMax => 0;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MolotovCocktail.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 
@@ -42,7 +42,7 @@ partial class Molotov : BaseZomWeapon
 
 		if ( Owner is not HumanPlayer player ) return;
 
-		//if ( !TakeAmmo( 1 ) )
+		if ( !TakeAmmo( 1 ) )
 		if ( false )
 		{
 			Reload();
