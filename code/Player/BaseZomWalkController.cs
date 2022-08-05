@@ -126,7 +126,7 @@ namespace ZombieHorde
 
 			// note: I need to multiply pitch by fov/90 (90/fov?). How do I bring the fov over here?
 			EyeLocalPosition += TraceOffset;
-			EyeRotation = Input.Rotation * Rotation.FromPitch( 5 );
+			EyeRotation = Input.Rotation * Rotation.FromPitch( 5.6f );
 
 			if ( Host.IsServer && Owner is HumanPlayer ply )
 			{
