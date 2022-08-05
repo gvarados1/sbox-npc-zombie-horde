@@ -62,11 +62,12 @@ partial class Flames : ModelEntity
 			Light.Brightness = 4.5f + brightnessOffset;
 		}
 
-		DebugOverlay.Sphere( Position, BurnRadius, Color.Red );
-		var overlaps = Entity.FindInSphere( Position, BurnRadius ).OfType<CommonZombie>();
+		//DebugOverlay.Sphere( Position, BurnRadius, Color.Red );
+		var zombies = Entity.FindInSphere( Position, BurnRadius ).OfType<CommonZombie>();
 
-		foreach ( var overlap in overlaps )
+		foreach ( var zom in zombies )
 		{
+			zom.Ignite();
 		}
 	}
 

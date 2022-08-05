@@ -39,7 +39,7 @@ partial class ThrownMolotov : BasePhysics
 		if ( !IsValid ) return;
 
 		Sound.FromWorld( "molotov.break", Position );
-		Explode( this, Owner, Position, 700, 100, 1.5f );
+		Explode( this, Owner, Position, 100, 5, 1.5f );
 		Delete();
 	}
 
@@ -75,7 +75,7 @@ partial class ThrownMolotov : BasePhysics
 			var distanceMul = 1.0f - Math.Clamp( dist / radius, 0.0f, 1.0f );
 			var dmg = damage * distanceMul;
 			var force = (forceScale * distanceMul) * ent.PhysicsBody.Mass;
-			var forceDir = (targetPos - position - Vector3.Down*80).Normal;
+			var forceDir = (targetPos - position - Vector3.Down*10).Normal;
 
 			var damageInfo = DamageInfo.FromBullet( position, forceDir * force, dmg )
 				.WithWeapon( weapon )

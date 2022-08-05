@@ -31,6 +31,7 @@ public partial class CommonZombie : BaseZombie
 	public TimeSince TimeSinceAttacked = 0;
 	public float AttackSpeed = .8f;
 	public TimeUntil TimeUntilUnstunned = 0;
+	private TimeSince TimeSinceBurnTicked = 0;
 
 	public override void Spawn()
 	{
@@ -188,11 +189,26 @@ public partial class CommonZombie : BaseZombie
 				// probably return to wander state or find a new target after x time
 			}
 		}
+		else if (ZombieState == ZombieState.Burning )
+		{
+			if(TimeSinceBurnTicked > .5f )
+			{
+				TimeSinceBurnTicked = 0;
+				SetAnimParameter( "b_jump", true );
+
+				PlaySound( "zombie.attack" );
+
+				Health -= 8;
+				if ( Health <= 0 )
+					OnKilled();
+			}
+		}
 
 
 		// random deletion checks
 		if ( Rand.Int( 500 ) == 1 )
 		{
+
 			CheckForDeletion();	
 		}
 		base.Tick();
@@ -200,6 +216,8 @@ public partial class CommonZombie : BaseZombie
 
 	public void StartLure(Vector3 position )
 	{
+		if ( ZombieState == ZombieState.Burning ) return;
+
 		ZombieState = ZombieState.Lure;
 		Speed = RunSpeed * 1.2f;
 		SetAnimParameter( "b_jump", true );
@@ -228,7 +246,7 @@ public partial class CommonZombie : BaseZombie
 			return;
 		}
 
-			if ( ZombieState == ZombieState.Chase || ZombieState == ZombieState.Lure )
+		if ( ZombieState == ZombieState.Chase || ZombieState == ZombieState.Lure || ZombieState == ZombieState.Burning )
 			return;
 		SetAnimParameter( "b_jump", true );
 		PlaySound( "zombie.attack" );
@@ -241,6 +259,19 @@ public partial class CommonZombie : BaseZombie
 
 		// chance to alert nearby zombies
 		TryAlertNearby( Target, .1f, 800 ); // 800 good range??
+	}
+
+	public void Ignite()
+	{
+		if ( ZombieState == ZombieState.Burning ) return;
+		ZombieState = ZombieState.Burning;
+		Steer = new NavSteer();
+		Steer.Target = Position + Rotation.Forward * Velocity.Length * 1.3f;
+		//Speed = Speed * .25f;
+		Speed = 0;
+		TimeSinceBurnTicked = Rand.Float(.5f);
+
+		Particles.Create( "particles/fire_zombie.vpcf", this );
 	}
 
 	public void StartWander()
@@ -357,7 +388,7 @@ public partial class CommonZombie : BaseZombie
 
 	public bool TryAlert(Entity target, float percent)
 	{
-		if ( ZombieState == ZombieState.Lure ) return false;
+		if ( ZombieState == ZombieState.Lure || ZombieState == ZombieState.Burning ) return false;
 
 		if (Rand.Float(1) < percent )
 		{
@@ -382,5 +413,6 @@ public enum ZombieState
 {
 	Wander,
 	Chase,
-	Lure
+	Lure,
+	Burning
 }
