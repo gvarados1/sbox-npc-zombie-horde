@@ -10,7 +10,7 @@ partial class Flames : ModelEntity
 {
 	public static readonly Model WorldModel = Model.Load( "models/gameplay/volumes/molotov_physics.vmdl" );
 
-	public TimeUntil TimeUntilExpire = 10;
+	public TimeUntil TimeUntilExpire = 16;
 	public Particles Particle;
 	public Sound Sound;
 	public float BurnRadius = 120;
