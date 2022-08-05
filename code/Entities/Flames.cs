@@ -15,6 +15,7 @@ partial class Flames : ModelEntity
 	public Sound Sound;
 	public float BurnRadius = 120;
 	public PointLightEntity Light;
+	public TimeSince TimeSinceTickedPlayers = 0;
 
 	public override void Spawn()
 	{
@@ -68,6 +69,20 @@ partial class Flames : ModelEntity
 		foreach ( var zom in zombies )
 		{
 			zom.Ignite();
+		}
+
+		if(TimeSinceTickedPlayers > .5f )
+		{
+			TimeSinceTickedPlayers = 0;
+
+			var players = Entity.FindInSphere( Position, BurnRadius ).OfType<HumanPlayer>();
+
+			foreach ( var ply in players )
+			{
+				var damageInfo = DamageInfo.Generic( 1 );
+				ply.TakeDamage( damageInfo );
+			}
+
 		}
 	}
 
