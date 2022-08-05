@@ -18,7 +18,7 @@ partial class Molotov : BaseZomWeapon
 	public override float ReloadTime => 1.0f;
 	public override int ClipSize => 1;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
-	public override int AmmoMax => 0;
+	public override int AmmoMax => 1;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MolotovCocktail.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 
@@ -77,14 +77,34 @@ partial class Molotov : BaseZomWeapon
 
 		await Task.Delay( 100 );
 
-		player.SwitchToBestWeapon();
 		Reload();
+		//player.SwitchToBestWeapon();
 
 		if ( IsServer && AmmoClip == 0 && AmmoReserve == 0 )
 		{
 			Delete();
 			player.SwitchToBestWeapon();
 		}
+	}
+
+	public override void Reload()
+	{
+		if ( IsReloading )
+			return;
+
+		if ( AmmoClip >= ClipSize )
+			return;
+
+		if ( AmmoReserve <= 0 && AmmoMax != -1 )
+		{
+			return;
+		}
+
+		TimeSinceReload = 0;
+
+		IsReloading = true;
+
+		//(Owner as AnimatedEntity).SetAnimParameter( "b_reload", true );
 	}
 
 	public override void SetCarryPosition()
