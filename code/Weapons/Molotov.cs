@@ -55,8 +55,7 @@ partial class Molotov : BaseZomWeapon
 		//PlaySound( "dm.grenade_throw" );
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		PlaySound( "rust_boneknife.attack" );
-		//PlaySound( "grenade.pinpull" );
-		PlaySound( "pipebomb.activate" );
+		//PlaySound( "pipebomb.activate" );
 
 		player.SetAnimParameter( "b_attack", true );
 
