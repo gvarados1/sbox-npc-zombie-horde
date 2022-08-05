@@ -15,7 +15,7 @@ partial class Molotov : BaseZomWeapon
 
 	public override float PrimaryRate => 1.0f;
 	public override float SecondaryRate => 1.0f;
-	public override float ReloadTime => 1.0f;
+	public override float ReloadTime => 0.5f;
 	public override int ClipSize => 1;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Grenade;
 	public override int AmmoMax => 1;
