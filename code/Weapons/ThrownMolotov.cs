@@ -46,6 +46,8 @@ partial class ThrownMolotov : BasePhysics
 	public void Explode( Entity weapon, Entity owner, Vector3 position, float radius, float damage, float forceScale )
 	{
 		Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", position );
+		var flames = new Flames();
+		flames.Position = position + Vector3.Up * 8;
 
 		// same thing as regular explosion but only zombies, don't check los, and don't gib
 		var overlaps = Entity.FindInSphere( position, radius ).OfType<CommonZombie>();
