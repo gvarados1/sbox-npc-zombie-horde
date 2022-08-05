@@ -72,7 +72,8 @@ partial class LootBox : Prop
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"AmmoPile",
-				"PipeBomb"
+				"PipeBomb",
+				"Molotov"
 			};
 
 		if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 2 )
@@ -83,9 +84,6 @@ partial class LootBox : Prop
 				"BaseballBat",
 				"FireAxe",
 				"Shovel",
-				//"GrenadeWeapon",
-				"TripmineWeapon",
-				"PipeBomb"
 			};
 		}
 		else if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 5 )
@@ -101,6 +99,7 @@ partial class LootBox : Prop
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"PipeBomb"
+				"Molotov"
 			};
 		}
 
