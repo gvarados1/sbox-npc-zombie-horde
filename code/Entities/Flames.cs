@@ -13,7 +13,7 @@ partial class Flames : ModelEntity
 	public TimeUntil TimeUntilExpire = 16;
 	public Particles Particle;
 	public Sound Sound;
-	public float BurnRadius = 120;
+	public float BurnRadius = 150;
 	public PointLightEntity Light;
 	public TimeSince TimeSinceTickedPlayers = 0;
 
