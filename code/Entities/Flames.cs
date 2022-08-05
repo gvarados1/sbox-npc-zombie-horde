@@ -82,6 +82,8 @@ partial class Flames : ModelEntity
 			{
 				var damageInfo = DamageInfo.Generic( 1 );
 				ply.TakeDamage( damageInfo );
+				//todo: replace with a burn sound
+				ply.PlaySound( "sounds/impacts/impact-bullet-flesh.sound" );
 			}
 
 		}
