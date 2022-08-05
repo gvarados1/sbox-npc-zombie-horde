@@ -75,7 +75,8 @@ partial class Flames : ModelEntity
 		{
 			TimeSinceTickedPlayers = 0;
 
-			var players = Entity.FindInSphere( Position, BurnRadius ).OfType<HumanPlayer>();
+			var raduis = 100;
+			var players = Entity.FindInSphere( Position, raduis ).OfType<HumanPlayer>();
 
 			foreach ( var ply in players )
 			{
