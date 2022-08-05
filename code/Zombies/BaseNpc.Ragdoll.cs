@@ -21,6 +21,7 @@ public partial class BaseNpc
 		ent.CopyBonesFrom( this );
 		ent.SetRagdollVelocityFrom( this );
 		ent.DeleteAsync( 20.0f );
+		ent.RenderColor = RenderColor;
 
 		// Copy the clothes over
 		foreach ( var child in Children )
@@ -33,6 +34,7 @@ public partial class BaseNpc
 				var clothing = new ModelEntity();
 				clothing.CopyFrom( e );
 				clothing.SetParent( ent, true );
+				clothing.RenderColor = RenderColor;
 			}
 		}
 
