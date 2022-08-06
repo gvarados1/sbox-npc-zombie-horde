@@ -77,6 +77,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		base.Spawn();
 
 		SetModel( "weapons/rust_pistol/rust_pistol.vmdl" );
+		Tags.Add( "weapon" );
 
 		var glow = Components.GetOrCreate<Glow>();
 		glow.Active = true;
