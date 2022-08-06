@@ -297,6 +297,8 @@ partial class ZombieGame : Game
 
 		if ( cl.Pawn.IsValid() )
 		{
+			if ( cl.Pawn is HumanPlayer ply )
+				ply.DropInventory();
 			cl.Pawn.Delete();
 			cl.Pawn = null;
 		}

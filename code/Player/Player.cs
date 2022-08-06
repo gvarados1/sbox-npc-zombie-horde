@@ -132,16 +132,7 @@ public partial class HumanPlayer : Player, IUse
 
 		ZomChatBox.AddInformation( To.Everyone, $"{Client.Name} died!", $"avatar:{Client.PlayerId}", "#FF0000" );
 
-		foreach ( var item in Children.ToList() )
-		{
-			if(item is BaseZomWeapon )
-			{
-				if(item is not M1911)
-				Inventory.Drop( item );
-			}
-		}
-
-		Inventory.DeleteContents();
+		DropInventory();
 
 		if ( LastDamage.Flags.HasFlag( DamageFlags.Blast ) )
 		{
@@ -171,6 +162,20 @@ public partial class HumanPlayer : Player, IUse
 		{
 			child.EnableDrawing = false;
 		}
+	}
+
+	public void DropInventory( bool dropPistol = false )
+	{
+		foreach ( var item in Children.ToList() )
+		{
+			if ( item is BaseZomWeapon )
+			{
+				if ( item is not M1911 || dropPistol )
+					Inventory.Drop( item );
+			}
+		}
+
+		Inventory.DeleteContents();
 	}
 
 	[ClientRpc]
