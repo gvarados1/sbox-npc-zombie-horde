@@ -324,6 +324,7 @@ public partial class HumanPlayer : Player, IUse
 				type = PingType.Item;
 				message = DisplayInfo.For( ent ).Name;
 				pos = ent.Position + Vector3.Up * 5;
+				time = 10;
 				// sometimes the ping doesn't work if I set the parent??
 				//pingEntity = ent;
 			}
@@ -342,6 +343,7 @@ public partial class HumanPlayer : Player, IUse
 				type = PingType.Item;
 				message = "Health Kit";
 				pos = ent.Position + Vector3.Up * 5;
+				time = 10;
 				//pingEntity = ent;
 			}
 			else if ( ent is AmmoPile )
@@ -349,6 +351,7 @@ public partial class HumanPlayer : Player, IUse
 				type = PingType.Item;
 				message = "Ammo";
 				pos = ent.Position + Vector3.Up * 5;
+				time = 10;
 				//pingEntity = ent;
 			}
 			else if ( ent is LootBox )
