@@ -93,10 +93,10 @@ partial class LootBox : Prop
 				"F1",
 				"M1A",
 				"Mp5",
-				"FireAxe",
+				//"FireAxe",
 				"Revolver",
 				"TripmineWeapon",
-				"PipeBomb",
+				//"PipeBomb",
 				"Molotov"
 			};
 		}
