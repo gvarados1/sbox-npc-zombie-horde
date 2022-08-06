@@ -81,6 +81,7 @@ partial class LootBox : Prop
 			lootTable = new[]
 			{
 				"Revolver",
+				"Revolver",
 				"BaseballBat",
 				"FireAxe",
 				"Shovel",
