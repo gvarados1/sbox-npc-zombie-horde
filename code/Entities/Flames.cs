@@ -6,7 +6,7 @@ using System.ComponentModel.Design;
 
 namespace ZombieHorde;
 
-partial class Flames : ModelEntity
+public partial class Flames : ModelEntity
 {
 	public static readonly Model WorldModel = Model.Load( "models/gameplay/volumes/molotov_physics.vmdl" );
 
