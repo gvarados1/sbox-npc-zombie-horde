@@ -1,0 +1,222 @@
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+HEADER
+{
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Description = "Gooch Shader";
+}
+
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+FEATURES
+{
+    #include "common/features.hlsl"
+
+    Feature( F_LIGHTWRAP_TEXTURE, 0..1, "Rendering" );
+}
+
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+MODES
+{
+    VrForward();													// Indicates this shader will be used for main rendering
+    Depth( "vr_depth_only.vfx" ); 									// Shader that will be used for shadowing and depth prepass
+    ToolsVis( S_MODE_TOOLS_VIS ); 									// Ability to see in the editor
+    ToolsWireframe( "vr_tools_wireframe.vfx" ); 					// Allows for mat_wireframe to work
+	ToolsShadingComplexity( "vr_tools_shading_complexity.vfx" ); 	// Shows how expensive drawing is in debug view
+}
+
+//=========================================================================================================================
+COMMON
+{
+	#include "common/shared.hlsl"
+}
+
+//=========================================================================================================================
+
+struct VertexInput
+{
+	#include "common/vertexinput.hlsl"
+};
+
+//=========================================================================================================================
+
+struct PixelInput
+{
+	#include "common/pixelinput.hlsl"
+    nointerpolation uint nIsShade : TEXCOORD15;
+    float3 vOffset : TEXCOORD14;
+};
+
+//=========================================================================================================================
+
+VS
+{
+	#include "common/vertex.hlsl"
+	//
+	// Main
+	//
+	PixelInput MainVs( INSTANCED_SHADER_PARAMS( VS_INPUT i ) )
+	{
+		PixelInput o = ProcessVertex( i );
+		// Add your vertex manipulation functions here
+		return FinalizeVertex( o );
+	}
+}
+
+//=========================================================================================================================
+
+PS
+{
+    #include "common/pixel.hlsl"
+
+    StaticCombo( S_LIGHTWRAP_TEXTURE, F_LIGHTWRAP_TEXTURE, Sys( PC ) );
+
+    float4 g_vCoolColor < Default4( 0.36f, 0.56f, 0.74f, 1.0F ); UiType( Color ); UiGroup( "Gooch,10/10" ); >;
+    float4 g_vWarmColor < Default4( 0.85f, 0.86f, 0.97f, 1.0f ); UiType( Color ); UiGroup( "Gooch,10/10" ); >;
+    
+    float g_flCoolAmount< Default(1.0f); Range(0.0f, 1.0f); UiGroup( "Gooch,10/10" ); >;
+	float g_flWarmAmount< Default(1.0f); Range(0.0f, 1.0f); UiGroup( "Gooch,10/10" ); >;
+
+    float3 g_vDiffuseColor< Default3(1.0f, 1.0f, 1.0f); UiType( Color ); UiGroup( "Gooch,10/10" );  >;
+    float3 g_vSpecularColor< Default3(1.0f, 1.0f, 1.0f); UiType( Color ); UiGroup( "Gooch,10/10" ); >;
+    float4 g_vRimColor< Default4(1.0f, 1.0f, 1.0f, 1.0f); UiType( Color ); UiGroup( "Gooch,10/10" ); >;
+    float g_flSpecularIntensive< Default(1.0f); Range(0.0f, 5.0f); UiGroup( "Gooch,10/10" ); >;
+    float g_flShininess< Default(0.5f); Range(0.0f, 1.0f); UiGroup( "Gooch,10/10" ); >;
+    float g_flRimPower< Default(3.0f); Range(0.0f, 10.0f); UiGroup( "Gooch,10/10" );>;
+    float g_flAttenuation< Default(1.0f); Range(0.0f, 1.0f); UiGroup( "Gooch,10/10" );  >;
+    float g_flShadowContribution< Default(1.0f); Range(0.0f, 1.0f); UiGroup( "Gooch,10/10" );  >;
+
+    #if S_LIGHTWRAP_TEXTURE == 1
+        CreateInputTexture2D( TextureLightwrap,            Linear,   8, "", "_lightwrap",  "Gooch,10/10", Default3( 1.0, 1.0, 1.0 ) );
+        CreateTexture2D( g_tLightwrapTexture )  <  Channel( RGB,  Box( TextureLightwrap ), Linear ); OutputFormat( RGBA8888 ); SrgbRead( false ); Filter( POINT ); >;
+    #endif
+	
+    class ShadingModelGooch : ShadingModel
+    {
+        float3 Albedo;
+        float3 NormalWs;
+        float3 PositionWithOffsetWs;
+        float3 PositionWs;
+        float3 ViewRayWs;
+
+        float3 vTotalDiffuse;
+
+        float flCoolAmount;
+        float flWarmAmount;
+        float flShadow;
+
+        //
+        // Consumes a material and converts it to the internal shading parameters,
+        // That is more easily consumed by the shader.
+        //
+        // Inherited classes can expand this to whichever shading model they want.
+        //
+        void Init( const PixelInput pixelInput, const Material material )
+        {
+            Albedo = material.Albedo;
+            NormalWs = material.Normal;
+
+            PositionWithOffsetWs = pixelInput.vPositionWithOffsetWs.xyz;
+            PositionWs = PositionWithOffsetWs + g_vCameraPositionWs;
+            vTotalDiffuse = float3(0,0,0);
+
+            // View ray in World Space
+            ViewRayWs = CalculatePositionToCameraDirWs( PositionWs );
+            flCoolAmount = 0;
+            flWarmAmount = 0;
+            flShadow = 0;
+        }
+        
+        //
+        // Executed for every direct light
+        //
+        LightShade Direct( const LightData light )
+        {
+            LightShade shade;
+
+            // We'll do this at the end so it looks nicer
+            float flGooch = (( 1.0f + dot(light.LightDir, NormalWs) ) / 2.0f) * saturate(light.Visibility * light.Attenuation);
+            flCoolAmount += (1.0f - flGooch);
+            flWarmAmount += flGooch;
+
+            float3 vDiffuseReflection = lerp( g_vDiffuseColor.rgb, 1.0f, saturate(g_flAttenuation * light.NdotL) );
+            float3 vSpecularReflection = 0.0f;
+
+            [branch]
+            if(light.NdotL > 0.0f)
+            {
+                vSpecularReflection = g_flAttenuation * g_vSpecularColor * g_flSpecularIntensive * light.Color * pow(
+                    max(0.0f, dot(reflect(-light.LightDir, NormalWs), ViewRayWs)), (g_flShininess * g_flShininess * 100.0f + 1.0f)
+                );
+            }
+
+            float flRim = 1.0f - saturate( dot(ViewRayWs, NormalWs) );
+            float3 vRimLighting = (g_vRimColor.rgb * pow( flRim, g_flRimPower )) * g_vRimColor.a;
+            flShadow += light.Visibility * light.Attenuation;
+
+            shade.Diffuse = vRimLighting * (light.Visibility * light.Attenuation);
+            shade.Specular = (((vSpecularReflection) * vDiffuseReflection) * ((light.Visibility * light.Attenuation))) * (light.Visibility * light.Attenuation);
+            return shade;
+        }
+        
+        //
+        // Executed for indirect lighting, combine ambient occlusion, etc.
+        //
+        LightShade Indirect()
+        {
+            LightShade shade;
+
+            // TODO: probably should do ambient
+            //float3 vAmbientCube[6];
+		    //SampleLightProbeVolume( vAmbientCube, float3(0,0,0) );
+
+
+            float flNewWarm = saturate( flWarmAmount );
+            float flNewCool = saturate( flCoolAmount);
+
+            #if S_LIGHTWRAP_TEXTURE == 1
+                float3 vCoolColor = Tex2D( g_tLightwrapTexture, float2( flNewCool, 0.5f ) ).rgb;
+                float3 vWarmColor = Tex2D( g_tLightwrapTexture, float2( flNewWarm, 0.5f ) ).rgb;
+
+                float3 vCool = saturate(vCoolColor + g_flCoolAmount) * (Albedo * g_vColorTint);
+                float3 vWarm = saturate(vWarmColor + g_flWarmAmount) * (Albedo * g_vColorTint);
+               
+                shade.Diffuse = (flNewWarm * vWarm) + (flNewCool * vCool);
+            #else
+                float3 vCoolColor = (g_vCoolColor.rgb * g_vCoolColor.a);
+                float3 vWarmColor = (g_vWarmColor.rgb * g_vWarmColor.a);
+
+                float3 vCool = vCoolColor + g_flCoolAmount * (Albedo * g_vColorTint);
+                float3 vWarm = vWarmColor + g_flWarmAmount * (Albedo * g_vColorTint);
+
+                shade.Diffuse = (flNewWarm * vWarm) + (flNewCool * vCool);
+            #endif
+
+            shade.Diffuse *= lerp(1.0f, flShadow, g_flShadowContribution);
+
+            float fSpecularLobe = ( 1.0f - dot( ViewRayWs, NormalWs ) ) * saturate(NormalWs.z) * 2.0f;
+            shade.Specular = 0;
+
+            return shade;
+        }
+    };
+
+	//
+	// Main
+	//
+	PixelOutput MainPs( PixelInput i )
+	{
+		Material m = GatherMaterial( i );
+        
+		//
+		// Declare which shading model we are going to use to calculate lighting
+		//
+		ShadingModelGooch sm;
+		
+		return FinalizePixelMaterial( i, m, sm );
+	}
+}
