@@ -66,6 +66,8 @@ public partial class CommonZombie
 				"models/citizen_clothes/hair/hair_looseblonde/hair.loose.brown.clothing",
 				"models/citizen_clothes/hair/hair_looseblonde/hair.loose.grey.clothing",
 				"models/citizen_clothes/hat/baseball_cap/baseball_cap.clothing",
+				"models/citizen_clothes/hair/hair_shortscruffy/hair_shortscruffy_brown.clothing",
+				"models/citizen_clothes/hair/hair_shortscruffy/hair_shortscruffy_grey.clothing",
 				""
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
