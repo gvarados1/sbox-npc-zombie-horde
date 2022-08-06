@@ -408,7 +408,7 @@ public partial class CommonZombie : BaseZombie
 	{
 		//PlaySound( "zombie.hurt" );
 		Sound.FromWorld( sound, Position + Vector3.Up * 60 );
-		SetAnimParameter( "b_talking", true );
+		//SetAnimParameter( "b_talking", true );
 	}
 
 	public override void OnKilled()
