@@ -26,7 +26,12 @@ public partial class PingMarker : Entity
 
 		//DebugOverlay.Sphere( Position, 20, Color.Blue, 10 );
 
-		if ( parent != null )
+		foreach (var ping in parent.Children.OfType<PingMarker>().ToList())
+		{
+			ping.Delete();
+		}
+
+		if ( parent != null && parent.IsValid )
 			SetParent( parent );
 
 		if(durration > 0)
