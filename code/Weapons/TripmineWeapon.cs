@@ -52,6 +52,7 @@ partial class TripmineWeapon : BaseZomWeapon
 
 		var tr = Trace.Ray( Owner.EyePosition, Owner.EyePosition + Owner.EyeRotation.Forward * 150 )
 				.Ignore( Owner )
+				.WithoutTags("trigger")
 				.Run();
 
 		if ( !tr.Hit )
