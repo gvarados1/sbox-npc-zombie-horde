@@ -305,11 +305,48 @@ public partial class HumanPlayer : Player, IUse
 		if ( TimeSincePinged < .5f ) return;
 		TimeSincePinged = 0;
 
-		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).WithoutTags("trigger").Radius( 5 ).Run();
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).WithoutTags("trigger", "gib").Radius( 1 ).Run();
 		var pos = tr.EndPosition + Vector3.Up * 10;
 		var type = PingType.Generic;
-		//var ping = new PingMarker(pos, type, "Ping!", 5);
-		PingMarker.Ping( To.Everyone, pos, type, "Ping!", 5 );
+		var message = "Ping!";
+		Entity pingEntity = null;
+
+		// do another trace if we hit the ground, check for nearby weapons.
+		if(tr.Entity is WorldEntity)
+			tr = Trace.Ray( tr.EndPosition, tr.EndPosition + Vector3.Up ).Ignore( this ).WithTag("weapon").Radius( 30 ).Run();
+		//DebugOverlay.TraceResult( tr, 3 );
+		if ( tr.Entity != null )
+		{
+			var ent = tr.Entity;
+			if(ent is BaseZomWeapon wep)
+			{
+				type = PingType.Item;
+				message = DisplayInfo.For( ent ).Name;
+				pos = ent.Position + Vector3.Up * 5;
+				// sometimes the ping doesn't work if I set the parent??
+				//pingEntity = ent;
+			}
+		}
+		else
+		{
+			// no weapons nearby, check for other entities
+			tr = Trace.Ray( tr.EndPosition, tr.EndPosition + Vector3.Up ).Ignore( this ).WithoutTags( "trigger", "gib" ).EntitiesOnly().Radius( 30 ).Run();
+		}
+
+		if ( tr.Entity != null )
+		{
+			var ent = tr.Entity;
+			if ( ent is HealthKit )
+			{
+				type = PingType.Item;
+				message = "Health Kit";
+				pos = ent.Position + Vector3.Up * 5;
+				// sometimes the ping doesn't work if I set the parent??
+				//pingEntity = ent;
+			}
+		}
+
+		PingMarker.Ping( To.Everyone, pos, type, message, 5, pingEntity );
 	}
 
 	TimeSince TimeSinceHeartBeat = 0;
