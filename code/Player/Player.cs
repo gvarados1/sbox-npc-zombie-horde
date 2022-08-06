@@ -362,6 +362,13 @@ public partial class HumanPlayer : Player, IUse
 				time = 300;
 				pingEntity = ent;
 			}
+			else if ( ent is CommonZombie )
+			{
+				type = PingType.Item;
+				message = "Zombie!";
+				//pos = ent.Position;;
+				//pingEntity = ent;
+			}
 		}
 
 		PingMarker.Ping( To.Everyone, pos, type, message, time, pingEntity );
