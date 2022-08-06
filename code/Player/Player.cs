@@ -305,7 +305,7 @@ public partial class HumanPlayer : Player, IUse
 		if ( TimeSincePinged < .5f ) return;
 		TimeSincePinged = 0;
 
-		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).Radius( 5 ).Run();
+		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).WithoutTags("trigger").Radius( 5 ).Run();
 		var pos = tr.EndPosition + Vector3.Up * 10;
 		var type = PingType.Generic;
 		//var ping = new PingMarker(pos, type, "Ping!", 5);
