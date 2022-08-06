@@ -41,6 +41,7 @@ public partial class CommonZombie : BaseZombie
 
 		UpdateClothes();
 		Dress();
+		//ResetSkin();
 
 		Health = 50;
 
@@ -49,6 +50,12 @@ public partial class CommonZombie : BaseZombie
 		var gm = BaseGamemode.Current;
 		Health *= gm.ZomHealthMultiplier;
 		RunSpeed *= gm.ZomSpeedMultiplier;
+	}
+
+	[ClientRpc]
+	public void ResetSkin()
+	{
+		Dress();
 	}
 
 	public async void Dress()

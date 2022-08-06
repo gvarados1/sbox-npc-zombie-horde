@@ -23,7 +23,8 @@ public partial class BaseZombie : BaseNpc
 	{
 		base.Spawn();
 
-		SetModel( "models/zombie/citizen_zombie.vmdl" );
+		//SetModel( "models/zombie/citizen_zombie.vmdl" );
+		SetModel( "models/zombie/citizen_zombie_test.vmdl" );
 		EyePosition = Position + Vector3.Up * 64;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 
