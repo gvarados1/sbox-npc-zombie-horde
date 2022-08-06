@@ -95,7 +95,6 @@ partial class LootBox : Prop
 				"Mp5",
 				"FireAxe",
 				"Revolver",
-				"HuntingRifle",
 				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"PipeBomb",
