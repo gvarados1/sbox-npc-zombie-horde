@@ -58,7 +58,7 @@ partial class LootBox : Prop
 		// EPIC LOOT TABLES
 		var lootTable = new[]
 			{
-				"HealthKit",
+				//"HealthKit",
 				"F1",
 				"AKM",
 				"M1A",
@@ -69,7 +69,6 @@ partial class LootBox : Prop
 				"Shovel",
 				"R870",
 				"HuntingRifle",
-				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"AmmoPile",
 				"PipeBomb",
@@ -96,7 +95,6 @@ partial class LootBox : Prop
 				"Mp5",
 				"FireAxe",
 				"Revolver",
-				//"GrenadeWeapon",
 				"TripmineWeapon",
 				"PipeBomb",
 				"Molotov"
