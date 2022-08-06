@@ -107,6 +107,7 @@ public class LaserTrigger : ModelEntity
 
 		if ( other is WorldEntity ) return;
 		if ( other is BaseTrigger ) return;
+		if ( other.Tags.Has( "trigger" ) ) return;
 
 		OnTriggered?.Invoke( other );
 	}
