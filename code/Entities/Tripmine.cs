@@ -34,6 +34,7 @@ partial class Tripmine : ModelEntity
 
 		var tr = Trace.Ray( Position, Position + Rotation.Forward * 4000.0f )
 					.Ignore( this )
+					.WithoutTags("trigger")
 					.Run();
 
 		LaserParticle.SetPosition( 1, tr.EndPosition );
