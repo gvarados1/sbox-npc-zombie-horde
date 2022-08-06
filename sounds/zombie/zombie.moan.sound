@@ -1,0 +1,28 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		UI = false
+		Volume = 2.5
+		VolumeRandom = 0
+		Pitch = 0.95
+		PitchRandom = 0.1
+		Decibels = 90
+		Sounds = 
+		[
+			resource:"sounds/zombie/moan01.vsnd",
+			resource:"sounds/zombie/moan02.vsnd",
+			resource:"sounds/zombie/moan03.vsnd",
+			resource:"sounds/zombie/moan04.vsnd",
+			resource:"sounds/zombie/moan05.vsnd",
+			resource:"sounds/zombie/moan06.vsnd",
+			resource:"sounds/zombie/moan07.vsnd",
+			resource:"sounds/zombie/moan08.vsnd",
+			resource:"sounds/zombie/moan09.vsnd",
+			resource:"sounds/zombie/moan10.vsnd",
+		]
+		SelectionMode = "RandomExclusive"
+		MaximumDistance = 1870.0942
+		MinimumDistance = 93.504715
+	}
+}

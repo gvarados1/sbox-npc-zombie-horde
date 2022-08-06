@@ -3,18 +3,18 @@
 	data = 
 	{
 		UI = false
-		Volume = 10
+		Volume = 1
 		VolumeRandom = 0
-		Pitch = 1
-		PitchRandom = 0
+		Pitch = 0.9
+		PitchRandom = 0.1
 		Decibels = 95
 		Sounds = 
 		[
-			resource:"sounds/zombie/pop1.vsnd",
-			resource:"sounds/zombie/pop2.vsnd",
-			resource:"sounds/zombie/pop3.vsnd",
+			resource:"sounds/zombie/damaged01.vsnd",
+			resource:"sounds/zombie/damaged02.vsnd",
+			resource:"sounds/zombie/damaged03.vsnd",
 		]
-		SelectionMode = "Random"
+		SelectionMode = "RandomExclusive"
 		MaximumDistance = 2080
 		MinimumDistance = 104
 	}

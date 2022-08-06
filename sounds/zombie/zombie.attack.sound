@@ -5,16 +5,16 @@
 		UI = false
 		Volume = 5
 		VolumeRandom = 0
-		Pitch = 1
+		Pitch = 0.95
 		PitchRandom = 0.1
-		Decibels = 60
+		Decibels = 95
 		Sounds = 
 		[
 			resource:"sounds/zombie/hurt02.vsnd",
 			resource:"sounds/zombie/hurt04.vsnd",
 		]
-		SelectionMode = 3
-		MaximumDistance = 848.93066
-		MinimumDistance = 42.446533
+		SelectionMode = "Random"
+		MaximumDistance = 2080
+		MinimumDistance = 104
 	}
 }

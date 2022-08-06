@@ -7,13 +7,13 @@
 		VolumeRandom = 0
 		Pitch = 1
 		PitchRandom = 0.1
-		Decibels = 60
+		Decibels = 95
 		Sounds = 
 		[
 			resource:"sounds/zombie/hurt03.vsnd",
 		]
 		SelectionMode = "Random"
-		MaximumDistance = 848.93066
-		MinimumDistance = 42.446533
+		MaximumDistance = 2080
+		MinimumDistance = 104
 	}
 }

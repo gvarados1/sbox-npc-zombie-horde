@@ -50,6 +50,7 @@ public partial class CommonZombie : BaseZombie
 		var gm = BaseGamemode.Current;
 		Health *= gm.ZomHealthMultiplier;
 		RunSpeed *= gm.ZomSpeedMultiplier;
+		TimeSinceMoan = -Rand.Float( 1f );
 	}
 
 	[ClientRpc]
@@ -89,13 +90,18 @@ public partial class CommonZombie : BaseZombie
 		SetMaterialOverride( EyesMaterial, "eyes" );
 	}
 
+	public TimeSince TimeSinceMoan = 0;
+
 	public override void Tick()
 	{
 		if ( ZombieState == ZombieState.Wander )
 		{
 			//  randomly play sounds
-			if ( Rand.Int( 200 ) == 1 )
-				PlaySound( "zombie.attack" );
+			if ( TimeSinceMoan > 2.4f )
+			{
+				TimeSinceMoan = 0 - Rand.Float( .5f );
+				PlaySoundOnClient( "zombie.moan" );
+			}
 		}
 		else if ( ZombieState == ZombieState.Chase )
 		{
@@ -146,8 +152,11 @@ public partial class CommonZombie : BaseZombie
 						TryPathOffNav();
 					}
 					//  randomly play sounds
-					if ( Rand.Int( 300 ) == 1 )
-						PlaySound( "zombie.attack" );
+					if(TimeSinceMoan > 1.4f )
+					{
+						TimeSinceMoan = 0 - Rand.Float( .5f );
+						PlaySoundOnClient( "zombie.moan" );
+					}
 
 					// attack if near target
 					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
@@ -187,7 +196,7 @@ public partial class CommonZombie : BaseZombie
 				{
 					//  randomly play sounds
 					if ( Rand.Int( 300 ) == 1 )
-						PlaySound( "zombie.attack" );
+						PlaySoundOnClient( "zombie.attack" );
 				}
 			}
 			else
@@ -214,7 +223,7 @@ public partial class CommonZombie : BaseZombie
 					}
 				}
 
-				PlaySound( "zombie.attack" );
+				PlaySoundOnClient( "zombie.hurt" );
 
 				Health -= 8;
 				if ( Health <= 0 )
@@ -229,7 +238,6 @@ public partial class CommonZombie : BaseZombie
 		// random deletion checks
 		if ( Rand.Int( 500 ) == 1 )
 		{
-
 			CheckForDeletion();	
 		}
 		base.Tick();
@@ -270,7 +278,7 @@ public partial class CommonZombie : BaseZombie
 		if ( ZombieState == ZombieState.Chase || ZombieState == ZombieState.Lure || ZombieState == ZombieState.Burning )
 			return;
 		SetAnimParameter( "b_jump", true );
-		PlaySound( "zombie.attack" );
+		PlaySoundOnClient( "zombie.attack" );
 
 		ZombieState = ZombieState.Chase;
 		Speed = RunSpeed;
@@ -322,7 +330,7 @@ public partial class CommonZombie : BaseZombie
 		await Task.Delay( 100 );
 		if ( !IsValid ) return;
 		if ( TimeUntilUnstunned > 0 ) return;
-		PlaySound( "zombie.attack" );
+		PlaySoundOnClient( "zombie.attack" );
 		SetAnimParameter("b_attack", true);
 		Velocity = 0;
 
@@ -391,6 +399,22 @@ public partial class CommonZombie : BaseZombie
 		TryAlert( info.Attacker, .5f );
 		base.TakeDamage( info );
 		Velocity *= 0.1f;
+		if ( Health > 0 )
+			PlaySoundOnClient( "zombie.hurt" );
+	}
+
+	[ClientRpc]
+	public void PlaySoundOnClient(string sound)
+	{
+		//PlaySound( "zombie.hurt" );
+		Sound.FromWorld( sound, Position + Vector3.Up * 60 );
+		SetAnimParameter( "b_talking", true );
+	}
+
+	public override void OnKilled()
+	{
+		base.OnKilled();
+		PlaySoundOnClient( "zombie.death" );
 	}
 
 	public void CheckForDeletion()
