@@ -308,6 +308,7 @@ public partial class HumanPlayer : Player, IUse
 		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 5000 ).Ignore( this ).WithoutTags("trigger", "gib").Radius( 1 ).Run();
 		var pos = tr.EndPosition + Vector3.Up * 10;
 		var type = PingType.Generic;
+		var time = 5;
 		var message = "Ping!";
 		Entity pingEntity = null;
 
@@ -341,12 +342,26 @@ public partial class HumanPlayer : Player, IUse
 				type = PingType.Item;
 				message = "Health Kit";
 				pos = ent.Position + Vector3.Up * 5;
-				// sometimes the ping doesn't work if I set the parent??
 				//pingEntity = ent;
+			}
+			else if ( ent is AmmoPile )
+			{
+				type = PingType.Item;
+				message = "Ammo";
+				pos = ent.Position + Vector3.Up * 5;
+				//pingEntity = ent;
+			}
+			else if ( ent is LootBox )
+			{
+				type = PingType.Item;
+				message = "Treasure!";
+				//pos = ent.Position;
+				time = 300;
+				pingEntity = ent;
 			}
 		}
 
-		PingMarker.Ping( To.Everyone, pos, type, message, 5, pingEntity );
+		PingMarker.Ping( To.Everyone, pos, type, message, time, pingEntity );
 	}
 
 	TimeSince TimeSinceHeartBeat = 0;
