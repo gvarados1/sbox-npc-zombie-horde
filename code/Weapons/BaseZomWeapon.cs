@@ -116,6 +116,9 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		TimeSinceReload = 0;
 
+		if ( (Owner as HumanPlayer).TimeUntilAdrenalineExpires > .5f )
+			TimeSinceReload = ReloadTime / 1.5f;
+
 		IsReloading = true;
 
 		(Owner as AnimatedEntity).SetAnimParameter( "b_reload", true );
@@ -227,6 +230,11 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual void StartReloadEffects()
 	{
 		ViewModelEntity?.SetAnimParameter( "reload", true );
+		var speedMultiplier = 1f;
+		if ( (Owner as HumanPlayer).TimeUntilAdrenalineExpires > .5f )
+			speedMultiplier = 1.5f;
+
+		ViewModelEntity?.SetAnimParameter( "reload_speed", speedMultiplier );
 	}
 
 	public override void AttackPrimary()
