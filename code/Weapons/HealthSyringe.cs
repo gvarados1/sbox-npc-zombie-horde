@@ -4,7 +4,7 @@
 /// Heals Player
 /// </summary>
 [Library( "zom_healthsyringe" ), HammerEntity]
-[EditorModel( "models/dm_grenade.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" )]
 [Title( "Health Syringe" ), Category( "Healing" ), Icon( "favorite" )]
 partial class HealthSyringe : BaseZomWeapon
 {
