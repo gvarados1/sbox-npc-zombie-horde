@@ -1,7 +1,7 @@
 ﻿namespace ZombieHorde;
 
 /// <summary>
-/// Heals Player
+/// Provides a temporary speed boost, Allows the player to preform actions faster, and elimates effects that slow the player down
 /// </summary>
 [Library( "zom_healthsyringe" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" )]
