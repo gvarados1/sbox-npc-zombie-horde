@@ -305,7 +305,7 @@ public partial class HumanPlayer : Player, IUse
 		// adrenaline
 		if(TimeUntilAdrenalineExpires > 0 )
 		{
-			DebugOverlay.ScreenText( TimeUntilAdrenalineExpires.ToString(), 13 );
+			//DebugOverlay.ScreenText( TimeUntilAdrenalineExpires.ToString(), 13 );
 		}
 	}
 
