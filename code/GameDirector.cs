@@ -160,12 +160,24 @@ public partial class GameDirector : Entity
 			}
 		}
 
-		var npc = new CommonZombie
+		CommonZombie npc = null;
+
+		var currentWave = (BaseGamemode.Current as SurvivalGamemode).WaveNumber + 1;
+		// change to spawn uncommon zombies! (armored)
+		if ( currentWave > 4)
 		{
-			Position = spawnPos,
-			//Rotation = Rotation.Random // LOL this looks so stupid! The zombie usually spawns rotated underground and "rises from the grave" - note: probably only use this if spawning zombies in player los
-			//Rotation = Rotation.LookAt( Owner.EyeRotation.Backward.WithZ( 0 ) )
-		};
+			if(Rand.Int(5 + (30/currentWave)) == 0 )
+			{
+				npc = new UncommonZombie();
+				Log.Info( "spawning uncommon zombie!" );
+			}
+		}
+
+		// default to regular common zombie
+		if(npc == null)
+			npc = new CommonZombie();
+
+		npc.Position = spawnPos;
 		if ( BaseGamemode.Current.PopulateZombiesAngry() )
 		{
 			npc.StartChase();
