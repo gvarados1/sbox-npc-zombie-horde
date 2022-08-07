@@ -18,7 +18,7 @@ partial class Adrenaline : BaseZomWeapon
 	//public override WeaponSlot WeaponSlot => WeaponSlot.Pills;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Medkit;
 	public override int AmmoMax => 0;
-	public override string Icon => "/ui/weapons/health_syringe.png";
+	public override string Icon => "/ui/weapons/adrenaline.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 
 	public override void Spawn()
@@ -28,6 +28,13 @@ partial class Adrenaline : BaseZomWeapon
 		Model = WorldModel;
 		AmmoClip = ClipSize;
 		AmmoReserve = AmmoMax;
+		SetMaterialGroup( 1 );
+	}
+
+	public override void ActiveStart( Entity ent )
+	{
+		base.ActiveStart( ent );
+		ViewModelEntity?.SetMaterialGroup( 1 );
 	}
 
 	public override bool CanPrimaryAttack()
@@ -40,11 +47,6 @@ partial class Adrenaline : BaseZomWeapon
 		TimeSincePrimaryAttack = 0;
 
 		if ( Owner is not HumanPlayer player ) return;
-		if ( Owner.Health >= 100 )
-		{
-			PlaySound( "player_use_fail" );
-			return;
-		}
 
 		if ( !TakeAmmo( 1 ) )
 		{
@@ -64,10 +66,11 @@ partial class Adrenaline : BaseZomWeapon
 		await Task.Delay( 1000 );
 		if ( IsServer )
 		{
-			Owner.Health += 50;
+			Owner.Health += 25;
 			if ( Owner.Health > 100 )
 				Owner.Health = 100;
 		}
+		(Owner as HumanPlayer).TimeUntilAdrenalineExpires = 15;
 
 		Reload();
 

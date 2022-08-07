@@ -13,7 +13,13 @@ public partial class HumanWalkController : BaseZomWalkController
 	public override float GetWishSpeed()
 	{
 		var speedMultiplier = 1f;
-		if ( Pawn.Health < 21 )
+		var adrenalineTime = (Pawn as HumanPlayer).TimeUntilAdrenalineExpires;
+
+		if( adrenalineTime >= 1)
+			speedMultiplier = 1.25f;
+		else if ( adrenalineTime > 0 )
+			speedMultiplier = 1 + adrenalineTime * .25f;
+		else if ( Pawn.Health < 21 )
 			speedMultiplier = .75f;
 
 		var ws = Duck.GetWishSpeed();

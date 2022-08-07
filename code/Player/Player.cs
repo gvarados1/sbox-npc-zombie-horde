@@ -24,6 +24,8 @@ public partial class HumanPlayer : Player, IUse
 	public Angles ViewPunchOffset { get; set; } = Angles.Zero;
 	[Net, Predicted]
 	public Angles ViewPunchVelocity { get; set; } = Angles.Zero;
+	[Net, Predicted]
+	public TimeUntil TimeUntilAdrenalineExpires { get; set; } = 0;
 
 	public HumanPlayer()
 	{
@@ -262,6 +264,7 @@ public partial class HumanPlayer : Player, IUse
 
 		SimulateActiveChild( cl, ActiveChild );
 		TickHeartBeat();
+		TickAbilities();
 
 		//passively heal up to 20 hp or take damage while incapacitated
 		if ( Host.IsServer )
@@ -287,7 +290,6 @@ public partial class HumanPlayer : Player, IUse
 						OnKilled();
 				}
 			}
-
 		}
 
 		// kill the player if they fall out of the map somehow
@@ -295,6 +297,15 @@ public partial class HumanPlayer : Player, IUse
 		{
 			if ( Position.z < -20000 )
 				OnKilled();
+		}
+	}
+
+	public void TickAbilities()
+	{
+		// adrenaline
+		if(TimeUntilAdrenalineExpires > 0 )
+		{
+			DebugOverlay.ScreenText( TimeUntilAdrenalineExpires.ToString(), 13 );
 		}
 	}
 
