@@ -55,6 +55,7 @@ partial class LootBox : Prop
 
 	public override void OnKilled()
 	{
+		var waveNumber = (BaseGamemode.Current as SurvivalGamemode).WaveNumber - 1;
 		// EPIC LOOT TABLES
 		var lootTable = new[]
 			{
@@ -75,7 +76,7 @@ partial class LootBox : Prop
 				"Molotov"
 			};
 
-		if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 2 )
+		if ( waveNumber < 1 )
 		{
 			lootTable = new[]
 			{
@@ -86,7 +87,27 @@ partial class LootBox : Prop
 				"Shovel",
 			};
 		}
-		else if ( (BaseGamemode.Current as SurvivalGamemode).WaveNumber < 5 )
+		else if ( waveNumber < 2 )
+		{
+			lootTable = new[]
+			{
+				"F1",
+				"M1A",
+				"Mp5",
+			};
+		}
+		else if ( waveNumber < 3 )
+		{
+			lootTable = new[]
+			{
+				"TripmineWeapon",
+				"TripmineWeapon",
+				"PipeBomb",
+				"Molotov",
+				"Molotov"
+			};
+		}
+		else if ( waveNumber < 4 )
 		{
 			lootTable = new[]
 			{
