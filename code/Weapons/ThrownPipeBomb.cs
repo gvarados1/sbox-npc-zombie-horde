@@ -40,7 +40,7 @@ partial class ThrownPipeBomb : BasePhysics
 		await Task.DelaySeconds( seconds );
 
 		Sound.FromWorld( "grenade.explode", Position );
-		PipeExplosion( this, Owner, Position, 700, 100, 1.5f );
+		PipeExplosion( this, Owner, Position, 700, 300, 1.5f );
 		ZombieGame.Explosion( this, Owner, Position, 300, 60, 1f );
 		Delete();
 	}
@@ -75,7 +75,7 @@ partial class ThrownPipeBomb : BasePhysics
 			var force = (forceScale * distanceMul) * ent.PhysicsBody.Mass;
 			var forceDir = (targetPos - position - Vector3.Down*80).Normal;
 
-			var damageInfo = DamageInfo.FromBullet( position, forceDir * force, dmg )
+			var damageInfo = DamageInfoExt.FromCustom( position, forceDir * force, dmg, DamageFlags.DoNotGib )
 				.WithWeapon( weapon )
 				.WithAttacker( owner );
 
