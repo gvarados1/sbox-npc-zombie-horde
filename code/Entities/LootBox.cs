@@ -71,6 +71,7 @@ partial class LootBox : Prop
 				"Shovel",
 				"R870",
 				"CompactShotgun",
+				"DoubleBarrel",
 				"HuntingRifle",
 				"TripmineWeapon",
 				"AmmoPile",
