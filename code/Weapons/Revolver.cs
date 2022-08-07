@@ -137,6 +137,7 @@ partial class Revolver : BaseZomWeapon
 
 	public override void SetCarryPosition()
 	{
+		base.SetCarryPosition();
 		// dumb hard-coded positions
 		EnableDrawing = true;
 		var transform = Transform.Zero;

@@ -68,6 +68,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual void SetCarryPosition()
 	{
 		EnableDrawing = false;
+		ResetInterpolation();
 	}
 
 	public override string ViewModelPath => "weapons/rust_pistol/v_rust_pistol.vmdl";
