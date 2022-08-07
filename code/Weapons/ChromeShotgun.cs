@@ -18,7 +18,7 @@ partial class ChromeShotgun : BaseZomWeapon
 	public override int AmmoMax => 80;
 	public override float BulletSpread => 0.15f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870_chrome.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	[Net, Predicted]
