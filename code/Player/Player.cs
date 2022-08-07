@@ -605,7 +605,8 @@ public partial class HumanPlayer : Player, IUse
 		LastDamage = info;
 		TimeSincePassiveHealed = -2;
 
-		Velocity = 0;
+		if(TimeUntilAdrenalineExpires < 0)
+			Velocity = 0;
 
 		this.ProceduralHitReaction( info );
 
