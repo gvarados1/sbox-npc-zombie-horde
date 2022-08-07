@@ -31,6 +31,12 @@ partial class Molotov : BaseZomWeapon
 		AmmoReserve = AmmoMax;
 	}
 
+	public override void ActiveStart( Entity ent )
+	{
+		base.ActiveStart( ent );
+		TimeSincePrimaryAttack = 10;
+	}
+
 	public override bool CanPrimaryAttack()
 	{
 		return Input.Released( InputButton.PrimaryAttack );
