@@ -225,8 +225,8 @@ public partial class CommonZombie : BaseZombie
 
 				PlaySoundOnClient( "zombie.hurt" );
 
-				Health -= 8;
-				if ( Health <= 0 )
+				Health *= .75f;
+				if ( Health <= 5 )
 				{
 					OnKilled();
 					BaseGamemode.Current.ZombiesRemaining--;
