@@ -116,6 +116,7 @@ partial class LootBox : Prop
 		{
 				"HealthKit",
 				"HealthSyringe",
+				"Adrenaline",
 		};
 		var index1 = Rand.Int( lootTable.Length - 1 );
 		Type t1 = Type.GetType( lootTable[index1] );
