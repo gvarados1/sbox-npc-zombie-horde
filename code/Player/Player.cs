@@ -362,9 +362,16 @@ public partial class HumanPlayer : Player, IUse
 				time = 300;
 				pingEntity = ent;
 			}
+			else if ( ent is UncommonZombie )
+			{
+				type = PingType.Danger;
+				message = "Armored Zombie!";
+				//pos = ent.Position;;
+				//pingEntity = ent;
+			}
 			else if ( ent is CommonZombie )
 			{
-				type = PingType.Item;
+				type = PingType.Danger;
 				message = "Zombie!";
 				//pos = ent.Position;;
 				//pingEntity = ent;
