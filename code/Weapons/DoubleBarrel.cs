@@ -63,7 +63,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		// Tell the clients to play the shoot effects
 		//
 		ShootEffects();
-		PlaySound( "shotgun1.shoot" );
+		PlaySound( "shotgun1b.shoot" );
 		PlaySound( "shotgun1.shoot.tail" );
 
 		//
@@ -71,7 +71,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		//
 		ShootBullet( BulletSpread, 0.8f, 12.0f, 15.0f, 8 );
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -1.5f, Rand.Float( 1f ) - .5f );
 	}
 
 	[ClientRpc]
@@ -80,7 +80,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		Host.AssertClient();
 
 		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
-		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+		//Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		CrosshairLastShoot = 0;
