@@ -4,12 +4,12 @@
 /// Pump Shotgun
 /// </summary>
 [Library( "zom_chromeshotgun" ), HammerEntity]
-[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl")]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl", "gray")]
 [Title( "Chrome Shotgun" ), Category( "Primary Weapons" )]
 partial class ChromeShotgun : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" );
-	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/v_r870.vmdl";
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/v_r870_chrome.vmdl";
 	public override float PrimaryRate => 1.2f;
 	public override float SecondaryRate => 1.5f;
 	public override int ClipSize => 8;

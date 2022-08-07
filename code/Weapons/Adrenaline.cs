@@ -3,7 +3,7 @@
 /// <summary>
 /// Provides a temporary speed boost, Allows the player to preform actions faster, and elimates effects that slow the player down
 /// </summary>
-[Library( "zom_healthsyringe" ), HammerEntity]
+[Library( "zom_adrenaline" ), HammerEntity]
 [EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/healingitems/syringe/w_syringe.vmdl" )]
 [Title( "Adrenaline" ), Category( "Healing" ), Icon( "favorite" )]
 partial class Adrenaline : BaseZomWeapon
