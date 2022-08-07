@@ -63,7 +63,7 @@ partial class Adrenaline : BaseZomWeapon
 
 		player.SetAnimParameter( "b_attack", true );
 
-		await Task.Delay( 1000 );
+		await Task.Delay( 500 );
 		if ( IsServer )
 		{
 			Owner.Health += 25;
@@ -71,6 +71,8 @@ partial class Adrenaline : BaseZomWeapon
 				Owner.Health = 100;
 		}
 		(Owner as HumanPlayer).TimeUntilAdrenalineExpires = 15;
+
+		await Task.Delay( 500 );
 
 		Reload();
 
