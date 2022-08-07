@@ -63,7 +63,7 @@ partial class HuntingRifle : BaseZomWeapon
 		//PlaySound( "ar3.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1f, 60.0f, 12);
+		ShootBullet( BulletSpread, 1f, 150.0f, 12);
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -3f, Rand.Float( 1f ) - .5f );
 	}
