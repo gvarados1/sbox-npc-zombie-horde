@@ -9,7 +9,7 @@ public partial class UncommonZombie : CommonZombie
 	{
 		base.Spawn();
 		Health = Health * 4;
-		RunSpeed *= .8f;
+		RunSpeed *= .4f;
 	}
 	public override void TakeDamage( DamageInfo info )
 	{
