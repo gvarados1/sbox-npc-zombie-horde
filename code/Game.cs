@@ -169,6 +169,12 @@ partial class ZombieGame : Game
 		postProcess.Saturate.Enabled = true;
 		postProcess.Saturate.Amount = 1;
 
+		postProcess.ChromaticAberration.Enabled = true;
+		postProcess.ChromaticAberration.Offset = 0;
+
+		postProcess.Contrast.Enabled = true;
+		postProcess.Contrast.Contrast = 1;
+
 		postProcess.Blur.Enabled = false;
 
 		Audio.SetEffect( "core.player.death.muffle1", 0 );
@@ -213,6 +219,35 @@ partial class ZombieGame : Game
 			postProcess.FilmGrain.Intensity += (1 - healthDelta) * 0.5f;
 
 			Audio.SetEffect( "core.player.death.muffle1", 1 - healthDelta, velocity: 2.0f );
+
+			// adrenaline
+			var adrenalineTime = (float)(localPlayer as HumanPlayer).TimeUntilAdrenalineExpires;
+			var adrenalineDelta = adrenalineTime.LerpInverse( 1, 0.0f, true ); // start lowhp effects at 90 instead of 100
+			if ( localPlayer.CameraMode is SpectatePlayerCamera cam1 )
+			{
+				if ( cam1.SpectateTarget != null )
+				{
+					if ( cam1.SpectateTarget.LifeState == LifeState.Dying )
+					{
+						healthDelta = 0;
+					}
+				}
+			}
+
+			adrenalineDelta = MathF.Pow( adrenalineDelta, 0.5f );
+
+			postProcess.Vignette.Color = Color.Lerp( postProcess.Vignette.Color, (Color)Color.Parse( "#55EBF0" ), 1 - adrenalineDelta );
+			postProcess.Vignette.Intensity += (1 - adrenalineDelta) * 0.1f;
+			postProcess.Vignette.Smoothness += (1 - adrenalineDelta * 0.5f);
+			postProcess.Vignette.Roundness += (1 - adrenalineDelta) * 0.5f;
+			postProcess.Saturate.Amount += (1 - adrenalineDelta) * .25f;
+			postProcess.ChromaticAberration.Offset = new Vector3( .004f, .006f, .005f ) * (1 - adrenalineDelta);
+			postProcess.Contrast.Contrast = 1 + (1 - adrenalineDelta) * .05f;
+			postProcess.FilmGrain.Intensity += (1 - adrenalineDelta) * 0.25f;
+
+			// how do these work???
+			//Audio.SetEffect( "core.explosion.ring1", 1 - adrenalineDelta);
+			//Audio.SetEffect( "underwater", 1 - adrenalineDelta);
 
 		}
 	}
