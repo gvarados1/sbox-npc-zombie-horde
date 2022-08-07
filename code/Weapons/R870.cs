@@ -10,13 +10,13 @@ partial class R870 : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/w_r870.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/r870/v_r870.vmdl";
-	public override float PrimaryRate => 1.4f;
+	public override float PrimaryRate => 1.2f;
 	public override float SecondaryRate => 1.5f;
 	public override int ClipSize => 8;
 	public override float ReloadTime => 0.6f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override int AmmoMax => 80;
-	public override float BulletSpread => 0.2f;
+	public override float BulletSpread => 0.18f;
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
