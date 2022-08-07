@@ -10,15 +10,15 @@ partial class DoubleBarrel : BaseZomWeapon
 {
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/doublebarrelshotgun/w_doublebarrel.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/shotguns/doublebarrelshotgun/v_doublebarrel.vmdl";
-	public override float PrimaryRate => 1.4f;
+	public override float PrimaryRate => 2.0f;
 	public override float SecondaryRate => 1.5f;
-	public override int ClipSize => 8;
-	public override float ReloadTime => 0.6f;
+	public override int ClipSize => 2;
+	public override float ReloadTime => 2.0f;
 	public override WeaponSlot WeaponSlot => WeaponSlot.Primary;
 	public override int AmmoMax => 80;
-	public override float BulletSpread => 0.2f;
+	public override float BulletSpread => 0.3f;
 	public override float ShotSpreadMultiplier => 1.5f;
-	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870.png";
+	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_DoubleBarrelShotgun.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
 
 	[Net, Predicted]
@@ -35,25 +35,11 @@ partial class DoubleBarrel : BaseZomWeapon
 		AmmoReserve = AmmoMax;
 	}
 
-	public override void Simulate( Client owner )
+	public override bool CanPrimaryAttack()
 	{
-		base.Simulate( owner );
-
-		if ( IsReloading && (Input.Pressed( InputButton.PrimaryAttack )) )
-		{
-			StopReloading = true;
-		}
-	}
-
-	public override void AttackSecondary()
-	{
-		if ( TimeSinceShove > 1 )
-		{
-			//ViewModelEntity?.SetAnimParameter( "fire", true );
-			MeleeAttack();
-			TimeSinceShove = 0;
-			//TimeSincePrimaryAttack = -2;
-		}
+		// slow auto rate, can spam click to fire as fast as possible
+		// this opens us up to cheating with autoclickers but it doesn't really matter in this game
+		return base.CanPrimaryAttack() || Input.Pressed( InputButton.PrimaryAttack );
 	}
 
 	public override void AttackPrimary()
@@ -83,7 +69,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		//
 		// Shoot the bullets
 		//
-		ShootBullet( BulletSpread, 0.8f, 16.0f, 15.0f, 6 );
+		ShootBullet( BulletSpread, 0.8f, 12.0f, 15.0f, 8 );
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
 	}
@@ -98,58 +84,6 @@ partial class DoubleBarrel : BaseZomWeapon
 
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		CrosshairLastShoot = 0;
-	}
-
-	public override void OnReloadFinish()
-	{
-		var stop = StopReloading;
-
-		StopReloading = false;
-		IsReloading = false;
-
-		TimeSincePrimaryAttack = .2f;
-
-		if ( AmmoClip >= ClipSize )
-			return;
-
-		if ( Owner is HumanPlayer player )
-		{
-			// infinite ammo?
-			if ( AmmoMax == -1 )
-			{
-				AmmoClip = ClipSize;
-				return;
-			}
-
-			if(AmmoReserve > 0 )
-			{
-				AmmoReserve -= 1;
-				AmmoClip += 1;
-			}
-			else
-			{
-				FinishReload();
-			}
-
-		if ( AmmoClip < ClipSize && !stop )
-			{
-				Reload();
-			}
-			else
-			{
-				FinishReload();
-			}
-		}
-		if ( stop )
-		{
-			AttackPrimary();
-		}
-	}
-
-	[ClientRpc]
-	protected virtual void FinishReload()
-	{
-		ViewModelEntity?.SetAnimParameter( "reload_finished", true );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )
@@ -210,37 +144,4 @@ partial class DoubleBarrel : BaseZomWeapon
 			draw.Line( thickness, center - Vector2.Left * gap + Vector2.Up * length, center - Vector2.Left * gap - Vector2.Up * length );
 		}
 	}
-
-	/*
-	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
-	{
-		var draw = Render.Draw2D;
-
-		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
-		draw.BlendMode = BlendMode.Lighten;
-		draw.Color = color.WithAlpha( 0.2f + lastAttack.LerpInverse( 1.2f, 0 ) * 0.5f );
-
-		// center
-		{
-			var shootEase = 1 + Easing.BounceIn( lastAttack.LerpInverse( 0.3f, 0.0f ) );
-			draw.Ring( center, 15 * shootEase, 14 * shootEase );
-		}
-
-		// outer lines
-		{
-			var shootEase = Easing.EaseInOut( lastAttack.LerpInverse( 0.4f, 0.0f ) );
-			var length = 30.0f;
-			var gap = 30.0f + shootEase * 50.0f;
-			var thickness = 4.0f;
-			var extraAngle = 30 * shootEase;
-
-			draw.CircleEx( center + Vector2.Right * gap, length, length - thickness, 32, 220, 320 );
-			draw.CircleEx( center - Vector2.Right * gap, length, length - thickness, 32, 40, 140 );
-
-			draw.Color = draw.Color.WithAlpha( 0.1f );
-			draw.CircleEx( center + Vector2.Right * gap * 2.6f, length, length - thickness * 0.5f, 32, 220, 320 );
-			draw.CircleEx( center - Vector2.Right * gap * 2.6f, length, length - thickness * 0.5f, 32, 40, 140 );
-		}
-	}
-	*/
 }
