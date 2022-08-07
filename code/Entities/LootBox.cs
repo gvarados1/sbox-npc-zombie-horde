@@ -70,6 +70,7 @@ partial class LootBox : Prop
 				"Revolver",
 				"Shovel",
 				"R870",
+				"ChromeShotgun",
 				"HuntingRifle",
 				"TripmineWeapon",
 				"AmmoPile",
