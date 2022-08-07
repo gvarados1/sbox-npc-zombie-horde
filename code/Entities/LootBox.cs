@@ -7,6 +7,7 @@ namespace ZombieHorde;
 
 partial class LootBox : Prop
 {
+	public int WaveNumber = 100;
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -27,6 +28,7 @@ partial class LootBox : Prop
 		AsyncPing( .5f );
 
 		Health = 15;
+		WaveNumber = (BaseGamemode.Current as SurvivalGamemode).WaveNumber - 1;
 	}
 
 	[Event.Tick.Server]
@@ -55,7 +57,6 @@ partial class LootBox : Prop
 
 	public override void OnKilled()
 	{
-		var waveNumber = (BaseGamemode.Current as SurvivalGamemode).WaveNumber - 1;
 		// EPIC LOOT TABLES
 		var lootTable = new[]
 			{
@@ -76,7 +77,7 @@ partial class LootBox : Prop
 				"Molotov"
 			};
 
-		if ( waveNumber < 1 )
+		if ( WaveNumber < 1 )
 		{
 			lootTable = new[]
 			{
@@ -87,7 +88,7 @@ partial class LootBox : Prop
 				"Shovel",
 			};
 		}
-		else if ( waveNumber < 2 )
+		else if ( WaveNumber < 2 )
 		{
 			lootTable = new[]
 			{
@@ -96,7 +97,7 @@ partial class LootBox : Prop
 				"Mp5",
 			};
 		}
-		else if ( waveNumber < 3 )
+		else if ( WaveNumber < 3 )
 		{
 			lootTable = new[]
 			{
@@ -107,7 +108,7 @@ partial class LootBox : Prop
 				"Molotov"
 			};
 		}
-		else if ( waveNumber < 4 )
+		else if ( WaveNumber < 4 )
 		{
 			lootTable = new[]
 			{
