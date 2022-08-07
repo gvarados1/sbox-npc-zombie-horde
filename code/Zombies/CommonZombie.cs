@@ -398,13 +398,18 @@ public partial class CommonZombie : BaseZombie
 	{
 		TryAlert( info.Attacker, .5f );
 		base.TakeDamage( info );
+		DamagedEffects();
+	}
+
+	public virtual void DamagedEffects()
+	{
 		Velocity *= 0.1f;
 		if ( Health > 0 )
 			PlaySoundOnClient( "zombie.hurt" );
 	}
 
 	[ClientRpc]
-	public void PlaySoundOnClient(string sound)
+	public virtual void PlaySoundOnClient(string sound)
 	{
 		//PlaySound( "zombie.hurt" );
 		Sound.FromWorld( sound, Position + Vector3.Up * 60 );

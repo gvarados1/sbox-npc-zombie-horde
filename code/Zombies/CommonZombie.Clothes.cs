@@ -4,7 +4,7 @@ public partial class CommonZombie
 {
 	// TODO: clean this up
 	public ClothingContainer Clothing { get; protected set; }
-	public void UpdateClothes()
+	public virtual void UpdateClothes()
 	{
 
 		Clothing ??= new();
