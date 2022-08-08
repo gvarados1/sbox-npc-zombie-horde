@@ -175,7 +175,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 			var adjustedVelocity = MathF.Floor( ply.Velocity.WithZ( 0 ).Length);
 
 			//targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2.5f )* .6f + .4f;
-			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2f )* .7f + .3f;
+			//targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2f )* .7f + .3f;
+			targetMultipler = Math.Min( adjustedVelocity / controller.WalkSpeed + 1, 2f )* .5f + .5f;
 
 
 			
