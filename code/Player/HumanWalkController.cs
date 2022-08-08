@@ -20,7 +20,7 @@ public partial class HumanWalkController : BaseZomWalkController
 		else if ( adrenalineTime > 0 )
 			speedMultiplier = 1 + adrenalineTime * .25f;
 		else if ( Pawn.Health < 21 )
-			speedMultiplier = .75f;
+			speedMultiplier = .8f;
 
 		var ws = Duck.GetWishSpeed();
 		if ( ws >= 0 ) return ws;
