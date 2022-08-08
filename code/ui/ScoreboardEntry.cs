@@ -15,7 +15,7 @@ namespace ZombieHorde
 		//public Label PlayerName;
 		//public Label Kills;
 		//public Label Deaths;
-		public Label Health;
+		//public Label Health;
 		//public Label Ping;
 
 		public ZomScoreboardEntry()
@@ -47,7 +47,7 @@ namespace ZombieHorde
 			PlayerName.Text = Client.Name;
 			Kills.Text = Client.GetInt( "kills" ).ToString();
 			Deaths.Text = Client.GetInt( "deaths" ).ToString();
-			Health.Text = ((int)Client.Pawn.Health).ToString();
+			//Health.Text = ((int)Client.Pawn.Health).ToString();
 			Ping.Text = Client.Ping.ToString();
 			SetClass( "me", Client == Local.Client );
 		}
