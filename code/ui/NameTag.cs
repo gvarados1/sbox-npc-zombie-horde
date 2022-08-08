@@ -50,7 +50,7 @@ internal class NameTagComponent : EntityComponent<HumanPlayer>
 				continue;
 			}
 
-			var shouldRemove = player.Position.Distance( CurrentView.Position ) > 500;
+			var shouldRemove = player.Position.Distance( CurrentView.Position ) > 1000;
 			shouldRemove = shouldRemove || player.LifeState == LifeState.Dead;
 			shouldRemove = shouldRemove || player.IsDormant;
 
