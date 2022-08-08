@@ -20,7 +20,7 @@ namespace ZombieHorde
 
 		public ZomScoreboardEntry()
 		{
-			Health = Add.Label( "", "health" );
+			//Health = Add.Label( "", "health" );
 		}
 
 		RealTimeSince TimeSinceUpdate = 0;

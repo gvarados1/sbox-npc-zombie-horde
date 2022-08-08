@@ -9,7 +9,7 @@ public class Scoreboard : Sandbox.UI.Scoreboard<ZomScoreboardEntry>
 		Header.Add.Label( "player", "name" );
 		Header.Add.Label( "kills", "kills" );
 		Header.Add.Label( "deaths", "deaths" );
-		Header.Add.Label( "health", "health" );
+		//Header.Add.Label( "health", "health" );
 		Header.Add.Label( "ping", "ping" );
 	}
 
@@ -34,7 +34,7 @@ public class Scoreboard : Sandbox.UI.Scoreboard<ZomScoreboardEntry>
 
 	public override bool ShouldBeOpen()
 	{
-		return true;
+		//return true;
 		return base.ShouldBeOpen();
 	}
 }

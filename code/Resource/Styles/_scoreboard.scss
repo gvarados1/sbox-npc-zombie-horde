@@ -1,4 +1,7 @@
-﻿.scoreboard
+﻿$color-primary: #C5E0E3;
+$color-secondary: #90A4A6;
+
+.scoreboard
 {
 	position: absolute;
 	z-index: 100;
@@ -6,19 +9,19 @@
 	font-family: Roboto;
 	font-size: 23px;
 	font-weight: 500;
-	color: white;
+	//color: white;
 	width: 100%;
 	height: 100%;
-	align-items: center;
-	justify-content: center;
+	//align-items: center;
+	//justify-content: center;
 	opacity: 0;
 	transition: all 0.3s ease-out;
 	transform: scale( 1.05 );
 	transform-origin: 50% 50%;
 	background-size: 100% 100%;
 	background-position: center center;
-	background-color: rgba( 10, 10, 10, 0.8 );
-	backdrop-filter: blur( 10px );
+	background-color: rgba(10,10,10,0.5);
+	backdrop-filter: blur( 1px );
 
 	&.open
 	{
