@@ -514,7 +514,10 @@ public partial class HumanPlayer : Player, IUse
 
 	public override void PostCameraSetup( ref CameraSetup setup )
 	{
-		setup.FieldOfView = 90; // hack: force fov to 90 to prevent shooting in the wrong spot
+		var devCam = Local.Client.Components.Get<DevCamera>( true );
+		if ( !devCam.Enabled )
+			setup.FieldOfView = 90; // hack: force fov to 90 to prevent shooting in the wrong spot
+
 		base.PostCameraSetup( ref setup );
 
 		if ( setup.Viewer != null )
