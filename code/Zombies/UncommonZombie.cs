@@ -15,8 +15,8 @@ public partial class UncommonZombie : CommonZombie
 	{
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )
 		{
-			// undo headshot damage multiplier lol
-			info.Damage /= 1.5f;
+			// reduce headshot damage multiplier
+			info.Damage /= 1.25f;
 		}
 		if ( info.Flags.HasFlag( DamageFlags.Bullet ) )
 			info.Damage *= .5f;
