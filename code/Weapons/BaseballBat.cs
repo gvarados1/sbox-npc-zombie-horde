@@ -106,7 +106,7 @@ partial class BaseballBat : BaseZomWeapon
 			if ( !IsServer ) continue;
 			if ( !tr.Entity.IsValid() ) continue;
 
-			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 32, 24 )
+			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 32, 24, DamageFlags.Slash )
 				.UsingTraceResult( tr )
 				.WithAttacker( Owner )
 				.WithWeapon( this );

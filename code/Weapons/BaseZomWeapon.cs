@@ -290,7 +290,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 			if ( !IsServer ) continue;
 			if ( !tr.Entity.IsValid() ) continue;
 
-			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100, 20 )
+			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 100, 20, DamageFlags.Slash )
 				.UsingTraceResult( tr )
 				.WithAttacker( Owner )
 				.WithWeapon( this );
