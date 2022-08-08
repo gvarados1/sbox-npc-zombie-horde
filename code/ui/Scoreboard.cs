@@ -1,7 +1,7 @@
 ﻿using Sandbox.UI.Construct;
 
 namespace ZombieHorde;
-public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
+public class Scoreboard : Sandbox.UI.Scoreboard<ZomScoreboardEntry>
 {
 	protected override void AddHeader()
 	{
@@ -9,6 +9,7 @@ public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
 		Header.Add.Label( "player", "name" );
 		Header.Add.Label( "kills", "kills" );
 		Header.Add.Label( "deaths", "deaths" );
+		Header.Add.Label( "health", "health" );
 		Header.Add.Label( "ping", "ping" );
 	}
 
@@ -27,17 +28,13 @@ public class Scoreboard : Sandbox.UI.Scoreboard<ScoreboardEntry>
 			//
 			// Sort by number of kills, then number of deaths
 			//
-			Canvas.SortChildren<ScoreboardEntry>( ( x ) => (-x.Client.GetInt( "kills" ) * 1000) + x.Client.GetInt( "deaths" ) );
+			Canvas.SortChildren<ZomScoreboardEntry>( ( x ) => (-x.Client.GetInt( "kills" ) * 1000) + x.Client.GetInt( "deaths" ) );
 		}
 	}
 
 	public override bool ShouldBeOpen()
 	{
+		return true;
 		return base.ShouldBeOpen();
 	}
-}
-
-public class ScoreboardEntry : Sandbox.UI.ScoreboardEntry
-{
-
 }
