@@ -130,6 +130,17 @@ partial class LootBox : Prop
 		{
 			var index = Rand.Int( lootTable.Length - 1 );
 			Type t = Type.GetType( lootTable[index] );
+
+			// super basic temporary try not to spawn the same weapon we already have
+			foreach ( var wep in Entity.FindInSphere( Position, 1000 ).OfType<HumanPlayer>().FirstOrDefault().Children.ToList() )
+			{
+				if(wep.GetType() == t )
+				{
+					index = Rand.Int( lootTable.Length - 1 );
+					t = Type.GetType( lootTable[index] );
+				}
+			}
+
 			var prize = TypeLibrary.Create( lootTable[index], t ) as Entity;
 			prize.Position = Position + Vector3.Up * 24;
 			prize.Velocity = Vector3.Random * 100;
