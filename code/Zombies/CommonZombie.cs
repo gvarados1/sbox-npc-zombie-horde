@@ -32,6 +32,7 @@ public partial class CommonZombie : BaseZombie
 	public float AttackSpeed = .8f;
 	public TimeUntil TimeUntilUnstunned = 0;
 	private TimeSince TimeSinceBurnTicked = 0;
+	public float AttackDamage = 6;
 
 	public override void Spawn()
 	{
@@ -351,7 +352,7 @@ public partial class CommonZombie : BaseZombie
 			if ( !IsServer ) continue;
 			if ( !tr.Entity.IsValid() ) continue;
 
-			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 320, 8 )
+			var damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 320, AttackDamage )
 				.UsingTraceResult( tr )
 				.WithAttacker( this )
 				.WithWeapon( this );
