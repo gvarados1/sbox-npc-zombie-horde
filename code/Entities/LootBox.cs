@@ -83,20 +83,20 @@ partial class LootBox : Prop
 		{
 			lootTable = new[]
 			{
-				"Revolver",
-				"Revolver",
-				"BaseballBat",
-				"FireAxe",
-				"Shovel",
+				"F1",
+				"M1A",
+				"Mp5",
 			};
 		}
 		else if ( WaveNumber < 2 )
 		{
 			lootTable = new[]
 			{
-				"F1",
-				"M1A",
-				"Mp5",
+				"Revolver",
+				"Revolver",
+				"BaseballBat",
+				"FireAxe",
+				"Shovel",
 			};
 		}
 		else if ( WaveNumber < 3 )
