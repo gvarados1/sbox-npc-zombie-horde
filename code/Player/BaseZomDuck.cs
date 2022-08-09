@@ -1,4 +1,7 @@
 ﻿
+using static Sandbox.Package;
+using ZombieHorde;
+
 namespace Sandbox
 {
 	[Library]
@@ -38,7 +41,8 @@ namespace Sandbox
 			if ( IsActive )
 			{
 				Controller.SetTag( "ducked" );
-				Controller.EyeLocalPosition *= 0.6f;
+				// setting this in the controller now.
+				//Controller.EyeLocalPosition *= 0.6f;
 			}
 		}
 
@@ -46,6 +50,14 @@ namespace Sandbox
 		{
 			Sound.FromWorld( "player.crouch", Controller.Position );
 			IsActive = true;
+
+			// viewpunch when ducking
+			Rand.SetSeed( Time.Tick );
+
+			if ( Host.IsServer && (Controller as BaseZomWalkController).Pawn is HumanPlayer ply )
+				ply.ViewPunch( Rand.Float( .1f ) + .4f, Rand.Float( .3f ) - .15f );
+			if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
+				ply1.ViewPunch( Rand.Float( .1f ) + .4f, Rand.Float( .3f ) - .15f );
 		}
 
 		protected virtual void TryUnDuck()
@@ -55,6 +67,14 @@ namespace Sandbox
 
 			Sound.FromWorld( "player.stand", Controller.Position );
 			IsActive = false;
+
+			// viewpunch when ducking
+			Rand.SetSeed( Time.Tick );
+
+			if ( Host.IsServer && (Controller as BaseZomWalkController).Pawn is HumanPlayer ply )
+				ply.ViewPunch( Rand.Float( .1f ) - .4f, Rand.Float( .3f ) - .15f );
+			if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
+				ply1.ViewPunch( Rand.Float( .1f ) - .4f, Rand.Float( .3f ) - .15f );
 		}
 
 		// Uck, saving off the bbox kind of sucks

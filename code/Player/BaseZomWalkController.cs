@@ -121,7 +121,9 @@ namespace ZombieHorde
 
 		public override void Simulate()
 		{
-			EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale); ;
+			//EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale);
+			var duckHeight = Duck.IsActive ? 0.6f : .95f;
+			EyeLocalPosition = EyeLocalPosition.LerpTo( Vector3.Up * (EyeHeight * Pawn.Scale) * duckHeight, .5f, true );
 			UpdateBBox();
 
 			// note: I need to multiply pitch by fov/90 (90/fov?). How do I bring the fov over here?
