@@ -39,13 +39,24 @@ partial class ZomViewModel : BaseViewModel
 		{
 			var maxDist = 3;
 			OffsetTarget.Position += (Owner.Velocity * -.01f).Clamp( new Vector3( -maxDist, -maxDist, -maxDist ), new Vector3( maxDist, maxDist, maxDist ) );
-			OffsetTarget.Position += up * MathF.Sin( MathF.Sin( Time.Delta * 25.0f * speed ) ) * speed * -2.5f;
-			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 25.0f * speed ) ) * speed * -2f;
+			OffsetTarget.Position += up * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2.5f;
+			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2f;
 		}
 
 
 		if ( Owner.LifeState == LifeState.Alive && ((Owner as HumanPlayer).Controller is BaseZomWalkController a) && a.Duck.IsActive ) // big chonker to check if player is ducking
 		{
+			/* // test position
+			var maxSwayAngle = 2;
+			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+
+			OffsetTarget.Rotation += Rotation.FromRoll( -150 );
+			OffsetTarget.Rotation += Rotation.FromYaw( -5 );
+			OffsetTarget.Position += up * -4f;
+			OffsetTarget.Position += left * 5f;
+			OffsetTarget.Position += camSetup.Rotation.Backward * 1f;
+			// */
+
 			var maxSwayAngle = 2;
 			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
