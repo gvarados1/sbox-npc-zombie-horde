@@ -59,7 +59,7 @@ partial class F1 : BaseZomWeapon
 		ShootBullet( BulletSpread, 1.5f, 20.0f);
 
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -.2f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -1.2f, Rand.Float( .5f ) - .25f );
 	}
 
 	[ClientRpc]

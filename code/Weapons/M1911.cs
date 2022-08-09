@@ -72,7 +72,7 @@ partial class M1911 : BaseZomWeapon
 		ShootBullet( BulletSpread, 1, 16.0f);
 		Rand.SetSeed( Time.Tick );
 		//(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.25f ) + -.25f ) );
-		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.25f ) + -.25f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.25f ) + -1.25f, Rand.Float( 1f ) - .5f );
 
 	}
 

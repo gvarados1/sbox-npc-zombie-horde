@@ -86,7 +86,7 @@ partial class R870 : BaseZomWeapon
 		//
 		ShootBullet( BulletSpread, 0.8f, 16.0f, 15.0f, 6 );
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -1.5f, Rand.Float( 1f ) - .5f );
 	}
 
 	[ClientRpc]

@@ -66,7 +66,7 @@ partial class HuntingRifle : BaseZomWeapon
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1f, 150.0f, 12);
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -3f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -6f, Rand.Float( 2f ) - 1.5f );
 	}
 
 	[ClientRpc]

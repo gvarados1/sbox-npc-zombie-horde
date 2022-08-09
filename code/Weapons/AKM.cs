@@ -11,7 +11,7 @@ partial class AKM : BaseZomWeapon
 	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/w_akm.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/assaultrifles/akm/v_akm.vmdl";
 
-	public override float PrimaryRate => 8.0f;
+	public override float PrimaryRate => 9.0f;
 	public override float SecondaryRate => 1.0f;
 	public override int ClipSize => 30;
 	public override int AmmoMax => 320;
@@ -57,7 +57,7 @@ partial class AKM : BaseZomWeapon
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1.5f, 35.0f);
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -.3f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -1.3f, Rand.Float( .5f ) - .25f );
 	}
 
 	[ClientRpc]
