@@ -74,7 +74,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -4.5f, Rand.Float( 1f ) + 1f );
 
-		await Task.Delay( 500 );
+		await Task.Delay( 450 );
 		if ( AmmoClip <= 0 )
 		{
 			Reload();
