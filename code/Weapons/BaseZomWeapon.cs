@@ -297,6 +297,13 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 				.WithAttacker( Owner )
 				.WithWeapon( this );
 
+			// hack: use "bullet" damage to destroy glass. I tried making a partial class of the glass but that didn't work. Maybe I was just doing it wrong.
+			if(tr.Entity is GlassShard)
+				damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100, 20)
+				.UsingTraceResult( tr )
+				.WithAttacker( Owner )
+				.WithWeapon( this );
+
 			tr.Entity.TakeDamage( damageInfo );
 		}
 		if ( IsServer )

@@ -108,7 +108,15 @@ partial class Shovel : BaseZomWeapon
 			if ( !IsServer ) continue;
 			if ( !tr.Entity.IsValid() ) continue;
 
-			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 32, 24, DamageFlags.Slash )
+			var damage = 24;
+			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 32, damage, DamageFlags.Slash )
+				.UsingTraceResult( tr )
+				.WithAttacker( Owner )
+				.WithWeapon( this );
+
+			// hack: use "bullet" damage to destroy glass
+			if ( tr.Entity is GlassShard )
+				damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 32, damage )
 				.UsingTraceResult( tr )
 				.WithAttacker( Owner )
 				.WithWeapon( this );
