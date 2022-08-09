@@ -30,8 +30,8 @@ namespace ZombieHorde
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
 
-		[Net, Predicted]
-		public bool IsSprinting { get; set; } = false;
+		[Net, Predicted] public bool IsSprinting { get; set; } = false;
+		[Net, Predicted] public TimeSince TimeSinceLanded { get; set; } = 0;
 
 		public Sandbox.Entity Owner;
 
@@ -491,8 +491,9 @@ namespace ZombieHorde
 				return;
 			}
 
-			if ( GroundEntity == null )
-				return;
+			if ( GroundEntity == null ) return;
+			if ( TimeSinceLanded < .05f ) return; // slight delay before you can jump again
+			
 
 			/*
             if ( player->m_Local.m_bDucking && (player->GetFlags() & FL_DUCKING) )
@@ -542,6 +543,15 @@ namespace ZombieHorde
 			if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
 				ply1.ViewPunch( Rand.Float( .1f ) + -.2f, Rand.Float( 1f ) - .5f );
 			AddEvent( "jump" );
+
+			// sound
+			var tr = Trace.Ray( Position, Position + Vector3.Down * 20 )
+			.Radius( 1 )
+			.Ignore( Pawn )
+			.Run();
+
+			if ( tr.Hit )
+				tr.Surface.DoFootstep( Pawn, tr, 1, 10 );
 		}
 
 		public virtual void AirMove()
@@ -716,6 +726,7 @@ namespace ZombieHorde
 			GroundEntity = tr.Entity;
 			if(GroundEntity != null && prevGround == null )
 			{
+				TimeSinceLanded = 0;
 				// viewpunch when landing
 				Rand.SetSeed( Time.Tick );
 
@@ -723,6 +734,15 @@ namespace ZombieHorde
 					ply.ViewPunch( Rand.Float( .1f ) + .2f, Rand.Float( .3f ) - .15f );
 				if ( Host.IsClient && Local.Pawn is HumanPlayer ply1 )
 					ply1.ViewPunch( Rand.Float( .1f ) + .2f, Rand.Float( .3f ) - .15f );
+
+				// sound
+				var tr1 = Trace.Ray( Position, Position + Vector3.Down * 20 )
+				.Radius( 1 )
+				.Ignore( Pawn )
+				.Run();
+
+				if ( tr1.Hit )
+					tr.Surface.DoFootstep( Pawn, tr1, 1, 10 );
 			}
 
 			if ( GroundEntity != null )
