@@ -30,6 +30,9 @@ namespace ZombieHorde
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
 
+		[Net, Predicted]
+		public bool IsSprinting { get; set; } = false;
+
 		public Sandbox.Entity Owner;
 
 		public BaseZomDuck Duck;
