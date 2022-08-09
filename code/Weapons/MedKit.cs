@@ -16,6 +16,7 @@ partial class MedKit : BaseZomWeapon
 	public override int AmmoMax => 0;
 	public override string Icon => "/ui/weapons/medkit.png";
 	public override Color RarityColor => WeaponRarity.Rare;
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{

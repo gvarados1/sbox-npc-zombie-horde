@@ -22,6 +22,7 @@ partial class BaseballBat : BaseZomWeapon
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_BaseballBat.png";
 	public override Color RarityColor => WeaponRarity.Common;
 	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -2f, 2f ) ).WithRotation( new Angles( 0f, 0f, 120 ).ToRotation() );
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{

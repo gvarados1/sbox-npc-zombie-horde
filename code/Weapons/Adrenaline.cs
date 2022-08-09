@@ -21,6 +21,7 @@ partial class Adrenaline : BaseZomWeapon
 	public override string Icon => "/ui/weapons/adrenaline.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -4f, 2.5f ) ).WithRotation( new Angles( 0f, 0f, 160 ).ToRotation() );
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{

@@ -5,7 +5,7 @@ public partial class HumanWalkController : BaseZomWalkController
 	public HumanWalkController()
 	{
 		WalkSpeed = 140;
-		SprintSpeed = 240;
+		SprintSpeed = 200;
 		DefaultSpeed = 160;
 		AirAcceleration = 10;
 	}
@@ -28,8 +28,12 @@ public partial class HumanWalkController : BaseZomWalkController
 
 		if ( Input.Down( InputButton.Run ) && Input.Forward > 0 )
 		{
-			IsSprinting = true;
-			return SprintSpeed * speedMultiplier;
+			var wep = ((Pawn as Player).ActiveChild as BaseZomWeapon);
+			if ( !Input.Down(InputButton.PrimaryAttack) && wep.TimeSincePrimaryAttack > .5f )
+			{
+				IsSprinting = true;
+				return SprintSpeed * speedMultiplier;
+			}
 		}
 		if ( Input.Down( InputButton.Walk ) ) return WalkSpeed * speedMultiplier;
 

@@ -15,6 +15,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual string Icon => "";
 	public virtual Color RarityColor => WeaponRarity.Common;
 	public virtual Transform ViewModelOffsetDuck => Transform.Zero;
+	public virtual bool UseAlternativeSprintAnimation => false;
 
 	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]
