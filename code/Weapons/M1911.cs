@@ -20,7 +20,7 @@ partial class M1911 : BaseZomWeapon
 	public override int ClipSize => 14;
 	public override int AmmoMax => -1;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_M1911.png";
-	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, 1f, -.5f ) ).WithRotation( new Angles( -10, -4, 0 ).ToRotation() );
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, 1f, -.5f ) ).WithRotation( new Angles( -10, -2, 0 ).ToRotation() );
 
 	public override void Spawn()
 	{
