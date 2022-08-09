@@ -20,13 +20,13 @@ partial class ZomViewModel : BaseViewModel
 
 
 		// position
-		var speed = Owner.Velocity.Length.LerpInverse( 0, 400 );
+		var speed = Owner.Velocity.Length.LerpInverse( 0, 500 );
 		var left = camSetup.Rotation.Left;
 		var up = camSetup.Rotation.Up;
 
 		OffsetTarget.Position = Vector3.Zero;
-		OffsetTarget.Position += up * MathF.Sin( WalkBob ) * speed * -3;
-		OffsetTarget.Position += left * MathF.Sin( WalkBob * 0.5f ) * speed * -2f;
+		OffsetTarget.Position += up * MathF.Sin( WalkBob ) * speed * -2;
+		OffsetTarget.Position += left * MathF.Sin( WalkBob * 0.5f ) * speed * -1.5f;
 
 		if( IsMeleeShoving )
 		{
@@ -39,8 +39,8 @@ partial class ZomViewModel : BaseViewModel
 		{
 			var maxDist = 3;
 			OffsetTarget.Position += (Owner.Velocity * -.01f).Clamp( new Vector3( -maxDist, -maxDist, -maxDist ), new Vector3( maxDist, maxDist, maxDist ) );
-			OffsetTarget.Position += up * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2.5f;
-			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 50.0f * speed ) ) * speed * -2f;
+			OffsetTarget.Position += up * MathF.Sin( MathF.Sin( Time.Delta * 25.0f * speed ) ) * speed * -2.5f;
+			OffsetTarget.Position += left * MathF.Sin( MathF.Sin( Time.Delta * 25.0f * speed ) ) * speed * -2f;
 		}
 
 
