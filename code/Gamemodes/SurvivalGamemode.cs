@@ -224,6 +224,9 @@ public partial class SurvivalGamemode : BaseGamemode
 
 			foreach ( var item in Entity.All.OfType<HealthKit>().ToArray() )
 				item.Delete();
+
+			foreach ( var item in Entity.All.OfType<Tripmine>().ToArray() )
+				item.Delete();
 		}
 		
 		foreach ( var item in Entity.All.OfType<PingMarker>().ToArray() )
