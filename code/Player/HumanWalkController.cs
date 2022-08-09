@@ -5,7 +5,7 @@ public partial class HumanWalkController : BaseZomWalkController
 	public HumanWalkController()
 	{
 		WalkSpeed = 140;
-		SprintSpeed = 200;
+		SprintSpeed = 220;
 		DefaultSpeed = 160;
 		AirAcceleration = 10;
 	}
