@@ -517,10 +517,12 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 	public virtual void RenderHud( in Vector2 screensize )
 	{
-		var devCam = Local.Client.Components.Get<DevCamera>( true );
-		if ( devCam.Enabled ) return;
+		if ( Local.Client.Components.TryGet<DevCamera>( out var devCam, true ) )
+		{
+			if ( devCam.Enabled ) return;
+		}
 
-		var scale = Screen.Height / 1080.0f;
+			var scale = Screen.Height / 1080.0f;
 		var center = new Vector2(Screen.Width * .5f / scale, Screen.Height * .565f / scale);
 
 		if ( IsReloading || (AmmoClip == 0 && ClipSize > 1) )
