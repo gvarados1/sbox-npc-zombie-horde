@@ -90,9 +90,10 @@ partial class ZomViewModel : BaseViewModel
 		// finally set it
 		Position = camSetup.Position + ModelOffset.Position + MeleeOffset.Position;
 		//Rotation = camSetup.Rotation * Rotation.FromPitch(5) * MeleeOffset.Rotation * ModelOffset.Rotation;
-		Rotation = camSetup.Rotation * Rotation.FromPitch(3) * MeleeOffset.Rotation * ModelOffset.Rotation;
+		Rotation = camSetup.Rotation * Rotation.FromPitch(1) * MeleeOffset.Rotation * ModelOffset.Rotation;
 
-		camSetup.ViewModel.FieldOfView = 60;
+		//camSetup.ViewModel.FieldOfView = 60;
+		camSetup.ViewModel.FieldOfView = 50;
 	}
 
 	public async void PlayMeleeAnimation()
