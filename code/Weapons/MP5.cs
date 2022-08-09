@@ -22,6 +22,7 @@ partial class MP5 : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.25f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_MP5.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( -1.5f, .5f, .5f ) ).WithRotation( new Angles( 0, 0, -10 ).ToRotation() );
 
 	public override void Spawn()
 	{

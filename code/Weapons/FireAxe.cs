@@ -21,6 +21,7 @@ partial class FireAxe : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_OldFireAxe.png";
 	public override Color RarityColor => WeaponRarity.Common;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -5f, 0f ) ).WithRotation( new Angles( 0f, 0f, 100 ).ToRotation() );
 
 	public override void Spawn()
 	{

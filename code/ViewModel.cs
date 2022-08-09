@@ -14,6 +14,10 @@ partial class ZomViewModel : BaseViewModel
 
 		AddCameraEffects( ref camSetup );
 
+		var wep = (Owner as Player).ActiveChild as BaseZomWeapon;
+		var isReloading = wep.IsReloading;
+		var isDucking = Owner.LifeState == LifeState.Alive && ((Owner as HumanPlayer).Controller is BaseZomWalkController a) && a.Duck.IsActive;
+
 		// rotation
 		MeleeOffset.Rotation = Rotation.Lerp( MeleeOffset.Rotation, MeleeTarget.Rotation, MeleeRotationLerpSpeed * Time.Delta * 120 );
 		MeleeOffset.Position = Vector3.Lerp( MeleeOffset.Position, MeleeTarget.Position, MeleeRotationLerpSpeed * Time.Delta * 120 );
@@ -44,23 +48,26 @@ partial class ZomViewModel : BaseViewModel
 		}
 
 
-		if ( Owner.LifeState == LifeState.Alive && ((Owner as HumanPlayer).Controller is BaseZomWalkController a) && a.Duck.IsActive ) // big chonker to check if player is ducking
+		if ( isDucking && !isReloading && !IsMeleeShoving ) // big chonker to check if player is ducking
 		{
-			/* // test position
+			//* // test position
 			var maxSwayAngle = 2;
 			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
-			OffsetTarget.Rotation += Rotation.FromRoll( -150 );
-			OffsetTarget.Rotation += Rotation.FromYaw( -5 );
+			OffsetTarget.Rotation += Rotation.FromRoll( -200 );
+			OffsetTarget.Rotation += Rotation.FromYaw( -1 );
 			OffsetTarget.Position += up * -4f;
-			OffsetTarget.Position += left * 5f;
-			OffsetTarget.Position += camSetup.Rotation.Backward * 1f;
-			// */
+			OffsetTarget.Position += left * 4f;
+			OffsetTarget.Position += camSetup.Rotation.Forward * 1f;
+			OffsetTarget.Position += camSetup.Rotation * wep.ViewModelOffsetDuck.Position;
+			OffsetTarget.Rotation += wep.ViewModelOffsetDuck.Rotation;
 
+			// */
+			/*
 			var maxSwayAngle = 2;
 			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
-			OffsetTarget.Rotation += Rotation.FromRoll( -40 );
+			OffsetTarget.Rotation += Rotation.FromRoll( -50 );
 			OffsetTarget.Rotation += Rotation.FromYaw( -5 );
 			OffsetTarget.Position += up * -1f;
 			OffsetTarget.Position += left * 2f;
@@ -80,12 +87,15 @@ partial class ZomViewModel : BaseViewModel
 		}
 		else
 		{
-			var maxSwayAngle = 5;
-			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+			var maxSwayAngle = 3;
+			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.25f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .25f, -maxSwayAngle, maxSwayAngle ) );
 		}
 
-		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f * Time.Delta * 100 );
-		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f * Time.Delta * 100 );
+		//ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f * Time.Delta * 100 );
+		//ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, .05f * Time.Delta * 100 );
+
+		ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, 7f * Time.Delta);
+		ModelOffset.Rotation = Rotation.Lerp( ModelOffset.Rotation, OffsetTarget.Rotation, 7f * Time.Delta);
 
 		// finally set it
 		Position = camSetup.Position + ModelOffset.Position + MeleeOffset.Position;
@@ -99,8 +109,8 @@ partial class ZomViewModel : BaseViewModel
 	public async void PlayMeleeAnimation()
 	{
 		IsMeleeShoving = true;
-		MeleeTarget.Rotation = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 40 ) * Rotation.FromRoll( -15 );
-		MeleeTarget.Position = Vector3.Up * -7;
+		MeleeTarget.Rotation = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 30 ) * Rotation.FromRoll( -15 );
+		MeleeTarget.Position = Vector3.Up * -5 * MeleeTarget.Rotation;
 		MeleeRotationLerpSpeed = .3f;
 		await Task.Delay( 180 );
 		MeleeTarget.Rotation = Rotation.Identity;

@@ -23,6 +23,7 @@ partial class TripmineWeapon : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "/ui/weapons/tripmine.png";
 	public override Color RarityColor => WeaponRarity.Rare;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -4f, 2.5f ) ).WithRotation( new Angles( 0f, 0f, 160 ).ToRotation() );
 
 	public override void Spawn()
 	{

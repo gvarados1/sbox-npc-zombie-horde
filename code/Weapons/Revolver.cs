@@ -22,6 +22,7 @@ partial class Revolver : BaseZomWeapon
 	public override int AmmoMax => -1;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_Revolver.png";
 	public override Color RarityColor => WeaponRarity.Common;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 2f, .5f, -.5f ) ).WithRotation( new Angles( -10, -4, 0 ).ToRotation() );
 
 	public override void Spawn()
 	{

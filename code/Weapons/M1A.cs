@@ -22,6 +22,7 @@ partial class M1A : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 2.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_M1A.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( -1f, 0f, 1.2f ) ).WithRotation( new Angles( -1f, -2.5f, 0 ).ToRotation() );
 
 	public override void Spawn()
 	{

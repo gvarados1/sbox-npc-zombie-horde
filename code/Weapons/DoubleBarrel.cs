@@ -20,6 +20,7 @@ partial class DoubleBarrel : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_DoubleBarrelShotgun.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( .5f, -1f, 1.5f ) ).WithRotation( new Angles( 0, -4, 20 ).ToRotation() );
 
 	[Net, Predicted]
 	public bool StopReloading { get; set; }
