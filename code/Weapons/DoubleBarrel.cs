@@ -43,7 +43,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		return base.CanPrimaryAttack() || Input.Pressed( InputButton.PrimaryAttack );
 	}
 
-	public override void AttackPrimary()
+	public override async void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
 
@@ -73,6 +73,12 @@ partial class DoubleBarrel : BaseZomWeapon
 		ShootBullet( BulletSpread, 0.8f, 12.0f, 15.0f, 8 );
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -4.5f, Rand.Float( 1f ) + 1f );
+
+		await Task.Delay( 500 );
+		if ( AmmoClip <= 0 )
+		{
+			Reload();
+		}
 	}
 
 	[ClientRpc]
