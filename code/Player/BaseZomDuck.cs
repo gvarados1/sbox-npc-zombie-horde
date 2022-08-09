@@ -88,7 +88,8 @@ namespace Sandbox
 			originalMaxs = maxs;
 
 			if ( IsActive )
-				maxs = maxs.WithZ( 42 * scale ); //36 default
+				//maxs = maxs.WithZ( 42 * scale ); //36 default
+				maxs = maxs.WithZ( 52 * scale ); //36 default
 		}
 
 		//

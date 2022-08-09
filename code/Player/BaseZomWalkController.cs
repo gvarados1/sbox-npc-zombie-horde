@@ -122,7 +122,7 @@ namespace ZombieHorde
 		public override void Simulate()
 		{
 			//EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale);
-			var duckHeight = Duck.IsActive ? 0.6f : 1f;
+			var duckHeight = Duck.IsActive ? 0.75f : 1f;
 			EyeLocalPosition = EyeLocalPosition.LerpTo( Vector3.Up * (EyeHeight * Pawn.Scale) * duckHeight, .5f, true );
 			UpdateBBox();
 
