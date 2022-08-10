@@ -54,7 +54,7 @@ partial class ZomViewModel : BaseViewModel
 		{
 			//* // test position
 			var maxSwayAngle = 2;
-			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+			OffsetTarget.Rotation += Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
 			OffsetTarget.Rotation += Rotation.FromRoll( -200 );
 			OffsetTarget.Rotation += Rotation.FromYaw( -1 );
@@ -93,7 +93,7 @@ partial class ZomViewModel : BaseViewModel
 			if ( wep.UseAlternativeSprintAnimation )
 			{
 				var maxSwayAngle = 4;
-				OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+				OffsetTarget.Rotation += Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
 				OffsetTarget.Rotation += Rotation.FromPitch( 10 );
 				OffsetTarget.Rotation += Rotation.FromRoll( 10 );
@@ -105,7 +105,7 @@ partial class ZomViewModel : BaseViewModel
 			else
 			{
 				var maxSwayAngle = 4;
-				OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
+				OffsetTarget.Rotation += Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.5f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .5f, -maxSwayAngle, maxSwayAngle ) );
 
 				OffsetTarget.Rotation += Rotation.FromPitch( 20 );
 				OffsetTarget.Rotation += Rotation.FromRoll( -20 );
@@ -118,7 +118,7 @@ partial class ZomViewModel : BaseViewModel
 		else
 		{
 			var maxSwayAngle = 3;
-			OffsetTarget.Rotation = Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.25f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .25f, -maxSwayAngle, maxSwayAngle ) );
+			OffsetTarget.Rotation += Rotation.FromYaw( Math.Clamp( Input.MouseDelta.x * -.25f, -maxSwayAngle, maxSwayAngle ) ) * Rotation.FromPitch( Math.Clamp( Input.MouseDelta.y * .25f, -maxSwayAngle, maxSwayAngle ) );
 		}
 
 		//ModelOffset.Position = Vector3.Lerp( ModelOffset.Position, OffsetTarget.Position, .05f * Time.Delta * 100 );
