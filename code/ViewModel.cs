@@ -61,7 +61,7 @@ partial class ZomViewModel : BaseViewModel
 			OffsetTarget.Rotation += Rotation.FromYaw( -1 );
 			OffsetTarget.Position += up * -4f;
 			OffsetTarget.Position += left * 4f;
-			OffsetTarget.Position += camSetup.Rotation.Forward * 1f;
+			OffsetTarget.Position += camSetup.Rotation.Forward * 2f;
 			OffsetTarget.Position += camSetup.Rotation * wep.ViewModelOffsetDuck.Position;
 			OffsetTarget.Rotation += wep.ViewModelOffsetDuck.Rotation;
 
