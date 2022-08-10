@@ -2,7 +2,7 @@
 
 partial class ThrownPipeBomb : BasePhysics
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade_spent.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/w_pipebomb.vmdl" );
 
 	Particles GrenadeParticles;
 	private TimeSince TimeSinceBeeped = 0;
