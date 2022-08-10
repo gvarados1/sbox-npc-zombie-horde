@@ -4,12 +4,12 @@
 /// Alerts Zombies, Explodes.
 /// </summary>
 [Library( "zom_pipebomb" ), HammerEntity]
-[EditorModel( "models/dm_grenade.vmdl" )]
+[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/w_pipebomb.vmdl" )]
 [Title( "Pipe Bomb" ), Category( "Grenades" )]
 partial class PipeBomb : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
-	public override string ViewModelPath => "weapons/grenade/v_grenade.vmdl";
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/w_pipebomb.vmdl" );
+	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/v_pipebomb.vmdl";
 
 	public override float PrimaryRate => 1.0f;
 	public override float SecondaryRate => 1.0f;
@@ -20,6 +20,8 @@ partial class PipeBomb : BaseZomWeapon
 	public override string Icon => "/ui/weapons/zom_pipebomb.png";
 	public override Color RarityColor => WeaponRarity.Rare;
 	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -4f, 2.5f ) ).WithRotation( new Angles( 0f, 0f, 160 ).ToRotation() );
+	public override Transform ViewModelOffset => Transform.WithPosition( new Vector3( 0f, -2f, 2.5f ) ).WithRotation( new Angles( 0f, 0f, 50f ).ToRotation() );
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{
