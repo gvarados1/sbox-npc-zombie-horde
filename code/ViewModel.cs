@@ -30,7 +30,7 @@ partial class ZomViewModel : BaseViewModel
 		var left = camSetup.Rotation.Left;
 		var up = camSetup.Rotation.Up;
 
-		OffsetTarget.Position = Vector3.Zero;
+		OffsetTarget = wep.ViewModelOffset;
 		OffsetTarget.Position += up * MathF.Sin( WalkBob ) * speed * -2;
 		OffsetTarget.Position += left * MathF.Sin( WalkBob * 0.5f ) * speed * -1.5f;
 
