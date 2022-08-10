@@ -85,6 +85,22 @@ partial class TripmineWeapon : BaseZomWeapon
 		}
 	}
 
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+
+		var shootEase = SpreadMultiplier * 1f;
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+		//var length = 3.0f + shootEase * 5.0f;
+		var length = 3.0f + shootEase * 5.0f;
+
+		draw.Ring( center, length, length - 3.0f );
+	}
+
 	public override void SimulateAnimator( PawnAnimator anim )
 	{
 		if ( OverridingAnimator ) return;
