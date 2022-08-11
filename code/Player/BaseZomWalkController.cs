@@ -601,6 +601,7 @@ namespace ZombieHorde
 
 		[Net, Predicted] public Vector3 ClimbForward { get; set; }
 		[Net, Predicted] public Vector3 LastGroundPos { get; set; }
+		public Vector3 ClimbTargetPos { get; set; }
 		public virtual void TestClimb()
 		{
 			// check if we're trying to go forward while in the air
@@ -636,6 +637,7 @@ namespace ZombieHorde
 				if ( trCheck3.EndPosition.z - Position.z < 0 ) return;
 				if( ClimbHeight > maxHeight ) return;
 
+				ClimbTargetPos = trCheck3.HitPosition;
 				TimeSinceClimb = 0;
 				Sound.FromWorld( "player.crouch", Position );
 			}
@@ -660,6 +662,10 @@ namespace ZombieHorde
 			Velocity += ClimbForward * 60;
 
 			Move();
+
+			// something went wrong if we're above our target position...
+			if ( ClimbTargetPos.z + 8 < Position.z )
+				return;
 
 			// constantly check if we should still be climbing. Will prevent getting stuck floating forever lol
 			var trCheck = TraceBBoxIgnoreZom( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
