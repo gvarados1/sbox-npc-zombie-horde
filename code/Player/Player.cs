@@ -326,7 +326,6 @@ public partial class HumanPlayer : Player, IUse
 			Stamina += Time.Delta * recoveryRate * TimeSinceUsedStamina; // recover quicker over time
 			Stamina = Stamina.Clamp( 0, MaxStamina );
 		}
-		DebugOverlay.ScreenText( Stamina.ToString(), 12 );
 	}
 
 	public bool TakeStamina(float amount)
