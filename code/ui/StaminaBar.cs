@@ -25,7 +25,7 @@ public partial class StaminaBar : Panel
 		if ( player == null ) return;
 
 		var width = 250;
-		Bar.Style.Width = (width * (player.Stamina / player.MaxStamina).Clamp( 0, 1 ));
+		Bar.Style.Width = ((width * (player.Stamina / player.MaxStamina).Clamp( 0, 1 )).Floor());
 
 		SetClass( "hidden", player.Stamina >= player.MaxStamina );
 	}
