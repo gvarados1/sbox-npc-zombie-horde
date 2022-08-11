@@ -595,7 +595,7 @@ namespace ZombieHorde
 
 				// another trace up to see how far we should go
 				var maxHeight = 110;
-				var minHeight = 20;
+				var minHeight = 10;
 				var adjustedMaxHeight = maxHeight + 72;
 				var trCheck = TraceBBox( Position, Position + Vector3.Up * adjustedMaxHeight );
 
@@ -645,7 +645,7 @@ namespace ZombieHorde
 			var trCheck = TraceBBox( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
 			if ( trCheck.Hit )
 			{
-				var trCheck2 = TraceBBox( Position, Position + Vector3.Up * 20, 2 );
+				var trCheck2 = TraceBBox( Position, Position + Vector3.Up * 10, 2 );
 				if ( !trCheck2.Hit )
 					TimeSinceClimb = 0;
 			}
