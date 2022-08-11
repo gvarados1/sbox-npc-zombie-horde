@@ -1,4 +1,5 @@
 ﻿
+using System.Runtime.CompilerServices;
 using static Sandbox.Event;
 using static Sandbox.Package;
 
@@ -29,9 +30,12 @@ namespace ZombieHorde
 		[Net] public float AirControl { get; set; } = 30.0f;
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
+		[Net] public float MaxClimbHeight { get; set; } = 64;
 
 		[Net, Predicted] public bool IsSprinting { get; set; } = false;
+		[Net, Predicted] public TimeSince TimeSinceClimb { get; set; } = 0;
 		[Net, Predicted] public TimeSince TimeSinceLanded { get; set; } = 0;
+		[Net, Predicted] public TimeSince TimeSinceJumped { get; set; } = 0;
 
 		public Sandbox.Entity Owner;
 
@@ -122,6 +126,8 @@ namespace ZombieHorde
 			}
 		}
 
+		public bool WasClimbing = false;
+		public float ClimbHeight = 0;
 		public override void Simulate()
 		{
 			//EyeLocalPosition = Vector3.Up * (EyeHeight * Pawn.Scale);
@@ -251,9 +257,25 @@ namespace ZombieHorde
 				bStayOnGround = true;
 				WalkMove();
 			}
+			else if(TimeSinceClimb < .5f )
+			{
+				ClimbMove();
+			}
 			else
 			{
+				TestClimb();
 				AirMove();
+			}
+
+			if ( WasClimbing )
+			{
+				if(ClimbHeight > 70 )
+				{
+					// re-deploy weapon if climbing a tall object
+					((Pawn as HumanPlayer).ActiveChild as BaseZomWeapon).Deploy();
+				}
+				Log.Info( ClimbHeight );
+				WasClimbing = false;
 			}
 
 			CategorizePosition( bStayOnGround );
@@ -492,8 +514,13 @@ namespace ZombieHorde
 			}
 
 			if ( GroundEntity == null ) return;
-			if ( TimeSinceLanded < .05f ) return; // slight delay before you can jump again
-			
+			if ( TimeSinceLanded < .05f )
+			{
+				// slight delay before you can jump again
+				// but allow climbing
+				TestClimb();
+				return;
+			}
 
 			/*
             if ( player->m_Local.m_bDucking && (player->GetFlags() & FL_DUCKING) )
@@ -552,8 +579,83 @@ namespace ZombieHorde
 
 			if ( tr.Hit )
 				tr.Surface.DoFootstep( Pawn, tr, 1, 10 );
+			TimeSinceJumped = 0;
 		}
 
+		[Net, Predicted] public Vector3 ClimbForward { get; set; }
+		[Net, Predicted] public Vector3 LastGroundPos { get; set; }
+		public virtual void TestClimb()
+		{
+			// check if we're trying to go forward while in the air
+			if ( !Input.Down( InputButton.Forward ) && TimeSinceJumped > .5f ) return;
+			if ( TimeSinceClimb < 0 ) return;
+
+			// simple bbox trace
+			var tr = TraceBBox( Position + Vector3.Up * StepSize, Position + Vector3.Up * StepSize + Rotation.Forward.WithZ( 0 ).Normal * 10, 2 );
+			if ( tr.Hit )
+			{
+				ClimbForward = Rotation.Forward.WithZ( 0 ).Normal;
+
+				// another trace up to see how far we should go
+				var maxHeight = 100;
+				var minHeight = 70;
+				var adjustedMaxHeight = maxHeight + 72;
+				var trCheck = TraceBBox( Position, Position + Vector3.Up * adjustedMaxHeight );
+
+				if ( trCheck.Distance < minHeight ) return;
+
+				// note: we should probably do incremental traces at different heights to check for windows that we can climb through.
+				// this shouldn't really matter with such a low climb height though?
+
+				// trace forward from hit level
+				var trCheck2 = TraceBBox( trCheck.EndPosition, trCheck.EndPosition + ClimbForward * 10 );
+				// if we hit less than 10 units forwards that means it's a dumb ledge that we shouldn't climb to
+				if ( trCheck2.Hit ) return;
+				
+				// final check, trace down to find height
+				var trCheck3 = TraceBBox( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
+				ClimbHeight = trCheck3.EndPosition.z - LastGroundPos.z;
+				// make sure we're not climbing somehow lol
+				if ( ClimbHeight < 0 ) return;
+				if( ClimbHeight > maxHeight ) return;
+
+				TimeSinceClimb = 0;
+				Sound.FromWorld( "player.crouch", Position );
+			}
+		}
+		public virtual void ClimbMove()
+		{
+			// move forward once we reached the top
+			if ( TimeSinceClimb > Time.Delta * 2 )
+			{
+				Velocity = ClimbForward * 60;
+				if ( TimeSinceClimb > Time.Delta * 4 )
+					Velocity += Vector3.Down * 60;
+				Move();
+				return;
+			}
+
+			WasClimbing = true;
+			Duck.IsActive = true;
+
+			var climbVelocity = 200;
+			Velocity = Vector3.Up * climbVelocity;
+			Velocity += ClimbForward * 60;
+
+			Move();
+
+			// constantly check if we should still be climbing. Will prevent getting stuck floating forever lol
+			var trCheck = TraceBBox( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
+			if ( trCheck.Hit )
+			{
+				var trCheck2 = TraceBBox( Position, Position + Vector3.Up * 70, 2 );
+				if ( !trCheck2.Hit )
+					TimeSinceClimb = 0;
+			}
+				
+			DebugOverlay.TraceResult( trCheck );
+
+		}
 		public virtual void AirMove()
 		{
 			var wishdir = WishVelocity.Normal;
@@ -771,6 +873,7 @@ namespace ZombieHorde
 			GroundEntity = null;
 			GroundNormal = Vector3.Up;
 			SurfaceFriction = 1.0f;
+			LastGroundPos = Position;
 		}
 
 		/// <summary>

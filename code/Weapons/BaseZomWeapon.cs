@@ -49,6 +49,11 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		return AmmoReserve;
 	}
 
+	public virtual void Deploy()
+	{
+		TimeSinceDeployed = 0;
+		ViewModelEntity?.SetAnimParameter( "deploy", true );
+	}
 	public override void ActiveStart( Entity ent )
 	{
 		base.ActiveStart( ent );

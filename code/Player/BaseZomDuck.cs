@@ -62,6 +62,8 @@ namespace Sandbox
 
 		protected virtual void TryUnDuck()
 		{
+			if ( (Controller as BaseZomWalkController).TimeSinceClimb < Time.Delta * 2 ) return;
+
 			var pm = Controller.TraceBBox( Controller.Position, Controller.Position, originalMins, originalMaxs );
 			if ( pm.StartedSolid ) return;
 
