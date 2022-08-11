@@ -31,8 +31,15 @@ public partial class HumanWalkController : BaseZomWalkController
 			var wep = ((Pawn as Player).ActiveChild as BaseZomWeapon);
 			if ( !Input.Down(InputButton.PrimaryAttack) && wep.TimeSincePrimaryAttack > .5f )
 			{
-				IsSprinting = true;
-				return SprintSpeed * speedMultiplier;
+				if( (Pawn as HumanPlayer).TimeSinceStaminaDepleted > 1.5f )
+				{
+					var sprintCost = 5f;
+					if ( (Pawn as HumanPlayer).TakeStamina( sprintCost * Time.Delta ) )
+					{
+						IsSprinting = true;
+						return SprintSpeed * speedMultiplier;
+					}
+				}
 			}
 		}
 		if ( Input.Down( InputButton.Walk ) ) return WalkSpeed * speedMultiplier;

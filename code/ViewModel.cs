@@ -151,16 +151,16 @@ partial class ZomViewModel : BaseViewModel
 		WasSprinting = isSprinting;
 	}
 
-	public async void PlayMeleeAnimation()
+	public async void PlayMeleeAnimation( float speed )
 	{
 		IsMeleeShoving = true;
 		MeleeTarget.Rotation = Rotation.FromPitch( 1 ) * Rotation.FromYaw( 30 ) * Rotation.FromRoll( -15 );
 		MeleeTarget.Position = Vector3.Up * -2 * MeleeTarget.Rotation;
-		MeleeRotationLerpSpeed = .3f;
-		await Task.Delay( 180 );
+		MeleeRotationLerpSpeed = .3f * speed;
+		await Task.Delay( (int)(180 / speed) );
 		MeleeTarget.Rotation = Rotation.Identity;
 		MeleeTarget.Position = Vector3.Zero;
-		MeleeRotationLerpSpeed = .1f;
+		MeleeRotationLerpSpeed = .1f * speed;
 		IsMeleeShoving = false;
 	}
 

@@ -26,6 +26,12 @@ public partial class HumanPlayer : Player, IUse
 	public Angles ViewPunchVelocity { get; set; } = Angles.Zero;
 	[Net, Predicted]
 	public TimeUntil TimeUntilAdrenalineExpires { get; set; } = 0;
+	[Net, Predicted]
+	public float Stamina { get; set; } = 40;
+	[Net]
+	public float MaxStamina { get; set; } = 40;
+	[Net, Predicted]
+	public TimeSince TimeSinceUsedStamina { get; set; } = 0;
 
 	public HumanPlayer()
 	{
@@ -265,6 +271,7 @@ public partial class HumanPlayer : Player, IUse
 		SimulateActiveChild( cl, ActiveChild );
 		TickHeartBeat();
 		TickAbilities();
+		TickStamina();
 
 		//passively heal up to 20 hp or take damage while incapacitated
 		if ( Host.IsServer )
@@ -307,6 +314,38 @@ public partial class HumanPlayer : Player, IUse
 		{
 			//DebugOverlay.ScreenText( TimeUntilAdrenalineExpires.ToString(), 13 );
 		}
+	}
+
+	private TimeSince TimeSinceHeavyBreathing;
+	public TimeSince TimeSinceStaminaDepleted;
+	public void TickStamina()
+	{
+		if ( TimeSinceUsedStamina > 1.5f )
+		{
+			var recoveryRate = 2;
+			Stamina += Time.Delta * recoveryRate * TimeSinceUsedStamina; // recover quicker over time
+			Stamina = Stamina.Clamp( 0, MaxStamina );
+		}
+		DebugOverlay.ScreenText( Stamina.ToString(), 12 );
+	}
+
+	public bool TakeStamina(float amount)
+	{
+		if( (Stamina - amount) >= 0 )
+		{
+			Stamina -= amount;
+			Stamina = Stamina.Clamp( 0, MaxStamina );
+			TimeSinceUsedStamina = 0;
+			return true;
+		}
+
+		if(TimeSinceHeavyBreathing > 8f)
+		{
+			TimeSinceHeavyBreathing = 0;
+			Sound.FromEntity( "human.heavybreathing", this );
+		}
+		TimeSinceStaminaDepleted = 0;
+		return false;
 	}
 
 	private TimeSince TimeSincePinged = 0;
