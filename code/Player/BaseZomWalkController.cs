@@ -111,6 +111,26 @@ namespace ZombieHorde
 			return tr;
 		}
 
+		// bit of a hack. probably a better way to do this...
+		public virtual TraceResult TraceBBoxIgnoreZom( Vector3 start, Vector3 end, Vector3 mins, Vector3 maxs, float liftFeet = 0.0f )
+		{
+			if ( liftFeet > 0 )
+			{
+				start += Vector3.Up * liftFeet;
+				maxs = maxs.WithZ( maxs.z - liftFeet );
+			}
+
+			var tr = Trace.Ray( start + TraceOffset, end + TraceOffset )
+						.Size( mins, maxs )
+						.WithAnyTags( "solid", "playerclip", "passbullets" )
+						.WithoutTags( "gib" )
+						.Ignore( Pawn )
+						.Run();
+
+			tr.EndPosition -= TraceOffset;
+			return tr;
+		}
+
 		protected float SurfaceFriction;
 
 
@@ -588,7 +608,7 @@ namespace ZombieHorde
 			if ( TimeSinceClimb < 0 ) return;
 
 			// simple bbox trace
-			var tr = TraceBBox( Position + Vector3.Up * StepSize, Position + Vector3.Up * StepSize + Rotation.Forward.WithZ( 0 ).Normal * 10, 2 );
+			var tr = TraceBBoxIgnoreZom( Position + Vector3.Up * StepSize, Position + Vector3.Up * StepSize + Rotation.Forward.WithZ( 0 ).Normal * 10, 2 );
 			if ( tr.Hit )
 			{
 				ClimbForward = Rotation.Forward.WithZ( 0 ).Normal;
@@ -597,7 +617,7 @@ namespace ZombieHorde
 				var maxHeight = 110;
 				var minHeight = StepSize;
 				var adjustedMaxHeight = maxHeight + 72;
-				var trCheck = TraceBBox( Position, Position + Vector3.Up * adjustedMaxHeight );
+				var trCheck = TraceBBoxIgnoreZom( Position, Position + Vector3.Up * adjustedMaxHeight );
 
 				if ( trCheck.Distance < minHeight ) return;
 
@@ -605,12 +625,12 @@ namespace ZombieHorde
 				// this shouldn't really matter with such a low climb height though?
 
 				// trace forward from hit level
-				var trCheck2 = TraceBBox( trCheck.EndPosition, trCheck.EndPosition + ClimbForward * 10 );
+				var trCheck2 = TraceBBoxIgnoreZom( trCheck.EndPosition, trCheck.EndPosition + ClimbForward * 10 );
 				// if we hit less than 10 units forwards that means it's a dumb ledge that we shouldn't climb to
 				if ( trCheck2.Hit ) return;
 				
 				// final check, trace down to find height
-				var trCheck3 = TraceBBox( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
+				var trCheck3 = TraceBBoxIgnoreZom( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
 				ClimbHeight = trCheck3.EndPosition.z - LastGroundPos.z;
 				// make sure we're not climbing somehow lol
 				if ( ClimbHeight < 0 ) return;
@@ -642,10 +662,10 @@ namespace ZombieHorde
 			Move();
 
 			// constantly check if we should still be climbing. Will prevent getting stuck floating forever lol
-			var trCheck = TraceBBox( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
+			var trCheck = TraceBBoxIgnoreZom( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
 			if ( trCheck.Hit )
 			{
-				var trCheck2 = TraceBBox( Position, Position + Vector3.Up * StepSize, 2 );
+				var trCheck2 = TraceBBoxIgnoreZom( Position, Position + Vector3.Up * StepSize, 2 );
 				if ( !trCheck2.Hit )
 					TimeSinceClimb = 0;
 			}
@@ -878,6 +898,10 @@ namespace ZombieHorde
 		public override TraceResult TraceBBox( Vector3 start, Vector3 end, float liftFeet = 0.0f )
 		{
 			return TraceBBox( start, end, mins, maxs, liftFeet );
+		}
+		public virtual TraceResult TraceBBoxIgnoreZom( Vector3 start, Vector3 end, float liftFeet = 0.0f )
+		{
+			return TraceBBoxIgnoreZom( start, end, mins, maxs, liftFeet );
 		}
 
 		/// <summary>
