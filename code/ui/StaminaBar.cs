@@ -14,8 +14,9 @@ public partial class StaminaBar : Panel
 	public StaminaBar()
 	{
 		Current = this;
-		Bar = Add.Label( "", "bar" );
 		BarGray = Add.Label( "", "bar-gray" );
+		Bar = Add.Label( "", "bar" );
+		Add.Image( "", "icon" );
 	}
 
 	public override void Tick()
@@ -23,9 +24,9 @@ public partial class StaminaBar : Panel
 		var player = Local.Pawn as HumanPlayer;
 		if ( player == null ) return;
 
-		var width = 200;
+		var width = 250;
 		Bar.Style.Width = (width * (player.Stamina / player.MaxStamina).Clamp( 0, 1 ));
 
-		SetClass( "active", player.Stamina < player.MaxStamina );
+		SetClass( "hidden", player.Stamina >= player.MaxStamina );
 	}
 }
