@@ -26,6 +26,8 @@ public class HudRootPanel : RootPanel
 		AddChild<VoiceList>();
 		AddChild<VoiceSpeaker>();
 
+		AddChild<StaminaBar>();
+
 	}
 
 	public override void Tick()
