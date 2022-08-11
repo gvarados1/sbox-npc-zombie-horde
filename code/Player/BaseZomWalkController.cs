@@ -30,7 +30,6 @@ namespace ZombieHorde
 		[Net] public float AirControl { get; set; } = 30.0f;
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
-		[Net] public float MaxClimbHeight { get; set; } = 64;
 
 		[Net, Predicted] public bool IsSprinting { get; set; } = false;
 		[Net, Predicted] public TimeSince TimeSinceClimb { get; set; } = 0;
@@ -595,7 +594,7 @@ namespace ZombieHorde
 				ClimbForward = Rotation.Forward.WithZ( 0 ).Normal;
 
 				// another trace up to see how far we should go
-				var maxHeight = 100;
+				var maxHeight = 110;
 				var minHeight = 70;
 				var adjustedMaxHeight = maxHeight + 72;
 				var trCheck = TraceBBox( Position, Position + Vector3.Up * adjustedMaxHeight );
