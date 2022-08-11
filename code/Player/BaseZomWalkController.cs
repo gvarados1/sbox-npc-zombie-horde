@@ -632,8 +632,8 @@ namespace ZombieHorde
 				// final check, trace down to find height
 				var trCheck3 = TraceBBoxIgnoreZom( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
 				ClimbHeight = trCheck3.EndPosition.z - LastGroundPos.z;
-				// make sure we're not climbing somehow lol
-				if ( ClimbHeight < 0 ) return;
+				// make sure we're not climbing down somehow lol
+				if ( trCheck3.EndPosition.z - Position.z < 0 ) return;
 				if( ClimbHeight > maxHeight ) return;
 
 				TimeSinceClimb = 0;
