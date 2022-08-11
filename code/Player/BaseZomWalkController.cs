@@ -142,7 +142,6 @@ namespace ZombieHorde
 			if ( Host.IsServer && Owner is HumanPlayer ply )
 			{
 				EyeRotation *= ply.ViewPunchOffset.ToRotation();
-				//Log.Info( $"{Host.Name}, {EyeRotation}" );
 			}
 			
 			if(Host.IsClient && Local.Pawn is HumanPlayer ply1 )
@@ -274,7 +273,6 @@ namespace ZombieHorde
 					// re-deploy weapon if climbing a tall object
 					((Pawn as HumanPlayer).ActiveChild as BaseZomWeapon).Deploy();
 				}
-				Log.Info( ClimbHeight );
 				WasClimbing = false;
 			}
 
