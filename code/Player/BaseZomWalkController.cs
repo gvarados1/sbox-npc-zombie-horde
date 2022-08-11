@@ -650,9 +650,6 @@ namespace ZombieHorde
 				if ( !trCheck2.Hit )
 					TimeSinceClimb = 0;
 			}
-				
-			DebugOverlay.TraceResult( trCheck );
-
 		}
 		public virtual void AirMove()
 		{
