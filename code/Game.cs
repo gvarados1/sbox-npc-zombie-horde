@@ -340,4 +340,38 @@ partial class ZombieGame : Game
 
 	}
 
+	public static bool ZomCleanupFilter( string className, Entity ent )
+	{
+		// Basic Source engine stuff
+		if ( className == "player" || className == "worldent" || className == "worldspawn" || className == "soundent" || className == "player_manager" )
+		{
+			return false;
+		}
+
+		// When creating entities we only have classNames to work with..
+		// The filtered entities below are created through code at runtime, so we don't want to be deleting them
+		if ( ent == null || !ent.IsValid ) return true;
+
+		// Gamemode entity
+		if ( ent is GameBase ) return false;
+
+		// Zombie Horde stuff
+		if ( ent is BaseGamemode ) return false;
+		if ( ent is GameDirector ) return false;
+
+		// HUD entities
+		if ( ent.GetType().IsBasedOnGenericType( typeof( HudEntity<> ) ) ) return false;
+
+		// Player related stuff, clothing and weapons
+		foreach ( var cl in Client.All )
+		{
+			if ( ent.Root == cl.Pawn ) return false;
+		}
+
+		// Do not delete view model
+		if ( ent is BaseViewModel ) return false;
+
+		return true;
+	}
+
 }

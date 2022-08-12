@@ -232,6 +232,21 @@ public partial class SurvivalGamemode : BaseGamemode
 		foreach ( var item in Entity.All.OfType<PingMarker>().ToArray() )
 			item.Delete();
 
+		//Map.Reset( Game.DefaultCleanupFilter );
+		Map.Reset(ZombieGame.ZomCleanupFilter);
+		Sandbox.Internal.Decals.RemoveFromWorld();
+
+		// cleanup world stuff again after resetting the map
+
+		// hack to disable nav blockers on "static" prop_physics
+		foreach ( var prop in Entity.All.OfType<Prop>().ToArray() )
+			prop.Components.RemoveAll();
+
+		// just delete all doors in maps
+		foreach ( var door in Entity.All.OfType<DoorEntity>().ToArray() )
+			door.Delete();
+		//door.Health = 5; // setting health of doors doesn't work :(
+
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
 		TimeUntilNextState = 60;
