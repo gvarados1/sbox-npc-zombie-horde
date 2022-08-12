@@ -869,8 +869,6 @@ public partial class BaseZomWalkController : BasePlayerController
 				Sound.FromWorld( "human.falldamage", Position );
 			}
 
-			Log.Info( $"{LastVelocityZ}, {fallDamage}" );
-
 			// viewpunch when landing
 			Rand.SetSeed( Time.Tick );
 
