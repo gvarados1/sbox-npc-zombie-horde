@@ -13,7 +13,7 @@ public partial class BaseZomWalkController : BasePlayerController
 	[Net] public float DefaultSpeed { get; set; } = 190.0f;
 	[Net] public float Acceleration { get; set; } = 8.0f;
 	[Net] public float AirAcceleration { get; set; } = 20.0f;
-	[Net] public float GroundFriction { get; set; } = 5.0f;
+	[Net] public float GroundFriction { get; set; } = 4.0f;
 	[Net] public float StopSpeed { get; set; } = 100.0f;
 	[Net] public float GroundAngle { get; set; } = 46.0f;
 	[Net] public float StepSize { get; set; } = 18.0f;
