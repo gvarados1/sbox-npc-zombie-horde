@@ -11,23 +11,18 @@ namespace ZombieHorde
 		[Net] public float SprintSpeed { get; set; } = 320.0f;
 		[Net] public float WalkSpeed { get; set; } = 150.0f;
 		[Net] public float DefaultSpeed { get; set; } = 190.0f;
-		[Net] public float Acceleration { get; set; } = 10.0f;
-		[Net] public float AirAcceleration { get; set; } = 50.0f;
-		[Net] public float FallSoundZ { get; set; } = -30.0f;
-		[Net] public float GroundFriction { get; set; } = 4.0f;
+		[Net] public float Acceleration { get; set; } = 8.0f;
+		[Net] public float AirAcceleration { get; set; } = 20.0f;
+		[Net] public float GroundFriction { get; set; } = 5.0f;
 		[Net] public float StopSpeed { get; set; } = 100.0f;
-		[Net] public float Size { get; set; } = 20.0f;
-		[Net] public float DistEpsilon { get; set; } = 0.03125f;
 		[Net] public float GroundAngle { get; set; } = 46.0f;
-		[Net] public float Bounce { get; set; } = 0.0f;
-		[Net] public float MoveFriction { get; set; } = 1.0f;
 		[Net] public float StepSize { get; set; } = 18.0f;
 		[Net] public float MaxNonJumpVelocity { get; set; } = 140.0f;
 		[Net] public float BodyGirth { get; set; } = 32.0f;
 		[Net] public float BodyHeight { get; set; } = 72.0f;
 		[Net] public float EyeHeight { get; set; } = 64.0f;
-		[Net] public float Gravity { get; set; } = 800.0f;
-		[Net] public float AirControl { get; set; } = 30.0f;
+		[Net] public float Gravity { get; set; } = 800.0f; // 800 default
+		[Net] public float AirControl { get; set; } = 80.0f;
 		public bool Swimming { get; set; } = false;
 		[Net] public bool AutoJump { get; set; } = false;
 
@@ -562,7 +557,8 @@ namespace ZombieHorde
 				//   flGroundFactor = g_pPhysicsQuery->GetGameSurfaceproperties( player->m_pSurfaceData )->m_flJumpFactor;
 			}
 
-			float flMul = 268.3281572999747f * 1.2f;
+			//float flMul = 268.3281572999747f * 1.2f; // about 322
+			float flMul = 290;
 
 			float startz = Velocity.z;
 
