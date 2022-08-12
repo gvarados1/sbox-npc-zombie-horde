@@ -245,7 +245,6 @@ public partial class SurvivalGamemode : BaseGamemode
 		// just delete all doors in maps
 		foreach ( var door in Entity.All.OfType<DoorEntity>().ToArray() )
 			door.Delete();
-		//door.Health = 5; // setting health of doors doesn't work :(
 
 		WaveNumber = 0;
 		ZombiesRemaining = 0;
