@@ -320,12 +320,14 @@ public partial class HumanPlayer : Player, IUse
 	public TimeSince TimeSinceStaminaDepleted;
 	public void TickStamina()
 	{
-		if ( TimeSinceUsedStamina > 1.5f )
+		if ( TimeUntilAdrenalineExpires > .5f || TimeSinceUsedStamina > 1.5f )
 		{
 			var recoveryRate = 2;
+			if ( TimeUntilAdrenalineExpires > .5f )
+				recoveryRate = 6;
 			Stamina += Time.Delta * recoveryRate * TimeSinceUsedStamina; // recover quicker over time
-			Stamina = Stamina.Clamp( 0, MaxStamina );
 		}
+		Stamina = Stamina.Clamp( 0, MaxStamina );
 	}
 
 	public bool TakeStamina(float amount)
