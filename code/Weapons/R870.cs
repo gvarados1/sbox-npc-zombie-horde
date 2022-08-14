@@ -20,6 +20,7 @@ partial class R870 : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_R870.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, .5f, 2f ) ).WithRotation( new Angles( -4, -3, 60 ).ToRotation() );
 
 	[Net, Predicted]
 	public bool StopReloading { get; set; }
@@ -85,7 +86,7 @@ partial class R870 : BaseZomWeapon
 		//
 		ShootBullet( BulletSpread, 0.8f, 16.0f, 15.0f, 6 );
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -.5f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -1.5f, Rand.Float( 1f ) - .5f );
 	}
 
 	[ClientRpc]

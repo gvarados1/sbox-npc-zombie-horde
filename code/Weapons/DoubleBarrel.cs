@@ -20,6 +20,7 @@ partial class DoubleBarrel : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_DoubleBarrelShotgun.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( .5f, -1f, 1.5f ) ).WithRotation( new Angles( 0, -4, 20 ).ToRotation() );
 
 	[Net, Predicted]
 	public bool StopReloading { get; set; }
@@ -42,7 +43,7 @@ partial class DoubleBarrel : BaseZomWeapon
 		return base.CanPrimaryAttack() || Input.Pressed( InputButton.PrimaryAttack );
 	}
 
-	public override void AttackPrimary()
+	public override async void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
 
@@ -71,7 +72,13 @@ partial class DoubleBarrel : BaseZomWeapon
 		//
 		ShootBullet( BulletSpread, 0.8f, 12.0f, 15.0f, 8 );
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -1.5f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.5f ) + -4.5f, Rand.Float( 1f ) + 1f );
+
+		await Task.Delay( 450 );
+		if ( AmmoClip <= 0 )
+		{
+			Reload();
+		}
 	}
 
 	[ClientRpc]

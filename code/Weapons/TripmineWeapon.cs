@@ -23,6 +23,8 @@ partial class TripmineWeapon : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.5f;
 	public override string Icon => "/ui/weapons/tripmine.png";
 	public override Color RarityColor => WeaponRarity.Rare;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -4f, 2.5f ) ).WithRotation( new Angles( 0f, 0f, 160 ).ToRotation() );
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{
@@ -81,6 +83,22 @@ partial class TripmineWeapon : BaseZomWeapon
 			Delete();
 			player.SwitchToBestWeapon();
 		}
+	}
+
+	public override void RenderCrosshair( in Vector2 center, float lastAttack, float lastReload )
+	{
+		var draw = Render.Draw2D;
+
+		var shootEase = SpreadMultiplier * 1f;
+		var color = Color.Lerp( Color.Red, Color.White, lastReload.LerpInverse( 0.0f, 0.4f ) );
+
+		draw.BlendMode = BlendMode.Lighten;
+		draw.Color = color.WithAlpha( 0.2f + CrosshairLastShoot.Relative.LerpInverse( 1.2f, 0 ) * 0.5f );
+
+		//var length = 3.0f + shootEase * 5.0f;
+		var length = 3.0f + shootEase * 5.0f;
+
+		draw.Ring( center, length, length - 3.0f );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )

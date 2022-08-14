@@ -22,6 +22,7 @@ partial class HuntingRifle : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 2.5f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_HuntingRifle.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( -1f, -0.5f, 3.5f ) ).WithRotation( new Angles( 9f, 0f, 100 ).ToRotation() );
 
 	public override void Spawn()
 	{
@@ -65,7 +66,7 @@ partial class HuntingRifle : BaseZomWeapon
 		// Shoot the bullets
 		ShootBullet( BulletSpread, 1f, 150.0f, 12);
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -3f, Rand.Float( 1f ) - .5f );
+		(Owner as HumanPlayer).ViewPunch(Rand.Float( -.5f ) + -6f, Rand.Float( 2f ) - 1.5f );
 	}
 
 	[ClientRpc]

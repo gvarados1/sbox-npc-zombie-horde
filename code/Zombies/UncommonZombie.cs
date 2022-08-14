@@ -10,7 +10,8 @@ public partial class UncommonZombie : CommonZombie
 		base.Spawn();
 		Health = Health * 2;
 		RunSpeed *= .4f;
-	}
+		AttackDamage = 12;
+}
 	public override void TakeDamage( DamageInfo info )
 	{
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )

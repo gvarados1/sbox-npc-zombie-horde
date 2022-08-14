@@ -3,12 +3,12 @@
 /// <summary>
 /// Alerts Zombies, Explodes.
 /// </summary>
-[Library( "zom_pipebomb" ), HammerEntity]
-[EditorModel( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/w_pipebomb.vmdl" )]
-[Title( "Pipe Bomb" ), Category( "Grenades" )]
-partial class PipeBomb : BaseZomWeapon
+[Library( "zom_impactgrenade" ), HammerEntity]
+[EditorModel( "models/dm_grenade.vmdl" )]
+[Title( "Impact Grenade" ), Category( "Grenades" )]
+partial class ImpactGrenade : BaseZomWeapon
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/w_pipebomb.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/grenade/grenade.vmdl" );
 	public override string ViewModelPath => "weapons/licensed/hqfpsweapons/fp_equipment/throwables/pipebomb/v_pipebomb.vmdl";
 
 	public override float PrimaryRate => 1.0f;
@@ -37,7 +37,7 @@ partial class PipeBomb : BaseZomWeapon
 		return Input.Released( InputButton.PrimaryAttack );
 	}
 
-	public async override void AttackPrimary()
+	public override void AttackPrimary()
 	{
 		TimeSincePrimaryAttack = 0;
 
@@ -55,13 +55,12 @@ partial class PipeBomb : BaseZomWeapon
 		//PlaySound( "dm.grenade_throw" );
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		PlaySound( "rust_boneknife.attack" );
+		//PlaySound( "grenade.pinpull" );
 		PlaySound( "pipebomb.activate" );
 
-		player.SetAnimParameter( "b_attack", true );
 
 		Rand.SetSeed( Time.Tick );
 
-		await Task.Delay( 300 );
 
 		if ( IsServer )
 			using ( Prediction.Off() )
@@ -77,7 +76,9 @@ partial class PipeBomb : BaseZomWeapon
 				_ = grenade.BlowIn( 8.0f );
 			}
 
-		await Task.Delay( 100 );
+		DropPin();
+
+		player.SetAnimParameter( "b_attack", true );
 
 		Reload();
 
@@ -88,13 +89,27 @@ partial class PipeBomb : BaseZomWeapon
 		}
 	}
 
+	public void DropPin()
+	{
+		// thrown pin
+		var ent = new ModelEntity();
+		ent.PhysicsEnabled = true;
+		ent.UsePhysicsCollision = true;
+		ent.Position = Owner.EyePosition + Owner.Rotation.Right*10 + Owner.Rotation.Down*20 + Owner.Rotation.Forward * 10;
+		ent.Rotation = Rotation.Random;
+		ent.SetModel( "weapons/grenade/grenade_pin.vmdl" );
+		ent.PhysicsBody.Velocity = Owner.EyeRotation.Forward * (100+Rand.Float(50)) + EyeRotation.Up * (200 + Rand.Float( 50 ) + EyeRotation.Right * (50 + Rand.Float( 100 )));
+		ent.Tags.Add( "gib" );
+		ent.DeleteAsync( 5.0f );
+	}
+
 	public override void SetCarryPosition()
 	{
 		base.SetCarryPosition();
 		// dumb hard-coded positions
 		EnableDrawing = true;
 		var transform = Transform.Zero;
-		transform.Position += Vector3.Right * 0;
+		transform.Position += Vector3.Right * 3;
 		transform.Position += Vector3.Up * -4;
 		transform.Position += Vector3.Forward * -3;
 		transform.Rotation *= Rotation.FromPitch( 0 );

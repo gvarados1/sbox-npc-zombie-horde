@@ -14,6 +14,9 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public virtual float ShotSpreadLerp => .2f;
 	public virtual string Icon => "";
 	public virtual Color RarityColor => WeaponRarity.Common;
+	public virtual Transform ViewModelOffsetDuck => Transform.Zero;
+	public virtual Transform ViewModelOffset => Transform.Zero; // used to make throwable/melee weapons look different even though we're using the exact same animations.
+	public virtual bool UseAlternativeSprintAnimation => false;
 
 	// todo: go through all my [Net]s and figure out which can be [Local]
 	[Net, Predicted]
@@ -46,6 +49,11 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		return AmmoReserve;
 	}
 
+	public virtual void Deploy()
+	{
+		TimeSinceDeployed = 0;
+		ViewModelEntity?.SetAnimParameter( "deploy", true );
+	}
 	public override void ActiveStart( Entity ent )
 	{
 		base.ActiveStart( ent );
@@ -250,13 +258,25 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		{
 			//ViewModelEntity?.SetAnimParameter( "fire", true );
 			MeleeAttack();
-			TimeSinceShove = 0;
 			//TimeSincePrimaryAttack = -2;
 		}
 	}
 
 	public async void MeleeAttack()
 	{
+		var ply = Owner as HumanPlayer;
+
+		var speedMultiplier = 1f;
+		TimeSinceShove = 0;
+		// check stamina
+		if ( !ply.TakeStamina( 5 ) )
+		{
+			speedMultiplier *= .25f;
+			ply.Stamina = 0;
+			ply.TimeSinceUsedStamina = 0;
+			TimeSinceShove = -1f;
+		}
+
 		Rand.SetSeed( Time.Tick );
 		//(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( 2f ) - 1f ) * Rotation.FromPitch( Rand.Float( .5f ) + -.25f ) );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( .5f ) + -.25f, Rand.Float( .25f ) + .25f );
@@ -271,9 +291,8 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 		}
 
 		PlaySound( "dm.crowbar_attack" );
-		var ply = (Owner as AnimatedEntity);
 		OverridingAnimator = true;
-		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation();
+		if(ViewModelEntity is ZomViewModel vm) vm.PlayMeleeAnimation( speedMultiplier );
 		ply.SetAnimParameter( "holdtype", 5 );
 		ply.SetAnimParameter( "holdtype_handedness", 0 );
 		ply.SetAnimParameter( "holdtype_attack", 1.0f );
@@ -291,6 +310,13 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 			if ( !tr.Entity.IsValid() ) continue;
 
 			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 100, 20, DamageFlags.Slash )
+				.UsingTraceResult( tr )
+				.WithAttacker( Owner )
+				.WithWeapon( this );
+
+			// hack: use "bullet" damage to destroy glass. I tried making a partial class of the glass but that didn't work. Maybe I was just doing it wrong.
+			if(tr.Entity is GlassShard)
+				damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 100, 20)
 				.UsingTraceResult( tr )
 				.WithAttacker( Owner )
 				.WithWeapon( this );
@@ -319,7 +345,7 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 
 		// note: using Task.Delay causes prediction issues here but I don't think I care?
 		//await Task.Delay( 210 );
-		await Task.Delay( 300 );
+		await Task.Delay( (int)(300 / speedMultiplier) );
 		OverridingAnimator = false;
 
 		// continue reloading

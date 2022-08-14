@@ -22,6 +22,7 @@ partial class F1 : BaseZomWeapon
 	public override float ShotSpreadMultiplier => 1.25f;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_F1.png";
 	public override Color RarityColor => WeaponRarity.Uncommon;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( .5f, 3, 0 ) ).WithRotation(new Angles(0, -10, 0).ToRotation());
 
 	public override void Spawn()
 	{
@@ -58,7 +59,7 @@ partial class F1 : BaseZomWeapon
 		ShootBullet( BulletSpread, 1.5f, 20.0f);
 
 		Rand.SetSeed( Time.Tick );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -.2f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -1.2f, Rand.Float( .5f ) - .25f );
 	}
 
 	[ClientRpc]

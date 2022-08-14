@@ -1,0 +1,46 @@
+﻿StaminaBar {
+	position: absolute;
+	transform: translateX(-50%);
+	//bottom: 80px;
+	left: 50%;
+	bottom: 12%;
+	width: 300px;
+	//margin: 0px 110px;
+	transition: all 0.1s ease-in-out;
+	font-family: Roboto;
+	//background-color: white;
+
+	.bar-gray {
+		height: 8px;
+		width: 250px;
+		opacity: .6;
+		position: absolute;
+		transition: all 0.1s ease-out;
+		//mix-blend-mode: lighten;
+		background-color: black;
+	}
+
+	.bar {
+		height: 8px;
+		width: 250px;
+		opacity: 1;
+		position: absolute;
+		transition: all 0.1s ease-out;
+		mix-blend-mode: lighten;
+		background-color: lightgray;
+	}
+
+	.icon {
+		left: 255px;
+		background-image: url( /ui/hud/lungs.png);
+		background-size: cover;
+		bottom: 5px;
+		height: 16px;
+		width: 18px;
+	}
+
+	&.hidden {
+		opacity: 0;
+		transition: all 0.25s ease-out;
+	}
+}

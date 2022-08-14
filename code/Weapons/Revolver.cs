@@ -22,6 +22,7 @@ partial class Revolver : BaseZomWeapon
 	public override int AmmoMax => -1;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_Revolver.png";
 	public override Color RarityColor => WeaponRarity.Common;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 2f, .5f, -.5f ) ).WithRotation( new Angles( -10, -4, 0 ).ToRotation() );
 
 	public override void Spawn()
 	{
@@ -75,7 +76,7 @@ partial class Revolver : BaseZomWeapon
 		ShootBullet( BulletSpread, 1, 45.0f);
 		Rand.SetSeed( Time.Tick );
 		//(Owner as HumanPlayer).ViewPunch( Rotation.FromYaw( Rand.Float( .5f ) - .25f ) * Rotation.FromPitch( Rand.Float( -.25f ) + -.25f ) );
-		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.25f ) + -1.0f, Rand.Float( .5f ) - .25f );
+		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.25f ) + -3.0f, Rand.Float( 2f ) - 1f );
 
 	}
 

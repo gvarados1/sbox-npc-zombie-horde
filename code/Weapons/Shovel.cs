@@ -21,6 +21,8 @@ partial class Shovel : BaseZomWeapon
 	public override WeaponSlot WeaponSlot => WeaponSlot.Secondary;
 	public override string Icon => "weapons/licensed/HQFPSWeapons/Icons/Inventory/Items/Equipment/Icon_Shovel.png";
 	public override Color RarityColor => WeaponRarity.Common;
+	public override Transform ViewModelOffsetDuck => Transform.WithPosition( new Vector3( 0f, -2f, 2f ) ).WithRotation( new Angles( 0f, 0f, 120 ).ToRotation() );
+	public override bool UseAlternativeSprintAnimation => true;
 
 	public override void Spawn()
 	{
@@ -106,7 +108,15 @@ partial class Shovel : BaseZomWeapon
 			if ( !IsServer ) continue;
 			if ( !tr.Entity.IsValid() ) continue;
 
-			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 32, 24, DamageFlags.Slash )
+			var damage = 24;
+			var damageInfo = DamageInfoExt.FromCustom( tr.EndPosition, forward * 32, damage, DamageFlags.Slash )
+				.UsingTraceResult( tr )
+				.WithAttacker( Owner )
+				.WithWeapon( this );
+
+			// hack: use "bullet" damage to destroy glass
+			if ( tr.Entity is GlassShard )
+				damageInfo = DamageInfo.FromBullet( tr.EndPosition, forward * 32, damage )
 				.UsingTraceResult( tr )
 				.WithAttacker( Owner )
 				.WithWeapon( this );
