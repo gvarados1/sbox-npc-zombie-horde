@@ -220,6 +220,10 @@ public partial class BaseZomWalkController : BasePlayerController
 		{
 			CheckJumpButton();
 		}
+		else if ( Input.Down( InputButton.Jump ) )
+		{
+			TestClimb();
+		}
 
 		// Fricion is handled before we add in any base velocity. That way, if we are on a conveyor,
 		//  we don't slow when standing still, relative to the conveyor.
@@ -626,7 +630,14 @@ public partial class BaseZomWalkController : BasePlayerController
 			var trCheck2 = TraceBBoxIgnoreZom( trCheck.EndPosition, trCheck.EndPosition + ClimbForward * 10 );
 			// if we hit less than 10 units forwards that means it's a dumb ledge that we shouldn't climb to
 			if ( trCheck2.Hit ) return;
-			
+
+			// reset ground pose if we're on the ground
+			if ( GroundEntity != null )
+			{
+				LastGroundPos = Position;
+				GroundEntity = null;
+			}
+
 			// final check, trace down to find height
 			var trCheck3 = TraceBBoxIgnoreZom( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
 			ClimbHeight = trCheck3.EndPosition.z - LastGroundPos.z;
@@ -637,6 +648,7 @@ public partial class BaseZomWalkController : BasePlayerController
 			ClimbTargetPos = trCheck3.HitPosition;
 			TimeSinceClimb = 0;
 			Sound.FromWorld( "player.crouch", Position );
+			//ClimbMove();
 		}
 	}
 	public virtual void ClimbMove()
