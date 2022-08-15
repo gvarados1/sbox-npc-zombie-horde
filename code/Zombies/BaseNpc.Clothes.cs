@@ -94,4 +94,35 @@ public partial class BaseNpc
 			if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 		}
 	}
+
+	public async void Dress()
+	{
+		// dumb hack to reduce the chance of skins not working
+		ClearMaterialOverride();
+		//await Task.Delay( 500 );
+		if ( !this.IsValid() ) return;
+		RenderColor = (Color)Color.Parse( "#A3A3A3" );
+
+		Clothing.DressEntity( this );
+
+		foreach ( var clothing in Children.OfType<ModelEntity>() )
+		{
+			if ( clothing.Tags.Has( "clothes" ) )
+			{
+				clothing.RenderColor = (Color)Color.Parse( "#A3A3A3" );
+			}
+		}
+
+		await Task.Delay( 1000 );
+		if ( !this.IsValid() ) return;
+		ClearMaterialOverride();
+
+		await Task.Delay( 200 );
+		if ( !this.IsValid() ) return;
+		var SkinMaterial = Clothing.Clothing.Select( x => x.SkinMaterial ).Select( x => Material.Load( x ) ).FirstOrDefault();
+		var EyesMaterial = Clothing.Clothing.Select( x => x.EyesMaterial ).Select( x => Material.Load( x ) ).FirstOrDefault();
+
+		SetMaterialOverride( SkinMaterial, "skin" );
+		SetMaterialOverride( EyesMaterial, "eyes" );
+	}
 }
