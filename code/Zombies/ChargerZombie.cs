@@ -8,6 +8,8 @@ public partial class ChargerZombie : SpecialZombie
 	public override void Spawn()
 	{
 		base.Spawn();
+		SetModel( "models/zombie/charger/charger_zombie.vmdl" );
+		Scale = 1.25f;
 		Health = Health * 2;
 		RunSpeed *= .4f;
 		AttackDamage = 12;
@@ -50,41 +52,32 @@ public partial class ChargerZombie : SpecialZombie
 
 		model = Rand.FromArray( new[]
 			{
-				"models/zombie/citizen_zombie/skins/skin_zombie01.clothing",
-				"models/zombie/citizen_zombie/skins/skin_zombie02.clothing",
-				"models/zombie/citizen_zombie/skins/skin_zombie03.clothing",
+				"models/zombie/charger/charger_zombie01.clothing",
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 
 		model = Rand.FromArray( new[]
 			{
-				"models/citizen_clothes/trousers/smarttrousers/trousers.smart.clothing",
+				"models/citizen_clothes/shorts/summer_shorts/summer shorts.clothing",
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 
 		model = Rand.FromArray( new[]
 			{
-				"models/citizen_clothes/shoes/sneakers/sneakers.clothing",
 				"models/citizen_clothes/shoes/trainers/trainers.clothing",
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 
 		model = Rand.FromArray( new[]
 			{
-				"models/citizen_clothes/shirt/longsleeve_shirt/longsleeve_shirt.clothing",
-				"models/citizen_clothes/jacket/hoodie/hoodie.clothing",
+				"models/citizen_clothes/shirt/tanktop/tanktop.clothing",
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 
 		model = Rand.FromArray( new[]
 			{
-				"models/citizen_clothes/vest/tactical_vest/models/tactical_vest.clothing",
-			} );
-		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
-
-		model = Rand.FromArray( new[]
-			{
-				"models/citizen_clothes/hat/tactical_helmet/tactical_helmet.clothing",
+				"models/citizen_clothes/hair/hair_shortscruffy/hair_shortscruffy_brown.clothing",
+				"models/citizen_clothes/hair/hair_shortscruffy/hair_shortscruffy_black.clothing",
 			} );
 		if ( ResourceLibrary.TryGet<Clothing>( model, out item ) ) { Clothing.Clothing.Add( item ); }
 

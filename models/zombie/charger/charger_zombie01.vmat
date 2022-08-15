@@ -1,0 +1,77 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "vr_skin.vfx"
+
+	//---- Animation ----
+	F_MORPH_SUPPORTED 1
+
+	//---- Per-Instance Tint Mask ----
+	F_TINT_MASK 1
+
+	//---- Skin ----
+	F_USE_BENT_NORMALS 1
+
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "1.000"
+	g_flAmbientOcclusionDirectSpecular "1.000"
+	g_vAmbientOcclusionColorBleed "[0.125490 0.305882 0.400000 1.000000]"
+	TextureAmbientOcclusion "models/zombie/citizen_zombie/skins/citizen_skin_ao.png"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[0.501961 0.564706 0.266667 1.000000]"
+	TextureColor "models/zombie/citizen_zombie/skins/citizen_skin_color.png"
+	TextureTintMask "models/zombie/citizen_zombie/skins/citizen_skin_mask.png"
+
+	//---- Curvature ----
+	g_flCurvatureScale "1.000"
+
+	//---- Face Occlusion ----
+	g_flMouthInteriorBrightnessScale "0.409"
+	TextureInsideMouth "[0.000000 0.000000 0.000000 0.000000]"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Lookup Textures ----
+	g_vAmbientNormalSoftness "[1.000000 0.301961 0.000000 0.000000]"
+	TextureDiffuseFalloff "materials/default/default_skin_diffusewarp.tga"
+
+	//---- Normal ----
+	g_flDiffuseNormalBlur "0.500"
+	TextureBentNormal "models/zombie/citizen_zombie/skins/citizen_skin_bentnormal.png"
+	TextureNormal "models/zombie/citizen_zombie/skins/citizen_skin_normal.png"
+
+	//---- Roughness ----
+	TextureRoughness "models/zombie/citizen_zombie/skins/citizen_skin_rough.png"
+
+	//---- Specular ----
+	g_flSecondSpecularLobeGlossiness "0.300"
+	g_flSecondSpecularLobeRatio "0.035"
+
+	//---- Texture Coordinates ----
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+
+	//---- Transmission ----
+	g_flTransmissionFalloff "0.500"
+	g_vTransmissionColor "[0.827451 0.321569 0.050980 0.000000]"
+	TextureTransmissiveMask "models/zombie/citizen_zombie/skins/citizen_skin_trans.png"
+
+	Attributes
+	{
+		skin "1"
+	}
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "flesh"
+	}
+
+	DynamicParams
+	{
+		g_vColorTint "hello"
+	}
+}
