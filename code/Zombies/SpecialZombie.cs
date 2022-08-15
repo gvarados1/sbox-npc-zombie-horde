@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ZombieHorde;
 
-public partial class SpecialZombie : CommonZombie
+public partial class SpecialZombie : BaseZombie
 {
 	// nothing in here yet
 

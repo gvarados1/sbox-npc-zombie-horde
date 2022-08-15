@@ -24,16 +24,6 @@ public partial class CommonZombie : BaseZombie
 		}
 	}
 
-	public ZombieState ZombieState = ZombieState.Wander;
-	public virtual float WalkSpeed => Rand.Float( 40, 50 );
-	//public float RunSpeed = Rand.Float( 260, 280 );
-	public float RunSpeed = Rand.Float( 130, 150 ); // player speed = 240
-	public TimeSince TimeSinceAttacked = 0;
-	public float AttackSpeed = .8f;
-	public TimeUntil TimeUntilUnstunned = 0;
-	private TimeSince TimeSinceBurnTicked = 0;
-	public float AttackDamage = 6;
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -400,21 +390,6 @@ public partial class CommonZombie : BaseZombie
 		TryAlert( info.Attacker, .5f );
 		base.TakeDamage( info );
 		DamagedEffects();
-	}
-
-	public virtual void DamagedEffects()
-	{
-		Velocity *= 0.1f;
-		if ( Health > 0 )
-			PlaySoundOnClient( "zombie.hurt" );
-	}
-
-	[ClientRpc]
-	public virtual void PlaySoundOnClient(string sound)
-	{
-		//PlaySound( "zombie.hurt" );
-		Sound.FromWorld( sound, Position + Vector3.Up * 60 );
-		//SetAnimParameter( "b_talking", true );
 	}
 
 	public override void OnKilled()

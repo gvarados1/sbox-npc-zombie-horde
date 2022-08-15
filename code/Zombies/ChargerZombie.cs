@@ -13,7 +13,11 @@ public partial class ChargerZombie : SpecialZombie
 		Health = Health * 2;
 		RunSpeed *= .4f;
 		AttackDamage = 12;
-}
+
+		// disable torso and feet manually. not sure why it's not getting auto-disabled.
+		SetBodyGroup( 1, 1 );
+		SetBodyGroup( 4, 1 );
+	}
 	public override void TakeDamage( DamageInfo info )
 	{
 		if ( GetHitboxGroup( info.HitboxIndex ) == 1 )

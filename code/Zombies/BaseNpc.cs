@@ -57,4 +57,19 @@ public partial class BaseNpc : AnimatedEntity
 			BecomeRagdollOnClient( LastDamage.Force, GetHitboxBone( LastDamage.HitboxIndex )); // increased damage force, make ragdolls go flying!
 		}
 	}
+
+	[ClientRpc]
+	public virtual void PlaySoundOnClient( string sound )
+	{
+		//PlaySound( "zombie.hurt" );
+		Sound.FromWorld( sound, Position + Vector3.Up * 60 );
+		//SetAnimParameter( "b_talking", true );
+	}
+
+	public virtual void DamagedEffects()
+	{
+		Velocity *= 0.1f;
+		if ( Health > 0 )
+			PlaySoundOnClient( "zombie.hurt" );
+	}
 }

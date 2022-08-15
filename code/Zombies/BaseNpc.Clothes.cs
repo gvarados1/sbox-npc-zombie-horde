@@ -1,6 +1,6 @@
 ﻿namespace ZombieHorde;
 
-public partial class CommonZombie
+public partial class BaseNpc
 {
 	// TODO: clean this up
 	public ClothingContainer Clothing { get; protected set; }

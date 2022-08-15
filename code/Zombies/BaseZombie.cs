@@ -13,11 +13,20 @@ public partial class BaseZombie : BaseNpc
 	}
 
 	public float Speed { get; set; }
-
 	public Entity Target;
 
 	NavPath Path = new NavPath();
 	public NavSteer Steer;
+
+	public ZombieState ZombieState = ZombieState.Wander;
+	public virtual float WalkSpeed => Rand.Float( 40, 50 );
+	//public float RunSpeed = Rand.Float( 260, 280 );
+	public float RunSpeed = Rand.Float( 130, 150 ); // player speed = 240
+	public TimeSince TimeSinceAttacked = 0;
+	public float AttackSpeed = .8f;
+	public TimeUntil TimeUntilUnstunned = 0;
+	public TimeSince TimeSinceBurnTicked = 0;
+	public float AttackDamage = 6;
 
 	public override void Spawn()
 	{
