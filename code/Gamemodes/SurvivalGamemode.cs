@@ -77,10 +77,11 @@ public partial class SurvivalGamemode : BaseGamemode
 
 
 		var playerCount = Entity.All.OfType<HumanPlayer>().Count();
-		var difficultyMultiplier = .75f + playerCount * .25f;
+		var difficultyMultiplier = .5f + playerCount * .5f;
 
 		ZombiesRemaining += 10 + (int)(3 * (WaveNumber - 1) * difficultyMultiplier);
-		if ( ZombiesRemaining < 5 ) ZombiesRemaining = 5;
+		var minZombies = (int)(5 * difficultyMultiplier);
+		if ( ZombiesRemaining < minZombies ) ZombiesRemaining = minZombies; ;
 		RoundState = RoundState.WaveActive;
 
 		// anger all zombies!
