@@ -56,7 +56,7 @@ partial class F1 : BaseZomWeapon
 		PlaySound( "ar1.shoot.tail" );
 
 		// Shoot the bullets
-		ShootBullet( BulletSpread, 1.5f, 20.0f);
+		ShootBullet( BulletSpread, 1f, 20.0f);
 
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( -.1f ) + -1.2f, Rand.Float( .5f ) - .25f );
