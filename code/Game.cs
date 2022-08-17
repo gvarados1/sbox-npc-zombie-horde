@@ -143,6 +143,7 @@ partial class ZombieGame : Game
 
 	public override void OnVoicePlayed( Client cl )
 	{
+		cl.VoiceStereo = false;
 		VoiceList.Current?.OnVoicePlayed( cl.PlayerId, cl.VoiceLevel );
 	}
 
