@@ -22,7 +22,7 @@ partial class ThrownPipeBomb : BasePhysics
 	[Event.Tick.Server]
 	public void Tick()
 	{
-		if(TimeSinceBeeped > .66f )
+		if(TimeSinceBeeped > .4f )
 		{
 			TimeSinceBeeped = 0;
 			PlaySound( "pipebomb.beep" );
