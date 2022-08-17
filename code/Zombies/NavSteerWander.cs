@@ -12,9 +12,9 @@ namespace ZombieHorde.Nav
 
 		}
 
-		public override void Tick( Vector3 position )
+		public override void Tick( Vector3 position, Vector3 velocity = new Vector3() )
 		{
-			base.Tick( position );
+			base.Tick( position, velocity );
 
 			if ( Path.IsEmpty )
 			{

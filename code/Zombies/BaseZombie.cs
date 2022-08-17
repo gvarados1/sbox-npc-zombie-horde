@@ -19,7 +19,7 @@ public partial class BaseZombie : BaseNpc
 	public NavSteer Steer;
 
 	public ZombieState ZombieState = ZombieState.Wander;
-	public virtual float WalkSpeed => Rand.Float( 40, 50 );
+	public float WalkSpeed = Rand.Float( 40, 50 );
 	//public float RunSpeed = Rand.Float( 260, 280 );
 	public float RunSpeed = Rand.Float( 130, 150 ); // player speed = 240
 	public TimeSince TimeSinceAttacked = 0;
@@ -33,13 +33,15 @@ public partial class BaseZombie : BaseNpc
 		base.Spawn();
 
 		//SetModel( "models/zombie/citizen_zombie.vmdl" );
-		SetModel( "models/zombie/citizen_zombie_test.vmdl" );
+		//SetModel( "models/zombie/citizen_zombie_test.vmdl" );
+		SetModel( "models/zombie/citizen_zombie_mixamo.vmdl" );
 		EyePosition = Position + Vector3.Up * 64;
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, Capsule.FromHeightAndRadius( 72, 8 ) );
 
 		EnableHitboxes = true;
 
 		Speed = Rand.Float( 270, 320 );
+		WalkSpeed = Rand.Float( 40, 50 );
 		Health = 50;
 
 		// add "Zombie" tag for collisions
@@ -67,7 +69,7 @@ public partial class BaseZombie : BaseNpc
 
 		if ( Steer != null )
 		{
-			Steer.Tick( Position );
+			Steer.Tick( Position, Velocity );
 
 			if ( !Steer.Output.Finished )
 			{
@@ -104,6 +106,7 @@ public partial class BaseZombie : BaseNpc
 		animHelper.WithLookAt( EyePosition + LookDir );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
+		DebugOverlay.Text( ((int)Velocity.Length).ToString(), EyePosition + Vector3.Up * 16 );
 	}
 
 	protected virtual void Move( float timeDelta )

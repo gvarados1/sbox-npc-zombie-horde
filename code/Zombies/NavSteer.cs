@@ -12,11 +12,11 @@ public class NavSteer
 		Path = new NavPath();
 	}
 
-	public virtual void Tick( Vector3 currentPosition )
+	public virtual void Tick( Vector3 currentPosition, Vector3 velocity = new Vector3() )
 	{
 		//using ( Sandbox.Debug.Profile.Scope( "Update Path" ) )
 		{
-			Path.Update( currentPosition, Target );
+			Path.Update( currentPosition, Target, velocity );
 		}
 
 		Output.Finished = Path.IsEmpty;
