@@ -1,8 +1,8 @@
 ﻿namespace ZombieHorde;
 
-partial class ThrownMolotov : BasePhysics
+partial class ThrownImpactGrenade : BasePhysics
 {
-	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/molotovcocktail/w_molotov.vmdl" );
+	public static readonly Model WorldModel = Model.Load( "weapons/licensed/hqfpsweapons/fp_equipment/throwables/fraggrenade/w_fraggrenade.vmdl" );
 
 	Particles GrenadeParticles;
 
@@ -24,6 +24,7 @@ partial class ThrownMolotov : BasePhysics
 
 	public override void StartTouch( Entity other )
 	{
+		if ( !IsServer ) return;
 		base.StartTouch( other );
 		if ( other != Owner )
 		{
@@ -37,18 +38,14 @@ partial class ThrownMolotov : BasePhysics
 
 		if ( !IsValid ) return;
 
-		Sound.FromWorld( "molotov.break", Position );
-		Explode( this, Owner, Position, 100, 5, 1.5f );
+		Sound.FromWorld( "frag.explode", Position );
+		ImpactExplosion( this, Owner, Position, 320, 100, .5f );
+		ZombieGame.Explosion( this, Owner, Position, 250, 50, 10f );
 		Delete();
 	}
 
-	public void Explode( Entity weapon, Entity owner, Vector3 position, float radius, float damage, float forceScale )
+	public void ImpactExplosion( Entity weapon, Entity owner, Vector3 position, float radius, float damage, float forceScale )
 	{
-		Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", position );
-		var flames = new Flames();
-		flames.Position = position + Vector3.Up * 8;
-
-		/*
 		// same thing as regular explosion but only zombies, don't check los, and don't gib
 		var overlaps = Entity.FindInSphere( position, radius ).OfType<CommonZombie>();
 
@@ -75,14 +72,13 @@ partial class ThrownMolotov : BasePhysics
 			var distanceMul = 1.0f - Math.Clamp( dist / radius, 0.0f, 1.0f );
 			var dmg = damage * distanceMul;
 			var force = (forceScale * distanceMul) * ent.PhysicsBody.Mass;
-			var forceDir = (targetPos - position - Vector3.Down*10).Normal;
+			var forceDir = (targetPos - position - Vector3.Down*60).Normal;
 
-			var damageInfo = DamageInfo.FromBullet( position, forceDir * force, dmg )
+			var damageInfo = DamageInfoExt.FromCustom( position, forceDir * force, dmg, DamageFlags.DoNotGib )
 				.WithWeapon( weapon )
 				.WithAttacker( owner );
 
 			ent.TakeDamage( damageInfo );
 		}
-		*/
 	}
 }

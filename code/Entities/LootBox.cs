@@ -90,6 +90,7 @@ partial class LootBox : Prop
 				typeof(PipeBomb),
 				typeof(Molotov),
 				typeof(Molotov),
+				typeof(ImpactGrenade),
 			};
 
 		if ( WaveNumber < 1 )
@@ -119,6 +120,7 @@ partial class LootBox : Prop
 				typeof(TripmineWeapon),
 				typeof(TripmineWeapon),
 				typeof(PipeBomb),
+				typeof(ImpactGrenade),
 				typeof(Molotov),
 				typeof(Molotov),
 			};
@@ -133,6 +135,7 @@ partial class LootBox : Prop
 				typeof(Revolver),
 				typeof(TripmineWeapon),
 				typeof(Molotov),
+				typeof(ImpactGrenade),
 				typeof(R870),
 			};
 		}
