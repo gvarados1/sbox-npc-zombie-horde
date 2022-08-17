@@ -133,6 +133,7 @@ partial class LootBox : Prop
 				typeof(Revolver),
 				typeof(TripmineWeapon),
 				typeof(Molotov),
+				typeof(R870),
 			};
 		}
 
