@@ -1,0 +1,562 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "AnimConstraintList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_animconstraintlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						note = "We\'re working in centimeters at the source (which makes more sense for us), and then letting the engine take care of the conversion to inches at this step. So if you want to create something for the Citizen (like clothing), you should also model it in centimeters (matching the provided source files), and use a ScaleAndMirror modifier at 0.3937."
+						scale = 0.3937
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "citizen_eyes.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+							},
+							{
+								from = "citizen_skin.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_skin_zombie02.vmat"
+							},
+							{
+								from = "citizen_eyeao.vmat"
+								to = "models/citizen/skin/citizen_eyeao.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin01"
+						remaps = 
+						[
+							{
+								from = "models/citizen/skin/citizen_eyeao.vmat"
+								to = "models/citizen/skin/citizen_eyeao.vmat"
+							},
+							{
+								from = "models/zombie/citizen_zombie/skins/citizen_skin_zombie01.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_skin_zombie01.vmat"
+							},
+							{
+								from = "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+							},
+						]
+					},
+					{
+						_class = "MaterialGroup"
+						name = "Skin02"
+						remaps = 
+						[
+							{
+								from = "models/zombie/citizen_zombie/skins/citizen_skin_zombie01.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_skin_zombie03.vmat"
+							},
+							{
+								from = "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+								to = "models/zombie/citizen_zombie/skins/citizen_eyes_zombie01.vmat"
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_rendermeshlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_animationlist.vmdl_prefab"
+					},
+					{
+						_class = "Folder"
+						name = "mixamo"
+						children = 
+						[
+							{
+								_class = "AnimFile"
+								name = "Drunk_Idle"
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "weapons/licensed/mixamo/animations/Drunk Idle.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Drunk_Run_Backward"
+								children = 
+								[
+									{
+										_class = "AnimAlign"
+										align_tx = true
+										align_ty = true
+										align_tz = false
+										align_rx = false
+										align_ry = false
+										align_rz = false
+										align_frame_type = "Number"
+										frame = 0
+										align_to_anim = "Drunk_Idle"
+										align_to_frame_type = "Number"
+										align_to_frame = 0
+										bone = "pelvis"
+									},
+									{
+										_class = "ExtractMotion"
+										extract_tx = true
+										extract_ty = true
+										extract_tz = false
+										extract_rz = false
+										linear = false
+										quadratic = false
+										root_bone_name = "pelvis"
+										motion_type = "Single"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "weapons/licensed/mixamo/animations/Drunk Run Backward.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Drunk_Run_Forward"
+								children = 
+								[
+									{
+										_class = "AnimAlign"
+										align_tx = true
+										align_ty = true
+										align_tz = false
+										align_rx = false
+										align_ry = false
+										align_rz = false
+										align_frame_type = "Number"
+										frame = 0
+										align_to_anim = "Drunk_Idle"
+										align_to_frame_type = "Number"
+										align_to_frame = 0
+										bone = "pelvis"
+									},
+									{
+										_class = "ExtractMotion"
+										extract_tx = true
+										extract_ty = true
+										extract_tz = false
+										extract_rz = false
+										linear = false
+										quadratic = false
+										root_bone_name = "pelvis"
+										motion_type = "Single"
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 9
+										event_keys = 
+										{
+											Attachment = "foot_L"
+											Foot = "0"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 22
+										event_keys = 
+										{
+											Attachment = "foot_R"
+											Foot = "1"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 35
+										event_keys = 
+										{
+											Attachment = "foot_L"
+											Foot = "0"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 49
+										event_keys = 
+										{
+											Attachment = "foot_R"
+											Foot = "1"
+											Volume = 1.0
+										}
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "weapons/licensed/mixamo/animations/Drunk Run Forward.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Drunk_Walk_Backwards"
+								children = 
+								[
+									{
+										_class = "AnimAlign"
+										align_tx = true
+										align_ty = true
+										align_tz = false
+										align_rx = false
+										align_ry = false
+										align_rz = false
+										align_frame_type = "Number"
+										frame = 0
+										align_to_anim = "Drunk_Idle"
+										align_to_frame_type = "Number"
+										align_to_frame = 0
+										bone = "pelvis"
+									},
+									{
+										_class = "ExtractMotion"
+										extract_tx = true
+										extract_ty = true
+										extract_tz = false
+										extract_rz = false
+										linear = false
+										quadratic = false
+										root_bone_name = "pelvis"
+										motion_type = "Single"
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "weapons/licensed/mixamo/animations/Drunk Walk Backwards.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+							{
+								_class = "AnimFile"
+								name = "Drunk_Walk"
+								children = 
+								[
+									{
+										_class = "AnimAlign"
+										align_tx = true
+										align_ty = true
+										align_tz = false
+										align_rx = false
+										align_ry = false
+										align_rz = false
+										align_frame_type = "Number"
+										frame = 0
+										align_to_anim = "Drunk_Idle"
+										align_to_frame_type = "Number"
+										align_to_frame = 0
+										bone = "pelvis"
+									},
+									{
+										_class = "ExtractMotion"
+										extract_tx = true
+										extract_ty = true
+										extract_tz = false
+										extract_rz = false
+										linear = false
+										quadratic = false
+										root_bone_name = "pelvis"
+										motion_type = "Single"
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 19
+										event_keys = 
+										{
+											Attachment = "foot_L"
+											Foot = "0"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 48
+										event_keys = 
+										{
+											Attachment = "foot_R"
+											Foot = "1"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 64
+										event_keys = 
+										{
+											Attachment = "foot_L"
+											Foot = "0"
+											Volume = 1.0
+										}
+									},
+									{
+										_class = "AnimEvent"
+										event_class = "AE_FOOTSTEP"
+										event_frame = 79
+										event_keys = 
+										{
+											Attachment = "foot_R"
+											Foot = "1"
+											Volume = 1.0
+										}
+									},
+								]
+								activity_name = ""
+								activity_weight = 1
+								weight_list_name = ""
+								fade_in_time = 0.2
+								fade_out_time = 0.2
+								looping = true
+								delta = false
+								worldSpace = false
+								hidden = false
+								anim_markup_ordered = false
+								disable_compression = false
+								source_filename = "weapons/licensed/mixamo/animations/Drunk Walk.fbx"
+								start_frame = -1
+								end_frame = -1
+								framerate = -1.0
+								take = 0
+								reverse = false
+							},
+						]
+					},
+				]
+				default_root_bone_name = "pelvis"
+			},
+			{
+				_class = "BoneMarkupList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_bonemarkuplist.vmdl_prefab"
+					},
+				]
+				bone_cull_type = "None"
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_attachmentlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsJointList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_physicsjointlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_physicsshapelist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_hitboxsetlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "IKData"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_ikdata.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "PoseParamList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_poseparamlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "WeightListList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_weightlistlist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_gamedatalist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_bodygrouplist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_lodgrouplist.vmdl_prefab"
+					},
+				]
+			},
+			{
+				_class = "ClothShapeList"
+				children = 
+				[
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_clothshapelist_lower.vmdl_prefab"
+					},
+					{
+						_class = "Prefab"
+						target_file = "models/citizen/prefabs/citizen_clothshapelist_upper.vmdl_prefab"
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = "models/zombie/citizen_zombie/citizen_zombie_mixamo.vanmgrph"
+		base_model_name = ""
+	}
+}
