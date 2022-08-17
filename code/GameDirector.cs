@@ -100,6 +100,7 @@ public partial class GameDirector : Entity
 		var spawnPos = Position;
 		var tries = 0;
 		var maxTries = 30;
+		var maxRange = 3000;
 
 		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
 		if ( ply == null ) return null;
@@ -111,7 +112,7 @@ public partial class GameDirector : Entity
 
 		while ( tries <= maxTries )
 		{
-			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, 4000 );
+			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, maxRange );
 			if ( t.HasValue )
 			{
 				spawnPos = t.Value;
