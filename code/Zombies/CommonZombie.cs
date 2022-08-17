@@ -114,7 +114,8 @@ public partial class CommonZombie : BaseZombie
 					// attack if near target
 					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
 					{
-						if ( (Position - Target.Position).Length < 80 )
+						var range = 60;
+						if ( (Position - Target.Position).Length < range || (EyePosition - Target.Position ).Length < range )
 						{
 							MeleeAttack();
 							TimeSinceAttacked = 0;
@@ -280,7 +281,7 @@ public partial class CommonZombie : BaseZombie
 	public async void MeleeAttack()
 	{
 		// initial delay too?
-		await Task.Delay( 100 );
+		//await Task.Delay( 100 );
 		if ( !IsValid ) return;
 		if ( TimeUntilUnstunned > 0 ) return;
 		PlaySoundOnClient( "zombie.attack" );
@@ -297,7 +298,7 @@ public partial class CommonZombie : BaseZombie
 		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f;
 		forward = forward.Normal;
 
-		foreach ( var tr in TraceMelee( EyePosition, EyePosition + forward * 90, 50 ) )
+		foreach ( var tr in TraceMelee( EyePosition, EyePosition + forward * 70, 50 ) )
 		{
 			tr.Surface.DoBulletImpact( tr );
 

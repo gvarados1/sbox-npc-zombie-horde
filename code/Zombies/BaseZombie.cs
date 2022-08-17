@@ -23,7 +23,7 @@ public partial class BaseZombie : BaseNpc
 	//public float RunSpeed = Rand.Float( 260, 280 );
 	public float RunSpeed = Rand.Float( 130, 150 ); // player speed = 240
 	public TimeSince TimeSinceAttacked = 0;
-	public float AttackSpeed = .8f;
+	public float AttackSpeed = 1.2f;
 	public TimeUntil TimeUntilUnstunned = 0;
 	public TimeSince TimeSinceBurnTicked = 0;
 	public float AttackDamage = 6;
@@ -216,7 +216,6 @@ public partial class BaseZombie : BaseNpc
 		// let's only deal with players for now
 		if ( Target is HumanPlayer )
 		{
-			// not sure if we should trace.
 			var tr = Trace.Ray( EyePosition, Target.EyePosition )
 				.WorldOnly()
 				.WithAnyTags( "player", "solid" )
