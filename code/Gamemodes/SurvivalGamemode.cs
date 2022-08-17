@@ -276,19 +276,19 @@ public partial class SurvivalGamemode : BaseGamemode
 				ZomMaxZombies = 5;
 				break;
 			case 2:
-				ZomSpeedMultiplier = 1.5f;
+				ZomSpeedMultiplier = 1.25f;
 				ZomMaxZombies = 7;
 				break;
 			case 3:
-				ZomSpeedMultiplier = 1.75f;
+				ZomSpeedMultiplier = 1.5f;
 				ZomSpawnRate = 1.5f;
 				ZomMaxZombies = 6;
 				break;
 			case 4:
-				ZomSpeedMultiplier = 2f;
 				ZomMaxZombies = 7;
 				break;
 			case 5:
+				ZomSpeedMultiplier = 1.75f;
 				break;
 			case 6:
 				ZomSpawnRate = 1.8f;
