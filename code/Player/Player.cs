@@ -32,7 +32,10 @@ public partial class HumanPlayer : Player, IUse
 	public float MaxStamina { get; set; } = 40;
 	[Net, Predicted]
 	public TimeSince TimeSinceUsedStamina { get; set; } = 0;
-
+	float DamageResistance {get; set;} = 0; // damage is reduced by this amount, down to a minimum of 1hp.
+	TimeUntil TimeUntilResistanceExpires { get; set; } = 2;
+	TimeSince TimeSinceHit = 0;
+ 
 	public HumanPlayer()
 	{
 		Inventory = new ZomInventory( this );
@@ -247,6 +250,7 @@ public partial class HumanPlayer : Player, IUse
 		TickPlayerUse();
 		TickFlashlight();
 		NudgeNearbyPlayers();
+		TickDamageResistance();
 
 		if ( Input.Pressed( InputButton.View ) )
 		{
@@ -642,6 +646,32 @@ public partial class HumanPlayer : Player, IUse
 			cam1.Owner = this;
 	}
 
+	public void AddDamageResistance(float time )
+	{
+		if ( TimeUntilResistanceExpires < time )
+			TimeUntilResistanceExpires = time;
+	}
+
+	public void TickDamageResistance()
+	{
+		if ( !IsServer ) return;
+
+		DamageResistance = 0;
+		if(TimeUntilResistanceExpires > 0 )
+		{
+			DamageResistance += 3;
+		}
+
+		if( TimeSinceHit < .5f )
+		{
+			DamageResistance += 1;
+		}
+
+		DebugOverlay.ScreenText( DamageResistance.ToString() , 12);
+		DebugOverlay.ScreenText( TimeUntilResistanceExpires.ToString() , 13);
+		DebugOverlay.ScreenText( TimeSinceHit.ToString() , 14);
+	}
+
 	DamageInfo LastDamage;
 
 	public override void TakeDamage( DamageInfo info )
@@ -651,8 +681,9 @@ public partial class HumanPlayer : Player, IUse
 
 		LastDamage = info;
 		TimeSincePassiveHealed = -2;
+		TimeSinceHit = 0;
 
-		if(TimeUntilAdrenalineExpires < 0)
+		if (TimeUntilAdrenalineExpires < 0)
 			Velocity = 0;
 
 		this.ProceduralHitReaction( info );
@@ -677,6 +708,12 @@ public partial class HumanPlayer : Player, IUse
 			}
 
 			TookDamage( To.Single( this ), info.Attacker.Position );
+		}
+
+		if(info.Damage > 1 )
+		{
+			info.Damage -= DamageResistance;
+			if ( info.Damage < 1 ) info.Damage = 1;
 		}
 
 		if ( info.Attacker is CommonZombie zomAttacker )
