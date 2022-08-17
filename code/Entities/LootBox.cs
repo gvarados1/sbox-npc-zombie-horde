@@ -55,107 +55,106 @@ partial class LootBox : Prop
 		var glow = Components.GetOrCreate<Glow>();
 	}
 
+	DamageInfo LastDamage;
+	public override void TakeDamage( DamageInfo info )
+	{
+		LastDamage = info;
+		base.TakeDamage( info );
+	}
+
 	public override void OnKilled()
 	{
 		// EPIC LOOT TABLES
-		var lootTable = new[]
+		var lootTable = new List<Type>
 			{
-				//"HealthKit",
-				"F1",
-				"AKM",
-				"M1A",
-				"Mp5",
-				"BaseballBat",
-				"FireAxe",
-				"Revolver",
-				"Shovel",
-				"R870",
-				"CompactShotgun",
-				"DoubleBarrel",
-				"HuntingRifle",
-				"TripmineWeapon",
-				"AmmoPile",
-				"PipeBomb",
-				"Molotov"
+				typeof(F1),
+				typeof(AKM),
+				typeof(M1A),
+				typeof(MP5),
+				typeof(BaseballBat),
+				typeof(FireAxe),
+				typeof(Revolver),
+				typeof(Shovel),
+				typeof(R870),
+				typeof(CompactShotgun),
+				typeof(DoubleBarrel),
+				typeof(HuntingRifle),
+				typeof(TripmineWeapon),
+				typeof(AmmoPile),
+				typeof(PipeBomb),
+				typeof(Molotov),
 			};
 
 		if ( WaveNumber < 1 )
 		{
-			lootTable = new[]
+			lootTable = new List<Type>
 			{
-				"F1",
-				"M1A",
-				"Mp5",
+				typeof(F1),
+				typeof(M1A),
+				typeof(MP5),
 			};
 		}
 		else if ( WaveNumber < 2 )
 		{
-			lootTable = new[]
+			lootTable = new List<Type>
 			{
-				"Revolver",
-				"Revolver",
-				"BaseballBat",
-				"FireAxe",
-				"Shovel",
+				typeof(Revolver),
+				typeof(Revolver),
+				typeof(BaseballBat),
+				typeof(FireAxe),
+				typeof(Shovel),
 			};
 		}
 		else if ( WaveNumber < 3 )
 		{
-			lootTable = new[]
+			lootTable = new List<Type>
 			{
-				"TripmineWeapon",
-				"TripmineWeapon",
-				"PipeBomb",
-				"Molotov",
-				"Molotov"
+				typeof(TripmineWeapon),
+				typeof(TripmineWeapon),
+				typeof(PipeBomb),
+				typeof(Molotov),
+				typeof(Molotov),
 			};
 		}
 		else if ( WaveNumber < 4 )
 		{
-			lootTable = new[]
+			lootTable = new List<Type>
 			{
-				"F1",
-				"M1A",
-				"Mp5",
-				//"FireAxe",
-				"Revolver",
-				"TripmineWeapon",
-				//"PipeBomb",
-				"Molotov"
+				typeof(F1),
+				typeof(M1A),
+				typeof(MP5),
+				typeof(Revolver),
+				typeof(TripmineWeapon),
+				typeof(Molotov),
 			};
 		}
+
+		if(LastDamage.Attacker is HumanPlayer ply)
+			foreach( var wep in ply.Children.OfType<BaseZomWeapon>().ToList() )
+			{
+				lootTable.Remove( wep.GetType() );
+				lootTable.Remove( wep.GetType() );
+				lootTable.Remove( wep.GetType() );
+				lootTable.Remove( wep.GetType() );
+			}
 
 		// lol just 1 item for now
 		for ( var i = 0; i < Rand.Int( 0 ) + 1; i++ )
 		{
-			var index = Rand.Int( lootTable.Length - 1 );
-			Type t = Type.GetType( lootTable[index] );
-
-			// super basic temporary try not to spawn the same weapon we already have
-			foreach ( var wep in Entity.FindInSphere( Position, 1000 ).OfType<HumanPlayer>().FirstOrDefault().Children.ToList() )
-			{
-				if(wep.GetType() == t )
-				{
-					index = Rand.Int( lootTable.Length - 1 );
-					t = Type.GetType( lootTable[index] );
-				}
-			}
-
-			var prize = TypeLibrary.Create( lootTable[index], t ) as Entity;
+			var prize = TypeLibrary.Create<Entity>( lootTable.OrderBy( x => Guid.NewGuid() ).FirstOrDefault() );
 			prize.Position = Position + Vector3.Up * 24;
 			prize.Velocity = Vector3.Random * 100;
 		}
 
 		// always spawn a healing item
-		lootTable = new[]
-		{
-				"HealthKit",
-				"HealthSyringe",
-				"Adrenaline",
-		};
-		var index1 = Rand.Int( lootTable.Length - 1 );
-		Type t1 = Type.GetType( lootTable[index1] );
-		var medkit = TypeLibrary.Create( lootTable[index1], t1 ) as Entity;
+		lootTable = new List<Type>
+			{
+				typeof(HealthKit),
+				typeof(HealthSyringe),
+				typeof(Adrenaline),
+			};
+
+		var medkit = TypeLibrary.Create<Entity>( lootTable.OrderBy( x => Guid.NewGuid() ).FirstOrDefault() );
 		medkit.Position = Position + Vector3.Up * 16;
 		medkit.Velocity = Vector3.Random * 100;
 
