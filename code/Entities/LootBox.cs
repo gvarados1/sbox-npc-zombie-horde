@@ -71,17 +71,24 @@ partial class LootBox : Prop
 				typeof(AKM),
 				typeof(M1A),
 				typeof(MP5),
+
 				typeof(BaseballBat),
 				typeof(FireAxe),
 				typeof(Revolver),
 				typeof(Shovel),
+
 				typeof(R870),
 				typeof(CompactShotgun),
 				typeof(DoubleBarrel),
 				typeof(HuntingRifle),
-				typeof(TripmineWeapon),
+
 				typeof(AmmoPile),
+
+				typeof(TripmineWeapon),
+				typeof(TripmineWeapon),
 				typeof(PipeBomb),
+				typeof(PipeBomb),
+				typeof(Molotov),
 				typeof(Molotov),
 			};
 
