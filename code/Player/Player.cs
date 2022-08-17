@@ -664,10 +664,6 @@ public partial class HumanPlayer : Player, IUse
 		{
 			DamageResistance += 1;
 		}
-
-		DebugOverlay.ScreenText( DamageResistance.ToString() , 12);
-		DebugOverlay.ScreenText( TimeUntilResistanceExpires.ToString() , 13);
-		DebugOverlay.ScreenText( TimeSinceHit.ToString() , 14);
 	}
 
 	DamageInfo LastDamage;
