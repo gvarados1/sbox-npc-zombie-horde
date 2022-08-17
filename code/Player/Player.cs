@@ -40,6 +40,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public override void Respawn()
 	{
+		Client.VoiceStereo = false;
 		SetModel( "models/human/citizen_human.vmdl" );
 
 		// need to set owner for camera shake
@@ -76,6 +77,7 @@ public partial class HumanPlayer : Player, IUse
 
 	public void SpawnAsSpectator()
 	{
+		Client.VoiceStereo = false;
 		SetModel( "models/human/citizen_human.vmdl" );
 
 		Animator = new HumanPlayerAnimator();

@@ -141,6 +141,11 @@ partial class ZombieGame : Game
 		return distance;
 	}
 
+	public override void OnVoicePlayed( Client cl )
+	{
+		VoiceList.Current?.OnVoicePlayed( cl.PlayerId, cl.VoiceLevel );
+	}
+
 	public override void OnKilled( Client client, Entity pawn )
 	{
 		base.OnKilled( client, pawn );
