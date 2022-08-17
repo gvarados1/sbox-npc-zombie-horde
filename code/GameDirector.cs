@@ -69,7 +69,8 @@ public partial class GameDirector : Entity
 				var i = 0;
 				for( i = 0; i < 2+playerCount; i++ )
 				{
-					SpawnZombie();
+					var target = Entity.All.OfType<HumanPlayer>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
+					SpawnZombie( target );
 				}
 				Log.Info( "Spawned Group of " + i );
 				TimeSinceSpawnedZombie = 0;
@@ -94,7 +95,7 @@ public partial class GameDirector : Entity
 	}
 
 	private int ZombieSpawnFails = 0;
-	public BaseZombie SpawnZombie()
+	public BaseZombie SpawnZombie( Entity ply = null)
 	{
 		Rand.SetSeed( Time.Tick );
 		var spawnPos = Position;
@@ -102,9 +103,15 @@ public partial class GameDirector : Entity
 		var maxTries = 30;
 		var maxRange = 3000;
 
-		var ply = Entity.All.OfType<Player>().FirstOrDefault(); // just based on one player for now. todo: setup zombies to spawn out of los of ALL players.
+		if( ply == null )
+		{
+			ply = Entity.All.OfType<HumanPlayer>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // random player. todo: smarter spawns, target the player with the least zombies chasing them
+			if ( ply == null ) return null;
+			if ( ply.LifeState != LifeState.Alive )
+				ply = Entity.All.OfType<HumanPlayer>().OrderBy( x => Guid.NewGuid() ).FirstOrDefault(); // reroll once if we don't get an alive player
+		}
 		if ( ply == null ) return null;
-		
+
 		// might want to twitch these to a static method using enums instead of strings some time. The strings work but can be hard to remember.
 		var minRadius = 1000;
 		if ( Trace.TestPoint(ply.Position, "AllowCommonZombieSpawn", 500 ))
@@ -112,6 +119,7 @@ public partial class GameDirector : Entity
 
 		while ( tries <= maxTries )
 		{
+			tries += 1;
 			var t = NavMesh.GetPointWithinRadius( ply.Position, minRadius, maxRange );
 			if ( t.HasValue )
 			{
@@ -123,18 +131,26 @@ public partial class GameDirector : Entity
 				if ( Trace.TestPoint( t.Value, "AllowCommonZombieSpawn", 20 ) )
 					break; // skip LOS trace
 
+				if ( Trace.TestPoint( t.Value, "player", 500 ) )
+					continue; // don't spawn on top of a player lol
+
 				var addHeight = new Vector3( 0, 0, 70 );
 
-				var playerPos = ply.EyePosition; 
-				var tr1 = Trace.Ray( spawnPos + addHeight, playerPos )
-							//.UseHitboxes()
-							.Run();
-
-				if ( Vector3.DistanceBetween( tr1.EndPosition, playerPos ) > 100 )
+				foreach(var ply1 in Entity.All.OfType<HumanPlayer>().ToList() )
 				{
-					break;
+					var playerPos = ply1.EyePosition;
+					var tr1 = Trace.Ray( spawnPos + addHeight, playerPos )
+								//.UseHitboxes()
+								.WithoutTags("trigger")
+								.Run();
+
+					if ( Vector3.DistanceBetween( tr1.EndPosition, playerPos ) < 20 )
+					{
+						continue;
+					}
 				}
-				tries += 1;
+
+				break;
 			}
 		}
 		if ( tries >= maxTries )
@@ -181,7 +197,7 @@ public partial class GameDirector : Entity
 		npc.Position = spawnPos;
 		if ( BaseGamemode.Current.PopulateZombiesAngry() )
 		{
-			npc.StartChase();
+			npc.StartChase( ply );
 		}
 
 		Log.Info( "Spawned Zombie. Population: " + Entity.All.OfType<BaseZombie>().ToList().Count() );
