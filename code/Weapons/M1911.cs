@@ -76,6 +76,18 @@ partial class M1911 : BaseZomWeapon
 
 	}
 
+	[ClientRpc]
+	protected override void ShootEffects()
+	{
+		Host.AssertClient();
+
+		Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
+		Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
+
+		ViewModelEntity?.SetAnimParameter( "fire", true );
+		CrosshairLastShoot = 0;
+	}
+
 	public override void SetCarryPosition()
 	{
 		base.SetCarryPosition();
