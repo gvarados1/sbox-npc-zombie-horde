@@ -54,6 +54,8 @@ partial class HealthSyringe : BaseZomWeapon
 			return;
 		}
 
+		player.AddDamageResistance( 3 );
+
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		PlaySound( "rust_syringe.inject" );
 

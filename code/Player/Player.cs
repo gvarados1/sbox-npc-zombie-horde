@@ -771,6 +771,7 @@ public partial class HumanPlayer : Player, IUse
 		Controller = new HumanWalkController();
 		(Controller as BaseZomWalkController).Owner = this;
 		Health = 20;
+		AddDamageResistance( 5 );
 	}
 
 	[ClientRpc]

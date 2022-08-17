@@ -58,6 +58,7 @@ partial class PipeBomb : BaseZomWeapon
 		PlaySound( "pipebomb.activate" );
 
 		player.SetAnimParameter( "b_attack", true );
+		player.AddDamageResistance( 3 );
 
 		Rand.SetSeed( Time.Tick );
 

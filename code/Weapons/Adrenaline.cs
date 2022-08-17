@@ -59,6 +59,7 @@ partial class Adrenaline : BaseZomWeapon
 		ViewModelEntity?.SetAnimParameter( "fire", true );
 		PlaySound( "rust_syringe.inject" );
 
+		player.AddDamageResistance( 3 );
 
 		Rand.SetSeed( Time.Tick );
 		(Owner as HumanPlayer).ViewPunch( Rand.Float( .25f ) + .3f, Rand.Float( .25f ) + .25f );
