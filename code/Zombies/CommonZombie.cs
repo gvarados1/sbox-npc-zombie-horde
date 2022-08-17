@@ -117,7 +117,7 @@ public partial class CommonZombie : BaseZombie
 						var range = 60;
 						if ( (Position - Target.Position).Length < range || (EyePosition - Target.Position ).Length < range )
 						{
-							MeleeAttack();
+							TryMeleeAttack();
 							TimeSinceAttacked = 0;
 						}
 					}
@@ -263,8 +263,8 @@ public partial class CommonZombie : BaseZombie
 		Speed = WalkSpeed;
 
 		var wander = new Nav.Wander();
-		wander.MinRadius = 50;
-		wander.MaxRadius = 120;
+		wander.MinRadius = 150;
+		wander.MaxRadius = 300;
 		Steer = wander;
 	}
 
@@ -274,19 +274,27 @@ public partial class CommonZombie : BaseZombie
 		if ( TimeSinceAttacked > AttackSpeed )
 		{
 			TimeSinceAttacked = 0;
-			MeleeAttack();
+			TryMeleeAttack();
 		}	
+	}
+
+	public void TryMeleeAttack()
+	{
+		if ( TimeUntilUnstunned > 0 ) return;
+		PlaySoundOnClient( "zombie.attack" );
+		SetAnimParameter( "b_attack", true );
+		Velocity = 0;
 	}
 
 	public async void MeleeAttack()
 	{
 		// initial delay too?
 		//await Task.Delay( 100 );
-		if ( !IsValid ) return;
-		if ( TimeUntilUnstunned > 0 ) return;
-		PlaySoundOnClient( "zombie.attack" );
-		SetAnimParameter("b_attack", true);
-		Velocity = 0;
+		//if ( !IsValid ) return;
+		//if ( TimeUntilUnstunned > 0 ) return;
+		//PlaySoundOnClient( "zombie.attack" );
+		//SetAnimParameter("b_attack", true);
+		//Velocity = 0;
 
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
 		await Task.Delay( 200 );

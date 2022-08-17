@@ -12,7 +12,7 @@ public class NavPath
 
 	public bool IsEmpty => Points.Count <= 1;
 
-	public void Update( Vector3 from, Vector3 to, Vector3 velocity = new Vector3() )
+	public void Update( Vector3 from, Vector3 to, Vector3 velocity = new Vector3(), float sharpStartAngle = 45f )
 	{
 		bool needsBuild = false;
 
@@ -38,7 +38,11 @@ public class NavPath
 
 			//how it's calculated: PathLength += (Fall distance * Scale)
 			var path = NavMesh.PathBuilder( fromFixed.Value )
-				.WithStartVelocity( velocity )
+				//.WithStartAcceleration( velocity)
+				//.WithSpringConstant(2f)
+				//.WithSpringTensionMax(.5f)
+				.WithSharpStartAngle( sharpStartAngle )
+				.WithStartVelocity( velocity/2 )
 				.WithStepHeight( 16 )
 				.WithMaxClimbDistance( 1000 )
 				.WithMaxDropDistance( 3000 )

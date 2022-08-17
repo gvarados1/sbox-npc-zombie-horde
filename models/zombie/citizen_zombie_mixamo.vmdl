@@ -115,315 +115,620 @@
 						children = 
 						[
 							{
-								_class = "AnimFile"
-								name = "Drunk_Idle"
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = ""
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = true
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "weapons/licensed/mixamo/animations/Drunk Idle.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "Drunk_Run_Backward"
+								_class = "Folder"
+								name = "movement1"
 								children = 
 								[
 									{
-										_class = "AnimAlign"
-										align_tx = true
-										align_ty = true
-										align_tz = false
-										align_rx = false
-										align_ry = false
-										align_rz = false
-										align_frame_type = "Number"
-										frame = 0
-										align_to_anim = "Drunk_Idle"
-										align_to_frame_type = "Number"
-										align_to_frame = 0
-										bone = "pelvis"
+										_class = "AnimFile"
+										name = "Drunk_Idle"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Drunk Idle.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "ExtractMotion"
-										extract_tx = true
-										extract_ty = true
-										extract_tz = false
-										extract_rz = false
-										linear = false
-										quadratic = false
-										root_bone_name = "pelvis"
-										motion_type = "Single"
+										_class = "AnimFile"
+										name = "Drunk_Run_Backward"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Drunk Run Backward.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Drunk_Run_Forward"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 9
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 22
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 35
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 49
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Drunk Run Forward.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Drunk_Walk_Backwards"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Drunk Walk Backwards.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Drunk_Walk"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 19
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 48
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 64
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 79
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Drunk Walk.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Fast_Run"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 9
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 22
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 35
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 49
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Fast Run.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 								]
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = ""
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = true
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "weapons/licensed/mixamo/animations/Drunk Run Backward.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
 							},
 							{
-								_class = "AnimFile"
-								name = "Drunk_Run_Forward"
+								_class = "Folder"
+								name = "attacks"
 								children = 
 								[
 									{
-										_class = "AnimAlign"
-										align_tx = true
-										align_ty = true
-										align_tz = false
-										align_rx = false
-										align_ry = false
-										align_rz = false
-										align_frame_type = "Number"
-										frame = 0
-										align_to_anim = "Drunk_Idle"
-										align_to_frame_type = "Number"
-										align_to_frame = 0
-										bone = "pelvis"
+										_class = "AnimFile"
+										name = "Zombie_Attack_1"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 1.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "ExtractMotion"
-										extract_tx = true
-										extract_ty = true
-										extract_tz = false
-										extract_rz = false
-										linear = false
-										quadratic = false
-										root_bone_name = "pelvis"
-										motion_type = "Single"
+										_class = "AnimFile"
+										name = "Zombie_Attack_2a"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 2a.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 9
-										event_keys = 
-										{
-											Attachment = "foot_L"
-											Foot = "0"
-											Volume = 1.0
-										}
+										_class = "AnimFile"
+										name = "Zombie_Attack_2b"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 2b.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 22
-										event_keys = 
-										{
-											Attachment = "foot_R"
-											Foot = "1"
-											Volume = 1.0
-										}
+										_class = "AnimFile"
+										name = "Zombie_Punching_1a"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 1a.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 35
-										event_keys = 
-										{
-											Attachment = "foot_L"
-											Foot = "0"
-											Volume = 1.0
-										}
+										_class = "AnimFile"
+										name = "Zombie_Punching_1b"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 1b.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 49
-										event_keys = 
-										{
-											Attachment = "foot_R"
-											Foot = "1"
-											Volume = 1.0
-										}
+										_class = "AnimFile"
+										name = "Zombie_Punching_2a"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 2a.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Zombie_Punching_2b"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 2b.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
 									},
 								]
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = ""
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = true
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "weapons/licensed/mixamo/animations/Drunk Run Forward.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "Drunk_Walk_Backwards"
-								children = 
-								[
-									{
-										_class = "AnimAlign"
-										align_tx = true
-										align_ty = true
-										align_tz = false
-										align_rx = false
-										align_ry = false
-										align_rz = false
-										align_frame_type = "Number"
-										frame = 0
-										align_to_anim = "Drunk_Idle"
-										align_to_frame_type = "Number"
-										align_to_frame = 0
-										bone = "pelvis"
-									},
-									{
-										_class = "ExtractMotion"
-										extract_tx = true
-										extract_ty = true
-										extract_tz = false
-										extract_rz = false
-										linear = false
-										quadratic = false
-										root_bone_name = "pelvis"
-										motion_type = "Single"
-									},
-								]
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = ""
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = true
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "weapons/licensed/mixamo/animations/Drunk Walk Backwards.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
-							},
-							{
-								_class = "AnimFile"
-								name = "Drunk_Walk"
-								children = 
-								[
-									{
-										_class = "AnimAlign"
-										align_tx = true
-										align_ty = true
-										align_tz = false
-										align_rx = false
-										align_ry = false
-										align_rz = false
-										align_frame_type = "Number"
-										frame = 0
-										align_to_anim = "Drunk_Idle"
-										align_to_frame_type = "Number"
-										align_to_frame = 0
-										bone = "pelvis"
-									},
-									{
-										_class = "ExtractMotion"
-										extract_tx = true
-										extract_ty = true
-										extract_tz = false
-										extract_rz = false
-										linear = false
-										quadratic = false
-										root_bone_name = "pelvis"
-										motion_type = "Single"
-									},
-									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 19
-										event_keys = 
-										{
-											Attachment = "foot_L"
-											Foot = "0"
-											Volume = 1.0
-										}
-									},
-									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 48
-										event_keys = 
-										{
-											Attachment = "foot_R"
-											Foot = "1"
-											Volume = 1.0
-										}
-									},
-									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 64
-										event_keys = 
-										{
-											Attachment = "foot_L"
-											Foot = "0"
-											Volume = 1.0
-										}
-									},
-									{
-										_class = "AnimEvent"
-										event_class = "AE_FOOTSTEP"
-										event_frame = 79
-										event_keys = 
-										{
-											Attachment = "foot_R"
-											Foot = "1"
-											Volume = 1.0
-										}
-									},
-								]
-								activity_name = ""
-								activity_weight = 1
-								weight_list_name = ""
-								fade_in_time = 0.2
-								fade_out_time = 0.2
-								looping = true
-								delta = false
-								worldSpace = false
-								hidden = false
-								anim_markup_ordered = false
-								disable_compression = false
-								source_filename = "weapons/licensed/mixamo/animations/Drunk Walk.fbx"
-								start_frame = -1
-								end_frame = -1
-								framerate = -1.0
-								take = 0
-								reverse = false
 							},
 						]
+					},
+					{
+						_class = "AnimFile"
+						name = "Walking_1"
+						children = 
+						[
+							{
+								_class = "AnimAlign"
+								align_tx = true
+								align_ty = true
+								align_tz = false
+								align_rx = false
+								align_ry = false
+								align_rz = false
+								align_frame_type = "Number"
+								frame = 0
+								align_to_anim = "Drunk_Idle"
+								align_to_frame_type = "Number"
+								align_to_frame = 0
+								bone = "pelvis"
+							},
+							{
+								_class = "ExtractMotion"
+								extract_tx = true
+								extract_ty = true
+								extract_tz = false
+								extract_rz = false
+								linear = false
+								quadratic = false
+								root_bone_name = "pelvis"
+								motion_type = "Single"
+							},
+						]
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "weapons/licensed/mixamo/animations/Walking 1.fbx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
 					},
 				]
 				default_root_bone_name = "pelvis"

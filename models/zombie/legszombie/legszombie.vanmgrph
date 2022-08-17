@@ -3978,7 +3978,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 1908884856
+									m_id = 1856447849
 								}
 								m_outputID = 
 								{
@@ -4007,11 +4007,11 @@
 										{
 											_class = "CFinishedCondition"
 											m_comparisonOp = 0
-											m_option = "FinishedConditionOption_OnFinished"
+											m_option = "FinishedConditionOption_OnAlmostFinished"
 											m_bIsFinished = true
 										},
 									]
-									m_blendDuration = 0.8
+									m_blendDuration = 0.2
 									m_destState = 
 									{
 										m_id = 224189453
@@ -4035,7 +4035,7 @@
 							{
 								m_nodeID = 
 								{
-									m_id = 2015958678
+									m_id = 1278330869
 								}
 								m_outputID = 
 								{
@@ -4088,7 +4088,7 @@
 				{
 					_class = "CSingleFrameAnimNode"
 					m_sName = "Unnamed"
-					m_vecPosition = [ 2240.0, -384.0 ]
+					m_vecPosition = [ 2272.0, -368.0 ]
 					m_nNodeID = 
 					{
 						m_id = 1856447849
