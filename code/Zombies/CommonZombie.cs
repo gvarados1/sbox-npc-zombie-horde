@@ -118,7 +118,7 @@ public partial class CommonZombie : BaseZombie
 						if ( (Position - Target.Position).Length < range || (EyePosition - Target.Position ).Length < range )
 						{
 							TryMeleeAttack();
-							TimeSinceAttacked = 0;
+							TimeSinceAttacked = -3;
 						}
 					}
 				}
@@ -273,7 +273,7 @@ public partial class CommonZombie : BaseZombie
 		//base.HitBreakableObject();
 		if ( TimeSinceAttacked > AttackSpeed )
 		{
-			TimeSinceAttacked = 0;
+			TimeSinceAttacked = -3;
 			TryMeleeAttack();
 		}	
 	}
@@ -286,7 +286,16 @@ public partial class CommonZombie : BaseZombie
 		Velocity = 0;
 	}
 
-	public async void MeleeAttack()
+	public override void OnAnimEventGeneric( string name, int intData, float floatData, Vector3 vectorData, string stringData )
+	{
+		base.OnAnimEventGeneric( name, intData, floatData, vectorData, stringData );
+		if(name == "Attack" )
+		{
+			MeleeAttack();
+		}
+	}
+
+	public void MeleeAttack()
 	{
 		// initial delay too?
 		//await Task.Delay( 100 );
@@ -297,10 +306,12 @@ public partial class CommonZombie : BaseZombie
 		//Velocity = 0;
 
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
-		await Task.Delay( 200 );
+		//await Task.Delay( 200 );
+		if ( !IsServer ) return;
 		if ( !IsValid ) return;
 		if ( TimeUntilUnstunned > 0 ) return;
 		Velocity = 0;
+		TimeSinceAttacked = 0;
 
 		var forward = Rotation.Forward;
 		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f;

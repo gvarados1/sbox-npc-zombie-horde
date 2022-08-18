@@ -1482,7 +1482,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Attack_2b"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -1525,7 +1525,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Punching_1a"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -1547,7 +1547,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Attack_2a"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -1854,7 +1854,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Punching_1b"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -1940,7 +1940,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Punching_2a"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -2715,7 +2715,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Attack_1"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -2758,7 +2758,7 @@
 					m_sNote = ""
 					m_tagSpans = [  ]
 					m_sequenceName = "Zombie_Punching_2b"
-					m_playbackSpeed = 1.0
+					m_playbackSpeed = 2.0
 					m_bLoop = false
 				}
 			},
@@ -4117,7 +4117,7 @@
 					m_networkMode = "ClientPredicted"
 					m_sNote = ""
 					m_commentText = ""
-					m_size = [ 736.0, 28.0 ]
+					m_size = [ 736.0, 16.0 ]
 					m_color = [ 220, 20, 60, 255 ]
 				}
 			},

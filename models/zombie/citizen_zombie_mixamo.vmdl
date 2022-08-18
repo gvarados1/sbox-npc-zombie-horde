@@ -532,6 +532,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Attack_1"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 42
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -553,6 +569,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Attack_2a"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 31
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -565,7 +597,7 @@
 										anim_markup_ordered = false
 										disable_compression = false
 										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 2a.fbx"
-										start_frame = -1
+										start_frame = 8
 										end_frame = -1
 										framerate = -1.0
 										take = 0
@@ -574,6 +606,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Attack_2b"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 31
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -586,7 +634,7 @@
 										anim_markup_ordered = false
 										disable_compression = false
 										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 2b.fbx"
-										start_frame = -1
+										start_frame = 8
 										end_frame = -1
 										framerate = -1.0
 										take = 0
@@ -595,6 +643,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Punching_1a"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 38
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -616,6 +680,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Punching_1b"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 38
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -637,6 +717,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Punching_2a"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 18
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
@@ -658,6 +754,22 @@
 									{
 										_class = "AnimFile"
 										name = "Zombie_Punching_2b"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 18
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
 										activity_name = ""
 										activity_weight = 1
 										weight_list_name = ""
