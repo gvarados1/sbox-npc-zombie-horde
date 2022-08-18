@@ -121,27 +121,6 @@
 								[
 									{
 										_class = "AnimFile"
-										name = "Drunk_Idle"
-										activity_name = ""
-										activity_weight = 1
-										weight_list_name = ""
-										fade_in_time = 0.2
-										fade_out_time = 0.2
-										looping = true
-										delta = false
-										worldSpace = false
-										hidden = false
-										anim_markup_ordered = false
-										disable_compression = false
-										source_filename = "weapons/licensed/mixamo/animations/Drunk Idle.fbx"
-										start_frame = -1
-										end_frame = -1
-										framerate = -1.0
-										take = 0
-										reverse = false
-									},
-									{
-										_class = "AnimFile"
 										name = "Drunk_Run_Backward"
 										children = 
 										[
@@ -155,7 +134,7 @@
 												align_rz = false
 												align_frame_type = "Number"
 												frame = 0
-												align_to_anim = "Drunk_Idle"
+												align_to_anim = "Drunk_Idle_1"
 												align_to_frame_type = "Number"
 												align_to_frame = 0
 												bone = "pelvis"
@@ -205,7 +184,7 @@
 												align_rz = false
 												align_frame_type = "Number"
 												frame = 0
-												align_to_anim = "Drunk_Idle"
+												align_to_anim = "Drunk_Idle_1"
 												align_to_frame_type = "Number"
 												align_to_frame = 0
 												bone = "pelvis"
@@ -299,7 +278,7 @@
 												align_rz = false
 												align_frame_type = "Number"
 												frame = 0
-												align_to_anim = "Drunk_Idle"
+												align_to_anim = "Drunk_Idle_1"
 												align_to_frame_type = "Number"
 												align_to_frame = 0
 												bone = "pelvis"
@@ -349,7 +328,7 @@
 												align_rz = false
 												align_frame_type = "Number"
 												frame = 0
-												align_to_anim = "Drunk_Idle"
+												align_to_anim = "Drunk_Idle_1"
 												align_to_frame_type = "Number"
 												align_to_frame = 0
 												bone = "pelvis"
@@ -443,7 +422,7 @@
 												align_rz = false
 												align_frame_type = "Number"
 												frame = 0
-												align_to_anim = "Drunk_Idle"
+												align_to_anim = "Drunk_Idle_1"
 												align_to_frame_type = "Number"
 												align_to_frame = 0
 												bone = "pelvis"
@@ -522,6 +501,220 @@
 										take = 0
 										reverse = false
 									},
+									{
+										_class = "AnimFile"
+										name = "Walking_2"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle_1"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 19
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 48
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 64
+												event_keys = 
+												{
+													Attachment = "foot_L"
+													Foot = "0"
+													Volume = 1.0
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_FOOTSTEP"
+												event_frame = 79
+												event_keys = 
+												{
+													Attachment = "foot_R"
+													Foot = "1"
+													Volume = 1.0
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Walking 2.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Walking_1"
+										children = 
+										[
+											{
+												_class = "AnimAlign"
+												align_tx = true
+												align_ty = true
+												align_tz = false
+												align_rx = false
+												align_ry = false
+												align_rz = false
+												align_frame_type = "Number"
+												frame = 0
+												align_to_anim = "Drunk_Idle_1"
+												align_to_frame_type = "Number"
+												align_to_frame = 0
+												bone = "pelvis"
+											},
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = false
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/Walking 1.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Climbing"
+										children = 
+										[
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = true
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/climb/Climbing.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Climbing_Up_Wall"
+										children = 
+										[
+											{
+												_class = "ExtractMotion"
+												extract_tx = true
+												extract_ty = true
+												extract_tz = true
+												extract_rz = false
+												linear = false
+												quadratic = false
+												root_bone_name = "pelvis"
+												motion_type = "Single"
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/climb/Climbing Up Wall.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
 								]
 							},
 							{
@@ -547,6 +740,18 @@
 													StringData = ""
 												}
 											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 35
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -561,7 +766,7 @@
 										disable_compression = false
 										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Attack 1.fbx"
 										start_frame = -1
-										end_frame = -1
+										end_frame = 96
 										framerate = -1.0
 										take = 0
 										reverse = false
@@ -582,6 +787,18 @@
 													Float = 0.0
 													Vector = [ 0.0, 0.0, 0.0 ]
 													StringData = ""
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 21
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
 												}
 											},
 										]
@@ -621,6 +838,18 @@
 													StringData = ""
 												}
 											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 21
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -658,6 +887,18 @@
 													StringData = ""
 												}
 											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 33
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -672,7 +913,7 @@
 										disable_compression = false
 										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 1a.fbx"
 										start_frame = -1
-										end_frame = -1
+										end_frame = 76
 										framerate = -1.0
 										take = 0
 										reverse = false
@@ -695,6 +936,18 @@
 													StringData = ""
 												}
 											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 33
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -709,7 +962,7 @@
 										disable_compression = false
 										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Punching 1b.fbx"
 										start_frame = -1
-										end_frame = -1
+										end_frame = 76
 										framerate = -1.0
 										take = 0
 										reverse = false
@@ -730,6 +983,18 @@
 													Float = 0.0
 													Vector = [ 0.0, 0.0, 0.0 ]
 													StringData = ""
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 16
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
 												}
 											},
 										]
@@ -769,6 +1034,18 @@
 													StringData = ""
 												}
 											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 16
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -788,59 +1065,234 @@
 										take = 0
 										reverse = false
 									},
+									{
+										_class = "AnimFile"
+										name = "Zombie_Headbutt"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 20
+												event_keys = 
+												{
+													TypeName = "Attack"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+											{
+												_class = "AnimEvent"
+												event_class = "AE_CL_PLAYSOUND"
+												event_frame = 17
+												event_keys = 
+												{
+													name = "zombie.melee"
+													stop_on_seq_change = false
+													use_layer_sequence = false
+													tags = ""
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = false
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/attack/Zombie Headbutt.fbx"
+										start_frame = 18
+										end_frame = 46
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+								]
+							},
+							{
+								_class = "Folder"
+								name = "idle1"
+								children = 
+								[
+									{
+										_class = "AnimFile"
+										name = "Drunk_Idle_1"
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/idle/Drunk Idle 1.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Drunk_Idle_2"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 222
+												event_keys = 
+												{
+													TypeName = "IdleEnded"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/idle/Drunk Idle 2.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Zombie_Agonizing"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 349
+												event_keys = 
+												{
+													TypeName = "IdleEnded"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/idle/Zombie Agonizing.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Zombie_Idle_1"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 120
+												event_keys = 
+												{
+													TypeName = "IdleEnded"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/idle/Zombie Idle 1.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
+									{
+										_class = "AnimFile"
+										name = "Zombie_Idle_2"
+										children = 
+										[
+											{
+												_class = "AnimEvent"
+												event_class = "AE_GENERIC_EVENT"
+												event_frame = 120
+												event_keys = 
+												{
+													TypeName = "IdleEnded"
+													Int = 0
+													Float = 0.0
+													Vector = [ 0.0, 0.0, 0.0 ]
+													StringData = ""
+												}
+											},
+										]
+										activity_name = ""
+										activity_weight = 1
+										weight_list_name = ""
+										fade_in_time = 0.2
+										fade_out_time = 0.2
+										looping = true
+										delta = false
+										worldSpace = false
+										hidden = false
+										anim_markup_ordered = false
+										disable_compression = false
+										source_filename = "weapons/licensed/mixamo/animations/idle/Zombie Idle 2.fbx"
+										start_frame = -1
+										end_frame = -1
+										framerate = -1.0
+										take = 0
+										reverse = false
+									},
 								]
 							},
 						]
-					},
-					{
-						_class = "AnimFile"
-						name = "Walking_1"
-						children = 
-						[
-							{
-								_class = "AnimAlign"
-								align_tx = true
-								align_ty = true
-								align_tz = false
-								align_rx = false
-								align_ry = false
-								align_rz = false
-								align_frame_type = "Number"
-								frame = 0
-								align_to_anim = "Drunk_Idle"
-								align_to_frame_type = "Number"
-								align_to_frame = 0
-								bone = "pelvis"
-							},
-							{
-								_class = "ExtractMotion"
-								extract_tx = true
-								extract_ty = true
-								extract_tz = false
-								extract_rz = false
-								linear = false
-								quadratic = false
-								root_bone_name = "pelvis"
-								motion_type = "Single"
-							},
-						]
-						activity_name = ""
-						activity_weight = 1
-						weight_list_name = ""
-						fade_in_time = 0.2
-						fade_out_time = 0.2
-						looping = true
-						delta = false
-						worldSpace = false
-						hidden = false
-						anim_markup_ordered = false
-						disable_compression = false
-						source_filename = "weapons/licensed/mixamo/animations/Walking 1.fbx"
-						start_frame = -1
-						end_frame = -1
-						framerate = -1.0
-						take = 0
-						reverse = false
 					},
 				]
 				default_root_bone_name = "pelvis"

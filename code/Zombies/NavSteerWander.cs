@@ -16,7 +16,7 @@ namespace ZombieHorde.Nav
 		{
 			base.Tick( position, velocity * 10, 360f );
 
-			if ( Path.IsEmpty )
+			if ( Path.IsEmpty && TimeUntilCanMove < 0 )
 			{
 				if(Rand.Int(60) == 0)
 					FindNewTarget( position );

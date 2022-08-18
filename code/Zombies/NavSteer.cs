@@ -5,7 +5,8 @@ using System.Buffers;
 namespace ZombieHorde;
 public class NavSteer
 {
-	protected NavPath Path { get; private set; }
+	public NavPath Path { get; private set; }
+	public TimeUntil TimeUntilCanMove { get; set; } = 0;
 
 	public NavSteer()
 	{
@@ -14,6 +15,7 @@ public class NavSteer
 
 	public virtual void Tick( Vector3 currentPosition, Vector3 velocity = new Vector3(), float sharpStartAngle = 60f )
 	{
+		if ( TimeUntilCanMove > 0 ) return;
 		//using ( Sandbox.Debug.Profile.Scope( "Update Path" ) )
 		{
 			Path.Update( currentPosition, Target, velocity, sharpStartAngle );

@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using System.IO;
+using ZombieHorde.Nav;
 
 namespace ZombieHorde;
 
@@ -44,21 +45,38 @@ public partial class CommonZombie : BaseZombie
 	}
 
 	public TimeSince TimeSinceMoan = 0;
+	public bool JustSpawned = true;
 
 	public override void Tick()
 	{
 		if ( ZombieState == ZombieState.Wander )
 		{
+			if ( JustSpawned )
+			{
+				(Steer as Wander).FindNewTarget( Position );
+				JustSpawned = false;
+			}
+
 			//  randomly play sounds
 			if ( TimeSinceMoan > 2.4f )
 			{
 				TimeSinceMoan = 0 - Rand.Float( .5f );
 				PlaySoundOnClient( "zombie.moan" );
 			}
+
+			if(Steer.Path.IsEmpty && TimeSinceLongIdle > 5f )
+			{
+				if(Rand.Int(30) == 0 )
+				{
+					Steer.TimeUntilCanMove = 5;
+					SetAnimParameter( "b_longidle", true );
+					TimeSinceLongIdle = 0;
+				}
+			}
 		}
 		else if ( ZombieState == ZombieState.Chase )
 		{
-			if(Steer == null )
+			if (Steer == null )
 			{
 				if ( !Target.IsValid() ) FindTarget();
 				if ( Target.LifeState == LifeState.Dead ) FindTarget();
@@ -266,6 +284,7 @@ public partial class CommonZombie : BaseZombie
 		wander.MinRadius = 150;
 		wander.MaxRadius = 300;
 		Steer = wander;
+		//(Steer as Wander).FindNewTarget( Position );
 	}
 
 	public override void HitBreakableObject()
@@ -286,12 +305,17 @@ public partial class CommonZombie : BaseZombie
 		Velocity = 0;
 	}
 
+	public TimeSince TimeSinceLongIdle = -10;
 	public override void OnAnimEventGeneric( string name, int intData, float floatData, Vector3 vectorData, string stringData )
 	{
 		base.OnAnimEventGeneric( name, intData, floatData, vectorData, stringData );
 		if(name == "Attack" )
 		{
 			MeleeAttack();
+		}
+		else if(name == "IdleEnded" )
+		{
+			TimeSinceLongIdle = 0;
 		}
 	}
 
@@ -307,11 +331,12 @@ public partial class CommonZombie : BaseZombie
 
 		// I don't like using Task.Delay, but it seems like the best option here?. I want the damage to come in slightly after the animation starts. This also gives the player a chance to block
 		//await Task.Delay( 200 );
+		Rand.SetSeed( Time.Tick );
 		if ( !IsServer ) return;
 		if ( !IsValid ) return;
 		if ( TimeUntilUnstunned > 0 ) return;
 		Velocity = 0;
-		TimeSinceAttacked = 0;
+		TimeSinceAttacked = 0 - Rand.Float( 1 );
 
 		var forward = Rotation.Forward;
 		forward += (Vector3.Random + Vector3.Random + Vector3.Random + Vector3.Random) * 0.1f;
