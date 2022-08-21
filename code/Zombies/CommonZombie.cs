@@ -53,8 +53,11 @@ public partial class CommonZombie : BaseZombie
 		{
 			if ( JustSpawned )
 			{
-				(Steer as Wander).FindNewTarget( Position );
-				JustSpawned = false;
+				if(Steer is Wander wander )
+				{
+					(Steer as Wander).FindNewTarget( Position );
+					JustSpawned = false;
+				}
 			}
 
 			//  randomly play sounds
@@ -284,7 +287,6 @@ public partial class CommonZombie : BaseZombie
 		wander.MinRadius = 150;
 		wander.MaxRadius = 300;
 		Steer = wander;
-		//(Steer as Wander).FindNewTarget( Position );
 	}
 
 	public override void HitBreakableObject()
