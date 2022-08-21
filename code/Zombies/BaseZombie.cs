@@ -98,7 +98,18 @@ public partial class BaseZombie : BaseNpc
 		{
 			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 250, true ); // 100
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );
-			Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
+			if ( TimeUntilUnstunned < 0 )
+			{
+				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
+			}
+			else
+			{
+				if( Rotation.Distance(targetRotation) > 160 )
+				{
+					targetRotation = Rotation.LookAt( -walkVelocity.Normal, Vector3.Up );
+				}
+				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 5.0f );
+			}
 		}
 
 		var animHelper = new CitizenAnimationHelper( this );
@@ -138,7 +149,6 @@ public partial class BaseZombie : BaseNpc
 
 		//using ( Sandbox.Debug.Profile.Scope( "Ground Checks" ) )
 		{
-
 			var tr = move.TraceDirection( Vector3.Down * 10.0f );
 
 			if (Velocity.z < 5 && move.IsFloor( tr ) )
@@ -176,38 +186,46 @@ public partial class BaseZombie : BaseNpc
 				}
 			}
 
-			// hit a wall or prop/glass. need to jump over or break it
-			if (GroundEntity != null && move.HitWall )
+			if(TimeUntilUnstunned < 0 )
 			{
-				// trace at jump height
-				var jumpTrace = Trace.Ray( Position + Vector3.Up * 100, EyePosition + Vector3.Up * 40 + Rotation.Forward * 60 )
-				.UseHitboxes()
-				.WithoutTags( "Zombie" )
-				.EntitiesOnly()
-				.Ignore( this )
-				.Size( 10 )
-				//.WorldOnly()
-				.Run();
-
-				if ( jumpTrace.Hit )
+				// hit a wall or prop/glass. need to jump over or break it
+				if ( GroundEntity != null && move.HitWall )
 				{
-					HitBreakableObject();
-				}
-				else
-				{
-					//basic jump
-					GroundEntity = null;
+					// trace at jump height
+					var jumpTrace = Trace.Ray( Position + Vector3.Up * 100, EyePosition + Vector3.Up * 40 + Rotation.Forward * 60 )
+					.UseHitboxes()
+					.WithoutTags( "Zombie" )
+					.EntitiesOnly()
+					.Ignore( this )
+					.Size( 10 )
+					//.WorldOnly()
+					.Run();
 
-					move.Velocity = new Vector3( 0, 0, 330f );
-					move.Position += new Vector3( 0, 0, 4f );
+					if ( jumpTrace.Hit )
+					{
+						HitBreakableObject();
+					}
+					else
+					{
+						//basic jump
+						GroundEntity = null;
 
-					SetAnimParameter( "b_jump", true );
+						move.Velocity = new Vector3( 0, 0, 330f );
+						move.Position += new Vector3( 0, 0, 4f );
+
+						SetAnimParameter( "b_jump", true );
+					}
 				}
 			}
 		}
 
 		Position = move.Position;
 		Velocity = move.Velocity;
+	}
+
+	public virtual void TryJump()
+	{
+
 	}
 
 	TimeSince TimeSinceSeenTarget;

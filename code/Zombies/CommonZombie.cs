@@ -133,7 +133,7 @@ public partial class CommonZombie : BaseZombie
 					}
 
 					// attack if near target
-					if ( TimeSinceAttacked > AttackSpeed ) // todo: scale attack speed with difficulty or the amount of zombies attacking
+					if ( TimeSinceAttacked > AttackSpeed && TimeUntilUnstunned < 0 ) // todo: scale attack speed with difficulty or the amount of zombies attacking
 					{
 						var range = 60;
 						if ( (Position - Target.Position).Length < range || (EyePosition - Target.Position ).Length < range )
@@ -231,6 +231,7 @@ public partial class CommonZombie : BaseZombie
 	}
 	public void Stun(float seconds )
 	{
+		SetAnimParameter( "b_shoved", true );
 		TimeUntilUnstunned = seconds;
 		Steer = null;
 	}
