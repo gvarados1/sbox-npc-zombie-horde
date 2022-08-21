@@ -47,18 +47,18 @@ public class NavSteer
 	{
 		var center = position + Output.Direction * radius * 0.5f;
 
-		var objectRadius = 160.0f; // 200f
+		var objectRadius = 160.0f; // def: 200f, old: 160f
 		Vector3 avoidance = default;
 
 		var distToTarget = (position - Target).Length;
-		if ( distToTarget < 500 )
+		if ( distToTarget < 300 )
 		{
-			objectRadius -= distToTarget.LerpInverse( 500, 0 ) * 100;
+			objectRadius -= distToTarget.LerpInverse( 300, 0 ) * 100;
 		}
 
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
-			if ( ent is not BaseNpc ) continue;
+			if ( ent is not BaseNpc && ent is not HumanPlayer ) continue;
 			if ( ent.IsWorld ) continue;
 
 			var delta = (position - ent.Position).WithZ( 0 );
@@ -70,6 +70,7 @@ public class NavSteer
 			//avoidance += delta.Cross( Output.Direction ).Normal * thrust * 2.5f;
 			avoidance += delta.Normal * thrust * thrust;
 		}
+		DebugOverlay.Text( objectRadius.ToString(), position + Vector3.Up * 80 );
 
 		return avoidance;
 	}
