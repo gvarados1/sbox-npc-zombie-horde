@@ -70,7 +70,6 @@ public class NavSteer
 			//avoidance += delta.Cross( Output.Direction ).Normal * thrust * 2.5f;
 			avoidance += delta.Normal * thrust * thrust;
 		}
-		DebugOverlay.Text( objectRadius.ToString(), position + Vector3.Up * 80 );
 
 		return avoidance;
 	}
