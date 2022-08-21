@@ -1,4 +1,6 @@
 ﻿using Sandbox;
+using Sandbox.Internal;
+using Sandbox.UI;
 using System;
 using System.Buffers;
 
@@ -47,6 +49,12 @@ public class NavSteer
 
 		var objectRadius = 160.0f; // 200f
 		Vector3 avoidance = default;
+
+		var distToTarget = (position - Target).Length;
+		if ( distToTarget < 500 )
+		{
+			objectRadius -= distToTarget.LerpInverse( 500, 0 ) * 100;
+		}
 
 		foreach ( var ent in Entity.FindInSphere( center, radius ) )
 		{
