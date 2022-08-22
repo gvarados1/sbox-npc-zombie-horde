@@ -55,7 +55,7 @@ public partial class CommonZombie : BaseZombie
 			{
 				if(Steer is Wander wander )
 				{
-					(Steer as Wander).FindNewTarget( Position );
+					wander.FindNewTarget( Position );
 					JustSpawned = false;
 				}
 			}
@@ -148,6 +148,7 @@ public partial class CommonZombie : BaseZombie
 			{
 				// do something if we have an invalid target?
 				// probably return to wander state or find a new target after x time
+				FindTarget();
 			}
 		}
 		else if ( ZombieState == ZombieState.Lure )
@@ -164,7 +165,7 @@ public partial class CommonZombie : BaseZombie
 					StartWander();
 				}
 			}
-			if ( Target != null )
+			if ( Target.IsValid() )
 			{
 				// don't do anything if stunned
 				if ( TimeUntilUnstunned < 0 )
@@ -239,13 +240,13 @@ public partial class CommonZombie : BaseZombie
 	// start chase with existing target
 	public void StartChase()
 	{
-		if(Target == null ) FindTarget();
+		if(!Target.IsValid()) FindTarget();
 		StartChase( Target );
 	}
 	public void StartChase( Entity targ )
 	{
 		Target = targ;
-		if ( Target == null )
+		if ( !Target.IsValid() )
 		{
 			Log.Warning( "Invalid Target for: " + this );
 			return;
@@ -389,7 +390,7 @@ public partial class CommonZombie : BaseZombie
 			.OrderBy( x => Guid.NewGuid() )     // order them by random
 			.FirstOrDefault();                  // take the first one
 
-		if ( Target == null )
+		if ( !Target.IsValid() )
 		{
 			Log.Warning( $"Couldn't find target for {this}!" );
 		}
