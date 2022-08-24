@@ -132,12 +132,12 @@ public partial class BaseZombie : BaseNpc
 			}
 			// do I really need to do this????
 			//else if (Target != null && Position.Distance(Target.Position) < 60 )
-			else if ( Steer != null && Position.Distance(Steer.Target) < 60 )
-			{
-				//targetRotation = Rotation.LookAt( (Target.Position - Position).Normal, Vector3.Up );
-				targetRotation = Rotation.LookAt( (Steer.Target - Position).Normal, Vector3.Up );
-				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
-			}
+			//else if ( Steer != null && Position.Distance(Steer.Target) < 60 )
+			//{
+			//	//targetRotation = Rotation.LookAt( (Target.Position - Position).Normal, Vector3.Up );
+			//	targetRotation = Rotation.LookAt( (Steer.Target - Position).Normal, Vector3.Up );
+			//	Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
+			//}
 			else
 			{
 				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
