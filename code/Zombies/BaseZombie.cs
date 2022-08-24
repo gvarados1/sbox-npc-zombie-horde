@@ -135,7 +135,7 @@ public partial class BaseZombie : BaseNpc
 			//else if ( Steer != null && Position.Distance(Steer.Target) < 60 )
 			//{
 			//	//targetRotation = Rotation.LookAt( (Target.Position - Position).Normal, Vector3.Up );
-			//	targetRotation = Rotation.LookAt( (Steer.Target - Position).Normal, Vector3.Up );
+			//	targetRotation = Rotation.LookAt( (Steer.Target - Position).Normal.WithZ(0), Vector3.Up );
 			//	Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 			//}
 			else
@@ -264,8 +264,6 @@ public partial class BaseZombie : BaseNpc
 
 	public virtual void TryPathOffNav()
 	{
-		if ( nav_drawpath )
-			DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
 		// let's only deal with players for now
 		if ( Target is HumanPlayer )
 		{
@@ -296,6 +294,12 @@ public partial class BaseZombie : BaseNpc
 
 			// zombies gain a ton of speed while in the air. not sure what's going on there.
 			Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 2000, Speed ); //500
+
+			if ( nav_drawpath )
+			{
+				DebugOverlay.Sphere( EyePosition, 10, Color.Yellow );
+				DebugOverlay.Text( $"{(int)TimeSinceSeenTarget}", EyePosition + 10 );
+			}
 		}
 	}
 
@@ -313,7 +317,7 @@ public partial class BaseZombie : BaseNpc
 		if ( tr.Hit )
 		{
 
-			ClimbForward = -tr.Normal;
+			ClimbForward = -tr.Normal.WithZ(0);
 			//ClimbForward = Rotation.Forward.WithZ( 0 ).Normal;
 
 			// another trace up to see how far we should go
@@ -373,7 +377,7 @@ public partial class BaseZombie : BaseNpc
 			return;
 
 		ClimbDistanceRemaining = ClimbTargetPos.z - Position.z;
-		if ( ClimbDistanceRemaining < 85 && ClimbDistanceRemaining > 40 )
+		if ( ClimbDistanceRemaining < 79 && ClimbDistanceRemaining > 40 ) //85
 		{
 			SetAnimParameter( "b_climbing_end_top", true );
 		}

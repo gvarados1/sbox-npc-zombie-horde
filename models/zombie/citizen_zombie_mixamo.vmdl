@@ -696,6 +696,11 @@
 												root_bone_name = "pelvis"
 												motion_type = "Single"
 											},
+											{
+												_class = "AnimOffset"
+												translation = [ -8.0, 0.0, 0.0 ]
+												rotation_xyz = [ 0.0, 0.0, 0.0 ]
+											},
 										]
 										activity_name = ""
 										activity_weight = 1
@@ -722,14 +727,20 @@
 										[
 											{
 												_class = "ExtractMotion"
-												extract_tx = true
-												extract_ty = true
+												extract_tx = false
+												extract_ty = false
 												extract_tz = true
 												extract_rz = false
 												linear = false
 												quadratic = false
 												root_bone_name = "pelvis"
-												motion_type = "Single"
+												motion_type = "Specified"
+												motion_samples = [ 0, 34 ]
+											},
+											{
+												_class = "AnimOffset"
+												translation = [ -8.0, 0.0, 0.0 ]
+												rotation_xyz = [ 0.0, 0.0, 0.0 ]
 											},
 										]
 										activity_name = ""
