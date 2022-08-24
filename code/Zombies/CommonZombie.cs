@@ -51,29 +51,36 @@ public partial class CommonZombie : BaseZombie
 	{
 		if ( ZombieState == ZombieState.Wander )
 		{
-			if ( JustSpawned )
+			if(Steer == null )
 			{
-				if(Steer is Wander wander )
+				StartWander();
+			}
+			else
+			{
+				if ( JustSpawned )
 				{
-					wander.FindNewTarget( Position );
-					JustSpawned = false;
+					if ( Steer is Wander wander )
+					{
+						wander.FindNewTarget( Position );
+						JustSpawned = false;
+					}
 				}
-			}
 
-			//  randomly play sounds
-			if ( TimeSinceMoan > 2.4f )
-			{
-				TimeSinceMoan = 0 - Rand.Float( .5f );
-				PlaySoundOnClient( "zombie.moan" );
-			}
-
-			if(Steer.Path.IsEmpty && TimeSinceLongIdle > 5f )
-			{
-				if(Rand.Int(30) == 0 )
+				//  randomly play sounds
+				if ( TimeSinceMoan > 2.4f )
 				{
-					Steer.TimeUntilCanMove = 5;
-					SetAnimParameter( "b_longidle", true );
-					TimeSinceLongIdle = 0;
+					TimeSinceMoan = 0 - Rand.Float( .5f );
+					PlaySoundOnClient( "zombie.moan" );
+				}
+
+				if ( Steer.Path.IsEmpty && TimeSinceLongIdle > 5f )
+				{
+					if ( Rand.Int( 30 ) == 0 )
+					{
+						Steer.TimeUntilCanMove = 5;
+						SetAnimParameter( "b_longidle", true );
+						TimeSinceLongIdle = 0;
+					}
 				}
 			}
 		}

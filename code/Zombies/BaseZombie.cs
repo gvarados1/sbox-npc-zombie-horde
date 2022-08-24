@@ -118,21 +118,29 @@ public partial class BaseZombie : BaseNpc
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );
 			if( TimeSinceClimb < .5f )
 			{
-				//Rotation = ClimbForward
 				targetRotation = Rotation.LookAt( ClimbForward, Vector3.Up );
 				Rotation = targetRotation;
 			}
-			else if ( TimeUntilUnstunned < 0 )
+			else if ( TimeUntilUnstunned > 0 )
 			{
-				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
-			}
-			else
-			{
-				if( Rotation.Distance(targetRotation) > 160 )
+				if ( Rotation.Distance( targetRotation ) > 160 )
 				{
 					targetRotation = Rotation.LookAt( -walkVelocity.Normal, Vector3.Up );
 				}
 				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 5.0f );
+				
+			}
+			// do I really need to do this????
+			//else if (Target != null && Position.Distance(Target.Position) < 60 )
+			else if ( Steer != null && Position.Distance(Steer.Target) < 60 )
+			{
+				//targetRotation = Rotation.LookAt( (Target.Position - Position).Normal, Vector3.Up );
+				targetRotation = Rotation.LookAt( (Steer.Target - Position).Normal, Vector3.Up );
+				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
+			}
+			else
+			{
+				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 			}
 		}
 
@@ -369,6 +377,7 @@ public partial class BaseZombie : BaseNpc
 		{
 			SetAnimParameter( "b_climbing_end_top", true );
 		}
+
 
 		// constantly check if we should still be climbing. Will prevent getting stuck floating forever lol
 		var trCheck = TraceBBoxIgnoreZom( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
