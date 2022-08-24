@@ -149,6 +149,11 @@
           "a": "grenade",
           "b": "grenade",
           "r": "Ignore"
+        },
+        {
+          "a": "gib",
+          "b": "zombie",
+          "r": "Ignore"
         }
       ]
     },

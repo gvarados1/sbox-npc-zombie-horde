@@ -11,6 +11,7 @@ partial class ThrownPipeBomb : BasePhysics
 	{
 		base.Spawn();
 		Tags.Add( "Grenade" );
+		Tags.Add( "Gib" );
 
 		Model = WorldModel;
 		SetupPhysicsFromModel( PhysicsMotionType.Dynamic );
