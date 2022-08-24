@@ -44,7 +44,7 @@ public class NavPath
 				.WithSharpStartAngle( sharpStartAngle )
 				.WithStartVelocity( velocity/2 )
 				.WithStepHeight( 16 )
-				.WithMaxClimbDistance( 1000 )
+				.WithMaxClimbDistance( 500 )
 				.WithMaxDropDistance( 3000 )
 				.WithMaxDetourDistance( 100 )
 				.WithDropDistanceCostScale( 2f )

@@ -27,6 +27,7 @@ public partial class BaseZombie : BaseNpc
 	public TimeUntil TimeUntilUnstunned = 0;
 	public TimeSince TimeSinceBurnTicked = 0;
 	public float AttackDamage = 6;
+	public static float StepSize = 20;
 
 	public override void Spawn()
 	{
@@ -91,14 +92,37 @@ public partial class BaseZombie : BaseNpc
 		//if( UsingAltTick )
 		//	Move( Time.Delta * 2 );
 		//else
-			Move( Time.Delta);
+
+		SetAnimParameter( "b_climbing", false );
+		if ( TimeSinceClimb < .5f )
+		{
+			if( TimeUntilUnstunned < 0 )
+			{
+				ClimbMove();
+				if( ClimbDistanceRemaining > 50 )
+				{
+					SetAnimParameter( "b_climbing", true );
+				}
+				SetAnimParameter( "b_grounded", true );
+			}
+		}
+		else
+		{
+			Move( Time.Delta );
+		}
 
 		var walkVelocity = Velocity.WithZ( 0 );
 		if ( walkVelocity.Length > 1f )
 		{
 			var turnSpeed = walkVelocity.Length.LerpInverse( 0, 250, true ); // 100
 			var targetRotation = Rotation.LookAt( walkVelocity.Normal, Vector3.Up );
-			if ( TimeUntilUnstunned < 0 )
+			if( TimeSinceClimb < .5f )
+			{
+				//Rotation = ClimbForward
+				targetRotation = Rotation.LookAt( ClimbForward, Vector3.Up );
+				Rotation = targetRotation;
+			}
+			else if ( TimeUntilUnstunned < 0 )
 			{
 				Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 			}
@@ -139,7 +163,7 @@ public partial class BaseZombie : BaseNpc
 
 			if(GroundEntity != null )
 			{
-				move.TryMoveWithStep( timeDelta, 20 );
+				move.TryMoveWithStep( timeDelta, StepSize );
 			}
 			else
 			{
@@ -186,7 +210,7 @@ public partial class BaseZombie : BaseNpc
 				}
 			}
 
-			if(TimeUntilUnstunned < 0 )
+			if(TimeUntilUnstunned < 0 && TimeSinceClimb > .5f )
 			{
 				// hit a wall or prop/glass. need to jump over or break it
 				if ( GroundEntity != null && move.HitWall )
@@ -205,7 +229,7 @@ public partial class BaseZombie : BaseNpc
 					{
 						HitBreakableObject();
 					}
-					else
+					else if( !TestClimb() )
 					{
 						//basic jump
 						GroundEntity = null;
@@ -265,6 +289,113 @@ public partial class BaseZombie : BaseNpc
 			// zombies gain a ton of speed while in the air. not sure what's going on there.
 			Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 2000, Speed ); //500
 		}
+	}
+
+	public Vector3 ClimbForward;
+	public Vector3 ClimbTargetPos;
+	public TimeSince TimeSinceClimb = 10;
+
+	public virtual bool TestClimb()
+	{
+		// check if we're trying to go forward while in the air
+		if ( TimeSinceClimb < 0 ) return false;
+
+		// simple bbox trace
+		var tr = TraceBBoxIgnoreZom( Position + Vector3.Up * StepSize, Position + Vector3.Up * StepSize + Rotation.Forward.WithZ( 0 ).Normal * 10, 2 );
+		if ( tr.Hit )
+		{
+
+			ClimbForward = -tr.Normal;
+			//ClimbForward = Rotation.Forward.WithZ( 0 ).Normal;
+
+			// another trace up to see how far we should go
+			var maxHeight = 500; //110;
+			var minHeight = StepSize;
+			var adjustedMaxHeight = maxHeight + 72;
+			var trCheck = TraceBBoxIgnoreZom( Position, Position + Vector3.Up * adjustedMaxHeight );
+
+			if ( trCheck.Distance < minHeight ) return false;
+
+			// note: we should probably do incremental traces at different heights to check for windows that we can climb through.
+			// this shouldn't really matter with such a low climb height though?
+
+			// trace forward from hit level
+			var trCheck2 = TraceBBoxIgnoreZom( trCheck.EndPosition, trCheck.EndPosition + ClimbForward * 10 );
+			// if we hit less than 10 units forwards that means it's a dumb ledge that we shouldn't climb to
+			if ( trCheck2.Hit ) return false;
+
+			// final check, trace down to find height
+			var trCheck3 = TraceBBoxIgnoreZom( trCheck2.EndPosition, trCheck2.EndPosition + Vector3.Down * adjustedMaxHeight );
+			var ClimbHeight = trCheck3.EndPosition.z - Position.z;
+			// make sure we're not climbing down somehow lol
+			if ( trCheck3.EndPosition.z - Position.z < 0 ) return false;
+			if ( ClimbHeight > maxHeight ) return false;
+
+			ClimbTargetPos = trCheck3.HitPosition;
+			TimeSinceClimb = 0;
+			Sound.FromWorld( "player.crouch", Position );
+			//ClimbMove();
+			return true;
+		}
+		return false;
+	}
+
+	public float ClimbDistanceRemaining = 0;
+	public void ClimbMove()
+	{
+		// move forward once we reached the top
+		if ( TimeSinceClimb > Time.Delta * 2 )
+		{
+			Velocity = ClimbForward * 60;
+			if ( TimeSinceClimb > Time.Delta * 4 )
+				Velocity += Vector3.Down * 60;
+			Move( Time.Delta );
+			return;
+		}
+
+		var climbVelocity = 50; // 200
+		Velocity = Vector3.Up * climbVelocity;
+		Velocity += ClimbForward * 60;
+
+		Move( Time.Delta );
+
+		// something went wrong if we're above our target position...
+		//if ( ClimbTargetPos.z + 8 < Position.z )
+		if( ClimbDistanceRemaining < -8)
+			return;
+
+		ClimbDistanceRemaining = ClimbTargetPos.z - Position.z;
+		if ( ClimbDistanceRemaining < 85 && ClimbDistanceRemaining > 40 )
+		{
+			SetAnimParameter( "b_climbing_end_top", true );
+		}
+
+		// constantly check if we should still be climbing. Will prevent getting stuck floating forever lol
+		var trCheck = TraceBBoxIgnoreZom( Position + Vector3.Down * 4, Position + Vector3.Down * 4 + ClimbForward * 10, 2 );
+		if ( trCheck.Hit )
+		{
+			var trCheck2 = TraceBBoxIgnoreZom( Position, Position + Vector3.Up * StepSize, 2 );
+			if ( !trCheck2.Hit )
+				TimeSinceClimb = 0;
+		}
+	}
+
+	public virtual TraceResult TraceBBoxIgnoreZom( Vector3 start, Vector3 end, float liftFeet = 0.0f )
+	{
+		if ( liftFeet > 0 )
+		{
+			start += Vector3.Up * liftFeet;
+			//maxs = maxs.WithZ( maxs.z - liftFeet );
+		}
+
+		var bbox = BBox.FromHeightAndRadius( 64, 4 );
+		var tr = Trace.Ray( start, end )
+					.Size( bbox )
+					.WithAnyTags( "solid", "playerclip", "passbullets" )
+					.WithoutTags( "gib" )
+					.Ignore( this )
+					.Run();
+		return tr;
 	}
 
 	public virtual void HitBreakableObject()

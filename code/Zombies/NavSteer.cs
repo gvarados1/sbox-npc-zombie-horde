@@ -61,7 +61,8 @@ public class NavSteer
 			if ( ent is not BaseNpc && ent is not HumanPlayer ) continue;
 			if ( ent.IsWorld ) continue;
 
-			var delta = (position - ent.Position).WithZ( 0 );
+			//var delta = (position - ent.Position).WithZ( 0 );
+			var delta = (position - ent.Position);
 			var closeness = delta.Length;
 			if ( closeness < 0.001f ) continue;
 			var thrust = ((objectRadius - closeness) / objectRadius).Clamp( 0, 1 );

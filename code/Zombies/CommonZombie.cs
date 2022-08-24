@@ -99,15 +99,19 @@ public partial class CommonZombie : BaseZombie
 					{
 						if ( !Target.IsValid() ) FindTarget();
 						if ( Target.LifeState == LifeState.Dead ) FindTarget();
-						Steer.Target = Target.Position;
+						if ( TimeSinceClimb > .5f )
+							Steer.Target = Target.Position;
 					}
 					else if ( Rand.Int( 10 ) == 1 )
 					{
 						if ( !Target.IsValid() ) FindTarget();
 						if ( Target.LifeState == LifeState.Dead ) FindTarget();
-						Steer = new NavSteer();
-						//npc.Steer.Target = tr.EndPos;
-						Steer.Target = Target.Position;
+						if( TimeSinceClimb > .5f )
+						{
+							Steer = new NavSteer();
+							//npc.Steer.Target = tr.EndPos;
+							Steer.Target = Target.Position;
+						}
 					}
 
 					// check if we're on the navmesh
@@ -303,6 +307,7 @@ public partial class CommonZombie : BaseZombie
 
 	public void TryMeleeAttack()
 	{
+		if ( TimeSinceClimb < 1 ) return;
 		if ( TimeUntilUnstunned > 0 ) return;
 		PlaySoundOnClient( "zombie.attack" );
 		SetAnimParameter( "b_attack", true );
