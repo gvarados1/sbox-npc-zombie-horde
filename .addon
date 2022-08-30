@@ -19,7 +19,7 @@
     "MaxPlayers": 8,
     "GameNetworkType": "Multiplayer",
     "MapList": [
-      "baks.office"
+      "gvar.metro"
     ],
     "MapSelect": "Unrestricted",
     "PerMapRanking": false,
