@@ -36,7 +36,8 @@
         "item": "Collide",
         "glass": "Unset",
         "zombie": "Unset",
-        "grenade": "Collide"
+        "grenade": "Collide",
+        "weapon": "Unset"
       },
       "Pairs": [
         {
@@ -153,6 +154,11 @@
         {
           "a": "gib",
           "b": "zombie",
+          "r": "Ignore"
+        },
+        {
+          "a": "zombie",
+          "b": "weapon",
           "r": "Ignore"
         }
       ]
