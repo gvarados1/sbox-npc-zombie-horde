@@ -318,7 +318,7 @@ public partial class CommonZombie : BaseZombie
 		if ( TimeUntilUnstunned > 0 ) return;
 		PlaySoundOnClient( "zombie.attack" );
 		SetAnimParameter( "b_attack", true );
-		Velocity = 0;
+		Velocity *= .1f;
 	}
 
 	public TimeSince TimeSinceLongIdle = -10;

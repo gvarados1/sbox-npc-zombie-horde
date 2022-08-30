@@ -154,7 +154,7 @@ public partial class BaseZombie : BaseNpc
 
 	protected virtual void Move( float timeDelta )
 	{
-		var bbox = BBox.FromHeightAndRadius( 54, 4 );
+		var bbox = BBox.FromHeightAndRadius( 52, 4 );
 		//DebugOverlay.Box( Position, bbox.Mins, bbox.Maxs, Color.Green );
 
 		ZomMoveHelper move = new( Position, Velocity );
@@ -401,7 +401,7 @@ public partial class BaseZombie : BaseNpc
 			//maxs = maxs.WithZ( maxs.z - liftFeet );
 		}
 
-		var bbox = BBox.FromHeightAndRadius( 54, 4 );
+		var bbox = BBox.FromHeightAndRadius( 52, 4 );
 		var tr = Trace.Ray( start, end )
 					.Size( bbox )
 					.WithAnyTags( "solid", "playerclip", "passbullets" )
