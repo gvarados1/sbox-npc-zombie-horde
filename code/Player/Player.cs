@@ -114,8 +114,8 @@ public partial class HumanPlayer : Player, IUse
 	{
 		var ply = ConsoleSystem.Caller.Pawn as HumanPlayer;
 
-		Type type = Type.GetType( entity );
-		var ent = TypeLibrary.Create( entity, type ) as Entity;
+		var type = TypeLibrary.GetDescription( entity );
+		var ent = type.Create<Entity>();
 
 		var tr = Trace.Ray( ply.EyePosition, ply.EyePosition + ply.EyeRotation.Forward * 5000 )
 					.UseHitboxes()
