@@ -30,8 +30,6 @@ public partial class HumanPlayer
 					WorldLight.EnableHideInFirstPerson = true;
 				}
 				WorldLight.Enabled = FlashlightEnabled;
-				if(LightParticle != null)
-					LightParticle.SetPosition( 3, new Vector3( !FlashlightEnabled ? 0 : 1, 1, 0 ) );
 			}
 
 			if ( IsClient )
@@ -51,20 +49,31 @@ public partial class HumanPlayer
 			TimeSinceLightToggled = 0;
 		}
 
-		if ( FlashlightEnabled )
+		if ( !FlashlightEnabled )
+		{
+			// I need to constantly set this or the flashlight will bug out on high ping.
+			if ( WorldLight.IsValid() )
+				WorldLight.Enabled = FlashlightEnabled;
+			if ( ViewLight.IsValid() )
+				ViewLight.Enabled = FlashlightEnabled;
+
+			if(LightParticle != null)
+				LightParticle.SetPosition( 3, new Vector3( !FlashlightEnabled ? 0 : 1, 1, 0 ) );
+		}
+		else
 		{
 			var forward = EyeRotation.Forward;
 
 			// let's assume if the worldmodel has a muzzle, the viewmodel also has one.
 			if(ActiveChild is BaseZomWeapon gun )
 			{
-				var worldTrans = gun.GetAttachment( "muzzle" );
+				var worldTrans = gun.GetAttachment( "flashlight" );
 				if ( worldTrans != null )
 				{
 
 					if ( IsClient )
 					{
-						var viewTrans = gun.ViewModelEntity?.GetAttachment( "muzzle" );
+						var viewTrans = gun.ViewModelEntity?.GetAttachment( "flashlight" );
 						if ( viewTrans != null )
 						{
 							if ( !ViewLight.IsValid() )
@@ -79,7 +88,7 @@ public partial class HumanPlayer
 							ViewLight.SetParent( null );
 							ViewLight.Rotation = (Rotation)viewTrans?.Rotation;
 							ViewLight.Position = (Vector3)viewTrans?.Position;
-							ViewLight.SetParent( gun.ViewModelEntity, "muzzle" );
+							ViewLight.SetParent( gun.ViewModelEntity, "flashlight" );
 						}
 					}
 
@@ -96,14 +105,17 @@ public partial class HumanPlayer
 						WorldLight.SetParent( null );
 						WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
 						WorldLight.Position = (Vector3)worldTrans?.Position;
-						WorldLight.SetParent( gun, "muzzle" );
+						WorldLight.SetParent( gun, "flashlight" );
 
 						// lese flare particle
 						if ( LightParticle == null )
 						{
-							LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun, "muzzle" );
+							//LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun, "flashlight" );
+							LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun, "flashlight" );
 							LightParticle.SetPosition( 2, new Color( 0.9f, 0.87f, 0.6f ) );
 						}
+						LightParticle.SetEntityAttachment( 0, gun, "flashlight" );
+						LightParticle.SetPosition( 3, new Vector3( !FlashlightEnabled ? 0 : 1, 1, 0 ) );
 						//LightParticle.SetPosition( 3, new Vector3( shouldTurnOff ? 0 : 1, 1, 0 ) );
 						//LightParticle.SetPosition( 3, new Vector3( 1, 1, 0 ) );
 					}
@@ -125,15 +137,14 @@ public partial class HumanPlayer
 				WorldLight.Rotation = EyeRotation;
 				WorldLight.Position = EyePosition + forward * 20f;
 				WorldLight.SetParent( this, "eyes" );
+
+				// destroy light particle if we don't have a valid gun out
+				if ( LightParticle != null )
+				{
+					LightParticle.Destroy();
+					LightParticle = null;
+				}
 			}
-		}
-		else
-		{
-			// I need to constantly set this or the flashlight will bug out on high ping.
-			if(WorldLight.IsValid())
-				WorldLight.Enabled = FlashlightEnabled;
-			if(ViewLight.IsValid())
-				ViewLight.Enabled = FlashlightEnabled;
 		}
 	}
 
