@@ -40,7 +40,6 @@ partial class BaseZomWeapon : BaseWeapon, IUse
 	public float SpreadMultiplier { get; set; } = 1;
 
 
-
 	public int AvailableAmmo()
 	{
 		var owner = Owner as HumanPlayer;
