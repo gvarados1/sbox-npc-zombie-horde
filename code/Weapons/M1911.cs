@@ -28,6 +28,17 @@ partial class M1911 : BaseZomWeapon
 
 		Model = WorldModel;
 		AmmoClip = ClipSize;
+		if ( Rand.Int( 2 ) == 1 )
+		{
+			SetMaterialGroup( 1 );
+		}
+	}
+
+	public override void ActiveStart( Entity ent )
+	{
+		base.ActiveStart( ent );
+		if ( GetMaterialGroup() == 1 )
+			ViewModelEntity?.SetMaterialGroup( 1 );
 	}
 
 	public override void SimulateAnimator( PawnAnimator anim )

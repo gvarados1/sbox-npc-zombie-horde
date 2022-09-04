@@ -40,7 +40,7 @@ partial class FireAxe : BaseZomWeapon
 	{
 		base.ActiveStart( ent );
 		if(GetMaterialGroup() == 1)
-		ViewModelEntity?.SetMaterialGroup( 1 );
+			ViewModelEntity?.SetMaterialGroup( 1 );
 	}
 
 	public override bool CanPrimaryAttack()
