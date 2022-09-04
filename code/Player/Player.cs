@@ -578,7 +578,7 @@ public partial class HumanPlayer : Player, IUse
 
 	private void AddCameraEffects( ref CameraSetup setup )
 	{
-		var speed = Velocity.Length.LerpInverse( 0, 320 );
+		var speed = Velocity.Length.LerpInverse( 0, 280 ); //320
 		var forwardspeed = Velocity.Normal.Dot( setup.Rotation.Forward );
 
 		var left = setup.Rotation.Left;
@@ -589,7 +589,7 @@ public partial class HumanPlayer : Player, IUse
 			walkBob += Time.Delta * 25.0f * speed;
 		}
 
-		setup.Position += up * MathF.Sin( walkBob ) * speed * 2;
+		setup.Position += up * MathF.Sin( walkBob ) * speed * 2.5f; //2
 		setup.Position += left * MathF.Sin( walkBob * 0.6f ) * speed * 1;
 
 		// Camera lean
