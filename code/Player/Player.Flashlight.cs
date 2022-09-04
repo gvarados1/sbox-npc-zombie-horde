@@ -90,6 +90,22 @@ public partial class HumanPlayer
 							ViewLight.Position = (Vector3)viewTrans?.Position;
 							ViewLight.SetParent( gun.ViewModelEntity, "flashlight" );
 						}
+
+						// the particle freaks out when changing weapons. I think maybe attachments don't get applied right away when you switch weapons???????
+						/*
+						// lese flare particle
+						if ( LightParticle == null )
+						{
+							//LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun, "flashlight" );
+							LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun.ViewModelEntity, "flashlight" );
+							LightParticle.SetPosition( 2, new Color( 0.9f, 0.87f, 0.6f ) );
+						}
+						else
+						{
+							LightParticle.SetEntityAttachment( 0, gun.ViewModelEntity, "flashlight" );
+							LightParticle.SetPosition( 3, new Vector3( !FlashlightEnabled ? 0 : 1, 1, 0 ) );
+						}
+						//*/
 					}
 
 					if ( IsServer )
