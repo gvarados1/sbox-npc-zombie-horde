@@ -193,6 +193,7 @@ public partial class HumanPlayer : Player, IUse
 	public async void SetSpectatorCamera(int delay )
 	{
 		await Task.Delay( delay );
+		if ( !IsValid ) return;
 		if(LifeState == LifeState.Dead)
 		{
 			//CameraMode = new SpectateFreeCamera();
