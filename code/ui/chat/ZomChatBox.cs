@@ -26,8 +26,6 @@ namespace ZombieHorde
 			Input.AddEventListener( "onblur", () => Close() );
 			Input.AcceptsFocus = true;
 			Input.AllowEmojiReplace = true;
-
-			Sandbox.Hooks.Chat.OnOpenChat += Open;
 		}
 
 		void Open()
@@ -53,6 +51,16 @@ namespace ZombieHorde
 				return;
 
 			Say( msg );
+		}
+
+		public override void Tick()
+		{
+			base.Tick();
+
+			if ( Sandbox.Input.Pressed( InputButton.Chat ) )
+			{
+				Open();
+			}
 		}
 
 		public void AddEntry( string name, string message, string avatar, string color = null, string lobbyState = null )
