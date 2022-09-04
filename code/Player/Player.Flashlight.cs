@@ -5,6 +5,7 @@ public partial class HumanPlayer
 {
 	private SpotLightEntity WorldLight;
 	private SpotLightEntity ViewLight;
+	private Particles LightParticle;
 
 	[Net, Predicted]
 	private bool FlashlightEnabled { get; set; } = false;
@@ -29,6 +30,8 @@ public partial class HumanPlayer
 					WorldLight.EnableHideInFirstPerson = true;
 				}
 				WorldLight.Enabled = FlashlightEnabled;
+				if(LightParticle != null)
+					LightParticle.SetPosition( 3, new Vector3( !FlashlightEnabled ? 0 : 1, 1, 0 ) );
 			}
 
 			if ( IsClient )
@@ -94,6 +97,15 @@ public partial class HumanPlayer
 						WorldLight.Rotation = (Rotation)worldTrans?.Rotation;
 						WorldLight.Position = (Vector3)worldTrans?.Position;
 						WorldLight.SetParent( gun, "muzzle" );
+
+						// lese flare particle
+						if ( LightParticle == null )
+						{
+							LightParticle = Particles.Create( "particles/flashlight/flashlight.vpcf", gun, "muzzle" );
+							LightParticle.SetPosition( 2, new Color( 0.9f, 0.87f, 0.6f ) );
+						}
+						//LightParticle.SetPosition( 3, new Vector3( shouldTurnOff ? 0 : 1, 1, 0 ) );
+						//LightParticle.SetPosition( 3, new Vector3( 1, 1, 0 ) );
 					}
 					return;
 				}
