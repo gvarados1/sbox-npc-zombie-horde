@@ -208,6 +208,7 @@ public partial class SurvivalGamemode : BaseGamemode
 			HealthBar.RefreshAvatar(To.Everyone);
 
 			// surely there's a better way of doing this
+			// todo: add deleteme tag (my original idea)
 			foreach ( var ply in Entity.All.OfType<HumanPlayer>().ToList() )
 				ply.TakeDamage( DamageInfo.Generic( 10000 ) );
 
